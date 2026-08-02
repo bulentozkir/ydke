@@ -1,0 +1,30 @@
+[Desktop Entry]
+Type=Application
+Name={{name}}
+{{#if comment}}
+Comment={{comment}}
+{{/if}}
+Exec={{exec}}{{#if exec_arg}} {{exec_arg}}{{/if}}
+Icon={{icon}}
+Terminal=false
+Categories={{categories}}
+Keywords=vocabulary;language;flashcards;YDS;TOEFL;English;German;French;Italian;Spanish;Portuguese;
+{{#if mime_type}}
+MimeType={{mime_type}}
+{{/if}}
+
+# StartupWMClass must equal the WM_CLASS the running window actually reports, or
+# the launched window shows up as a second, unnamed icon in the dock instead of
+# lighting up this one. It is the single most commonly-botched line in a
+# .desktop file, and it cannot be verified on a build machine — only on a
+# running desktop.
+#
+# `topwords` is the binary name, which is what GTK uses for WM_CLASS by default.
+# tauri.conf.json also sets app.enableGTKAppId, which makes the GTK application
+# ID io.github.qlupala9p.udsp; on GNOME that alone is usually enough to match,
+# but other window managers still go by WM_CLASS.
+#
+# Verify once on a real desktop before the first release:
+#   xprop WM_CLASS      (then click the Top Words window)
+# and set this line to the second string it prints.
+StartupWMClass=topwords

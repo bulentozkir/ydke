@@ -1,0 +1,11 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "The app is a shell around a remote origin, so IPC has to be granted to that origin explicitly — without the remote block below, invoke() from the page is rejected and the speech bridge silently does nothing.",
+  "windows": ["main"],
+  "local": false,
+  "remote": {
+    "urls": ["https://udsp.vercel.app"]
+  },
+  "permissions": ["core:default"]
+}

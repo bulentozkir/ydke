@@ -1,0 +1,46 @@
+[package]
+name = "topwords"
+version = "1.0.0"
+description = "Vocabulary trainer for English, German, French, Italian, Spanish and Portuguese"
+authors = [
+    "Bulent Ozkir <bulentozkir@gmail.com>",
+    "Ahmet Arda Ozkir <ahmetardaozkir@gmail.com>",
+    "Halit Eren Ozkir <haliterenozkir@gmail.com>",
+]
+license = "Apache-2.0"
+homepage = "https://udsp.vercel.app"
+repository = "https://github.com/qlupala9p/udsp"
+edition = "2021"
+# Tauri 2's minimum. Raising this raises the minimum distro, so leave it alone
+# unless something actually needs a newer compiler.
+rust-version = "1.77.2"
+
+# The binary name is what `Exec=` in the .desktop file and `StartupWMClass`
+# both refer to. Renaming it means editing packaging/topwords.desktop.hbs too.
+[[bin]]
+name = "topwords"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Network-level ad blocking (L3). Off by default: see src/adblock.rs for why
+# this cannot be enabled until the webkit2gtk version is pinned to whatever wry
+# resolves on a real Linux build host.
+webkit2gtk = { version = "2.0", features = ["v2_38"], optional = true }
+
+[features]
+default = []
+webkit-filter = ["dep:webkit2gtk"]
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true

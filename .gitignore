@@ -1,0 +1,31 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+*.user
+
+# Scratch space for probes, downloaded page sources and screenshots
+windows/build/
+
+# Generated packaging layout
+windows/packaging/layout/
+*.msix
+*.appx
+
+# Linux host build output
+linux/host/target/
+linux/host/gen/
+linux/dist/
+
+# `tauri::generate_context!()` opens the bundle.icon list at COMPILE time, so
+# without these four PNGs `cargo check` fails outright with "proc macro
+# panicked … failed to open icon icons/32x32.png". Regenerating them needs an
+# SVG rasteriser, and a stock Debian image ships none — so they are committed
+# rather than treated as build output. Everything else `tauri icon` emits
+# (the Windows .ico, the macOS .icns, the Store tile sizes) stays ignored.
+linux/host/icons/*.png
+!linux/host/icons/32x32.png
+!linux/host/icons/128x128.png
+!linux/host/icons/128x128@2x.png
+!linux/host/icons/icon.png
+linux/host/icons/*.ico
+linux/host/icons/*.icns

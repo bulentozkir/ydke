@@ -1,0 +1,245 @@
+{
+  "schema": 1,
+  "source": "https://github.com/qlupala9p/udsp",
+  "sourcePath": "data/",
+  "generated": "2026-08-01T05:55:40Z",
+  "fileCount": 47,
+  "totalBytes": 37149046,
+  "files": [
+    {
+      "name": "partikelverbde.js",
+      "bytes": 856133,
+      "sha256": "1b277fe8b5d0cd9a3fb277e152c879463a9177b1d44f6c0f5d6e7fccf435f4d7"
+    },
+    {
+      "name": "phrasalverbsen.js",
+      "bytes": 1012957,
+      "sha256": "42544f79f30cc6667087340ab8f9e9491461bc57572270a2ad5cb5eed60d18ba"
+    },
+    {
+      "name": "phrasalverbsfr.js",
+      "bytes": 28697,
+      "sha256": "d262be7130b7efad341f4818d02b6e66ebbfc3f31def6b7e117a6c951ac0aff9"
+    },
+    {
+      "name": "readingcomp.js",
+      "bytes": 64090,
+      "sha256": "8432812983f0b666f296f958c753614df38bb5817eec35068e0b3c3af6d59d1e"
+    },
+    {
+      "name": "readingcompde.js",
+      "bytes": 86725,
+      "sha256": "82db29d1dc9e844e63d1184768d1ee2e46a1638e7b331b2618e83880ea5f2a71"
+    },
+    {
+      "name": "readingcompencefr.js",
+      "bytes": 114412,
+      "sha256": "e142ccf31740555966c62034a7d7e08954816968e91bbf054ebfcaf52e469f2c"
+    },
+    {
+      "name": "readingcompfr.js",
+      "bytes": 42646,
+      "sha256": "140b5a05611adbe5657375210053e566608606b192aad65f62dfe21e33fd4777"
+    },
+    {
+      "name": "synantde.js",
+      "bytes": 2919559,
+      "sha256": "889de96bd1155e91acdca50725ad60c2a6758af3b356387b6bbc518d25cf3daf"
+    },
+    {
+      "name": "synanten.js",
+      "bytes": 2730934,
+      "sha256": "1ac7294882b6b9117603c2a45e8999fe23987cad19285b3b853dc987e051f5c6"
+    },
+    {
+      "name": "synantfr.js",
+      "bytes": 38530,
+      "sha256": "75e7862ed02cd71023b0d048bf15362680af0d5e116776e43993fbbf709b700a"
+    },
+    {
+      "name": "toefl.js",
+      "bytes": 5540027,
+      "sha256": "8fd5317dbe741bd3f483f123e925f4c33e7e2a27f9aca46bd4c1669c5dc5ad38"
+    },
+    {
+      "name": "wordsa1.js",
+      "bytes": 406901,
+      "sha256": "bbb08f58bf128334cefc7ae325f5b7cd37aa91778c00c03265636c6f33bcd092"
+    },
+    {
+      "name": "wordsa1es.js",
+      "bytes": 12174,
+      "sha256": "f9f0be6c139831688a69d04dc53b8878ba53af3a51c6956135dd46a41655f1bb"
+    },
+    {
+      "name": "wordsa1fr.js",
+      "bytes": 276863,
+      "sha256": "e692b8a868736d11d2d63c5702ad500ff63f410fb5a42cd2af4755e6205ac2df"
+    },
+    {
+      "name": "wordsa1gode.js",
+      "bytes": 425488,
+      "sha256": "be52a09109844466f5ebf0222d2a42ade0d0ca60aacce62a9a390574726686c1"
+    },
+    {
+      "name": "wordsa1it.js",
+      "bytes": 11715,
+      "sha256": "4db2504cba9cdee8fa5122ef7fe464ec4e0f364f92439c0ec53c9a7de35ef74c"
+    },
+    {
+      "name": "wordsa1pt.js",
+      "bytes": 15178,
+      "sha256": "90dd248b4ac3cefcfd287b0f5e66b12efadf70dff22ee2faf0c49e05bf0b3bd3"
+    },
+    {
+      "name": "wordsa2.js",
+      "bytes": 585368,
+      "sha256": "fbeac049fa65402733a862ababcb96f8d9d1a4c817c43ad635f729acc31f1b69"
+    },
+    {
+      "name": "wordsa2es.js",
+      "bytes": 11451,
+      "sha256": "c0f40f8d79678cc27a975185a433d8aac978e77007f82658a1cc143a650267f0"
+    },
+    {
+      "name": "wordsa2fr.js",
+      "bytes": 901600,
+      "sha256": "3a5af191b9d71073c6ed7dae71d547f946f511d494a9fd124a7e93ec174638d8"
+    },
+    {
+      "name": "wordsa2gode.js",
+      "bytes": 497430,
+      "sha256": "0b45bd74b3c246f828186fa8a8cc67dfa3b466d8483ed6591ab37739bb301a69"
+    },
+    {
+      "name": "wordsa2it.js",
+      "bytes": 11157,
+      "sha256": "ef2791f51a6881fb0d444aaef8fec79a14b326605cda51b5d0e5ca097b6a6ecb"
+    },
+    {
+      "name": "wordsa2pt.js",
+      "bytes": 13006,
+      "sha256": "3c694ffab3923ee48e6b312a9f3c761ebd873d7292197046ff9899193b533af8"
+    },
+    {
+      "name": "wordsb1.js",
+      "bytes": 639070,
+      "sha256": "fccf68fb2ca64267e032987baa788a504d3d2052f2cd38cd96c21c8a34ea5bac"
+    },
+    {
+      "name": "wordsb1es.js",
+      "bytes": 12762,
+      "sha256": "b324b6d655e9c6a86f0692f05170150f6625fae83e05e70d15dea5480b7d83f0"
+    },
+    {
+      "name": "wordsb1fr.js",
+      "bytes": 1841610,
+      "sha256": "7d7c829307afabe6ee22593c0f23df2a5c4b8eff47a4c056ee324f4403350644"
+    },
+    {
+      "name": "wordsb1gode.js",
+      "bytes": 717096,
+      "sha256": "91e4e09913d2b4221b0bc0b9b680c630ca1e8a1dc7fc3dc5df62d823a69ecb77"
+    },
+    {
+      "name": "wordsb1it.js",
+      "bytes": 11804,
+      "sha256": "4ee5e309c75c17a8888a546d46ee59ad583746fb731ba54098e2c9e5b423af81"
+    },
+    {
+      "name": "wordsb1pt.js",
+      "bytes": 14190,
+      "sha256": "e456070065bcaad8f4695fca301827ccc2e4efb8c713c39f5ebadfc96844ca35"
+    },
+    {
+      "name": "wordsb2.js",
+      "bytes": 992656,
+      "sha256": "1327df3eee684796a77aae78ef542c246201f0b04b6ee4c8f28e6442013e5ae5"
+    },
+    {
+      "name": "wordsb2es.js",
+      "bytes": 13440,
+      "sha256": "33fbffc784e4a7b40768f850ed27dd780599b0e6121aa0fec866fb153d74ede5"
+    },
+    {
+      "name": "wordsb2fr.js",
+      "bytes": 1314560,
+      "sha256": "a5468267de1a83de1d80e2028b1e8dfb8d132efcfc23ec59889ec1b9aab60a1f"
+    },
+    {
+      "name": "wordsb2gode.js",
+      "bytes": 1136700,
+      "sha256": "c1ff17fd3337388552d16098d094e25308e837d3167e8bf4b0b9e76dbb832761"
+    },
+    {
+      "name": "wordsb2it.js",
+      "bytes": 12688,
+      "sha256": "fc404c0761fdff0b10a6e356e30d0a33bbbd3108e7c25b806018e2696c7cd7cd"
+    },
+    {
+      "name": "wordsb2pt.js",
+      "bytes": 13486,
+      "sha256": "398d0560516349254d194dc42f68d7f7fa0d3c5a19a6c0189fc3d71d2a48a935"
+    },
+    {
+      "name": "wordsc1.js",
+      "bytes": 4081236,
+      "sha256": "67b78e5288d98b3195c6c76ae560d4e1e03ed6bcc0b21fa4f8172443e05883e4"
+    },
+    {
+      "name": "wordsc1es.js",
+      "bytes": 14422,
+      "sha256": "7ecd71b5098ef2294479f91d060c7430c7ced20c07c467e298a892767faaa77f"
+    },
+    {
+      "name": "wordsc1fr.js",
+      "bytes": 926887,
+      "sha256": "72bafa6afcfd77b8efa0aa3abfe13a172bd3762e9d769664c342bde061038898"
+    },
+    {
+      "name": "wordsc1gode.js",
+      "bytes": 1673018,
+      "sha256": "0f462a16fd9ec5213db53f3101d9fbc49d3b573f40a2fb016fee5b884e4e5d9e"
+    },
+    {
+      "name": "wordsc1it.js",
+      "bytes": 12734,
+      "sha256": "fffbda1e970b2ba72e680ffcd0bf98ce277f6f4ed9845dec1d84ca7eb8361f8f"
+    },
+    {
+      "name": "wordsc1pt.js",
+      "bytes": 13627,
+      "sha256": "82564dfdfe64e559536f9a2d51a8be291251168cf9311a81ea0dc5e80c1da011"
+    },
+    {
+      "name": "wordsc2.js",
+      "bytes": 4358694,
+      "sha256": "e00d3b6f9fbcf4fe2890860d9b14ff7010bb1ca29727ee6995034c91b40e2b79"
+    },
+    {
+      "name": "wordsc2es.js",
+      "bytes": 14231,
+      "sha256": "8031d901b72a3dfa2e48a99511d161f7f97b627cdfef4f44982ee281d8cde231"
+    },
+    {
+      "name": "wordsc2fr.js",
+      "bytes": 1237062,
+      "sha256": "bb369481f580002f035a35ae0d80b9564abbfe272fed1bcd2344509aeb7a47bb"
+    },
+    {
+      "name": "wordsc2gode.js",
+      "bytes": 1466242,
+      "sha256": "1ec4e515d6559fabe1e36e33c01534a528b5cf46378f90bb8720fd0cbe59c0cd"
+    },
+    {
+      "name": "wordsc2it.js",
+      "bytes": 13410,
+      "sha256": "290062df74ef636df0da99c0e0aae1f16c3250ce0f150177b0ddd1c9221e2cb2"
+    },
+    {
+      "name": "wordsc2pt.js",
+      "bytes": 14380,
+      "sha256": "951458147618930032b339b1a5837b46b9b06dcf32802c30edd55da808a5313a"
+    }
+  ]
+}

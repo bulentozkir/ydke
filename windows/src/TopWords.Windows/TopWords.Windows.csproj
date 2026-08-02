@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>TopWords.Windows</RootNamespace>
+    <AssemblyName>TopWords</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <Platforms>x64;x86;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x64;win-x86;win-arm64</RuntimeIdentifiers>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <Version>1.0.0</Version>
+    <Product>Top Words — Trainer</Product>
+    <Company>Top Words</Company>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="TopWords.SelfTest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Injected into every document before page scripts run.
+         Shared verbatim with the Linux/macOS hosts — see shared/bootstrap.js and
+         linux/02-packaging-strategy.md §4. Link keeps the manifest resource name
+         at TopWords.Windows.Scripts.bootstrap.js regardless of where the file lives. -->
+    <EmbeddedResource Include="..\..\..\shared\bootstrap.js" Link="Scripts\bootstrap.js" />
+    <EmbeddedResource Include="Assets\offline.html" />
+    <Resource Include="Assets\app.ico" />
+  </ItemGroup>
+
+</Project>

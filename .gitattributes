@@ -1,0 +1,29 @@
+# Normalise line endings in the repository. Git decides per platform on
+# checkout for anything not pinned below.
+* text=auto
+
+# These MUST be LF in the working tree as well as in the repo — they are read
+# by Linux tooling that treats a CR as part of the value:
+#
+#   *.sh              a CRLF shebang makes the kernel look for "/bin/bash\r"
+#   *.hbs / *.desktop desktop-file-validate hard-errors on "file contains at
+#                     least one line ending with a carriage return", and the
+#                     Handlebars template is copied into the .deb/.rpm as-is
+#   *.metainfo.xml    shipped verbatim to /usr/share/metainfo
+*.sh text eol=lf
+*.hbs text eol=lf
+*.desktop text eol=lf
+*.metainfo.xml text eol=lf
+
+# Windows tooling, kept CRLF.
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Binary — never diffed, never munged.
+*.png binary
+*.ico binary
+*.jpg binary
+*.pri binary
+*.appx binary
+*.msix binary

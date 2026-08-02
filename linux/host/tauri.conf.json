@@ -1,0 +1,69 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Top Words",
+  "version": "1.0.0",
+  "identifier": "io.github.qlupala9p.udsp",
+  "build": {
+    "frontendDist": "https://udsp.vercel.app"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "enableGTKAppId": true,
+    "windows": [
+      {
+        "label": "main",
+        "create": false,
+        "title": "Top Words — Trainer",
+        "width": 1000,
+        "height": 800,
+        "minWidth": 360,
+        "minHeight": 640,
+        "center": true,
+        "resizable": true,
+        "backgroundColor": "#0F172A",
+        "zoomHotkeysEnabled": true,
+        "devtools": false
+      }
+    ],
+    "security": {
+      "capabilities": []
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["deb", "rpm", "appimage"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.png"
+    ],
+    "category": "Education",
+    "publisher": "Top Words",
+    "homepage": "https://udsp.vercel.app",
+    "license": "Apache-2.0",
+    "copyright": "Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir",
+    "shortDescription": "Vocabulary trainer for six languages",
+    "longDescription": "Top Words is a vocabulary trainer for English, German, French, Italian, Spanish and Portuguese. Study word lists from A1 to C2 with flashcards, quizzes and word games, track what you have learned, and keep a daily streak. Progress is stored on the device and can be synchronised across devices by signing in.",
+    "linux": {
+      "deb": {
+        "depends": ["libwebkit2gtk-4.1-0", "libgtk-3-0", "speech-dispatcher"],
+        "section": "education",
+        "desktopTemplate": "../packaging/topwords.desktop.hbs",
+        "files": {
+          "/usr/share/metainfo/io.github.qlupala9p.udsp.metainfo.xml": "../packaging/io.github.qlupala9p.udsp.metainfo.xml"
+        }
+      },
+      "rpm": {
+        "depends": ["webkit2gtk4.1", "gtk3", "speech-dispatcher"],
+        "desktopTemplate": "../packaging/topwords.desktop.hbs",
+        "files": {
+          "/usr/share/metainfo/io.github.qlupala9p.udsp.metainfo.xml": "../packaging/io.github.qlupala9p.udsp.metainfo.xml"
+        }
+      },
+      "appimage": {
+        "bundleMediaFramework": false
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  AppStream metadata. Installed to /usr/share/metainfo/ by the deb and rpm
+  bundlers (see bundle.linux.*.files in ../host/tauri.conf.json).
+
+  Without this file the app has no entry in GNOME Software, KDE Discover or any
+  other software centre — it is the Linux equivalent of a store listing, and
+  every distribution channel beyond a bare tarball expects it (L1).
+
+  Validate with `appstreamcli validate` (packaging/build.sh does this for you).
+-->
+<component type="desktop-application">
+  <id>io.github.qlupala9p.udsp</id>
+
+  <!--
+    Must match the filename the bundler installs, which is derived from the
+    binary name, not from the component id. Flathub additionally requires the
+    two to be identical; that is a rename to do at the same time as the other
+    Flathub work, not before (see L6 and L12).
+  -->
+  <launchable type="desktop-id">topwords.desktop</launchable>
+
+  <name>Top Words</name>
+  <summary>Vocabulary trainer for six languages</summary>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Apache-2.0</project_license>
+
+  <developer id="io.github.qlupala9p">
+    <name>Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir</name>
+  </developer>
+
+  <description>
+    <p>
+      Top Words is a vocabulary trainer for English, German, French, Italian,
+      Spanish and Portuguese. Word lists run from A1 to C2, with additional sets
+      for phrasal verbs, synonyms, reading and exam preparation.
+    </p>
+    <p>Study modes:</p>
+    <ul>
+      <li>Flashcards with spaced repetition over the words you have not learned yet</li>
+      <li>Multiple-choice quizzes in both directions</li>
+      <li>Word games, including word morph and letter puzzles</li>
+      <li>Listening practice with pronunciation for every word</li>
+    </ul>
+    <p>
+      Progress is kept on the device. Signing in synchronises it across devices,
+      but is not required to use the app.
+    </p>
+  </description>
+
+  <url type="homepage">https://udsp.vercel.app</url>
+  <url type="bugtracker">https://github.com/qlupala9p/udsp/issues</url>
+
+  <categories>
+    <category>Education</category>
+    <category>Languages</category>
+  </categories>
+
+  <keywords>
+    <keyword>vocabulary</keyword>
+    <keyword>language</keyword>
+    <keyword>flashcards</keyword>
+    <keyword>YDS</keyword>
+    <keyword>TOEFL</keyword>
+  </keywords>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+
+  <content_rating type="oars-1.1" />
+
+  <!--
+    TODO before the first release: these files do not exist yet. Capture them at
+    1000x800 from a real build, commit them under docs/screenshots/ in the udsp
+    repo, and confirm the URLs resolve — `appstreamcli validate` fetches them,
+    and a software centre with no screenshots is effectively an unlisted app.
+  -->
+  <screenshots>
+    <screenshot type="default">
+      <caption>Flashcard practice</caption>
+      <image>https://raw.githubusercontent.com/qlupala9p/udsp/main/docs/screenshots/flashcards.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Multiple-choice quiz</caption>
+      <image>https://raw.githubusercontent.com/qlupala9p/udsp/main/docs/screenshots/quiz.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Word lists from A1 to C2</caption>
+      <image>https://raw.githubusercontent.com/qlupala9p/udsp/main/docs/screenshots/wordlist.png</image>
+    </screenshot>
+  </screenshots>
+
+  <!-- build.sh rewrites this from the git tag; the entry below is the fallback. -->
+  <releases>
+    <release version="1.0.0" date="2026-07-31">
+      <description>
+        <p>First Linux release.</p>
+      </description>
+    </release>
+  </releases>
+</component>

@@ -1,0 +1,61 @@
+<#
+.SYNOPSIS
+    Build entry point for the Top Words Windows app.
+
+.EXAMPLE
+    ./build.ps1               # restore + build (Release)
+    ./build.ps1 -Run          # build, then launch
+    ./build.ps1 -Icons        # regenerate tile assets from assets/source/icon.svg
+    ./build.ps1 -Publish      # framework-dependent publish to build/publish
+#>
+[CmdletBinding()]
+param(
+    [ValidateSet('Debug', 'Release')]
+    [string]$Configuration = 'Release',
+
+    [switch]$Run,
+    [switch]$Icons,
+    [switch]$Publish
+)
+
+$ErrorActionPreference = 'Stop'
+
+# The .NET SDK may be installed per-user (dotnet-install.ps1) rather than machine-wide.
+if (-not (Get-Command dotnet -ErrorAction SilentlyContinue) -or
+    -not (& dotnet --list-sdks 2>$null)) {
+
+    $userSdk = Join-Path $env:LOCALAPPDATA 'Microsoft\dotnet'
+    if (Test-Path (Join-Path $userSdk 'dotnet.exe')) {
+        $env:DOTNET_ROOT = $userSdk
+        $env:PATH = "$userSdk;$env:PATH"
+    }
+    else {
+        throw 'No .NET SDK found. Install .NET 8 from https://dot.net or run dotnet-install.ps1.'
+    }
+}
+
+$app     = Join-Path $PSScriptRoot 'src\TopWords.Windows\TopWords.Windows.csproj'
+$iconGen = Join-Path $PSScriptRoot 'tools\TopWords.IconGen\TopWords.IconGen.csproj'
+
+if ($Icons) {
+    Write-Host 'Regenerating tile assets...' -ForegroundColor Cyan
+    dotnet run --project $iconGen -c Release -- $PSScriptRoot
+    if ($LASTEXITCODE -ne 0) { throw "Icon generation failed ($LASTEXITCODE)." }
+}
+
+Write-Host "Building ($Configuration)..." -ForegroundColor Cyan
+dotnet build $app -c $Configuration
+if ($LASTEXITCODE -ne 0) { throw "Build failed ($LASTEXITCODE)." }
+
+if ($Publish) {
+    $out = Join-Path $PSScriptRoot 'build\publish'
+    dotnet publish $app -c $Configuration -r win-x64 --self-contained false -o $out
+    if ($LASTEXITCODE -ne 0) { throw "Publish failed ($LASTEXITCODE)." }
+    Write-Host "Published to $out" -ForegroundColor Green
+}
+
+if ($Run) {
+    $exe = Join-Path $PSScriptRoot "src\TopWords.Windows\bin\$Configuration\net8.0-windows\TopWords.exe"
+    Write-Host "Launching $exe" -ForegroundColor Green
+    Start-Process $exe
+}
