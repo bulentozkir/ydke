@@ -37,6 +37,12 @@
     <EmbeddedResource Include="..\..\..\shared\bootstrap.js" Link="Scripts\bootstrap.js" />
     <EmbeddedResource Include="Assets\offline.html" />
     <Resource Include="Assets\app.ico" />
+
+    <!-- The splash mark. Linked from the shared web asset set rather than copied so
+         the caption icon, the launcher tile and the PWA manifest cannot drift apart.
+         192px is the smallest source that stays crisp at the 96px splash size on a
+         200% display. -->
+    <Resource Include="..\..\assets\web\icon-192.png" Link="Assets\logo.png" />
   </ItemGroup>
 
 </Project>

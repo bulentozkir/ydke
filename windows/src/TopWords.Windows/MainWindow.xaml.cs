@@ -1,12 +1,21 @@
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Media.Animation;
 using Microsoft.Web.WebView2.Core;
 
 namespace TopWords.Windows;
 
-public partial class MainWindow : Window
+public partial class MainWindow : ChromeWindow
 {
     private CoreWebView2Environment? _environment;
+
+    /// <summary>
+    /// Guards the one-way hand-off from splash to page content. Later navigations must
+    /// not put the splash back — that would flash the launch screen on every page the
+    /// user opens inside a multi-page site.
+    /// </summary>
+    private bool _contentRevealed;
 
     public MainWindow()
     {
@@ -17,7 +26,17 @@ public partial class MainWindow : Window
         MinWidth = AppConfig.MinWidth;
         MinHeight = AppConfig.MinHeight;
 
+        // After the defaults, so a stored size wins and a missing/rejected one falls
+        // back to them rather than to zero.
+        WindowPlacement.Restore(this);
+
         Loaded += OnLoaded;
+    }
+
+    protected override void OnClosing(CancelEventArgs e)
+    {
+        WindowPlacement.Save(this);
+        base.OnClosing(e);
     }
 
     private async void OnLoaded(object sender, RoutedEventArgs e)
@@ -37,7 +56,12 @@ public partial class MainWindow : Window
         }
         catch (Exception ex)
         {
-            Splash.Text = "WebView2 başlatılamadı.";
+            SplashStatus.Text = "WebView2 başlatılamadı.";
+
+            // A progress indicator that keeps animating after a fatal error tells the
+            // user work is still happening when nothing is.
+            SplashTrack.Visibility = Visibility.Collapsed;
+
             MessageBox.Show(
                 $"WebView2 could not be initialised.\n\n{ex.Message}\n\n" +
                 "Install the WebView2 Evergreen Runtime from https://go.microsoft.com/fwlink/p/?LinkId=2124703",
@@ -73,6 +97,9 @@ public partial class MainWindow : Window
         core.NavigationStarting += OnNavigationStarting;
         core.NavigationCompleted += OnNavigationCompleted;
         core.NewWindowRequested += OnNewWindowRequested;
+        core.HistoryChanged += OnHistoryChanged;
+
+        UpdateNavigationState();
     }
 
     private void OnWebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
@@ -94,6 +121,13 @@ public partial class MainWindow : Window
     {
         if (AppConfig.IsAllowedInApp(e.Uri))
         {
+            // Suppressed until the splash has gone: during first load the splash is
+            // already saying the same thing, and two indicators for one wait is noise.
+            if (_contentRevealed)
+            {
+                Progress.Visibility = Visibility.Visible;
+            }
+
             return;
         }
 
@@ -105,7 +139,9 @@ public partial class MainWindow : Window
 
     private void OnNavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
     {
-        Splash.Visibility = Visibility.Collapsed;
+        Progress.Visibility = Visibility.Collapsed;
+        RevealContent();
+        UpdateNavigationState();
 
         if (e.IsSuccess || e.WebErrorStatus == CoreWebView2WebErrorStatus.OperationCanceled)
         {
@@ -114,6 +150,85 @@ public partial class MainWindow : Window
 
         Web.CoreWebView2.NavigateToString(EmbeddedResources.OfflineHtml.Value);
     }
+
+    private void OnHistoryChanged(object? sender, object e) => UpdateNavigationState();
+
+    /// <summary>
+    /// Fades the launch screen out and hands the content area over to the page.
+    /// <para>
+    /// The order matters. A hosted child HWND paints over WPF content unconditionally,
+    /// so showing the WebView first would clip the fade away on its first frame. Fading
+    /// to the surface colour and only then revealing reads as one continuous surface,
+    /// because the splash background, the window background and the WebView's
+    /// <c>DefaultBackgroundColor</c> are all <c>#0F172A</c>.
+    /// </para>
+    /// </summary>
+    private void RevealContent()
+    {
+        if (_contentRevealed)
+        {
+            return;
+        }
+
+        _contentRevealed = true;
+
+        var fade = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(220))
+        {
+            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut },
+        };
+
+        fade.Completed += (_, _) =>
+        {
+            Splash.Visibility = Visibility.Collapsed;
+            Web.Visibility = Visibility.Visible;
+            Web.Focus();
+        };
+
+        Splash.BeginAnimation(OpacityProperty, fade);
+    }
+
+    /// <summary>
+    /// Keeps the history buttons honest. Back and forward spend most of their life
+    /// unavailable, and a control that looks live but does nothing is worse than one
+    /// that is visibly disabled.
+    /// </summary>
+    private void UpdateNavigationState()
+    {
+        var core = Web.CoreWebView2;
+
+        BackButton.IsEnabled = core is { CanGoBack: true };
+        ForwardButton.IsEnabled = core is { CanGoForward: true };
+        ReloadButton.IsEnabled = core is not null;
+        HomeButton.IsEnabled = core is not null;
+    }
+
+    private void OnBackClick(object sender, RoutedEventArgs e)
+    {
+        if (Web.CoreWebView2 is { CanGoBack: true } core)
+        {
+            core.GoBack();
+        }
+    }
+
+    private void OnForwardClick(object sender, RoutedEventArgs e)
+    {
+        if (Web.CoreWebView2 is { CanGoForward: true } core)
+        {
+            core.GoForward();
+        }
+    }
+
+    private void OnReloadClick(object sender, RoutedEventArgs e) => Web.CoreWebView2?.Reload();
+
+    private void OnHomeClick(object sender, RoutedEventArgs e) =>
+        Web.CoreWebView2?.Navigate(AppConfig.StartUrl);
+
+    private void OnMinimizeClick(object sender, RoutedEventArgs e) =>
+        WindowState = WindowState.Minimized;
+
+    private void OnMaximizeClick(object sender, RoutedEventArgs e) => ToggleMaximize();
+
+    private void OnCloseClick(object sender, RoutedEventArgs e) => Close();
 
     /// <summary>
     /// <b>W3</b> — the reason this host exists rather than a PWABuilder hosted-web-app

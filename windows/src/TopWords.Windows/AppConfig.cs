@@ -74,22 +74,30 @@ internal static class AppConfig
     /// removes the ordering dependency entirely.
     /// </para>
     /// </summary>
-    public static string UserDataFolder => UserDataFolderPath.Value;
+    public static string UserDataFolder => Path.Combine(StateFolderPath.Value, "WebView2");
+
+    /// <summary>
+    /// Root for everything the app writes about itself — currently the WebView2
+    /// profile and the saved window placement. Shares the packaged/unpackaged
+    /// resolution described on <see cref="UserDataFolder"/> so that uninstalling the
+    /// MSIX build removes the whole tree rather than part of it.
+    /// </summary>
+    public static string StateFolder => StateFolderPath.Value;
 
     /// <summary>Whether the process is running with MSIX package identity.</summary>
     public static bool IsPackaged => PackageFamilyName.Value is not null;
 
     private static readonly Lazy<string?> PackageFamilyName = new(ResolvePackageFamilyName);
 
-    private static readonly Lazy<string> UserDataFolderPath = new(BuildUserDataFolder);
+    private static readonly Lazy<string> StateFolderPath = new(BuildStateFolder);
 
-    private static string BuildUserDataFolder()
+    private static string BuildStateFolder()
     {
         var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
         return PackageFamilyName.Value is { } family
-            ? Path.Combine(localAppData, "Packages", family, "LocalCache", "Local", "TopWords", "WebView2")
-            : Path.Combine(localAppData, "TopWords", "WebView2");
+            ? Path.Combine(localAppData, "Packages", family, "LocalCache", "Local", "TopWords")
+            : Path.Combine(localAppData, "TopWords");
     }
 
     private const int ErrorSuccess = 0;

@@ -1,13 +1,47 @@
-<Window x:Class="TopWords.Windows.PopupWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
-        Title="Giriş yap"
-        Icon="Assets/app.ico"
-        Background="#0F172A"
-        ShowInTaskbar="False"
-        WindowStartupLocation="CenterOwner">
-  <Grid>
-    <wv2:WebView2 x:Name="Web" DefaultBackgroundColor="#0F172A" />
-  </Grid>
-</Window>
+<local:ChromeWindow x:Class="TopWords.Windows.PopupWindow"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TopWords.Windows"
+                    xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+                    Title="Giriş yap"
+                    Icon="Assets/app.ico"
+                    Background="{StaticResource SurfaceBrush}"
+                    TextOptions.TextFormattingMode="Display"
+                    UseLayoutRounding="True"
+                    ShowInTaskbar="False"
+                    WindowStartupLocation="CenterOwner">
+
+  <Border Background="{StaticResource SurfaceBrush}"
+          BorderBrush="{StaticResource HairlineBrush}"
+          BorderThickness="1"
+          Margin="{Binding ChromeInset, RelativeSource={RelativeSource AncestorType=local:ChromeWindow}}">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="{StaticResource CaptionHeightGridLength}" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+
+      <Grid Grid.Row="0" Background="{StaticResource ChromeBrush}">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="14,0,0,0">
+          <!-- The padlock is the point of this caption. Google's sign-in page renders
+               light-on-white inside dark chrome, and without an origin cue the result
+               looks like an injected form rather than a real OAuth window. -->
+          <TextBlock Text="&#xE72E;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                     FontSize="13" Foreground="{StaticResource AccentBrush}"
+                     VerticalAlignment="Center" />
+          <TextBlock Text="Giriş yap" Style="{StaticResource CaptionTitleStyle}" Margin="10,0,0,0" />
+        </StackPanel>
+
+        <Button Grid.Column="1" Style="{StaticResource CloseButtonStyle}" Content="&#xE8BB;"
+                ToolTip="Kapat" VerticalAlignment="Top" Click="OnCloseClick" />
+      </Grid>
+
+      <wv2:WebView2 x:Name="Web" Grid.Row="1" DefaultBackgroundColor="#0F172A" />
+    </Grid>
+  </Border>
+</local:ChromeWindow>

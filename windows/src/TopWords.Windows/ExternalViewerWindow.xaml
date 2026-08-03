@@ -1,13 +1,51 @@
-<Window x:Class="TopWords.Windows.ExternalViewerWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
-        Icon="Assets/app.ico"
-        Background="#0F172A"
-        ShowInTaskbar="False"
-        ResizeMode="NoResize"
-        WindowStartupLocation="CenterOwner">
-  <Grid>
-    <wv2:WebView2 x:Name="Web" DefaultBackgroundColor="#0F172A" />
-  </Grid>
-</Window>
+<local:ChromeWindow x:Class="TopWords.Windows.ExternalViewerWindow"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TopWords.Windows"
+                    xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+                    Icon="Assets/app.ico"
+                    Background="{StaticResource SurfaceBrush}"
+                    TextOptions.TextFormattingMode="Display"
+                    UseLayoutRounding="True"
+                    ShowInTaskbar="False"
+                    ResizeMode="NoResize"
+                    WindowStartupLocation="CenterOwner">
+
+  <Border Background="{StaticResource SurfaceBrush}"
+          BorderBrush="{StaticResource HairlineBrush}"
+          BorderThickness="1">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="{StaticResource CaptionHeightGridLength}" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+
+      <Grid Grid.Row="0" Background="{StaticResource ChromeBrush}">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!-- The host is bound to Title, which the code-behind keeps in step with the
+             current document. It stays the loudest thing in this caption on purpose:
+             this window renders arbitrary remote content, so the origin has to be
+             visible at all times. Unlike an address bar it cannot be typed into, and
+             a toolbar is deliberately absent for the same reason. -->
+        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="14,0,12,0">
+          <TextBlock Text="&#xE774;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                     FontSize="13" Foreground="{StaticResource TextSecondaryBrush}"
+                     VerticalAlignment="Center" />
+          <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
+                     Style="{StaticResource CaptionTitleStyle}" Margin="10,0,0,0" />
+          <TextBlock Text="harici bağlantı" Style="{StaticResource CaptionSubtitleStyle}"
+                     Margin="10,0,0,0" />
+        </StackPanel>
+
+        <Button Grid.Column="1" Style="{StaticResource CloseButtonStyle}" Content="&#xE8BB;"
+                ToolTip="Kapat (Esc)" VerticalAlignment="Top" Click="OnCloseClick" />
+      </Grid>
+
+      <wv2:WebView2 x:Name="Web" Grid.Row="1" DefaultBackgroundColor="#0F172A" />
+    </Grid>
+  </Border>
+</local:ChromeWindow>

@@ -11,7 +11,7 @@ namespace TopWords.Windows;
 /// <c>window.opener</c> relationship Firebase's <c>postMessage</c> handshake needs.
 /// </para>
 /// </summary>
-public partial class PopupWindow : Window
+public partial class PopupWindow : ChromeWindow
 {
     public PopupWindow()
     {
@@ -42,4 +42,6 @@ public partial class PopupWindow : Window
             MainWindow.OpenExternalLink(args.Uri);
         };
     }
+
+    private void OnCloseClick(object sender, RoutedEventArgs e) => Close();
 }

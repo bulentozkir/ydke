@@ -21,7 +21,7 @@ namespace TopWords.Windows;
 /// address bar it cannot be typed into.
 /// </para>
 /// </summary>
-public partial class ExternalViewerWindow : Window
+public partial class ExternalViewerWindow : ChromeWindow
 {
     private readonly Uri _target;
     private bool _initialNavigationStarted;
@@ -104,4 +104,6 @@ public partial class ExternalViewerWindow : Window
 
         base.OnKeyDown(e);
     }
+
+    private void OnCloseClick(object sender, RoutedEventArgs e) => Close();
 }
