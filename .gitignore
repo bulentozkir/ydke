@@ -11,6 +11,10 @@ windows/packaging/layout/
 *.msix
 *.appx
 
+# Shippable artifacts. Attach these to a GitHub release rather than committing
+# ~120 MB of self-contained binaries to history.
+releases/
+
 # Linux host build output
 linux/host/target/
 linux/host/gen/

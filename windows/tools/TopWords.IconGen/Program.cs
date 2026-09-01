@@ -21,6 +21,9 @@ internal static class Program
 
     private const double SplashPad = 0.28;
 
+    /// <summary>Matches the tile and splash BackgroundColor in AppxManifest.xml.</summary>
+    private const string BrandBackground = "#0f172a";
+
     private static readonly int[] IcoSizes = { 16, 24, 32, 48, 64, 128, 256 };
 
     [STAThread]
@@ -166,7 +169,26 @@ internal static class Program
         // opaque background rather than the SVG's rounded transparent corners.
         yield return new IconSpec(
             Path.Combine("assets", "web", "icon-maskable-512.png"), 512, 512, 0.10, "#0f172a");
+
+        // --- Microsoft Store listing art ---------------------------------------
+        // Sizes come from Partner Center's "Store logos" section. Both are opaque:
+        // the Store composites them onto surfaces of unknown colour, where a
+        // transparent PNG reads as a rendering fault.
+        //
+        // Only the 300x300 tile icon applies to a non-game app, and it takes priority
+        // over the package logo once uploaded. Box art is game-only but square, so it
+        // costs nothing and doubles as a high-resolution logo.
+        //
+        // Deliberately NOT generated: 16:9 Super hero art, which forbids text and
+        // asks for minimal empty space — icon.svg carries the wordmark and would sit
+        // in a mostly empty field. 2:3 Poster art is game-only and letterboxes a
+        // square logo. Both need purpose-built artwork, not a rescaled icon.
+        yield return Store("StoreAppTileIcon-300x300", 300, 300, 0.10);
+        yield return Store("StoreBoxArt-1080x1080", 1080, 1080, 0.20);
     }
+
+    private static IconSpec Store(string name, int width, int height, double pad) =>
+        new(Path.Combine("assets", "store", name + ".png"), width, height, pad, BrandBackground);
 
     private static IconSpec Tile(string name, int baseWidth, int baseHeight, double factor, double pad)
     {

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  Per-machine MSI for direct download. Store builds go through the MSIX in
+  release.ps1 instead; this exists for users who cannot or will not use the Store.
+
+  Scope is perMachine because the alternatives do not hold together. Scope="perUser"
+  emits no ALLUSERS at all, producing a legacy per-user install that never appears
+  in Add/Remove Programs. Scope="perUserOrMachine" emits ALLUSERS=2, which silently
+  resolves to a PER-MACHINE install for any admin account while the payload still
+  lands in one user's LocalAppData — an install no other user on the box can run.
+
+  No WixUI extension is referenced on purpose — pulling it in requires a NuGet
+  restore, and the installer only needs the built-in basic progress UI.
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <Package
+    Name="$(var.ProductName)"
+    Manufacturer="$(var.Manufacturer)"
+    Version="$(var.ProductVersion)"
+    UpgradeCode="8F3C1B2E-5D74-4C9A-9E31-7A6B0D2F4C18"
+    Scope="perMachine"
+    Compressed="yes">
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Icon Id="AppIcon.exe" SourceFile="$(var.PayloadDir)\TopWords.exe" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon.exe" />
+    <Property Id="ARPNOREPAIR" Value="1" />
+
+    <!-- Otherwise the Add/Remove Programs entry reports a blank install location. -->
+    <SetProperty Id="ARPINSTALLLOCATION" Value="[INSTALLFOLDER]" After="CostFinalize" Sequence="execute" />
+
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="YDKE" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder" />
+
+    <Feature Id="Main" Title="$(var.ProductName)" Level="1">
+      <ComponentGroupRef Id="AppFiles" />
+      <ComponentRef Id="StartMenuShortcut" />
+    </Feature>
+
+    <ComponentGroup Id="AppFiles" Directory="INSTALLFOLDER">
+      <Files Include="$(var.PayloadDir)\**" />
+    </ComponentGroup>
+
+    <Component Id="StartMenuShortcut" Directory="ProgramMenuFolder" Guid="C41D8A93-2E60-4F17-B8D5-1A9E6C3B7F42">
+      <Shortcut Id="AppShortcut"
+                Name="$(var.ProductName)"
+                Description="İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime ezberleme uygulaması."
+                Target="[INSTALLFOLDER]TopWords.exe"
+                WorkingDirectory="INSTALLFOLDER" />
+      <RemoveFolder Id="RemoveProgramMenuFolder" Directory="ProgramMenuFolder" On="uninstall" />
+      <!-- A shortcut cannot be a keypath, so the component needs a registry one. -->
+      <RegistryValue Root="HKLM" Key="Software\$(var.Manufacturer)\YDKE" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+    </Component>
+
+  </Package>
+
+</Wix>
