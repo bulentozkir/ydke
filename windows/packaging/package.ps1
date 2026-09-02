@@ -36,6 +36,16 @@ if (-not (Test-Path $assetsDir)) {
     throw "Tile assets missing. Run tools/TopWords.IconGen first (see build.ps1 -Icons)."
 }
 
+$userSdk = Join-Path $env:LOCALAPPDATA 'Microsoft\dotnet'
+if (Test-Path (Join-Path $userSdk 'sdk\10.0.400')) {
+    $env:DOTNET_ROOT = $userSdk
+    $env:PATH = "$userSdk;$env:PATH"
+}
+
+if (-not (Get-Command dotnet -ErrorAction SilentlyContinue)) {
+    throw 'No .NET SDK found. Install .NET 10 from https://dot.net.'
+}
+
 # --- 1. Publish -----------------------------------------------------------
 Write-Host "Publishing $Runtime..." -ForegroundColor Cyan
 

@@ -5,13 +5,12 @@ using Microsoft.Web.WebView2.Core;
 namespace TopWords.Windows;
 
 /// <summary>
-/// Read-only viewer for links that point outside the app.
+/// Restricted viewer for links that point outside the app.
 /// <para>
 /// External destinations used to be handed to the user's default browser. They now
-/// stay inside the app in a window that deliberately offers no way to browse: no
-/// toolbar, no address bar, no context menu, no accelerator keys, and no further
-/// navigation once the target document has loaded. The only affordances are closing
-/// the window and reading what is on it.
+/// stay inside the app without an editable address bar, context menu, or accelerator
+/// keys. Navigation remains on the host reached by the initial URL, which lets course
+/// lesson links work without turning this window into a general-purpose browser.
 /// </para>
 /// <para>
 /// <b>The title bar shows the host on purpose.</b> A chromeless window rendering
@@ -25,12 +24,15 @@ public partial class ExternalViewerWindow : ChromeWindow
 {
     private readonly Uri _target;
     private bool _initialNavigationStarted;
+    private bool _initialNavigationCompleted;
+    private string _allowedHost;
 
     internal ExternalViewerWindow(Uri target)
     {
         InitializeComponent();
 
         _target = target;
+        _allowedHost = target.Host;
 
         Width = AppConfig.ExternalViewerWidth;
         Height = AppConfig.ExternalViewerHeight;
@@ -63,11 +65,13 @@ public partial class ExternalViewerWindow : ChromeWindow
         core.WindowCloseRequested += (_, _) => Close();
         core.SourceChanged += (_, _) => UpdateTitle(core.Source);
         core.NavigationStarting += OnNavigationStarting;
+        core.NavigationCompleted += OnNavigationCompleted;
+        core.HistoryChanged += (_, _) => UpdateNavigationState(core);
 
-        // A viewer that could spawn viewers would be a browser again.
-        core.NewWindowRequested += (_, args) => args.Handled = true;
+        core.NewWindowRequested += OnNewWindowRequested;
 
         core.Navigate(_target.AbsoluteUri);
+        UpdateNavigationState(core);
     }
 
     private void OnNavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e)
@@ -79,16 +83,48 @@ public partial class ExternalViewerWindow : ChromeWindow
             return;
         }
 
-        // Redirects are part of arriving at that document, not navigation away from
-        // it. Blocking them would break every shortened, consent-gated or
-        // http-to-https link.
-        if (e.IsRedirected)
+        // Redirects are part of arriving at the initial document. Once it has loaded,
+        // every navigation must remain on the established course host.
+        if (!_initialNavigationCompleted && e.IsRedirected)
         {
             return;
         }
 
-        e.Cancel = true;
+        e.Cancel = !IsAllowedNavigation(e.Uri);
     }
+
+    private void OnNavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
+    {
+        if (!_initialNavigationCompleted)
+        {
+            _initialNavigationCompleted = true;
+
+            if (e.IsSuccess && Uri.TryCreate(Web.CoreWebView2.Source, UriKind.Absolute, out var source))
+            {
+                _allowedHost = source.Host;
+            }
+        }
+
+        UpdateNavigationState(Web.CoreWebView2);
+    }
+
+    private void OnNewWindowRequested(object? sender, CoreWebView2NewWindowRequestedEventArgs e)
+    {
+        e.Handled = true;
+
+        if (IsAllowedNavigation(e.Uri))
+        {
+            Web.CoreWebView2.Navigate(e.Uri);
+        }
+    }
+
+    private bool IsAllowedNavigation(string uri) =>
+        Uri.TryCreate(uri, UriKind.Absolute, out var parsed) &&
+        (parsed.Scheme == Uri.UriSchemeHttp || parsed.Scheme == Uri.UriSchemeHttps) &&
+        string.Equals(parsed.Host, _allowedHost, StringComparison.OrdinalIgnoreCase);
+
+    private void UpdateNavigationState(CoreWebView2 core) =>
+        BackButton.IsEnabled = core.CanGoBack;
 
     private void UpdateTitle(string uri) =>
         Title = Uri.TryCreate(uri, UriKind.Absolute, out var parsed) ? parsed.Host : _target.Host;
@@ -103,6 +139,14 @@ public partial class ExternalViewerWindow : ChromeWindow
         }
 
         base.OnKeyDown(e);
+    }
+
+    private void OnBackClick(object sender, RoutedEventArgs e)
+    {
+        if (Web.CoreWebView2 is { CanGoBack: true } core)
+        {
+            core.GoBack();
+        }
     }
 
     private void OnCloseClick(object sender, RoutedEventArgs e) => Close();

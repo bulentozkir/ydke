@@ -33,7 +33,7 @@ fact resolves most of the compatibility questions below.
 | --- | --- | --- | --- |
 | Flashcards (`index.html`) | DOM + CSS 3D flip | **Works** | Tap-to-flip is already touch-first. |
 | Quiz (`quiz.html`) | DOM | **Works** | |
-| 12 games (hangman, matrix, memory, scramble, sentencescramble, speedround, survival, truefalse, wordmorph, wordrace, clozetest, dictation) | DOM + `localStorage` best scores | **Works** | Several already carry `mobile` commits, suggesting touch layouts were addressed. |
+| 20 games (hangman, wordguess, cluedetective, categorysprint, listeningchoice, matrix, memory, scramble, sentencescramble, speedround, survival, truefalse, wordmorph, wordrace, clozetest, dictation, readingcomprehension, oddoneout, wordclass, bingo) | DOM + `localStorage` best scores | **Works** | Touch layouts are verified at a 390×844 viewport. |
 | "🔊 Listen" pronunciation | Web Speech API (`speechSynthesis`) | **Works, with a caveat** | Chrome on Android exposes Google TTS voices. Voice availability for `it`/`pt` varies by device and by which Google TTS language packs the user has downloaded. Degrade gracefully; do not assume a voice exists. |
 | Listening / dictation modes | Same TTS path | **Works, same caveat** | These modes are *harder blocked* by a missing voice than the optional Listen button. Consider a pre-flight voice check. |
 | Progress persistence | `localStorage` (`udsp_*`) | **Works** | Shares the origin's storage with mobile Chrome — see §4. |

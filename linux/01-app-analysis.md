@@ -85,7 +85,7 @@ has nothing to do with store policy.
 | --- | --- | --- | --- |
 | Flashcards | DOM + CSS 3D flip | **Works** | Click to flip; Space and arrow keys already bound. |
 | Quiz | DOM | **Works** | |
-| 12 games | DOM + `localStorage` | **Works** | Layout already handled by the shared `bootstrap.js` fix. |
+| 20 games | DOM + `localStorage` | **Works** | Layout already handled by the shared `bootstrap.js` fix. |
 | "🔊 Listen" | `speechSynthesis` | **Likely silent** | The main Linux defect. See §4. |
 | Listening / dictation | Same TTS path | **Likely silent** | These two pages are *entirely* TTS-driven — they do not degrade, they stop working. |
 | Progress persistence | `localStorage` | **Works, but isolated** | Same consequence as Windows. See §5. |

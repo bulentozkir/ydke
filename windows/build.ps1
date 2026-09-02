@@ -20,18 +20,15 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-# The .NET SDK may be installed per-user (dotnet-install.ps1) rather than machine-wide.
-if (-not (Get-Command dotnet -ErrorAction SilentlyContinue) -or
-    -not (& dotnet --list-sdks 2>$null)) {
+# Prefer the pinned per-user SDK over an older machine-wide dotnet host.
+$userSdk = Join-Path $env:LOCALAPPDATA 'Microsoft\dotnet'
+if (Test-Path (Join-Path $userSdk 'sdk\10.0.400')) {
+    $env:DOTNET_ROOT = $userSdk
+    $env:PATH = "$userSdk;$env:PATH"
+}
 
-    $userSdk = Join-Path $env:LOCALAPPDATA 'Microsoft\dotnet'
-    if (Test-Path (Join-Path $userSdk 'dotnet.exe')) {
-        $env:DOTNET_ROOT = $userSdk
-        $env:PATH = "$userSdk;$env:PATH"
-    }
-    else {
-        throw 'No .NET SDK found. Install .NET 8 from https://dot.net or run dotnet-install.ps1.'
-    }
+if (-not (Get-Command dotnet -ErrorAction SilentlyContinue)) {
+    throw 'No .NET SDK found. Install .NET 10 from https://dot.net or run dotnet-install.ps1.'
 }
 
 $app     = Join-Path $PSScriptRoot 'src\TopWords.Windows\TopWords.Windows.csproj'
@@ -55,7 +52,7 @@ if ($Publish) {
 }
 
 if ($Run) {
-    $exe = Join-Path $PSScriptRoot "src\TopWords.Windows\bin\$Configuration\net8.0-windows\TopWords.exe"
+    $exe = Join-Path $PSScriptRoot "src\TopWords.Windows\bin\$Configuration\net10.0-windows\TopWords.exe"
     Write-Host "Launching $exe" -ForegroundColor Green
     Start-Process $exe
 }

@@ -38,10 +38,14 @@
         </StackPanel>
 
         <Button Grid.Column="1" Style="{StaticResource CloseButtonStyle}" Content="&#xE8BB;"
-                ToolTip="Kapat" VerticalAlignment="Top" Click="OnCloseClick" />
+          ToolTip="Kapat · Close (Alt+F4)"
+          AutomationProperties.Name="Kapat · Close"
+          AutomationProperties.AcceleratorKey="Alt+F4"
+          VerticalAlignment="Top" Click="OnCloseClick" />
       </Grid>
 
-      <wv2:WebView2 x:Name="Web" Grid.Row="1" DefaultBackgroundColor="#0F172A" />
+      <wv2:WebView2 x:Name="Web" Grid.Row="1" DefaultBackgroundColor="#0F172A"
+            AutomationProperties.Name="Google giriş içeriği · Google sign-in content" />
     </Grid>
   </Border>
 </local:ChromeWindow>

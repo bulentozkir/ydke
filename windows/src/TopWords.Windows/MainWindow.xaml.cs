@@ -1,6 +1,9 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Microsoft.Web.WebView2.Core;
 
@@ -16,6 +19,20 @@ public partial class MainWindow : ChromeWindow
     /// user opens inside a multi-page site.
     /// </summary>
     private bool _contentRevealed;
+    private bool _initializationInProgress;
+    private bool _webConfigured;
+    private bool _showingOfflineFallback;
+    private bool _suspendInProgress;
+    private bool _wasMinimized;
+    private int _windowStateVersion;
+    private bool _navigationInProgress;
+    private bool _reloadInProgress;
+    private bool _allowNextReload;
+    private int _reloadPermitVersion;
+    private bool _webGameActive;
+    private ulong? _activeNavigationId;
+    private double? _pendingScrollTop;
+    private CancellationTokenSource? _navigationTimeout;
 
     public MainWindow()
     {
@@ -30,6 +47,8 @@ public partial class MainWindow : ChromeWindow
         // back to them rather than to zero.
         WindowPlacement.Restore(this);
 
+        AddHandler(Keyboard.PreviewKeyDownEvent, new KeyEventHandler(OnPreviewKeyDown), handledEventsToo: true);
+        StateChanged += OnWindowStateChanged;
         Loaded += OnLoaded;
     }
 
@@ -42,43 +61,95 @@ public partial class MainWindow : ChromeWindow
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
         Loaded -= OnLoaded;
+        StartSplashAnimations();
+        await InitializeWebViewAsync();
+    }
+
+    private async Task InitializeWebViewAsync()
+    {
+        if (_initializationInProgress)
+        {
+            return;
+        }
+
+        _initializationInProgress = true;
+        PrepareStartupAttempt();
 
         try
         {
-            _environment = await CoreWebView2Environment.CreateAsync(
+            _environment ??= await CoreWebView2Environment.CreateAsync(
                 browserExecutableFolder: null,
                 userDataFolder: AppConfig.UserDataFolder);
 
             await Web.EnsureCoreWebView2Async(_environment);
 
-            Configure(Web.CoreWebView2);
+            if (!_webConfigured)
+            {
+                await ConfigureAsync(Web.CoreWebView2);
+                _webConfigured = true;
+            }
+
+            SplashStatus.Text = "İçerik yükleniyor… · Loading content…";
             Web.CoreWebView2.Navigate(AppConfig.StartUrl);
         }
         catch (Exception ex)
         {
-            SplashStatus.Text = "WebView2 başlatılamadı.";
-
-            // A progress indicator that keeps animating after a fatal error tells the
-            // user work is still happening when nothing is.
-            SplashTrack.Visibility = Visibility.Collapsed;
-
-            MessageBox.Show(
-                $"WebView2 could not be initialised.\n\n{ex.Message}\n\n" +
-                "Install the WebView2 Evergreen Runtime from https://go.microsoft.com/fwlink/p/?LinkId=2124703",
-                AppConfig.WindowTitle,
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+            ShowStartupError(ex);
+        }
+        finally
+        {
+            _initializationInProgress = false;
         }
     }
 
-    private void Configure(CoreWebView2 core)
+    private async Task ConfigureAsync(CoreWebView2 core)
     {
+        await core.AddScriptToExecuteOnDocumentCreatedAsync(EmbeddedResources.Bootstrap.Value);
+                await core.AddScriptToExecuteOnDocumentCreatedAsync(
+                        $$"""
+                            (function () {
+                                if (location.origin !== "{{AppConfig.AppOrigin}}") return;
+                                window.addEventListener("keydown", function (event) {
+                                    if (event.key !== "F6") return;
+                                    event.preventDefault();
+                                    event.stopImmediatePropagation();
+                                    window.chrome.webview.postMessage("topwords:focus-chrome");
+                                }, true);
+
+                                function watchPlayState() {
+                                    if (!document.body) return;
+                                    var previous = null;
+                                    function publish() {
+                                        var playing = document.body.classList.contains("is-playing");
+                                        if (playing === previous) return;
+                                        previous = playing;
+                                        window.chrome.webview.postMessage(
+                                            "topwords:play-state:" + (playing ? "on" : "off"));
+                                    }
+                                    new MutationObserver(publish).observe(document.body, {
+                                        attributes: true,
+                                        attributeFilter: ["class"]
+                                    });
+                                    publish();
+                                }
+
+                                if (document.readyState === "loading") {
+                                    document.addEventListener("DOMContentLoaded", watchPlayState, { once: true });
+                                } else {
+                                    watchPlayState();
+                                }
+                            })();
+                            """);
+
         var settings = core.Settings;
 
         settings.AreDefaultContextMenusEnabled = false;
         settings.IsStatusBarEnabled = false;
+        settings.IsBuiltInErrorPageEnabled = false;
+        settings.IsWebMessageEnabled = true;
         settings.AreDevToolsEnabled = AppConfig.DevToolsEnabled;
         settings.IsSwipeNavigationEnabled = false;
+        settings.IsZoomControlEnabled = true;
         settings.IsGeneralAutofillEnabled = false;
         settings.IsPasswordAutosaveEnabled = false;
         settings.UserAgent = $"{settings.UserAgent} {AppConfig.UserAgentSuffix}";
@@ -90,9 +161,7 @@ public partial class MainWindow : ChromeWindow
         }
 
         core.WebResourceRequested += OnWebResourceRequested;
-
-        // W4 / W5 / W7 — host-side fixes, injected before any page script runs.
-        _ = core.AddScriptToExecuteOnDocumentCreatedAsync(EmbeddedResources.Bootstrap.Value);
+        core.WebMessageReceived += OnWebMessageReceived;
 
         core.NavigationStarting += OnNavigationStarting;
         core.NavigationCompleted += OnNavigationCompleted;
@@ -100,6 +169,34 @@ public partial class MainWindow : ChromeWindow
         core.HistoryChanged += OnHistoryChanged;
 
         UpdateNavigationState();
+    }
+
+    private void OnWebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
+    {
+        if (!Uri.TryCreate(e.Source, UriKind.Absolute, out var source) ||
+            !Uri.TryCreate(AppConfig.AppOrigin, UriKind.Absolute, out var appOrigin) ||
+            !string.Equals(
+                source.GetLeftPart(UriPartial.Authority),
+                appOrigin.GetLeftPart(UriPartial.Authority),
+                StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        switch (e.WebMessageAsJson)
+        {
+            case "\"topwords:focus-chrome\"":
+                HomeButton.Focus();
+                break;
+            case "\"topwords:play-state:on\"":
+                _webGameActive = true;
+                UpdateNavigationState();
+                break;
+            case "\"topwords:play-state:off\"":
+                _webGameActive = false;
+                UpdateNavigationState();
+                break;
+        }
     }
 
     private void OnWebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
@@ -121,6 +218,34 @@ public partial class MainWindow : ChromeWindow
     {
         if (AppConfig.IsAllowedInApp(e.Uri))
         {
+            if (e.NavigationKind == CoreWebView2NavigationKind.Reload)
+            {
+                if (_webGameActive)
+                {
+                    _allowNextReload = false;
+                    _pendingScrollTop = null;
+                    e.Cancel = true;
+                    UpdateNavigationState();
+                    return;
+                }
+
+                if (!_allowNextReload)
+                {
+                    e.Cancel = true;
+                    RequestReload();
+                    return;
+                }
+            }
+
+            _allowNextReload = false;
+
+            if (e.NavigationKind == CoreWebView2NavigationKind.NewDocument)
+            {
+                _webGameActive = false;
+            }
+
+            BeginNavigation(e.NavigationId);
+
             // Suppressed until the splash has gone: during first load the splash is
             // already saying the same thing, and two indicators for one wait is noise.
             if (_contentRevealed)
@@ -132,23 +257,207 @@ public partial class MainWindow : ChromeWindow
         }
 
         // Anything outside the app's own origin and the sign-in hosts opens in the
-        // read-only viewer, never in this window.
+        // same-host restricted viewer, never in this window.
         e.Cancel = true;
         OpenExternalLink(e.Uri);
     }
 
     private void OnNavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
     {
-        Progress.Visibility = Visibility.Collapsed;
-        RevealContent();
-        UpdateNavigationState();
-
-        if (e.IsSuccess || e.WebErrorStatus == CoreWebView2WebErrorStatus.OperationCanceled)
+        if (_activeNavigationId != e.NavigationId)
         {
             return;
         }
 
+        _navigationTimeout?.Cancel();
+        _navigationTimeout?.Dispose();
+        _navigationTimeout = null;
+        _activeNavigationId = null;
+        _navigationInProgress = false;
+        Progress.Visibility = Visibility.Collapsed;
+        UpdateNavigationState();
+
+        if (e.IsSuccess || e.WebErrorStatus == CoreWebView2WebErrorStatus.OperationCanceled)
+        {
+            _showingOfflineFallback = false;
+            RevealContent();
+            RestorePendingScroll();
+            return;
+        }
+
+        if (_showingOfflineFallback)
+        {
+            RevealContent();
+            return;
+        }
+
+        _showingOfflineFallback = true;
+        SplashStatus.Text = "Çevrimdışı içerik hazırlanıyor… · Preparing offline content…";
         Web.CoreWebView2.NavigateToString(EmbeddedResources.OfflineHtml.Value);
+    }
+
+    private void BeginNavigation(ulong navigationId)
+    {
+        _navigationTimeout?.Cancel();
+        _navigationTimeout?.Dispose();
+        _navigationTimeout = new CancellationTokenSource();
+        _activeNavigationId = navigationId;
+        _navigationInProgress = true;
+        UpdateNavigationState();
+        _ = WatchNavigationAsync(navigationId, _navigationTimeout.Token);
+    }
+
+    private async Task WatchNavigationAsync(ulong navigationId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await Task.Delay(TimeSpan.FromSeconds(20), cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            return;
+        }
+
+        if (_activeNavigationId != navigationId || Web.CoreWebView2 is not { } core)
+        {
+            return;
+        }
+
+        try
+        {
+            core.Stop();
+            _showingOfflineFallback = true;
+            core.NavigateToString(EmbeddedResources.OfflineHtml.Value);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Navigation timeout recovery failed: {ex.Message}");
+            _navigationInProgress = false;
+            Progress.Visibility = Visibility.Collapsed;
+            UpdateNavigationState();
+        }
+    }
+
+    private void RequestReload()
+    {
+        var core = Web.CoreWebView2;
+
+        if (core is null || core.IsSuspended || _webGameActive || _reloadInProgress || _navigationInProgress)
+        {
+            return;
+        }
+
+        _reloadInProgress = true;
+        UpdateNavigationState();
+        Dispatcher.BeginInvoke(new Action(() => _ = ReloadPreservingScrollAsync(core)));
+    }
+
+    private async Task ReloadPreservingScrollAsync(CoreWebView2 core)
+    {
+        var source = core.Source;
+        double? scrollTop = null;
+
+        try
+        {
+            try
+            {
+                var value = await core.ExecuteScriptAsync(
+                        "(function(){var e=document.querySelector('.container');return e?e.scrollTop:0;})()")
+                    .WaitAsync(TimeSpan.FromSeconds(1));
+
+                if (double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var captured))
+                {
+                    scrollTop = Math.Max(0, captured);
+                }
+            }
+            catch (Exception ex) when (ex is TimeoutException or InvalidOperationException)
+            {
+                Debug.WriteLine($"Scroll snapshot skipped: {ex.Message}");
+            }
+
+            if (_webGameActive || _navigationInProgress || source != core.Source)
+            {
+                return;
+            }
+
+            _pendingScrollTop = scrollTop;
+            _allowNextReload = true;
+            var permitVersion = ++_reloadPermitVersion;
+            core.Reload();
+            _ = ExpireReloadPermitAsync(permitVersion);
+        }
+        catch (Exception ex)
+        {
+            _allowNextReload = false;
+            Debug.WriteLine($"Reload skipped: {ex.Message}");
+        }
+        finally
+        {
+            _reloadInProgress = false;
+            UpdateNavigationState();
+        }
+    }
+
+    private async Task ExpireReloadPermitAsync(int permitVersion)
+    {
+        await Task.Delay(TimeSpan.FromSeconds(2));
+
+        if (_allowNextReload && _reloadPermitVersion == permitVersion)
+        {
+            _allowNextReload = false;
+            _pendingScrollTop = null;
+            UpdateNavigationState();
+        }
+    }
+
+    private void RestorePendingScroll()
+    {
+        if (_pendingScrollTop is not { } scrollTop || scrollTop <= 0 || Web.CoreWebView2 is not { } core)
+        {
+            _pendingScrollTop = null;
+            return;
+        }
+
+        _pendingScrollTop = null;
+        var target = scrollTop.ToString(CultureInfo.InvariantCulture);
+        _ = core.ExecuteScriptAsync(
+            $$"""
+              (function () {
+                var target = {{target}};
+                var surface = document.querySelector(".container");
+                if (!surface || target <= 0) return;
+                var observer;
+                var frame = 0;
+                var stopped = false;
+                var events = ["wheel", "touchstart", "pointerdown", "keydown"];
+                function stop() {
+                  if (stopped) return;
+                  stopped = true;
+                  if (observer) observer.disconnect();
+                  if (frame) cancelAnimationFrame(frame);
+                  events.forEach(function (name) {
+                    surface.removeEventListener(name, stop, true);
+                  });
+                }
+                function apply() {
+                  frame = 0;
+                  if (stopped) return;
+                  var max = Math.max(0, surface.scrollHeight - surface.clientHeight);
+                  surface.scrollTop = Math.min(target, max);
+                  if (max + 1 >= target) stop();
+                }
+                function schedule() {
+                  if (!frame && !stopped) frame = requestAnimationFrame(apply);
+                }
+                events.forEach(function (name) {
+                  surface.addEventListener(name, stop, true);
+                });
+                observer = new MutationObserver(schedule);
+                observer.observe(surface, { childList: true, subtree: true });
+                schedule();
+                setTimeout(stop, 3000);
+              })();
+              """);
     }
 
     private void OnHistoryChanged(object? sender, object e) => UpdateNavigationState();
@@ -171,20 +480,209 @@ public partial class MainWindow : ChromeWindow
         }
 
         _contentRevealed = true;
+        StopSplashAnimations();
+
+        if (!SystemParameters.ClientAreaAnimation)
+        {
+            CompleteReveal();
+            return;
+        }
 
         var fade = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(220))
         {
             EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut },
         };
 
-        fade.Completed += (_, _) =>
-        {
-            Splash.Visibility = Visibility.Collapsed;
-            Web.Visibility = Visibility.Visible;
-            Web.Focus();
-        };
+        fade.Completed += (_, _) => CompleteReveal();
 
         Splash.BeginAnimation(OpacityProperty, fade);
+    }
+
+    private void CompleteReveal()
+    {
+        Splash.Visibility = Visibility.Collapsed;
+
+        if (WindowState == WindowState.Minimized)
+        {
+            Web.Visibility = Visibility.Hidden;
+            _ = SuspendWebViewAsync(_windowStateVersion);
+            return;
+        }
+
+        Web.Visibility = Visibility.Visible;
+        Web.Focus();
+    }
+
+    private void OnWindowStateChanged(object? sender, EventArgs e)
+    {
+        var version = ++_windowStateVersion;
+
+        if (WindowState == WindowState.Minimized)
+        {
+            _wasMinimized = true;
+            Web.Visibility = Visibility.Hidden;
+            _ = SuspendWebViewAsync(version);
+            return;
+        }
+
+        if (_wasMinimized)
+        {
+            _wasMinimized = false;
+            ResumeWebView();
+        }
+    }
+
+    private async Task SuspendWebViewAsync(int version)
+    {
+        var core = Web.CoreWebView2;
+
+        if (core is null || _suspendInProgress || core.IsSuspended)
+        {
+            return;
+        }
+
+        _suspendInProgress = true;
+
+        try
+        {
+            await Dispatcher.InvokeAsync(() => { }, System.Windows.Threading.DispatcherPriority.ContextIdle);
+
+            if (version != _windowStateVersion || WindowState != WindowState.Minimized)
+            {
+                return;
+            }
+
+            await core.TrySuspendAsync();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"WebView2 suspension skipped: {ex.Message}");
+        }
+        finally
+        {
+            _suspendInProgress = false;
+
+            if (WindowState != WindowState.Minimized)
+            {
+                ResumeWebView();
+            }
+            else if (version != _windowStateVersion)
+            {
+                _ = SuspendWebViewAsync(_windowStateVersion);
+            }
+        }
+    }
+
+    private void ResumeWebView()
+    {
+        var core = Web.CoreWebView2;
+
+        if (core?.IsSuspended == true)
+        {
+            core.Resume();
+        }
+
+        if (_contentRevealed)
+        {
+            Web.Visibility = Visibility.Visible;
+            Web.Focus();
+        }
+    }
+
+    private void PrepareStartupAttempt()
+    {
+        SplashStatus.Text = "WebView2 hazırlanıyor… · Preparing WebView2…";
+        SplashErrorDetails.Visibility = Visibility.Collapsed;
+        SplashActions.Visibility = Visibility.Collapsed;
+        SplashTrack.Visibility = Visibility.Visible;
+        StartSplashAnimations();
+    }
+
+    private void ShowStartupError(Exception ex)
+    {
+        StopSplashAnimations();
+        SplashTrack.Visibility = Visibility.Collapsed;
+        SplashStatus.Text = "Uygulama başlatılamadı · The app could not start";
+        SplashErrorDetails.Text = ex.Message;
+        SplashErrorDetails.Visibility = Visibility.Visible;
+        SplashActions.Visibility = Visibility.Visible;
+    }
+
+    private void StartSplashAnimations()
+    {
+        if (!SystemParameters.ClientAreaAnimation)
+        {
+            SplashLogoScale.ScaleX = 1;
+            SplashLogoScale.ScaleY = 1;
+            SplashSweep.X = 55;
+            return;
+        }
+
+        SplashSweep.BeginAnimation(
+            TranslateTransform.XProperty,
+            new DoubleAnimation(-78, 180, TimeSpan.FromSeconds(1.2))
+            {
+                RepeatBehavior = RepeatBehavior.Forever,
+            });
+
+        var scale = new DoubleAnimation(0.94, 1, TimeSpan.FromMilliseconds(550))
+        {
+            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut },
+        };
+
+        SplashLogoScale.BeginAnimation(ScaleTransform.ScaleXProperty, scale);
+        SplashLogoScale.BeginAnimation(ScaleTransform.ScaleYProperty, scale);
+    }
+
+    private void StopSplashAnimations()
+    {
+        SplashSweep.BeginAnimation(TranslateTransform.XProperty, null);
+        SplashLogoScale.BeginAnimation(ScaleTransform.ScaleXProperty, null);
+        SplashLogoScale.BeginAnimation(ScaleTransform.ScaleYProperty, null);
+        SplashLogoScale.ScaleX = 1;
+        SplashLogoScale.ScaleY = 1;
+    }
+
+    private async void OnRetryClick(object sender, RoutedEventArgs e) =>
+        await InitializeWebViewAsync();
+
+    private void OnInstallRuntimeClick(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://go.microsoft.com/fwlink/p/?LinkId=2124703",
+                UseShellExecute = true,
+            });
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                this,
+                ex.Message,
+                AppConfig.WindowTitle,
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+        }
+    }
+
+    private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key != Key.F6 || !_contentRevealed)
+        {
+            return;
+        }
+
+        e.Handled = true;
+
+        if (Web.IsKeyboardFocusWithin)
+        {
+            HomeButton.Focus();
+            return;
+        }
+
+        Web.Focus();
     }
 
     /// <summary>
@@ -196,10 +694,13 @@ public partial class MainWindow : ChromeWindow
     {
         var core = Web.CoreWebView2;
 
-        BackButton.IsEnabled = core is { CanGoBack: true };
-        ForwardButton.IsEnabled = core is { CanGoForward: true };
-        ReloadButton.IsEnabled = core is not null;
-        HomeButton.IsEnabled = core is not null;
+        BackButton.IsEnabled = !_navigationInProgress && core is { CanGoBack: true };
+        ForwardButton.IsEnabled = !_navigationInProgress && core is { CanGoForward: true };
+        ReloadButton.IsEnabled = core is not null &&
+            !_navigationInProgress &&
+            !_reloadInProgress &&
+            !_webGameActive;
+        HomeButton.IsEnabled = core is not null && !_navigationInProgress;
     }
 
     private void OnBackClick(object sender, RoutedEventArgs e)
@@ -218,7 +719,7 @@ public partial class MainWindow : ChromeWindow
         }
     }
 
-    private void OnReloadClick(object sender, RoutedEventArgs e) => Web.CoreWebView2?.Reload();
+    private void OnReloadClick(object sender, RoutedEventArgs e) => RequestReload();
 
     private void OnHomeClick(object sender, RoutedEventArgs e) =>
         Web.CoreWebView2?.Navigate(AppConfig.StartUrl);
@@ -274,7 +775,7 @@ public partial class MainWindow : ChromeWindow
     }
 
     /// <summary>
-    /// Opens a link that points outside the app in the read-only
+    /// Opens a link that points outside the app in the same-host restricted
     /// <see cref="ExternalViewerWindow"/>.
     /// </summary>
     internal static void OpenExternalLink(string uri)

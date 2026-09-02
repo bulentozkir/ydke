@@ -111,18 +111,20 @@ the per-track documents.
 ### Architecture
 
 - **Turkish-first vocabulary trainer** for English, German, French, Italian,
-  Spanish, and Portuguese, covering CEFR levels A1–C2.
+  Spanish, Portuguese, and Dutch, covering CEFR levels A1–C2.
 - **100% static site.** No build step, no bundler, no framework. `package.json`
   declares only `npx serve .` for both `dev` and `start`.
 - Plain global `<script defer>` architecture. Each page loads `shared.js` plus a
   single per-mode script; there are **no ES modules** and no import graph.
-- **~28 HTML pages**: `index` (flashcards), `home`, `quiz`, `games`, `hangman`,
-  `matrix`, `memory`, `scramble`, `sentencescramble`, `speedround`, `survival`,
-  `truefalse`, `wordmorph`, `wordrace`, `clozetest`, `dictation`, `listening`,
-  `readingcomprehension`, `wordlist`, `stats`, `history`, `profile`, `help`,
-  `about`, `privacy`, `terms`.
+- **34 HTML files**: 33 interactive pages — `index` (flashcards), `home`, `quiz`, `games`, `hangman`,
+  `wordguess`, `cluedetective`, `categorysprint`, `listeningchoice`, `matrix`,
+  `memory`, `scramble`, `sentencescramble`, `speedround`, `survival`,
+  `truefalse`, `wordmorph`, `wordrace`, `clozetest`, `dictation`, `oddoneout`,
+  `wordclass`, `bingo`, `listening`, `readingcomprehension`, `wordlist`, `stats`,
+  `history`, `profile`, `help`, `about`, `privacy`, `terms` — plus the hidden
+  one-shot `history-sync` helper.
 - **`data/`** holds 50+ JavaScript files totalling **~36 MB** (figure stated in
-  the `sw.js` header comment): `wordsa1`–`wordsc2` × 6 languages,
+  the `sw.js` header comment): `wordsa1`–`wordsc2` × 7 languages,
   `phrasalverbsen` / `phrasalverbsfr`, `partikelverbde`, `toefl`,
   `synant{de,en,fr}`, and several `readingcomp*` sets.
 - **`scripts/`** contains Python tooling used to generate the word data. It is

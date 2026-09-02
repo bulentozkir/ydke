@@ -60,24 +60,34 @@
           <Border Width="1" Margin="0,11" Background="{StaticResource HairlineBrush}" />
 
           <Button x:Name="BackButton" Style="{StaticResource ToolButtonStyle}"
-                  Content="&#xE72B;" ToolTip="Geri (Alt+Sol)" IsEnabled="False"
+              Content="&#xE72B;" ToolTip="Geri · Back (Alt+Sol / Left)" IsEnabled="False"
+              AutomationProperties.Name="Geri · Back"
+              AutomationProperties.AcceleratorKey="Alt+Left"
                   Margin="10,0,0,0" Click="OnBackClick" />
           <Button x:Name="ForwardButton" Style="{StaticResource ToolButtonStyle}"
-                  Content="&#xE72A;" ToolTip="İleri (Alt+Sağ)" IsEnabled="False"
+              Content="&#xE72A;" ToolTip="İleri · Forward (Alt+Sağ / Right)" IsEnabled="False"
+              AutomationProperties.Name="İleri · Forward"
+              AutomationProperties.AcceleratorKey="Alt+Right"
                   Click="OnForwardClick" />
           <Button x:Name="ReloadButton" Style="{StaticResource ToolButtonStyle}"
-                  Content="&#xE72C;" ToolTip="Yenile (F5)" IsEnabled="False"
+              Content="&#xE72C;" ToolTip="Yenile · Reload (F5)" IsEnabled="False"
+              AutomationProperties.Name="Yenile · Reload"
+              AutomationProperties.AcceleratorKey="F5"
                   Click="OnReloadClick" />
           <Button x:Name="HomeButton" Style="{StaticResource ToolButtonStyle}"
-                  Content="&#xE80F;" ToolTip="Başlangıç sayfası" IsEnabled="False"
+              Content="&#xE80F;" ToolTip="Ana sayfa · Home" IsEnabled="False"
+              AutomationProperties.Name="Ana sayfa · Home"
                   Click="OnHomeClick" />
         </StackPanel>
 
         <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Top">
           <Button Style="{StaticResource CaptionButtonStyle}" Content="&#xE921;"
-                  ToolTip="Simge durumuna küçült" Click="OnMinimizeClick" />
+              ToolTip="Simge durumuna küçült · Minimize"
+              AutomationProperties.Name="Simge durumuna küçült · Minimize"
+              Click="OnMinimizeClick" />
 
-          <Button Click="OnMaximizeClick">
+            <Button AutomationProperties.Name="Ekranı kapla veya geri yükle · Maximize or restore"
+              Click="OnMaximizeClick">
             <Button.Style>
               <Style TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
                 <Setter Property="Content" Value="&#xE922;" />
@@ -93,7 +103,10 @@
           </Button>
 
           <Button Style="{StaticResource CloseButtonStyle}" Content="&#xE8BB;"
-                  ToolTip="Kapat" Click="OnCloseClick" />
+              ToolTip="Kapat · Close (Alt+F4)"
+              AutomationProperties.Name="Kapat · Close"
+              AutomationProperties.AcceleratorKey="Alt+F4"
+              Click="OnCloseClick" />
         </StackPanel>
       </Grid>
 
@@ -106,7 +119,8 @@
         <!-- Hidden rather than Collapsed: the control has to stay in layout for the WPF
              host to build its CoreWebView2, but a hosted child HWND always paints over
              WPF content, so the splash below could never be seen while it is on screen. -->
-        <wv2:WebView2 x:Name="Web" DefaultBackgroundColor="#0F172A" Visibility="Hidden" />
+        <wv2:WebView2 x:Name="Web" DefaultBackgroundColor="#0F172A" Visibility="Hidden"
+                AutomationProperties.Name="Top Words içeriği · Top Words content" />
 
         <Grid x:Name="Splash" Background="{StaticResource SurfaceBrush}">
           <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -134,34 +148,32 @@
             <TextBlock x:Name="SplashStatus" Text="Yükleniyor…"
                        Style="{StaticResource CaptionSubtitleStyle}"
                        HorizontalAlignment="Center" Margin="0,16,0,0" />
-          </StackPanel>
 
-          <Grid.Triggers>
-            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-              <BeginStoryboard>
-                <Storyboard>
-                  <DoubleAnimation Storyboard.TargetName="SplashSweep"
-                                   Storyboard.TargetProperty="X"
-                                   From="-78" To="180" Duration="0:0:1.2"
-                                   RepeatBehavior="Forever" />
-                  <DoubleAnimation Storyboard.TargetName="SplashLogoScale"
-                                   Storyboard.TargetProperty="ScaleX"
-                                   From="0.94" To="1" Duration="0:0:0.55">
-                    <DoubleAnimation.EasingFunction>
-                      <CubicEase EasingMode="EaseOut" />
-                    </DoubleAnimation.EasingFunction>
-                  </DoubleAnimation>
-                  <DoubleAnimation Storyboard.TargetName="SplashLogoScale"
-                                   Storyboard.TargetProperty="ScaleY"
-                                   From="0.94" To="1" Duration="0:0:0.55">
-                    <DoubleAnimation.EasingFunction>
-                      <CubicEase EasingMode="EaseOut" />
-                    </DoubleAnimation.EasingFunction>
-                  </DoubleAnimation>
-                </Storyboard>
-              </BeginStoryboard>
-            </EventTrigger>
-          </Grid.Triggers>
+            <TextBlock x:Name="SplashErrorDetails"
+                       Style="{StaticResource CaptionSubtitleStyle}"
+                       MaxWidth="520"
+                       Margin="24,10,24,0"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       Visibility="Collapsed" />
+
+            <StackPanel x:Name="SplashActions"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,20,0,0"
+                        Visibility="Collapsed">
+              <Button Style="{StaticResource RecoveryPrimaryButtonStyle}"
+                      Content="Yeniden dene · Retry"
+                      AutomationProperties.Name="Yeniden dene · Retry"
+                      Click="OnRetryClick" />
+              <Button Style="{StaticResource RecoveryButtonStyle}"
+                      Content="WebView2 Runtime"
+                      ToolTip="Microsoft WebView2 indirme sayfasını aç · Open the Microsoft WebView2 download page"
+                      AutomationProperties.Name="WebView2 Runtime indirme sayfasını aç"
+                      Margin="10,0,0,0"
+                      Click="OnInstallRuntimeClick" />
+            </StackPanel>
+          </StackPanel>
         </Grid>
       </Grid>
     </Grid>

@@ -37,9 +37,8 @@ internal static class AppConfig
     public const double PopupWidth = 520;
     public const double PopupHeight = 680;
 
-    // Links pointing outside the app open in a read-only viewer rather than the
-    // user's browser. Fixed size: the window carries a close button and nothing
-    // else, so there are no minimise or maximise affordances to resize against.
+    // Links pointing outside the app open in a restricted viewer rather than the
+    // user's browser. It is fixed-size and has no minimise or maximise affordances.
     public const double ExternalViewerWidth = 900;
     public const double ExternalViewerHeight = 700;
 
@@ -126,7 +125,7 @@ internal static class AppConfig
 
     /// <summary>
     /// Top-level navigations allowed to stay inside the app window. Anything else
-    /// opens in the read-only <see cref="ExternalViewerWindow"/>. Subresources and
+    /// opens in the restricted <see cref="ExternalViewerWindow"/>. Subresources and
     /// iframes are unaffected.
     /// </summary>
     private static readonly string[] InAppHosts =

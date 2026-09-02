@@ -8,7 +8,7 @@
     this script bakes in the real Partner Center identity for product 9N8LFRMX67ZF
     and produces artifacts intended for submission and public download.
 
-    Packages are SELF-CONTAINED. Windows does not ship the .NET 8 Desktop Runtime,
+    Packages are SELF-CONTAINED. Windows does not ship the .NET 10 Desktop Runtime,
     and neither an MSIX nor an MSI can pull it in as a declared dependency, so a
     framework-dependent build simply fails to launch on a clean machine.
 
@@ -17,7 +17,7 @@
 
 .PARAMETER FrameworkDependent
     Opt out of self-contained. Only safe when every target machine is known to
-    already have the .NET 8 Desktop Runtime.
+    already have the .NET 10 Desktop Runtime.
 
 .PARAMETER SkipMsi
     Build the MSIX only.
@@ -56,13 +56,14 @@ if (-not $OutputDir) { $OutputDir = Join-Path $repoRoot 'releases' }
 New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 
 # --- .NET SDK -------------------------------------------------------------
-if (-not (Get-Command dotnet -ErrorAction SilentlyContinue) -or -not (& dotnet --list-sdks 2>$null)) {
-    $userSdk = Join-Path $env:LOCALAPPDATA 'Microsoft\dotnet'
-    if (-not (Test-Path (Join-Path $userSdk 'dotnet.exe'))) {
-        throw 'No .NET SDK found. Install .NET 8 from https://dot.net.'
-    }
+$userSdk = Join-Path $env:LOCALAPPDATA 'Microsoft\dotnet'
+if (Test-Path (Join-Path $userSdk 'sdk\10.0.400')) {
     $env:DOTNET_ROOT = $userSdk
     $env:PATH = "$userSdk;$env:PATH"
+}
+
+if (-not (Get-Command dotnet -ErrorAction SilentlyContinue)) {
+    throw 'No .NET SDK found. Install .NET 10 from https://dot.net.'
 }
 
 # --- Version --------------------------------------------------------------

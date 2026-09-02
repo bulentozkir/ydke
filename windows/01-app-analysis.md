@@ -49,7 +49,7 @@ Chrome:
 | --- | --- | --- | --- |
 | Flashcards | DOM + CSS 3D flip | **Works** | Tap-to-flip becomes click. Keyboard Space/Arrow already supported — good for desktop. |
 | Quiz | DOM | **Works** | |
-| 12 games | DOM + `localStorage` | **Works, layout risk** | Grid-based games (matrix, memory) may look sparse or over-stretched at 1920 px. Needs a max-width container. |
+| 20 games | DOM + `localStorage` | **Works** | Desktop host uses a readable five-column grid; 1000×800 and 390×844 layouts are verified. |
 | "🔊 Listen" | `speechSynthesis` | **Works, different voices** | Edge voices cover EN/DE/FR/IT/ES/PT well. Verify Turkish is not needed for playback. |
 | Listening / dictation | Same TTS path | **Works** | Better than Android — desktop voice coverage is more consistent. |
 | Progress persistence | `localStorage` | **Works, but isolated** | See §5 — this is the most consequential Windows-specific behaviour. |

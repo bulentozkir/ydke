@@ -128,6 +128,12 @@
        columns — and fewer rows — for free. */
     "  :root{--maxw:1040px}",
 
+     /* Five readable columns at the app's 1000px default width. The site's
+       104px minimum creates eight narrow cards and truncates most labels. */
+     "  .game-tiles{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}",
+     "  .game-tile{padding:16px 12px}",
+     "  .game-tile-desc{-webkit-line-clamp:3}",
+
     /* SEO copy is written for crawlers and appended below the real UI.
        There are no crawlers in a packaged app, and on the interactive
        pages it was the single largest source of scrolling. Hidden only

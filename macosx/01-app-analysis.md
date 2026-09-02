@@ -93,7 +93,7 @@ rather than with the distribution.
 | --- | --- | --- | --- |
 | Flashcards | DOM + CSS 3D flip | **Works** | Space and arrow keys already bound. |
 | Quiz | DOM | **Works** | |
-| 12 games | DOM + `localStorage` | **Works** | Layout handled by the shared `bootstrap.js` fix. |
+| 20 games | DOM + `localStorage` | **Works** | Layout handled by the shared `bootstrap.js` fix. |
 | "🔊 Listen" | `speechSynthesis` | **Works well** | Best voice coverage of any track. See §2. |
 | Listening / dictation | Same TTS path | **Works well** | No Linux-style silent failure. |
 | Progress persistence | `localStorage` | **Works, but isolated** | See §5. |
@@ -130,7 +130,7 @@ and in **4.2.2**:
 The app is **not** a content aggregator or a collection of links, which is what
 4.2.2 is principally aimed at. It has:
 
-- 28 distinct interactive study screens and 12 games
+- 33 distinct interactive study screens and 20 games
 - a real spaced-repetition engine with persistent per-user state
 - offline capability via an existing, well-built service worker
 - ~36 MB of curated vocabulary data
