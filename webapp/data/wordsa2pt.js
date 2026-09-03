@@ -1,0 +1,103 @@
+/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
+ * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
+ * <https://polyformproject.org/licenses/noncommercial/1.0.0>
+ *
+ * Any commercial use requires prior written permission from the copyright
+ * holders. Written permission from any ONE of bulentozkir@hotmail.com,
+ * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
+ * is sufficient and binding on all of them.
+ *
+ * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
+ * Ozkir (https://udsp.vercel.app)
+ * Full terms: see LICENSE and NOTICE in this repository.
+ */
+/*! Compilation notice — read together with the licence above.
+ * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
+ * translations in this file are the copyright holders' own work and ARE
+ * covered by the PolyForm Noncommercial licence above. Copying this list, or
+ * any substantial part of it, into a commercial product or service requires
+ * prior written permission from one of the addresses above.
+ *
+ * Some individual definitions and example sentences come from open community
+ * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
+ * others — see NOTICE). Those items keep THEIR OWN licence and the
+ * noncommercial term is not asserted over them.
+ */
+
+// Portuguese A2 vocabulary (self-authored, CEFR A2).
+// 100% original content -- see wordsa1pt.js for the full authoring and
+// levelling policy. Level assignment is grounded in the open
+// hermitdave/FrequencyWords Portuguese frequency list (pt_50k): these words
+// sit just below the A1 band (roughly the top ~1000-3000 Portuguese words)
+// and cover everyday travel, work, health and description topics.
+window.WORDS_PT_A2 = [
+  { word: "o emprego", pos: "noun", level: "A2", category: "General", definition: "Job, employment. - İş; istihdam.", example: "Ele procura um novo emprego. - O yeni bir iş arıyor." },
+  { word: "a viagem", pos: "noun", level: "A2", category: "Travel", definition: "Trip, journey. - Yolculuk; seyahat.", example: "A viagem durou cinco horas. - Yolculuk beş saat sürdü." },
+  { word: "o comboio", pos: "noun", level: "A2", category: "Transportation", definition: "Train (European Portuguese). - Tren.", example: "O comboio parte às sete. - Tren yedide kalkıyor." },
+  { word: "o avião", pos: "noun", level: "A2", category: "Transportation", definition: "Plane, aircraft. - Uçak.", example: "O avião aterrou com atraso. - Uçak gecikmeyle indi." },
+  { word: "o bilhete", pos: "noun", level: "A2", category: "General", definition: "Ticket. - Bilet.", example: "Comprei o bilhete pela internet. - Bileti internetten aldım." },
+  { word: "a estação", pos: "noun", level: "A2", category: "General", definition: "Station; season. - İstasyon; mevsim.", example: "Encontramo-nos na estação. - İstasyonda buluşalım." },
+  { word: "o hotel", pos: "noun", level: "A2", category: "Travel", definition: "Hotel. - Otel.", example: "Ficámos num hotel perto da praia. - Sahile yakın bir otelde kaldık." },
+  { word: "a praia", pos: "noun", level: "A2", category: "General", definition: "Beach. - Plaj; kumsal.", example: "Vamos à praia no verão. - Yazın plaja gideriz." },
+  { word: "a montanha", pos: "noun", level: "A2", category: "Nature", definition: "Mountain. - Dağ.", example: "A montanha está coberta de neve. - Dağ karla kaplı." },
+  { word: "o rio", pos: "noun", level: "A2", category: "Nature", definition: "River. - Nehir; ırmak.", example: "O rio atravessa a cidade. - Nehir şehri boydan boya geçiyor." },
+  { word: "a loja", pos: "noun", level: "A2", category: "General", definition: "Shop, store. - Dükkân; mağaza.", example: "A loja abre às dez horas. - Dükkân onda açılıyor." },
+  { word: "o mercado", pos: "noun", level: "A2", category: "General", definition: "Market. - Pazar; piyasa.", example: "Compro legumes no mercado. - Sebzeleri pazardan alırım." },
+  { word: "o preço", pos: "noun", level: "A2", category: "General", definition: "Price. - Fiyat.", example: "O preço subiu muito. - Fiyat çok arttı." },
+  { word: "a conta", pos: "noun", level: "A2", category: "General", definition: "Bill; account. - Hesap; fatura.", example: "Pode trazer a conta, por favor? - Hesabı getirebilir misiniz, lütfen?" },
+  { word: "o médico", pos: "noun", level: "A2", category: "Medicine", definition: "Doctor. - Doktor.", example: "O médico receitou um xarope. - Doktor bir şurup yazdı." },
+  { word: "o hospital", pos: "noun", level: "A2", category: "Medicine", definition: "Hospital. - Hastane.", example: "O hospital fica no centro. - Hastane merkezde." },
+  { word: "a dor", pos: "noun", level: "A2", category: "General", definition: "Pain, ache. - Ağrı; acı.", example: "Tenho uma dor de cabeça. - Başım ağrıyor." },
+  { word: "a saúde", pos: "noun", level: "A2", category: "General", definition: "Health. - Sağlık.", example: "A saúde é o mais importante. - Sağlık en önemli şeydir." },
+  { word: "o corpo", pos: "noun", level: "A2", category: "General", definition: "Body. - Vücut; beden.", example: "O exercício faz bem ao corpo. - Egzersiz vücuda iyi gelir." },
+  { word: "a roupa", pos: "noun", level: "A2", category: "Clothing", definition: "Clothes, clothing. - Giysi; kıyafet.", example: "Preciso de lavar a roupa. - Çamaşırları yıkamam gerek." },
+  { word: "o sapato", pos: "noun", level: "A2", category: "Clothing", definition: "Shoe. - Ayakkabı.", example: "Estes sapatos são confortáveis. - Bu ayakkabılar rahat." },
+  { word: "o casaco", pos: "noun", level: "A2", category: "Clothing", definition: "Coat, jacket. - Ceket; palto.", example: "Leva um casaco, está frio. - Bir ceket al, hava soğuk." },
+  { word: "a cozinha", pos: "noun", level: "A2", category: "Food", definition: "Kitchen; cuisine. - Mutfak.", example: "A cozinha é a divisão maior. - Mutfak en büyük oda." },
+  { word: "o quarto", pos: "noun", level: "A2", category: "Household", definition: "Room, bedroom. - Oda; yatak odası.", example: "O meu quarto tem uma varanda. - Odamın bir balkonu var." },
+  { word: "a cadeira", pos: "noun", level: "A2", category: "General", definition: "Chair. - Sandalye.", example: "Senta-te nesta cadeira. - Bu sandalyeye otur." },
+  { word: "a cama", pos: "noun", level: "A2", category: "General", definition: "Bed. - Yatak.", example: "A cama é muito confortável. - Yatak çok rahat." },
+  { word: "o jardim", pos: "noun", level: "A2", category: "General", definition: "Garden. - Bahçe.", example: "Plantei rosas no jardim. - Bahçeye gül diktim." },
+  { word: "a árvore", pos: "noun", level: "A2", category: "General", definition: "Tree. - Ağaç.", example: "A árvore dá muita sombra. - Ağaç bol gölge veriyor." },
+  { word: "o país", pos: "noun", level: "A2", category: "Geography", definition: "Country. - Ülke.", example: "Portugal é um país pequeno. - Portekiz küçük bir ülke." },
+  { word: "a língua", pos: "noun", level: "A2", category: "Communication", definition: "Language; tongue. - Dil.", example: "O português é uma língua bonita. - Portekizce güzel bir dil." },
+  { word: "a palavra", pos: "noun", level: "A2", category: "General", definition: "Word. - Kelime; söz.", example: "Não percebi esta palavra. - Bu kelimeyi anlamadım." },
+  { word: "a pergunta", pos: "noun", level: "A2", category: "General", definition: "Question. - Soru.", example: "Posso fazer uma pergunta? - Bir soru sorabilir miyim?" },
+  { word: "a resposta", pos: "noun", level: "A2", category: "General", definition: "Answer, reply. - Cevap; yanıt.", example: "A resposta estava errada. - Cevap yanlıştı." },
+  { word: "o exame", pos: "noun", level: "A2", category: "Education", definition: "Exam, test. - Sınav.", example: "O exame é na próxima semana. - Sınav gelecek hafta." },
+  { word: "a notícia", pos: "noun", level: "A2", category: "General", definition: "News item. - Haber.", example: "Ouvi a notícia na rádio. - Haberi radyoda duydum." },
+  { word: "o jornal", pos: "noun", level: "A2", category: "Communication", definition: "Newspaper. - Gazete.", example: "Leio o jornal todas as manhãs. - Her sabah gazete okurum." },
+  { word: "o filme", pos: "noun", level: "A2", category: "Arts", definition: "Film, movie. - Film.", example: "O filme começa às nove. - Film dokuzda başlıyor." },
+  { word: "a música", pos: "noun", level: "A2", category: "Arts", definition: "Music; song. - Müzik; şarkı.", example: "Esta música é muito alegre. - Bu müzik çok neşeli." },
+  { word: "a festa", pos: "noun", level: "A2", category: "General", definition: "Party, celebration. - Parti; kutlama.", example: "A festa acabou tarde. - Parti geç bitti." },
+  { word: "o presente", pos: "noun", level: "A2", category: "General", definition: "Gift; the present. - Hediye; şimdiki zaman.", example: "Recebi um presente do meu irmão. - Kardeşimden bir hediye aldım." },
+  { word: "chegar", pos: "verb", level: "A2", category: "General", definition: "To arrive. - Varmak; gelmek.", example: "Cheguei atrasado ao trabalho. - İşe geç kaldım." },
+  { word: "partir", pos: "verb", level: "A2", category: "General", definition: "To leave, to depart; to break. - Ayrılmak; kırmak.", example: "O barco parte ao meio-dia. - Gemi öğlen kalkıyor." },
+  { word: "viajar", pos: "verb", level: "A2", category: "Travel", definition: "To travel. - Seyahat etmek.", example: "Gosto de viajar de comboio. - Trenle seyahat etmeyi severim." },
+  { word: "esperar", pos: "verb", level: "A2", category: "General", definition: "To wait; to hope. - Beklemek; ummak.", example: "Espero por ti à porta. - Seni kapıda bekliyorum." },
+  { word: "encontrar", pos: "verb", level: "A2", category: "General", definition: "To find; to meet. - Bulmak; karşılaşmak.", example: "Não encontro as minhas chaves. - Anahtarlarımı bulamıyorum." },
+  { word: "perder", pos: "verb", level: "A2", category: "General", definition: "To lose; to miss. - Kaybetmek; kaçırmak.", example: "Perdi o autocarro das oito. - Sekiz otobüsünü kaçırdım." },
+  { word: "ajudar", pos: "verb", level: "A2", category: "General", definition: "To help. - Yardım etmek.", example: "Ela ajuda sempre os colegas. - O her zaman iş arkadaşlarına yardım eder." },
+  { word: "aprender", pos: "verb", level: "A2", category: "General", definition: "To learn. - Öğrenmek.", example: "Quero aprender a nadar. - Yüzmeyi öğrenmek istiyorum." },
+  { word: "ensinar", pos: "verb", level: "A2", category: "General", definition: "To teach. - Öğretmek.", example: "Ele ensina história numa escola. - Bir okulda tarih öğretiyor." },
+  { word: "escrever", pos: "verb", level: "A2", category: "General", definition: "To write. - Yazmak.", example: "Escrevi uma carta ao meu avô. - Dedeme bir mektup yazdım." },
+  { word: "ler", pos: "verb", level: "A2", category: "General", definition: "To read. - Okumak.", example: "Eu tenho cada vez menos tempo para ler. - Okumak için giderek daha az zamanım oluyor." },
+  { word: "abrir", pos: "verb", level: "A2", category: "General", definition: "To open. - Açmak.", example: "Ela me disse para abrir a janela. - Bana pencereyi açmamı söyledi." },
+  { word: "fechar", pos: "verb", level: "A2", category: "General", definition: "To close, to shut. - Kapatmak.", example: "Fecha a janela, por favor. - Lütfen pencereyi kapat." },
+  { word: "começar", pos: "verb", level: "A2", category: "General", definition: "To begin, to start. - Başlamak.", example: "O concerto começa às oito. - Konser sekizde başlıyor." },
+  { word: "acabar", pos: "verb", level: "A2", category: "General", definition: "To finish, to end. - Bitirmek; sona ermek.", example: "O filme acabou muito tarde. - Film çok geç bitti." },
+  { word: "pagar", pos: "verb", level: "A2", category: "General", definition: "To pay. - Ödemek.", example: "Pagamos/Pagámos ao vendedor pelas maçãs. - Elmaların parasını ödedik/satıcıya ödedik." },
+  { word: "vender", pos: "verb", level: "A2", category: "General", definition: "To sell. - Satmak.", example: "Eles vendem fruta fresca. - Onlar taze meyve satıyor." },
+  { word: "conhecer", pos: "verb", level: "A2", category: "General", definition: "To know (a person or place). - Tanımak; bilmek.", example: "Conheço bem esta cidade. - Bu şehri iyi bilirim." },
+  { word: "lembrar", pos: "verb", level: "A2", category: "General", definition: "To remember, to remind. - Hatırlamak; hatırlatmak.", example: "Não me lembro do nome dele. - Onun adını hatırlamıyorum." },
+  { word: "cedo", pos: "adverb", level: "A2", category: "General", definition: "Early. - Erken.", example: "Levanto-me cedo todos os dias. - Her gün erken kalkarım." },
+  { word: "tarde", pos: "adverb", level: "A2", category: "General", definition: "Late; afternoon. - Geç; öğleden sonra.", example: "Cheguei tarde a casa. - Eve geç geldim." },
+  { word: "devagar", pos: "adverb", level: "A2", category: "General", definition: "Slowly. - Yavaşça.", example: "Fala mais devagar, por favor. - Lütfen daha yavaş konuş." },
+  { word: "depressa", pos: "adverb", level: "A2", category: "General", definition: "Quickly, fast. - Hızlıca; çabuk.", example: "Ele come muito depressa. - O çok hızlı yemek yiyor." },
+  { word: "barato", pos: "adjective", level: "A2", category: "General", definition: "Cheap, inexpensive. - Ucuz.", example: "Este restaurante é barato. - Bu restoran ucuz." },
+  { word: "caro", pos: "adjective", level: "A2", category: "General", definition: "Expensive; dear. - Pahalı; sevgili.", example: "O bilhete é muito caro. - Bilet çok pahalı." },
+  { word: "limpo", pos: "adjective", level: "A2", category: "General", definition: "Clean. - Temiz.", example: "A casa está limpa. - Ev temiz." },
+  { word: "sujo", pos: "adjective", level: "A2", category: "General", definition: "Dirty. - Kirli.", example: "O chão está muito sujo. - Yer çok kirli." },
+  { word: "cansado", pos: "adjective", level: "A2", category: "General", definition: "Tired. - Yorgun.", example: "Estou cansado depois do trabalho. - İşten sonra yorgunum." },
+  { word: "doente", pos: "adjective", level: "A2", category: "General", definition: "Ill, sick. - Hasta.", example: "A minha filha está doente. - Kızım hasta." },
+];

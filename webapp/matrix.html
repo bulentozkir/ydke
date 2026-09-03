@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Kelime Matrisi (Word Matrix) | Top Words</title>
+    <meta
+      name="description"
+      content="İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime matrisi (Word Matrix) oyunu: harf ızgarasında gizli kelimeleri bulun. A1–C2, TOEFL, telc, CEFR kelimeleriyle görsel bulmaca pratiği."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f172a" />
+    <script>
+      (function () {
+        try {
+          var t = JSON.parse(localStorage.getItem("udsp_theme_v1") || '"dark"');
+          if (t === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (m) m.setAttribute("content", "#f8fafc");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="canonical" href="https://udsp.vercel.app/matrix.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Top Words" />
+    <meta property="og:title" content="Kelime Matrisi (Word Matrix) | Top Words" />
+    <meta
+      property="og:description"
+      content="Harf ızgarasında gizli kelimeleri bulun. İngilizce/Almanca görsel kelime bulmacası."
+    />
+    <meta property="og:url" content="https://udsp.vercel.app/matrix.html" />
+    <meta property="og:image" content="https://udsp.vercel.app/og-image.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Top Words – İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime öğrenme uygulaması" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kelime Matrisi (Word Matrix) | Top Words" />
+    <meta
+      name="twitter:description"
+      content="Harf ızgarasında gizli kelimeleri bulun. İngilizce/Almanca görsel kelime bulmacası."
+    />
+    <meta name="twitter:image" content="https://udsp.vercel.app/og-image.svg" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Top Words" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="site.webmanifest" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://udsp.vercel.app/matrix.html",
+            "url": "https://udsp.vercel.app/matrix.html",
+            "name": "Kelime Matrisi (Word Matrix) | Top Words",
+            "description": "İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime matrisi oyunu: harf ızgarasında gizli kelimeleri bulun.",
+            "inLanguage": "tr",
+            "isPartOf": { "@id": "https://udsp.vercel.app/#webapp" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Top Words", "item": "https://udsp.vercel.app/" },
+              { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://udsp.vercel.app/games.html" },
+              { "@type": "ListItem", "position": 3, "name": "Word Matrix", "item": "https://udsp.vercel.app/matrix.html" }
+            ]
+          }
+        ]
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4464915775427405"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body data-mode="matrix">
+    <header class="site-header">
+      <div class="brand">
+        <a class="logo-link" href="home.html" aria-label="Home"><img class="logo" src="icon.svg" alt="Top Words logo" width="44" height="44" /></a>
+        <span class="brand-title">Yabancı Dil Kelime Ezberleme</span>
+        <!-- Main toolbar: shares the header's first line -->
+        <nav class="bottom-nav" aria-label="Main navigation">
+        <a class="bottom-nav-item" href="index.html"><span class="bn-icon">🃏</span><span class="bn-label">Cards</span></a>
+        <a class="bottom-nav-item" href="quiz.html"><span class="bn-icon">📝</span><span class="bn-label">Quiz</span></a>
+        <a class="bottom-nav-item is-active" href="games.html"><span class="bn-icon">🎮</span><span class="bn-label">Games</span></a>
+        <a class="bottom-nav-item" href="wordlist.html"><span class="bn-icon">📋</span><span class="bn-label">Words</span></a>
+        <button class="bottom-nav-item" id="more-btn" type="button"><span class="bn-icon">⋯</span><span class="bn-label">More</span></button>
+        </nav>
+        <div class="brand-actions">
+          <a class="about-btn" href="about.html" aria-label="Hakkında / About" data-tip="Hakkında / About">ℹ️<span class="btn-txt"> About</span></a>
+          <a class="about-btn" href="help.html" aria-label="Yardım / Help" data-tip="Yardım / Help">❓<span class="btn-txt"> Help</span></a>
+          <a class="about-btn" href="stats.html" aria-label="İstatistikler / Stats" data-tip="İstatistikler / Stats">📊<span class="btn-txt"> Stats</span></a>
+          <a class="profile-icon-link" href="profile.html" id="profile-icon-link" data-tip="Profil / Profile" aria-label="Profil / Profile">👤</a>
+        </div>
+      </div>
+      <div class="selectors-row">
+        <label class="select-group">
+          <span class="select-label">Lang</span>
+          <select class="langs select-pill" id="langs-nav" aria-label="Language">
+            <option value="en">English</option>
+            <option value="de">German</option>
+            <option value="fr">French</option>
+            <option value="it">Italian</option>
+            <option value="es">Spanish</option>
+            <option value="pt">Portuguese</option>
+          </select>
+        </label>
+        <label class="select-group">
+          <span class="select-label">Level</span>
+          <select class="levels select-pill" id="levels-nav" aria-label="Level"></select>
+        </label>
+        <div class="select-group">
+          <span class="select-label">Category</span>
+          <button class="filter-btn select-pill" id="category-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Filter by category">🗂️ All</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Word Matrix game -->
+      <section id="view-matrix" class="view is-active">
+        <!-- Level picker -->
+        <div id="matrix-setup" class="hangman-setup">
+          <div class="picker-intro">
+            <a class="ghost-btn games-hub-link" href="games.html">← All Games</a>
+            <h2>🔎 Word Matrix</h2>
+            <p>Tap a word's first and last letter to trace it.</p>
+          </div>
+          <div class="game-start" id="matrix-start">
+            <p class="game-start-level">Level: <strong id="matrix-start-level">B2</strong></p>
+            <p class="game-start-count" id="matrix-start-count"></p>
+            <p class="game-start-warning" id="matrix-start-warning" hidden></p>
+            <button class="nav-btn primary game-start-btn" id="matrix-start-btn" type="button">▶ Start</button>
+            <p class="game-start-hint">Change the level above.</p>
+          </div>
+        </div>
+
+        <!-- Game board -->
+        <div id="matrix-game" hidden>
+          <div class="toolbar">
+            <button class="ghost-btn" id="matrix-back" type="button">← Back</button>
+            <span class="counter" id="matrix-level-badge">A1</span>
+            <span class="score">⏱ <span id="matrix-timer">0:00</span></span>
+          </div>
+          <p class="example" id="matrix-best"></p>
+
+          <div class="matrix-wrap">
+            <div class="matrix-grid" id="matrix-grid"></div>
+            <div class="matrix-words" id="matrix-words"></div>
+          </div>
+
+          <div class="hangman-result" id="matrix-result" hidden>
+            <p class="hangman-result-text win">🎉 All words found!</p>
+            <p class="hangman-answer">
+              Time: <strong id="matrix-final-time">0:00</strong> · Hints used:
+              <strong id="matrix-final-hints">0</strong>
+            </p>
+            <p class="example" id="matrix-final-best"></p>
+            <div class="nav-row">
+              <button class="nav-btn" id="matrix-change" type="button">← Back</button>
+              <button class="nav-btn primary" id="matrix-restart" type="button">Play again ↻</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="seo-content" aria-label="Word matrix hakkında">
+        <div class="seo-inner">
+          <h2>Word Matrix · Harf Izgarasında Kelime Avı</h2>
+          <p><strong>Word Matrix</strong>, harflerden oluşan bir ızgarada gizlenmiş kelimeleri bulmanızı ister. Kelimeler yatay, dikey ve çapraz olarak yerleştirilir; bulmanız gereken kelimelerin <strong>anlamları</strong> ipucu olarak verilir.</p>
+          <p>Bu oyun, kelimenin <strong>görsel şeklini</strong> tanıma becerisini geliştirir — hızlı okuma sırasında kelimeleri harf harf değil bir bütün olarak algıladığınız için, okuma hızınıza doğrudan katkı sağlar.</p>
+          <p>Diğer modlara göre daha sakin ve süre baskısızdır; uzun bir çalışma seansının sonunda <strong>zihin yormadan tekrar</strong> yapmak için uygundur.</p>
+          <ul class="seo-features">
+            <li>👀 Izgarayı <strong>satır satır</strong> tarayın, rastgele bakmayın.</li>
+            <li>🔤 Aradığınız kelimenin <strong>ilk harfini</strong> gözünüzde tutup sadece o harfi arayın.</li>
+            <li>↗️ <strong>Çapraz</strong> yerleşimleri en sona bırakın; genellikle en zor olanlar onlardır.</li>
+          </ul>
+          <p class="seo-en" lang="en">Word Matrix hides words horizontally, vertically and diagonally in a letter grid, with their meanings as clues. It trains whole-word visual recognition, which feeds directly into reading speed — and it is a calm, no-time-pressure way to revise at the end of a study session.</p>
+          <h3>İlgili sayfalar · Related pages</h3>
+          <nav class="cert-links" aria-label="İlgili sayfalar">
+            <a class="cert-link" href="games.html">
+              <span class="cert-name">🎮 Oyunlar</span>
+              <span class="cert-org">16 kelime oyunu · 16 games</span>
+            </a>
+            <a class="cert-link" href="index.html">
+              <span class="cert-name">🃏 Kelime Kartları</span>
+              <span class="cert-org">Flashcards · A1–C2</span>
+            </a>
+            <a class="cert-link" href="wordlist.html">
+              <span class="cert-name">📋 Kelime Listesi</span>
+              <span class="cert-org">Tüm kelimeler · Full word list</span>
+            </a>
+            <a class="cert-link" href="readingcomprehension.html">
+              <span class="cert-name">📖 Reading</span>
+              <span class="cert-org">Okuduğunu anlama · Comprehension</span>
+            </a>
+            <a class="cert-link" href="help.html">
+              <span class="cert-name">❓ Yardım</span>
+              <span class="cert-org">Kullanım kılavuzu · How to use</span>
+            </a>
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <div class="more-sheet" id="more-sheet" hidden>
+      <div class="more-sheet-inner">
+        <div class="more-sheet-handle"></div>
+        <a class="more-link" href="home.html">🏠 Home</a>
+        <a class="more-link" href="stats.html">📊 Stats</a>
+        <a class="more-link" href="listening.html">🎧 Listening</a>
+        <a class="more-link" href="about.html">ℹ️ About</a>
+        <a class="more-link" href="help.html">❓ Help</a>
+        <a class="more-link" href="profile.html">👤 Profile</a>
+        <a class="more-link" href="history.html">📜 History</a>
+        <a class="more-link" href="privacy.html">🔒 Gizlilik · Privacy</a>
+        <a class="more-link" href="terms.html">📄 Şartlar · Terms</a>
+        <a class="more-link" href="terms.html#contact">✉️ İletişim · Contact</a>
+        <button type="button" id="more-close" class="more-close-btn">Close</button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <nav class="footer-links" aria-label="Site bilgileri ve yasal sayfalar">
+        <a href="about.html">Hakkında</a>
+        <a href="help.html">Yardım</a>
+        <a href="privacy.html">Gizlilik Politikası</a>
+        <a href="terms.html">Kullanım Şartları</a>
+        <a href="terms.html#contact">İletişim</a>
+      </nav>
+      <p>
+        <strong>Top Words</strong> — Türk öğrenciler için ücretsiz İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime ezberleme uygulaması · YDS, YÖKDİL, ÜDS, UDSP,
+        TOEFL, telc &amp; CEFR ·
+        <span id="word-total">0</span> <span id="footer-level">B2</span> top
+        words.
+      </p>
+    </footer>
+
+    <script defer src="shared.js"></script>
+    <script defer src="matrix.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function () { startApp(); });</script>
+  </body>
+</html>

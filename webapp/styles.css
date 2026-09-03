@@ -1,0 +1,5990 @@
+:root {
+  --bg: #0f172a;
+  --bg-soft: #1e293b;
+  --card: #1e293b;
+  --card-2: #273449;
+  --border: #334155;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --primary: #6366f1;
+  --primary-2: #818cf8;
+  --accent: #22d3ee;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --warn: #f59e0b;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --maxw: 760px;
+  --body-glow: #1b2a4a; /* the radial-gradient "glow" behind the header on desktop */
+  --header-mobile-bg: rgba(15, 23, 42, 0.92); /* sticky header / bottom-nav backdrop on phones */
+  --hover-tint: rgba(255, 255, 255, 0.06); /* subtle press/hover highlight on card-colored surfaces */
+  --flashcard-back-1: #233156; /* flashcard back-face gradient (front face already uses var(--card-2)/var(--card)) */
+  --flashcard-back-2: #1b2a4a;
+  --highlight-bg: #000; /* .hint/.definition/.example "spotlight" look */
+  --highlight-text: #facc15;
+  --soft-danger-text: #fca5a5; /* .home-goal.err / .home-lang-btn.is-danger */
+  --soft-success-text: #bbf7d0; /* .home-goal.ok */
+}
+
+/* Light theme: applied via a `data-theme="light"` attribute set on <html>
+   BEFORE first paint by a tiny inline script in every page's <head> (reads
+   the "udsp_theme_v1" localStorage key -- see profile.js's theme toggle).
+   Overrides just the custom properties above; nearly the entire site reads
+   colors through var(--xxx), so this alone re-themes almost everything.
+   The handful of spots that hardcoded a dark color directly instead of
+   using a variable (the body's background glow, the mobile sticky header/
+   bottom-nav backdrop, the flashcard's back face, and one hover tint) each
+   got their own dedicated variable above/below so they can be overridden
+   here too -- see the "grep for every hardcoded #0f172a/#1e293b/rgba(15,23,
+   42..." sweep noted in repo memory before assuming var() coverage is total. */
+html[data-theme="light"] {
+  --bg: #f8fafc;
+  --bg-soft: #f1f5f9;
+  --card: #ffffff;
+  --card-2: #f8fafc;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --primary: #6366f1;
+  --primary-2: #4f46e5;
+  --accent: #0891b2;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warn: #d97706;
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+  --body-glow: #dbeafe;
+  --header-mobile-bg: rgba(255, 255, 255, 0.85);
+  --hover-tint: rgba(15, 23, 42, 0.05);
+  --flashcard-back-1: #eef2ff;
+  --flashcard-back-2: #e0e7ff;
+  --highlight-bg: #fef3c7;
+  --highlight-text: #92400e;
+  --soft-danger-text: #b91c1c;
+  --soft-success-text: #15803d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  background: radial-gradient(1200px 600px at 50% -10%, var(--body-glow) 0%, var(--bg) 60%);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5;
+}
+
+/* Header */
+.site-header {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 12px 20px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* First header line: logo + wordmark + the main toolbar + the icon buttons,
+   all on ONE row. Everything here is deliberately tight (small logo, small
+   wordmark, icon-only About/Help/Stats) so the whole row fits inside the
+   760px content width without wrapping. The wordmark is the only flexible
+   item -- it ellipsizes first if a font renders wider than expected, so the
+   toolbar and the icons never get squashed. */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex-wrap: nowrap;
+}
+.brand > .bottom-nav {
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.logo {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: block;
+  border-radius: 7px;
+  filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.5));
+}
+
+/* The one and only header wordmark, on ALL 24 pages -- the per-page
+   <h1>title</h1> + "Top Words — ..." tagline that about/help/games/
+   listening/home/history/profile used to show here were dropped as
+   redundant (every page already names itself in <title>, and most repeat
+   it in their own content), so every page's header now reads exactly the
+   same. It's an <h1> on the pages that have no other <h1> (about, games,
+   help, listening) and a <span> on the rest. "Condensed" is approximated
+   via a narrow-font stack + font-stretch (only takes effect where the
+   resolved font actually has a condensed cut/axis) plus tight
+   letter-spacing, since the site doesn't load a dedicated condensed
+   webfont -- this degrades gracefully to bold + tight tracking everywhere
+   else. */
+.brand-title {
+  margin: 0;
+  font-family: "Arial Narrow", "Roboto Condensed", "Segoe UI", Arial, sans-serif;
+  font-stretch: condensed;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  white-space: nowrap;
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Word Morph: Synonym / Antonym type picker (setup screen) */
+.wm-type-picker {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.wm-type-btn {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 7px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.wm-type-btn:hover {
+  color: var(--text);
+  border-color: var(--primary);
+}
+
+.wm-type-btn.is-active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+}
+
+/* Level switcher container -- shared by the header's #levels-nav (now a
+   <select>, styled via .select-pill below) AND Reading Comprehension's
+   own independent #rc-grade-picker (readingcomprehension.js), which is
+   still a plain button row -- do not remove .level-btn/.is-active, they
+   stay in active use by that picker. */
+.levels {
+  display: flex;
+  gap: 8px;
+  background: var(--bg-soft);
+  padding: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  align-self: flex-start;
+  flex-wrap: wrap;
+}
+
+.level-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  padding: 8px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.level-btn:hover {
+  color: var(--text);
+}
+
+.level-btn.is-active {
+  background: linear-gradient(135deg, var(--accent), var(--primary-2));
+  color: #0f172a;
+  box-shadow: 0 6px 16px rgba(34, 211, 238, 0.35);
+}
+
+/* ============ Combo-box shared look (Language / Level / Study mode) ============
+   Applied alongside .langs/.levels/.modes on the 3 header <select>s.
+   Declared AFTER those classes so its background/padding/border-radius win
+   the cascade for the header's #levels-nav select without having to touch
+   the shared .levels rule above (still needed as-is by the button-based
+   #rc-grade-picker). */
+.select-pill {
+  display: inline-block;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Each pill is sized by JS (sizeSelect in shared.js / moresheet.js) to fit
+     its CURRENTLY selected value, so short values stay tiny while long ones
+     ("Phrasal Verbs", "Transportation", "Word Morph") expand just enough to
+     stay fully legible. This max-width is only a safety cap; the
+     text-overflow rule below is a fallback for before JS runs. */
+  max-width: 180px;
+  background-color: var(--bg-soft);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2394a3b8'%3E%3Cpath d='M5.5 7.5l4.5 5 4.5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  background-size: 10px;
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-weight: 700;
+  font-size: 0.7rem;
+  padding: 5px 18px 5px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.select-pill:hover {
+  border-color: var(--primary);
+}
+.select-pill:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.25);
+}
+/* Dark dropdown list on browsers that honor it (Chromium/Firefox) --
+   harmless no-op elsewhere (e.g. Safari ignores <option> background). */
+.select-pill option {
+  background: var(--card);
+  color: var(--text);
+}
+
+/* Row holding the Lang / Level / Category combo boxes together on one
+   line, each preceded by a short label (the old APP combo box is gone --
+   the main toolbar on the header's first row covers that navigation).
+   flex-wrap is only a
+   safety net for narrow phones where all 3 + labels genuinely don't fit;
+   at normal widths they sit on one line. Shrunk to the minimum gap so
+   the row takes up as little space as possible. */
+.selectors-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.select-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.select-label {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+/* Category "Filter" button + chip-grid popover -- replaces the 29-item
+   native Category <select> (hard to scan; ~82% of words are "General").
+   The button reuses .select-pill; the popover is built in shared.js
+   (ensureCategoryPopover) and appended to <body>. */
+.filter-btn {
+  text-align: left;
+}
+#category-popover-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.5);
+  z-index: 200;
+}
+#category-popover {
+  position: fixed;
+  z-index: 201;
+  width: min(340px, calc(100vw - 24px));
+  max-height: 68vh;
+  overflow-y: auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 12px 14px 14px;
+}
+.cat-pop-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.cat-pop-title {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.cat-pop-close {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.cat-pop-close:hover {
+  color: var(--text);
+}
+.cat-pop-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.cat-chip:hover {
+  border-color: var(--primary);
+}
+.cat-chip.is-active {
+  background: linear-gradient(135deg, var(--accent), var(--primary-2));
+  color: #0f172a;
+  border-color: transparent;
+  font-weight: 800;
+}
+.cat-chip-count {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.cat-chip.is-active .cat-chip-count {
+  color: rgba(15, 23, 42, 0.65);
+}
+
+/* Layout */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 10px 20px 24px;
+  flex: 1;
+}
+
+.view {
+  display: none;
+  animation: fade 0.25s ease;
+}
+
+.view.is-active {
+  display: block;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.counter,
+.score {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.score {
+  color: var(--accent);
+}
+
+.ghost-btn {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.ghost-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary-2);
+}
+
+/* Flashcard */
+.flashcard {
+  perspective: 1200px;
+  width: 100%;
+  height: 240px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flashcard.is-flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  /* Long definitions/examples used to silently overflow this fixed-height
+     (see .flashcard's height/clamp above) box since neither this nor its
+     parent clipped overflow -- the text just spilled out past the card's
+     edge, visually overlapping .card-actions/.nav-row below it and making
+     the page taller/scrollable than it needed to be. Scrolling INSIDE the
+     face instead keeps the card's footprint (and everything below it)
+     fixed regardless of content length. */
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(160deg, var(--flashcard-back-1), var(--flashcard-back-2));
+}
+
+.flashcard-front h2 {
+  font-size: 1.6rem;
+  margin: 10px 0 6px;
+  letter-spacing: -0.02em;
+}
+
+.hint {
+  color: var(--highlight-text);
+  background: var(--highlight-bg);
+  font-size: 0.85rem;
+  margin: 6px 0 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.definition {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 8px 0 14px;
+  color: var(--highlight-text);
+  background: var(--highlight-bg);
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+/* Entries whose "definition" is really a synonym list (see setDefinition in
+   shared.js) say so, instead of passing the list off as an explanation. */
+.def-note {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+/* Raw Wiktionary prose overflows a phone card, so collapse it to four lines
+   until the learner asks for the rest. */
+.definition.is-clamped .bi-native {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.def-more {
+  display: block;
+  margin-top: 6px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.def-more:hover {
+  text-decoration: underline;
+}
+
+.example {
+  color: var(--highlight-text);
+  background: var(--highlight-bg);
+  font-style: italic;
+  font-size: 0.95rem;
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+/* Bilingual definition/example halves.
+ * The data files join both languages with a literal " - ". Showing that raw
+ * put the separator right beside any hyphen inside the words themselves --
+ * "Ill-fated, fateful. - Uğursuz, kara." looked like it had two dashes and
+ * gave no clue where the Turkish began. The halves are now separate
+ * elements, so the separator is dropped and the split is shown by layout. */
+.bi-native {
+  display: block;
+}
+.bi-tr {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.92em;
+}
+.example .bi-tr,
+.option .bi-tr {
+  color: inherit;
+  opacity: 0.75;
+}
+
+.example-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.14);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  color: var(--primary-2);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+/* resetExample() hides this button when a word has no example sentence, but
+   `display: inline-flex` above outranks the UA stylesheet's `[hidden]` rule --
+   without this the button showed on every card and did nothing when tapped. */
+.example-btn[hidden] {
+  display: none;
+}
+
+.example-btn:hover {
+  background: rgba(99, 102, 241, 0.24);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+/* ===== Floating info popover (Hint / Example reveal box) =====
+ * Small, rounded, closeable overlay used app-wide by every "Hint"/
+ * "Example" reveal button, positioned on top of the current card/question
+ * instead of showing the revealed text inline in the page flow. Not a
+ * browser popup window -- just a fixed-position <div> + backdrop, so it
+ * can never be blocked by a popup blocker. */
+.info-popover-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.55);
+}
+.info-popover-backdrop[hidden] {
+  display: none;
+}
+.info-popover {
+  position: fixed;
+  top: 16%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 201;
+  width: min(420px, calc(100vw - 32px));
+  max-height: 70vh;
+  overflow-y: auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  padding: 18px 34px 18px 18px;
+  animation: info-popover-in 0.16s ease;
+}
+.info-popover[hidden] {
+  display: none;
+}
+@keyframes info-popover-in {
+  from {
+    transform: translateX(-50%) translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+.info-popover-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+.info-popover-close:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.info-popover-body .example,
+.info-popover-body .hint,
+.info-popover-body .definition {
+  margin: 0;
+}
+@media (max-width: 480px) {
+  .info-popover {
+    top: 10%;
+    padding: 16px 30px 16px 14px;
+  }
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(99, 102, 241, 0.18);
+  color: var(--primary-2);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.badge:empty {
+  display: none;
+}
+
+.badge-level {
+  background: rgba(34, 211, 238, 0.16);
+  color: var(--accent);
+  border-color: rgba(34, 211, 238, 0.35);
+}
+
+/* Dictionary links to Cambridge / PONS: "Details" (bilingual translation
+   page) + "Examples" (monolingual page with more examples) */
+.vocab-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.vocab-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+/* Same trap as .example-btn[hidden]: #fc-example-btn / #quiz-example-btn /
+   #quiz-audio / #cloze-example-btn are hidden when the word has no example,
+   and `display: inline-flex` was quietly keeping them on screen. */
+.vocab-link[hidden] {
+  display: none;
+}
+
+.vocab-link:hover {
+  background: rgba(34, 211, 238, 0.22);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.wl-link,
+.review-link {
+  margin-top: 8px;
+}
+
+.wl-link .vocab-links,
+.review-link .vocab-links {
+  margin-top: 0;
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+.wl-link .vocab-link,
+.review-link .vocab-link {
+  padding: 5px 12px;
+  font-size: 0.76rem;
+}
+
+/* Nav row */
+.nav-row {
+  display: flex;
+  gap: 8px;
+}
+/* Needed for the same reason as .info-popover[hidden]: the `display: flex`
+   above outranks the UA stylesheet's `[hidden] { display: none }`. */
+.nav-row[hidden] {
+  display: none;
+}
+
+.nav-btn {
+  flex: 1;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.nav-btn:hover {
+  border-color: var(--primary);
+}
+
+.nav-btn.primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  border: none;
+  color: white;
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+}
+
+.nav-btn.primary:hover {
+  filter: brightness(1.07);
+}
+
+/* Quiz: exam picker */
+.picker-intro h2 {
+  margin: 4px 0 6px;
+}
+
+.picker-intro p {
+  color: var(--muted);
+  margin: 0 0 18px;
+  font-size: 0.95rem;
+}
+
+.exam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.exam-tile {
+  position: relative;
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.18s ease;
+  overflow: hidden;
+}
+
+.exam-tile:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.exam-tile .exam-no {
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.exam-tile .exam-range {
+  color: var(--muted);
+  font-size: 0.72rem;
+  margin-top: 2px;
+}
+
+.exam-tile .exam-best {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.exam-tile.is-done {
+  border-color: rgba(34, 197, 94, 0.5);
+}
+
+.exam-tile .check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 0.8rem;
+}
+
+/* Quiz: progress bar */
+.progress-bar,
+.result-bar {
+  height: 8px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar span,
+.result-bar span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width 0.35s ease;
+}
+
+/* ===== Study-status panel: daily-goal ring + level-mastery bar ===== */
+/* Persistent progress shown at the top of the Flashcards / Quiz views so the
+   "known X / Y" number is always visible and a daily goal turns studying
+   into a habit loop. */
+.study-status {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 14px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow);
+}
+.goal-ring {
+  position: relative;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  outline: none;
+}
+.goal-ring svg {
+  display: block;
+}
+.goal-ring-track {
+  fill: none;
+  stroke: var(--bg-soft);
+  stroke-width: 4;
+}
+.goal-ring-fill {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 4;
+  stroke-linecap: round;
+  /* dasharray/offset are set from JS (circumference of r=19 ≈ 119.38px);
+     these px-unit initial values render an empty ring before the first
+     render call. Must carry px — unitless is invalid CSS for stroke-*. */
+  stroke-dasharray: 119.38px;
+  stroke-dashoffset: 119.38px;
+  transition: stroke-dashoffset 0.5s ease, stroke 0.3s ease;
+}
+.goal-ring-num {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.goal-ring.is-done .goal-ring-fill {
+  stroke: var(--success);
+}
+.goal-ring.is-done .goal-ring-num {
+  color: var(--success);
+}
+.study-status-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.study-status-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.study-status-label {
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: var(--text);
+}
+.study-status-msg {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-align: right;
+}
+.goal-ring.is-done + .study-status-main .study-status-msg {
+  color: var(--success);
+}
+.mastery-bar {
+  height: 8px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.mastery-bar span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--success), var(--accent));
+  transition: width 0.4s ease;
+}
+.mastery-count {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.mastery-count strong {
+  color: var(--text);
+}
+
+/* Quiz card */
+.quiz-card {
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 18px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.quiz-question-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin: 0 0 12px;
+}
+
+.quiz-question-line .quiz-prompt,
+.quiz-question-line .quiz-word {
+  margin: 0;
+}
+
+.quiz-prompt {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 8px;
+}
+
+.quiz-word {
+  font-size: 1.75rem;
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+}
+
+.options {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 6px;
+  text-align: left;
+}
+
+.option {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 11px 14px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.option:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: var(--card-2);
+}
+
+.option .key {
+  font-weight: 800;
+  color: var(--primary-2);
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+.option.correct {
+  border-color: var(--success);
+  background: rgba(34, 197, 94, 0.15);
+}
+
+.option.wrong {
+  border-color: var(--danger);
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.option.is-5050 {
+  opacity: 0.32;
+  text-decoration: line-through;
+}
+
+.feedback {
+  min-height: 22px;
+  font-weight: 700;
+  margin: 6px 0;
+}
+
+.feedback.ok {
+  color: var(--success);
+}
+
+.feedback.no {
+  color: var(--danger);
+}
+
+/* Quiz: combines the result label, Listen/Details/Examples links, and the
+   Next question/Submit exam button onto one line (was 3 stacked rows) to
+   save vertical space. Overrides that only apply inside this row (not the
+   shared .feedback/.vocab-links/.nav-btn classes used elsewhere). */
+.quiz-feedback-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+.quiz-feedback-row .feedback {
+  margin: 0;
+}
+.quiz-feedback-row .vocab-links {
+  margin-top: 0;
+}
+.quiz-feedback-row .nav-btn {
+  flex: 0 0 auto;
+}
+
+/* Quiz result */
+.quiz-result {
+  text-align: center;
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  box-shadow: var(--shadow);
+}
+
+.result-emoji {
+  font-size: 3rem;
+}
+
+.result-score {
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin: 6px 0;
+  background: linear-gradient(135deg, var(--primary-2), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.result-bar {
+  max-width: 320px;
+  margin: 8px auto 16px;
+}
+
+.result-best {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.result-actions .nav-btn {
+  flex: 1 1 auto;
+  min-width: 130px;
+}
+
+/* Review list */
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 22px 0 0;
+  text-align: left;
+}
+
+.review-list li {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  background: var(--bg-soft);
+}
+
+.review-list li.ok {
+  border-color: rgba(34, 197, 94, 0.4);
+}
+
+.review-list li.no {
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.review-word {
+  font-weight: 700;
+}
+
+.review-def {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-top: 2px;
+}
+
+.review-yours {
+  font-size: 0.82rem;
+  margin-top: 4px;
+}
+
+.review-yours .no-text {
+  color: var(--danger);
+}
+
+.review-yours .ok-text {
+  color: var(--success);
+}
+
+/* Word list */
+.search {
+  flex: 1;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.search:focus {
+  border-color: var(--primary);
+}
+
+.word-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.word-list li {
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.word-list .wl-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.word-list .wl-word {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.word-list .wl-pos {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.82rem;
+}
+
+.word-list .wl-def {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.word-list .wl-example {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-style: italic;
+  font-family: "Arial Narrow", "Roboto Condensed", "Segoe UI", Arial, sans-serif;
+  font-stretch: condensed;
+  margin-top: 4px;
+}
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 30px;
+}
+
+/* Word List page boundary: everything past the first page used to be
+   unreachable by browsing, so this control has to read as an action. */
+.wl-more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 16px;
+  text-align: center;
+}
+.wl-more .nav-btn {
+  min-width: 200px;
+}
+.wl-more span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  max-width: 46ch;
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.82rem;
+  padding: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* Legal / info links shown in the footer of every page. The privacy policy
+   has to stay clearly labelled and easily accessible. */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px 14px;
+  margin: 0 0 12px;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  color: var(--text);
+  border-bottom-color: var(--primary-2);
+}
+
+/* ===== SEO content (about + FAQ) ===== */
+.seo-content {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 8px 20px 40px;
+  color: var(--muted);
+}
+
+.seo-inner {
+  border-top: 1px solid var(--border);
+  padding-top: 28px;
+}
+
+.seo-content h2 {
+  font-size: 1.15rem;
+  color: var(--text);
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+}
+
+.seo-content h3 {
+  font-size: 1rem;
+  color: var(--text);
+  margin: 26px 0 10px;
+}
+
+.seo-content h4 {
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 18px 0 8px;
+}
+
+.seo-content p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin: 0 0 12px;
+}
+
+.seo-content strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.seo-en {
+  opacity: 0.82;
+}
+
+.seo-features {
+  list-style: none;
+  margin: 8px 0 4px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.seo-features li {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.seo-content details {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-soft);
+  padding: 0 14px;
+  margin-bottom: 10px;
+}
+
+.seo-content summary {
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.92rem;
+  list-style: none;
+}
+
+.seo-content summary::-webkit-details-marker {
+  display: none;
+}
+
+.seo-content summary::after {
+  content: "+";
+  float: right;
+  color: var(--primary-2);
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.seo-content details[open] summary::after {
+  content: "–";
+}
+
+.seo-content details p {
+  padding-bottom: 12px;
+  margin: 0;
+}
+
+/* ===== "💡" info button + modal for the .seo-content prose =====
+   The long boilerplate paragraphs at the bottom of every study/game page
+   are pure noise while you are actually using the page: they push the real
+   UI around, force the scrolling surface to scroll, and nobody reads them
+   mid-game. So the whole block is hidden AT EVERY WIDTH and reached
+   through a 💡 button that wireSeoInfoModal() adds to the header icon row
+   instead. (This started phone-only; desktop was folded in afterwards
+   because the wall of text sat right under the app there too.)
+
+   Three deliberate choices:
+   - The trigger lives in .brand-actions (next to ℹ️/❓/📊/👤) rather than
+     where the prose used to be. .view.is-active is `flex: 1 1 auto` inside
+     the scrolling .container, so on a page whose view overflows (quiz.html
+     with 145 exam tiles) the view SHRINKS and its content paints straight
+     over anything that follows it -- a button down there is unclickable.
+     The header can't be overlapped.
+   - The prose is NEVER cloned. wireSeoInfoModal() MOVES the one real
+     .seo-inner element into the modal on open and moves it back on close,
+     so there is exactly one copy in the DOM (no duplicate ids, and the
+     crawler-visible markup is untouched).
+   - Both rules hang off .is-collapsed, which only wireSeoInfoModal() adds
+     -- so they apply ONLY where a 💡 button actually exists.
+     about/help/listening/privacy/terms also use .seo-content, and there
+     the long text IS the page; a blanket rule would blank those pages. */
+.seo-info-btn {
+  font-family: inherit;
+  cursor: pointer;
+}
+.seo-content.is-collapsed {
+  display: none;
+}
+/* Two classes deep so it beats .about-btn's own display:inline-flex no
+   matter which rule comes first in the file. */
+.brand-actions .seo-info-btn {
+  display: inline-flex;
+}
+
+.seo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 260;
+  display: flex;
+  /* Centred dialog on desktop; the phone block below turns it back into a
+     bottom sheet for thumb reach. */
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 12px;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 12px);
+}
+/* styles.css sets display:flex above, which OUTRANKS the UA sheet's
+   [hidden]{display:none} -- without this companion rule the modal would
+   be permanently open. Same trap as .info-popover / .more-sheet; see
+   scripts/_diag_hidden_css.py, which fails the build on a missing one. */
+.seo-modal[hidden] {
+  display: none;
+}
+.seo-modal-card {
+  width: min(560px, 100%);
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  animation: seo-modal-in 0.18s ease;
+}
+@keyframes seo-modal-in {
+  from {
+    transform: translateY(18px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.seo-modal-head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 14px 10px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.seo-modal-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.seo-modal-close {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+.seo-modal-close:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.seo-modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px 18px calc(16px + env(safe-area-inset-bottom));
+  color: var(--muted);
+}
+/* .seo-inner's top rule/padding separates it from the page content above
+   it; inside the modal the header already does that. */
+.seo-modal-body .seo-inner {
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* ===== Games hub (Oyunlar) + Listening resource hub =====
+   The tile grid on games.html and the CEFR link lists on listening.html both
+   live outside .seo-content (see the comments in those files) so the 💡
+   collapse above can never hide a page's only navigation. Mirrors the
+   .seo-content / .seo-content h2 box so the pages look unchanged. */
+.games-hub,
+.links-hub {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 8px 20px 0;
+}
+.games-hub-title {
+  font-size: 1.15rem;
+  color: var(--text);
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+}
+/* Simple/Complex game-category toggle (2026-09-02) -- filters .game-tiles
+   via a class on the grid itself (see the rules right after .game-tiles
+   below), so it composes cleanly with .game-tile.is-morph's own unrelated
+   responsive hide (both just resolve to display:none, never fighting over
+   the same declaration). Mirrors .wm-type-picker/.wm-type-btn's look. */
+.game-cat-toggle {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 12px;
+  flex-wrap: wrap;
+}
+.game-cat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 7px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.game-cat-btn:hover {
+  color: var(--text);
+  border-color: var(--primary);
+}
+.game-cat-btn.is-active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+}
+.game-cat-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+/* listening.html reuses .seo-content's heading rhythm for its h3/h4 groups so
+   splitting the prose out of it didn't change how the link lists read. */
+.links-hub h3 {
+  font-size: 1rem;
+  color: var(--text);
+  margin: 26px 0 10px;
+}
+.links-hub h4 {
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 18px 0 8px;
+}
+
+/* ===== Streak chip (2026-07-23: no longer rendered in the header -- the
+   streak is now shown on profile.html instead; the header slot was
+   replaced by .profile-icon-link, see below). Kept as harmless dead CSS
+   in case a future page still wants this exact look, same precedent as
+   other superseded classes left in place elsewhere in this file. ===== */
+.streak-chip {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: var(--warn);
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.78rem;
+}
+.streak-flame {
+  font-size: 0.88rem;
+  cursor: help;
+  outline: none;
+}
+/* ===== Header profile icon (all 22 pages) ===== */
+.profile-icon-link {
+  position: relative;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  font-size: 0.98rem;
+  text-decoration: none;
+  transition: border-color 0.18s ease, transform 0.15s ease;
+}
+.profile-icon-link:hover {
+  border-color: var(--primary-2);
+  transform: translateY(-1px);
+}
+.profile-icon-link.is-active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  border-color: transparent;
+  color: #fff;
+}
+/* Solid green background (not just a small corner dot) once this device
+   has an active cloud profile (see PROFILE_LINKED_KEY in shared.js/
+   moresheet.js/home.js/profile.js) -- a clear, at-a-glance "you're signed
+   in" indicator, visible without loading Firebase on every page. Wins over
+   .is-active's purple "current page" gradient when both apply (e.g. on
+   profile.html itself while signed in) since it comes later in this file
+   at equal specificity -- intentional, "signed in" is the more useful
+   signal to show at that point. */
+.profile-icon-link.is-linked {
+  background: linear-gradient(135deg, var(--success), #16a34a);
+  border-color: transparent;
+  color: #fff;
+}
+/* Generic hover/focus tooltip via [data-tip] attribute — used by the streak
+   flame and by abbreviated level buttons (e.g. "PV" for Phrasal
+   Verbs/Partikelverb) to reveal their full name. */
+[data-tip] {
+  position: relative;
+}
+[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  /* max-content + a cap keeps short tips on one line while long ones wrap
+     instead of stretching a few hundred pixels wide -- a hidden tooltip
+     still takes up layout space, and an over-wide one used to push the
+     page into horizontal scrolling on phones. */
+  width: max-content;
+  max-width: min(78vw, 300px);
+  white-space: normal;
+  text-align: center;
+  background: var(--card-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 20;
+}
+/* Little arrow pointing at the tooltipped element */
+[data-tip]::before {
+  content: "";
+  position: absolute;
+  top: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  border: 5px solid transparent;
+  border-bottom-color: var(--border);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 20;
+}
+[data-tip]:hover::after,
+[data-tip]:focus-visible::after,
+[data-tip]:hover::before,
+[data-tip]:focus-visible::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+/* Header icon buttons sit hard against the right edge, so their tooltips
+   open leftwards from the button's right edge instead of centred -- a
+   centred tooltip would spill past the viewport (and, because a hidden
+   tooltip still takes up layout space, widen the whole page). Same for the
+   right-aligned "Create profile" nudge button. */
+.brand-actions [data-tip]::after,
+.profile-nudge-actions [data-tip]::after {
+  left: auto;
+  right: 0;
+  transform: translateY(4px);
+}
+.brand-actions [data-tip]:hover::after,
+.brand-actions [data-tip]:focus-visible::after,
+.profile-nudge-actions [data-tip]:hover::after,
+.profile-nudge-actions [data-tip]:focus-visible::after {
+  transform: translateY(0);
+}
+
+/* ===== Mix level option: plain <option value="MIX"> now, no CSS needed ===== */
+
+/* ===== Chip buttons (audio / known / fav / filters) ===== */
+.card-actions,
+.list-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  margin: 0 0 10px;
+}
+.card-actions[hidden] {
+  display: none;
+}
+.list-filters {
+  justify-content: flex-start;
+  margin-top: -4px;
+}
+.chip-btn {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.84rem;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+.chip-btn:hover:not(:disabled) {
+  border-color: var(--primary);
+  color: var(--primary-2);
+}
+.chip-btn.is-on {
+  background: rgba(34, 211, 238, 0.16);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+#fc-fav.is-on,
+.mark-fav.is-on {
+  background: rgba(245, 158, 11, 0.16);
+  border-color: var(--warn);
+  color: var(--warn);
+}
+.mark-known.is-on {
+  background: rgba(34, 197, 94, 0.16);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+/* ===== Word list marks ===== */
+.wl-marks {
+  margin-left: auto;
+  display: inline-flex;
+  gap: 6px;
+}
+.mark-btn {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+.mark-btn:hover {
+  border-color: var(--primary);
+  color: var(--text);
+}
+
+/* ===== Reverse mode banner (flashy, obviously clickable) ===== */
+.reverse-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  margin: 0 0 20px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  color: #fff;
+  background: linear-gradient(135deg, #f59e0b, #ec4899 52%, #6366f1);
+  background-size: 220% 220%;
+  box-shadow: 0 8px 24px rgba(236, 72, 153, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.reverse-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(236, 72, 153, 0.55);
+}
+.reverse-banner:active {
+  transform: translateY(0);
+}
+.reverse-banner:focus-within {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.reverse-banner input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.reverse-banner-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+.reverse-banner-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  line-height: 1.3;
+}
+.reverse-banner-text strong {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+.reverse-banner-sub {
+  font-size: 0.8rem;
+  opacity: 0.92;
+}
+.reverse-banner-state::after {
+  content: "OFF";
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+.reverse-banner:has(input:checked) .reverse-banner-state::after {
+  content: "ON";
+  background: #fff;
+  color: #db2777;
+}
+
+/* slider knob (reused base .switch) tuned for the banner */
+.switch {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  flex: none;
+  transition: all 0.18s ease;
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  transition: all 0.18s ease;
+}
+.reverse-banner input:checked ~ .switch {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #fff;
+}
+.reverse-banner input:checked ~ .switch::after {
+  transform: translateX(18px);
+  background: var(--primary);
+}
+
+@keyframes reverse-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes reverse-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .reverse-banner:hover {
+    animation: reverse-shimmer 6s ease infinite;
+  }
+  .reverse-banner:hover .reverse-banner-icon {
+    animation: reverse-spin 5s linear infinite;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reverse-banner,
+  .reverse-banner-icon {
+    animation: none;
+  }
+}
+
+/* ===== Reverse quiz prompt ===== */
+.quiz-word.is-reverse {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Shown when a "Due / Mistakes / Starred" study source has nothing in it yet.
+   An empty pool is a normal state, not an error, so this reads as guidance
+   rather than as a warning. */
+.pool-empty {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  background: var(--bg-soft);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 22px 18px;
+  margin: 10px 0;
+}
+.review-done {
+  text-align: center;
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 24px;
+  box-shadow: var(--shadow);
+}
+.review-done .result-emoji {
+  font-size: 2.6rem;
+}
+.muted-text {
+  color: var(--muted);
+  margin: 8px 0 18px;
+}
+
+/* ===== Stats dashboard ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+.stat-card {
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 14px;
+  text-align: center;
+}
+.stat-icon {
+  font-size: 1.3rem;
+}
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 4px 0 2px;
+  background: linear-gradient(135deg, var(--primary-2), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.stat-label {
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.stat-sub {
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+.stats-subhead {
+  margin: 24px 0 12px;
+  font-size: 1rem;
+}
+.level-progress {
+  display: grid;
+  gap: 10px;
+}
+.lp-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lp-name {
+  width: 28px;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+.lp-bar {
+  flex: 1;
+  height: 10px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.lp-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+.lp-count {
+  color: var(--muted);
+  font-size: 0.78rem;
+  min-width: 74px;
+  text-align: right;
+}
+.stats-actions {
+  margin-top: 22px;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .flashcard {
+    height: 300px;
+  }
+  .quiz-word {
+    font-size: 1.6rem;
+  }
+  .result-score {
+    font-size: 2.2rem;
+  }
+  .streak-chip {
+    padding: 5px 10px;
+    font-size: 0.82rem;
+  }
+  .profile-icon-link {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* ===== Hangman ===== */
+.hangman-setup .picker-intro {
+  text-align: center;
+}
+/* "← All Games" link shown on every individual game's setup screen (Hangman,
+   Cloze Test, Word Scramble, etc.) -- the header's Mode dropdown already
+   shows "Games" selected on these pages, so re-picking the same option
+   there fires no change event and can't navigate; this link is the only
+   reliable way back to the games.html hub to pick a different game. */
+.games-hub-link {
+  margin-bottom: 10px;
+}
+.hangman-levels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+.hm-level-btn {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.hm-level-btn:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+.hm-level-count {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-left: 4px;
+}
+
+/* ===== Game start box (Hangman / Cloze Test / Word Scramble / Matching
+   Pairs / Speed Round) — the level & language are already chosen via the
+   header's lang/level nav above, so games only show a "Start" confirmation
+   for the CURRENTLY selected level instead of a second, duplicate level
+   picker. ===== */
+.game-start {
+  text-align: center;
+  margin-top: 12px;
+}
+.game-start-level {
+  font-size: 1.1rem;
+  margin: 0 0 4px;
+}
+.game-start-count {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 6px;
+}
+.game-start-warning {
+  color: var(--danger);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 10px auto 0;
+  max-width: 420px;
+}
+.game-start-btn {
+  font-size: 0.95rem;
+  padding: 12px 30px;
+  margin-top: 12px;
+}
+.game-start-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: none;
+  box-shadow: none;
+}
+.game-start-hint {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin-top: 16px;
+}
+
+.hangman-stage {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  margin: 8px 0 4px;
+}
+.hangman-svg {
+  width: 160px;
+  height: 180px;
+  flex: 0 0 auto;
+}
+.hangman-svg line,
+.hangman-svg circle {
+  stroke: var(--text);
+  stroke-width: 4;
+  stroke-linecap: round;
+  fill: none;
+}
+.hangman-svg .hm-part {
+  visibility: hidden;
+  stroke: var(--danger);
+}
+.hangman-svg circle.hm-part {
+  fill: none;
+}
+.hangman-svg .hm-part.show {
+  visibility: visible;
+}
+.hangman-side {
+  flex: 1;
+  min-width: 0;
+}
+.hangman-clue {
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  border-left: 4px solid var(--accent);
+  border-radius: 10px;
+}
+.hangman-lives {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.hangman-word {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: flex-end;
+  margin: 18px 0;
+  min-height: 46px;
+}
+.hm-slot {
+  min-width: 26px;
+  border-bottom: 3px solid var(--muted);
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.35;
+}
+.hm-slot.filled {
+  border-bottom-color: var(--accent);
+}
+.hm-fixed {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--muted);
+  line-height: 1.35;
+}
+.hm-space {
+  width: 16px;
+}
+
+.hangman-keyboard {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 6px;
+  max-width: 470px;
+  margin: 0 auto;
+}
+.hm-key {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  padding: 11px 0;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.hm-key:hover:not(:disabled) {
+  border-color: var(--primary);
+}
+.hm-key:disabled {
+  cursor: default;
+}
+.hm-key.correct {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: var(--success);
+  color: var(--success);
+}
+.hm-key.wrong {
+  background: rgba(239, 68, 68, 0.14);
+  border-color: var(--danger);
+  color: var(--danger);
+  opacity: 0.55;
+}
+
+.hangman-result {
+  text-align: center;
+  margin-top: 10px;
+}
+.hangman-result-text {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0 0 4px;
+}
+.hangman-result-text.win {
+  color: var(--success);
+}
+.hangman-result-text.lose {
+  color: var(--danger);
+}
+.hangman-answer {
+  font-size: 0.95rem;
+  margin: 0 0 6px;
+}
+.hangman-answer strong {
+  color: var(--accent);
+}
+.hm-answer-label {
+  color: var(--muted);
+}
+.hangman-result .nav-row {
+  max-width: 420px;
+  margin: 8px auto 0;
+}
+
+@media (max-width: 520px) {
+  .hangman-keyboard {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .hangman-svg {
+    width: 130px;
+    height: 150px;
+  }
+}
+
+/* ===== Cloze Test ===== */
+.cloze-sentence-box {
+  font-size: 1.15rem;
+  text-align: left;
+}
+.cloze-blank {
+  display: inline-block;
+  min-width: 74px;
+  border-bottom: 3px solid var(--accent);
+  color: var(--accent);
+  font-weight: 800;
+  text-align: center;
+  margin: 0 2px;
+}
+#cloze-pos {
+  margin-bottom: 10px;
+}
+
+/* ===== About button (header) + certification links ===== */
+.brand-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  /* 4px, not 6px, and the icons below lose 3px of side padding: the 💡 button
+     is a FIFTH icon on this row and .brand-title is the only flexible item in
+     .brand, so without reclaiming that width the wordmark ellipsizes to
+     "Yabancı Dil Kelime Ezberle…" on every page. Measured at 1024-1680px: the
+     bulb costs ~25px, this gives ~34px back (gap 6→4 alone was 1px short).
+     scripts/_diag_header_fit.js re-measures the delta. */
+  gap: 4px;
+}
+.brand-actions .about-btn {
+  padding: 5px 5px;
+}
+.brand-actions .streak-chip {
+  margin-left: 0;
+}
+.brand-actions .profile-icon-link {
+  margin-left: 0;
+}
+.about-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  padding: 5px 8px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+}
+/* Header About/Help/Stats are ICON-ONLY: the label lives in .btn-txt and is
+   surfaced on hover / keyboard focus by the global [data-tip] tooltip (each
+   link also carries the same text as its aria-label for screen readers). */
+.about-btn .btn-txt {
+  display: none;
+}
+.about-btn:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+.about-btn.is-active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  border-color: transparent;
+  color: #fff;
+}
+
+.cert-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.cert-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+.cert-link:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.cert-name {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.cert-org {
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.about-back {
+  text-align: center;
+  margin-top: 22px;
+}
+.about-back .nav-btn {
+  display: inline-block;
+  flex: none;
+  text-decoration: none;
+}
+
+/* ===== Help page ===== */
+.help-langnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 6px 0 10px;
+}
+.help-langnav a {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.18s ease;
+}
+.help-langnav a:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+.help-list {
+  margin: 8px 0 16px;
+  padding-left: 22px;
+}
+.help-list li {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.help-list li strong {
+  color: var(--text);
+}
+.help-list li em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* ===================================================================
+   MAIN TAB BAR (Cards / Quiz / Games / Words / More) + RESPONSIVE LAYOUT
+   Breakpoint: <=720px = phone treatment (edge-to-edge, stacked icon over
+   label); above that (tablets like iPad, and desktop/PC) the SAME bar is
+   a centered pill row under the header.
+   =================================================================== */
+
+/* Shown at EVERY width since 2026-07-26 (it used to be phone-only, fixed to
+   the bottom of the screen). It now lives INSIDE .brand on all 24 pages,
+   immediately after the wordmark, so it shares the header's first line.
+   Base styling below = the DESKTOP look (compact pill group); the
+   @media (max-width:720px) block further down drops it onto its own
+   edge-to-edge row under the wordmark for phones. */
+.bottom-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 2px;
+  width: fit-content;
+  max-width: calc(var(--maxw) - 40px);
+  margin: 0;
+  padding: 3px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+.bottom-nav-item {
+  flex: 0 0 auto;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 30px;
+  padding: 5px 8px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  text-decoration: none;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.bottom-nav-item .bn-icon {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+.bottom-nav-item .bn-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.bottom-nav-item:hover {
+  color: var(--text);
+}
+.bottom-nav-item.is-active {
+  background: linear-gradient(135deg, var(--accent), var(--primary-2));
+  color: #0f172a;
+  box-shadow: 0 6px 16px rgba(34, 211, 238, 0.35);
+}
+.bottom-nav-item:active {
+  background: var(--hover-tint);
+}
+/* Word Morph tab: PHONE ONLY (2026-08-05). On wide screens Word Morph stays
+   where it always was -- a tile inside the Games hub -- so the toolbar keeps
+   its five items. The @media (max-width:720px) block below reveals this tab
+   and hides the matching hub tile, per explicit request. */
+.bottom-nav-item.bn-morph {
+  display: none;
+}
+
+/* "More" sheet (Home / Word Morph / Stats / Listening / About / Help /
+   Profile). Capped + centered so it reads as a card on wide screens; on
+   phones `width:100%` wins and it spans edge to edge as usual. */
+.more-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+}
+.more-sheet[hidden] {
+  display: none;
+}
+.more-sheet-inner {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  padding: 10px 16px calc(16px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 70vh;
+  overflow-y: auto;
+  animation: sheet-up 0.2s ease;
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(16px);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.more-sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 999px;
+  margin: 2px auto 10px;
+}
+.more-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 12px;
+  border-radius: 12px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.98rem;
+  min-height: 44px;
+}
+.more-link:hover,
+.more-link:active {
+  background: var(--bg-soft);
+}
+.more-link.is-active {
+  color: var(--accent);
+  background: rgba(34, 211, 238, 0.1);
+}
+.more-close-btn {
+  margin-top: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+@media (max-width: 720px) {
+  /* ---------------------------------------------------------------
+     Phone UX: app-shell feel. The header and the 5-item tab bar are
+     BOTH pinned at the TOP of the screen (see the tab-bar block below
+     -- it used to be a fixed bottom bar), so both nav surfaces are
+     always in reach while the content beneath them is sized to fit the
+     viewport — the primary study/game pages don't scroll (native
+     iOS/Android pattern). Genuinely long content (Word List, About,
+     Help) still scrolls normally beneath the pinned nav.
+     --------------------------------------------------------------- */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    padding: 8px 12px;
+    gap: 8px;
+    background: var(--header-mobile-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  /* The toolbar shares the header's first line on wide screens; on phones it
+     wraps onto its own full-bleed row directly under the wordmark. */
+  .brand {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .brand > .bottom-nav {
+    order: 3;
+    flex: 1 0 100%;
+    margin: 4px -12px 0;
+  }
+  .brand-title {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand-actions {
+    order: 0;
+    width: auto;
+    margin-left: auto;
+    justify-content: flex-end;
+  }
+  .about-btn {
+    /* Tightened from 8px when the 💡 button became a fifth icon in
+       .brand-actions, so the wordmark keeps the width it had beside four.
+       Unscoped here on purpose (unlike the base rule): on a phone the
+       certification links want the tighter padding too. */
+    padding: 5px 6px;
+  }
+  .selectors-row {
+    width: 100%;
+    gap: 6px;
+  }
+
+  /* -----------------------------------------------------------------
+     Phone re-skin of the shared top tab bar (2026-07-26). The bar is
+     defined once near the top of this file with a DESKTOP look (compact
+     pill group sharing the header's first line); here it becomes the
+     full-width, edge-to-edge, icon-over-label tab strip phones expect,
+     on its own row directly under the wordmark. It used to be a FIXED
+     BOTTOM bar -- now it lives inside .brand, so `body` no longer
+     reserves height at the bottom for it and it needs no backdrop blur
+     of its own (it sits inside the header, which already has one).
+     Class names (.bottom-nav / .bottom-nav-item / .bn-*) are
+     deliberately kept -- they appear in all 24 HTML files plus
+     moresheet.js/shared.js.
+     ----------------------------------------------------------------- */
+  .bottom-nav {
+    width: auto;
+    max-width: none;
+    gap: 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    padding: 2px max(6px, env(safe-area-inset-right)) 4px
+      max(6px, env(safe-area-inset-left));
+  }
+  .bottom-nav-item {
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: 2px;
+    min-height: 42px;
+    padding: 4px 2px;
+    border-radius: 12px;
+  }
+  .bottom-nav-item .bn-icon {
+    font-size: 1.1rem;
+  }
+  .bottom-nav-item .bn-label {
+    font-size: 0.65rem;
+  }
+  /* Subtler active state than the desktop gradient pill -- closer to a
+     native iOS/Android tab bar. */
+  .bottom-nav-item.is-active {
+    background: rgba(34, 211, 238, 0.12);
+    color: var(--accent);
+    box-shadow: none;
+  }
+  /* Word Morph becomes a sixth tab here (hidden at wider widths, see the
+     base rule above) and its Games-hub tile is dropped, so the game is
+     reachable in one tap from anywhere instead of two. */
+  .bottom-nav-item.bn-morph {
+    display: inline-flex;
+  }
+  .game-tile.is-morph {
+    display: none;
+  }
+  /* wordmorph.html marks BOTH the Games tab (correct on wide screens, where
+     Word Morph lives in the hub) and the new Morph tab as active. On phones
+     the Morph tab owns that state, so mute the Games one. */
+  body[data-mode="wordmorph"] .bottom-nav-item.is-active[href="games.html"] {
+    background: transparent;
+    color: var(--muted);
+  }
+  body {
+    /* Nothing is fixed to the bottom any more -- just stay clear of the
+       phone's home-indicator area. */
+    padding-bottom: env(safe-area-inset-bottom);
+    /* True app-shell: the page itself no longer scrolls -- height is
+       pinned to the viewport and .container below becomes the ONLY
+       scrolling surface, so the header + tab bar pinned above it are
+       ALWAYS reachable without ever needing to scroll the page to find
+       them. Content that's genuinely too long to fit (Word
+       List, About, Help, long flashcard definitions, etc.) still scrolls
+       -- just within .container instead of the whole page.
+       Uses 100svh (SMALL viewport height, i.e. the height when a mobile
+       browser's own address bar/toolbar chrome is at its most EXPANDED),
+       not 100dvh, on purpose: iOS Safari shows its toolbars expanded on
+       first load, and 100dvh does not always settle to that same value
+       immediately, so a shell sized with dvh can briefly claim more
+       height than is actually visible on screen -- since our whole layout
+       deliberately fills that height exactly (flashcard/quiz-card flex-
+       grow to fit, see below), the very bottom row (rate/nav buttons) can
+       end up rendered UNDER Safari's own bottom bar with no way to reveal
+       it, because our own .container correctly sees no overflow and so
+       offers no scroll gesture at all. 100svh is the guaranteed-visible
+       floor -- sizing to it means the shell always fits inside whatever
+       is ACTUALLY on screen, even right at first paint. (100vh first is
+       just the ancient fallback for browsers with none of these units.) */
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+  }
+  /* Boilerplate SEO footer: hide on phones so it never forces a scroll (kept
+     for desktop + crawlers). */
+  .site-footer {
+    display: none;
+  }
+
+  /* The .seo-content collapse + its 💡 trigger are NOT phone-only any more
+     (see the base rules), so nothing to switch on here. Phones only
+     restyle the dialog into a bottom sheet -- same thumb-reach reasoning
+     as .info-popover just below. */
+  .seo-modal {
+    align-items: flex-end;
+  }
+  .seo-modal-card {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    max-height: 78vh;
+  }
+
+  .container {
+    padding: 10px 12px 14px;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    /* Phones scroll vertically only -- nothing here is ever meant to be
+       reached by swiping sideways. */
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Each page's active view (17 study/game pages all use this same
+     .view/.is-active pattern) fills whatever space .container has left
+     after the header/tab bar -- and becomes its OWN flex column so a
+     page can pin its toolbar/action rows and let just ONE content element
+     (the flashcard, quiz card, game board, etc.) grow/shrink/scroll
+     internally instead of pushing those controls off-screen. Pages that
+     don't opt a specific child into flex:1 below simply keep their normal
+     block flow and, if genuinely too tall, scroll within .container --
+     still better than scrolling the whole page, since the header and
+     tab bar never move either way. */
+  .view.is-active {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  /* Slimmer daily-goal / mastery panel on phones. */
+  .study-status {
+    padding: 7px 12px;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .study-status-main {
+    gap: 3px;
+  }
+  .goal-ring {
+    width: 40px;
+    height: 40px;
+  }
+  .progress-bar {
+    margin-bottom: 10px;
+  }
+
+  .level-btn {
+    padding: 10px 16px;
+  }
+
+  /* Flashcard grows/shrinks to fill exactly whatever space is left after
+     the fixed-size status/progress/actions/nav rows above and below it --
+     replaces the old static clamp()-height approximation with an exact
+     fit, so Next/Previous/Home are ALWAYS visible without scrolling the
+     page. Unusually long definitions/examples scroll inside the card
+     itself instead (see .flashcard-face's overflow-y). */
+  #view-flashcards > .study-status,
+  #view-flashcards > .progress-bar,
+  #view-flashcards > .card-actions,
+  #view-flashcards > .nav-row {
+    flex: 0 0 auto;
+  }
+  .flashcard {
+    flex: 1 1 auto;
+    min-height: 160px;
+    height: auto;
+    margin-bottom: 12px;
+  }
+  .flashcard-face {
+    padding: 16px;
+  }
+  .flashcard-front h2 {
+    font-size: 1.5rem;
+    margin: 6px 0 4px;
+  }
+  .definition {
+    font-size: 1rem;
+    padding: 8px 12px;
+    margin: 6px 0 10px;
+  }
+  .example {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+  .hint {
+    font-size: 0.78rem;
+    padding: 5px 9px;
+  }
+
+  /* "Details"/"Examples" open Cambridge Dictionary in a new tab -- on
+     phones that means bouncing out to Safari/Chrome and back, which
+     breaks the app-like feel far more jarringly than a desktop new-tab
+     does. Hide just the <a> "vocab-link"s (Details/Examples, always
+     anchors with target="_blank"); the <button> ones (Example/Listen/
+     Hint toggles, all in-page, no navigation away) are untouched. Desktop
+     keeps both links -- intentionally not touched. */
+  .vocab-links a.vocab-link {
+    display: none;
+  }
+
+  /* "Example"/Report reveal popover: anchor as a bottom sheet on phones
+     instead of dropping in from near the top -- easier to reach with a
+     thumb and doesn't feel like it opens "in its own window" up top
+     (the tab bar no longer occupies the bottom edge, so it can sit
+     lower now). Wins over the desktop top:16% (and the older
+     max-width:480px top:10% tweak) since this is declared later in the
+     stylesheet. Desktop popover position is intentionally not touched. */
+  .info-popover {
+    top: auto;
+    bottom: calc(env(safe-area-inset-bottom) + 12px);
+    animation: info-popover-in-mobile 0.16s ease;
+  }
+  @keyframes info-popover-in-mobile {
+    from {
+      transform: translateX(-50%) translateY(16px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Compact one-row action bar: icon-only buttons (text labels hidden) so
+     the card + actions + nav all fit above the tab bar without scrolling. */
+  .card-actions {
+    gap: 6px;
+    margin-bottom: 10px;
+    flex-wrap: nowrap;
+  }
+  .card-actions .counter {
+    margin-right: auto;
+  }
+  .card-actions .btn-txt {
+    display: none;
+  }
+  .card-actions .chip-btn,
+  .card-actions .ghost-btn {
+    min-height: 40px;
+    padding: 0 11px;
+    font-size: 0.95rem;
+  }
+  .nav-row {
+    gap: 8px;
+  }
+  .nav-btn {
+    padding: 10px 8px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  /* Quiz on phones: the exam's own "Question N / 20 · Score" row already
+     shows progress, so hide the generic study-status panel here to give the
+     four bilingual answer options room to fit without scrolling. */
+  body[data-mode="quiz"] .study-status {
+    display: none;
+  }
+  /* Quiz's active question AND Word Morph's game board share this same
+     shape (.toolbar, optionally .progress-bar, then the question card) --
+     pin the toolbar/progress bar and let the card grow/shrink + scroll
+     internally, same technique as the flashcard above, so the options and
+     hint/feedback row are always reachable without scrolling the page. */
+  #quiz-active,
+  #wordmorph-game {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  /* Both panels are toggled with the `hidden` attribute, which the
+     `display: flex` above silently defeated -- on phones the empty question
+     card sat underneath the exam picker / start screen. */
+  #quiz-active[hidden],
+  #wordmorph-game[hidden] {
+    display: none;
+  }
+  #quiz-active > .toolbar,
+  #quiz-active > .progress-bar,
+  #wordmorph-game > .toolbar {
+    flex: 0 0 auto;
+  }
+  #quiz-active > .quiz-card,
+  #wordmorph-game > .quiz-card {
+    flex: 1 1 auto;
+    min-height: 140px;
+    overflow-y: auto;
+  }
+  .quiz-card {
+    padding: 16px 14px;
+  }
+  .quiz-question-line {
+    margin-bottom: 8px;
+  }
+  .quiz-word {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+  .options {
+    gap: 7px;
+    margin: 8px 0 6px;
+  }
+  .option {
+    padding: 9px 12px;
+    min-height: 40px;
+    font-size: 0.86rem;
+    line-height: 1.3;
+  }
+  .quiz-feedback-row {
+    margin: 8px 0;
+  }
+  .exam-grid {
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .search {
+    font-size: 16px; /* prevent iOS Safari auto-zoom on focus */
+  }
+  .wl-head {
+    row-gap: 6px;
+  }
+  .reverse-banner {
+    padding: 12px 14px;
+  }
+  .hm-level-btn,
+  .cert-link,
+  .about-btn,
+  .chip-btn {
+    min-height: 40px;
+  }
+
+  /* Stats: slimmer cards + level rows so more fits before scrolling. */
+  .stats-grid {
+    gap: 8px;
+  }
+  .stat-card {
+    padding: 12px 10px;
+  }
+  .stat-value {
+    font-size: 1.5rem;
+  }
+  .stats-subhead {
+    margin: 14px 0 8px;
+  }
+  .level-progress {
+    gap: 7px;
+  }
+
+  /* Home dashboard: tighten hero, stat row and headings to fit a phone. */
+  #home-root h1 {
+    font-size: 1.35rem;
+    margin: 2px 0 10px;
+  }
+  .home-hero {
+    padding: 16px 14px;
+    margin: 4px 0 12px;
+  }
+  .home-title {
+    font-size: 1.3rem;
+  }
+  .home-stat-row {
+    gap: 16px;
+    margin: 4px 0 10px;
+  }
+  .home-goal {
+    padding: 8px 12px;
+    margin-bottom: 10px;
+  }
+  .home-continue {
+    padding: 10px 18px;
+  }
+  .home-section-title {
+    margin-bottom: 8px;
+  }
+}
+
+/* Smallest phones (360px and below): shave the header just enough that the
+   full "Yabancı Dil Kelime Ezberleme" wordmark still fits beside the five
+   icon buttons (💡ℹ️❓📊👤) instead of being ellipsized. */
+@media (max-width: 400px) {
+  .brand-title {
+    font-size: 0.74rem;
+  }
+  .brand-actions {
+    gap: 2px;
+  }
+  .about-btn {
+    padding: 5px 5px;
+  }
+}
+
+@media (max-width: 380px) {
+  .bottom-nav-item .bn-label {
+    font-size: 0.6rem;
+  }
+}
+
+/* ===================================================================
+   ADAPTIVE APP NAVIGATION
+
+   Phones use the familiar five-destination bottom bar in the thumb zone.
+   Wider screens use the same destinations as a compact navigation rail,
+   following the adaptive pattern used by Android tablets and iPad apps.
+   The existing markup stays shared across every page; only its placement
+   changes. Active games keep that primary escape route but collapse the
+   setup/header chrome so the game itself owns the stage.
+   =================================================================== */
+.bottom-nav-item {
+  position: relative;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.bottom-nav-item .bn-icon {
+  display: grid;
+  place-items: center;
+  transition: transform 0.16s ease, background 0.16s ease, color 0.16s ease;
+}
+
+body.is-playing .site-header {
+  padding-top: 0;
+  padding-bottom: 0;
+  gap: 0;
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+body.is-playing .brand {
+  min-height: 0;
+  height: 0;
+}
+body.is-playing .brand > .logo-link,
+body.is-playing .brand > .brand-title,
+body.is-playing .brand > .brand-actions,
+body.is-playing .selectors-row,
+body.is-playing .profile-nudge-banner {
+  display: none;
+}
+
+@media (min-width: 721px) {
+  :root {
+    --app-rail-width: 76px;
+  }
+  body {
+    padding-left: var(--app-rail-width);
+  }
+  .brand > .bottom-nav,
+  .bottom-nav {
+    position: fixed;
+    z-index: 80;
+    inset: 0 auto 0 0;
+    width: var(--app-rail-width);
+    max-width: none;
+    margin: 0;
+    padding: 12px 8px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: var(--header-mobile-bg);
+    border: 0;
+    border-right: 1px solid var(--border);
+    border-radius: 0;
+    box-shadow: 8px 0 28px rgba(2, 6, 23, 0.12);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+  }
+  .bottom-nav-item {
+    width: 60px;
+    min-height: 58px;
+    padding: 7px 4px;
+    flex-direction: column;
+    gap: 4px;
+    border-radius: 14px;
+  }
+  .bottom-nav-item::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 15px;
+    width: 3px;
+    height: 28px;
+    border-radius: 0 4px 4px 0;
+    background: transparent;
+    transform: scaleY(0.35);
+    transition: transform 0.18s ease, background 0.18s ease;
+  }
+  .bottom-nav-item .bn-icon {
+    width: 42px;
+    height: 27px;
+    border-radius: 999px;
+    font-size: 1.15rem;
+  }
+  .bottom-nav-item .bn-label {
+    font-size: 0.64rem;
+    line-height: 1;
+  }
+  .bottom-nav-item:hover {
+    background: var(--hover-tint);
+  }
+  .bottom-nav-item.is-active {
+    color: var(--accent);
+    background: rgba(34, 211, 238, 0.09);
+    box-shadow: none;
+  }
+  .bottom-nav-item.is-active::before {
+    background: var(--accent);
+    transform: scaleY(1);
+  }
+  .bottom-nav-item.is-active .bn-icon {
+    background: rgba(34, 211, 238, 0.14);
+    animation: nav-selected-in 0.2s ease-out;
+  }
+  .bottom-nav-item:active {
+    transform: scale(0.96);
+  }
+  .brand {
+    min-height: 32px;
+  }
+}
+
+@media (max-width: 720px) {
+  .site-header {
+    padding-bottom: 6px;
+  }
+  .brand {
+    flex-wrap: nowrap;
+  }
+  .brand > .bottom-nav,
+  .bottom-nav {
+    position: fixed;
+    z-index: 80;
+    inset: auto 0 0;
+    width: 100%;
+    max-width: none;
+    height: calc(64px + env(safe-area-inset-bottom));
+    margin: 0;
+    padding: 5px max(8px, env(safe-area-inset-right))
+      calc(5px + env(safe-area-inset-bottom))
+      max(8px, env(safe-area-inset-left));
+    gap: 0;
+    background: var(--header-mobile-bg);
+    border: 0;
+    border-top: 1px solid var(--border);
+    border-radius: 0;
+    box-shadow: 0 -10px 30px rgba(2, 6, 23, 0.16);
+    backdrop-filter: blur(18px) saturate(145%);
+    -webkit-backdrop-filter: blur(18px) saturate(145%);
+  }
+  .bottom-nav-item {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 54px;
+    padding: 3px 2px;
+    flex-direction: column;
+    gap: 2px;
+    border-radius: 12px;
+  }
+  .bottom-nav-item .bn-icon {
+    width: 50px;
+    height: 28px;
+    border-radius: 999px;
+    font-size: 1.08rem;
+  }
+  .bottom-nav-item .bn-label {
+    font-size: 0.64rem;
+    line-height: 1;
+  }
+  .bottom-nav-item.is-active {
+    color: var(--accent);
+    background: transparent;
+    box-shadow: none;
+  }
+  .bottom-nav-item.is-active .bn-icon {
+    background: rgba(34, 211, 238, 0.15);
+    animation: nav-selected-in 0.2s ease-out;
+  }
+  .bottom-nav-item:active .bn-icon {
+    transform: scale(0.9);
+  }
+  .bottom-nav-item.bn-morph {
+    display: none;
+  }
+  .game-tile.is-morph {
+    display: flex;
+  }
+  body[data-mode="wordmorph"] .bottom-nav-item.is-active[href="games.html"] {
+    color: var(--accent);
+    background: transparent;
+  }
+  body {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+  .brand-actions .about-btn {
+    display: none;
+  }
+  .brand-actions .seo-info-btn {
+    display: inline-flex;
+  }
+}
+
+@keyframes nav-selected-in {
+  from {
+    transform: scale(0.82);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottom-nav-item,
+  .bottom-nav-item::before,
+  .bottom-nav-item .bn-icon {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* ===== Games hub (Oyunlar) =====
+   Icon+name squares (2026-09-02, sized up same day after "too small to
+   read" feedback) -- the old card (icon + name + a 2-line description)
+   needed 5 columns' worth of width per tile and ran to 5+ rows for 25
+   games, forcing a page scroll just to see the whole hub. Descriptions
+   are gone (still in the DOM/each tile's accessible name for SEO and
+   screen readers, just visually hidden) and aspect-ratio keeps every
+   tile a true square regardless of how many columns fit, so the whole
+   grid still fits without scrolling even at a legible icon/text size --
+   fewer, bigger columns beats many tiny ones. */
+.game-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+.game-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+  aspect-ratio: 1;
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 8px 6px;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+.game-tile:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+.game-tile-icon {
+  font-size: 1.7rem;
+  line-height: 1;
+}
+.game-tile-name {
+  font-weight: 800;
+  font-size: 0.78rem;
+  line-height: 1.2;
+  color: var(--text);
+}
+.game-tile-desc {
+  display: none;
+}
+.game-tiles.is-filtered-simple .game-tile[data-cat="complex"],
+.game-tiles.is-filtered-complex .game-tile[data-cat="simple"] {
+  display: none;
+}
+
+/* ---------- Home / dashboard (home.html) ---------- */
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.home-hero {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+  margin: 6px 0 14px;
+  text-align: center;
+}
+.home-title {
+  margin: 0 0 6px;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+.home-sub,
+.home-pick {
+  color: var(--muted);
+  margin: 4px auto 10px;
+  max-width: 46ch;
+}
+.home-pick {
+  color: var(--text);
+  font-weight: 600;
+}
+.home-stat-row {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin: 4px 0 10px;
+}
+.home-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.home-stat-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-2);
+}
+.home-stat-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.home-goal {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin: 0 auto 10px;
+  max-width: 52ch;
+  font-size: 0.9rem;
+}
+.home-goal.ok {
+  border-color: var(--success);
+  color: var(--soft-success-text);
+}
+.home-goal.err {
+  border-color: var(--danger);
+  color: var(--soft-danger-text);
+}
+.home-lang-btn.is-danger {
+  border-color: var(--danger);
+  color: var(--soft-danger-text);
+}
+.home-lang-btn.is-danger:hover {
+  border-color: var(--danger);
+  background: rgba(239, 68, 68, 0.12);
+}
+.home-continue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.98rem;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  box-shadow: 0 8px 22px rgba(99, 102, 241, 0.4);
+}
+.home-continue:hover {
+  filter: brightness(1.07);
+}
+.home-langs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 4px 0 10px;
+}
+.home-lang-btn {
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-2);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.08s ease, border-color 0.15s ease;
+}
+.home-lang-btn:hover {
+  border-color: var(--primary-2);
+  transform: translateY(-2px);
+}
+/* Google's official "G" logo, inlined as SVG in the sign-in button
+   (profile.js's PROVIDER_LABEL) -- vertical-align nudges it to sit on the
+   text baseline the same way an emoji glyph would, without needing to
+   turn every .home-lang-btn into a flex container just for this one case. */
+.provider-icon {
+  vertical-align: -4px;
+  margin-right: 2px;
+}
+.home-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 44ch;
+  margin: 4px auto 0;
+  text-align: left;
+}
+.home-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.home-step-n {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+}
+.home-section-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 0 0 12px;
+}
+
+/* Profile page: "Default start page" picker -- a full-size version of the
+   header's .select-pill look (same dark pill + dropdown-arrow image), NOT
+   the header's own .select-pill class since that's JS-sized down to ~82px
+   for the compact toolbar and would truncate a settings-page label badly. */
+.profile-select-wrap {
+  max-width: 360px;
+  margin: 0 auto;
+}
+.profile-select {
+  display: block;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--bg-soft);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2394a3b8'%3E%3Cpath d='M5.5 7.5l4.5 5 4.5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px;
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 12px 34px 12px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.18s ease;
+}
+.profile-select:hover,
+.profile-select:focus-visible {
+  border-color: var(--primary);
+  outline: none;
+}
+
+/* Profile page: autosave checkbox row */
+.profile-checkbox-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin: 10px 0;
+}
+.profile-checkbox-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+/* ===== History page (history.html) ===== */
+.history-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 6px 0 18px;
+}
+.history-count {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+.history-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary-2);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.history-item-quiz {
+  border-left-color: var(--accent);
+}
+.history-item-wordmorph {
+  border-left-color: var(--success);
+}
+.history-item-readingcomp {
+  border-left-color: var(--warn);
+}
+.history-icon {
+  font-size: 1.2rem;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+.history-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.92rem;
+  min-width: 0;
+}
+.history-meta {
+  font-size: 0.76rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* ===== Profile page: compact layout ===== */
+/* .home-hero is used site-wide (Home's onboarding hero too, which should
+   stay spacious) -- these overrides only apply on profile.html, scoped via
+   data-mode, and shrink padding/margins for a denser settings-page feel. */
+body[data-mode="profile"] .home-hero {
+  padding: 14px 16px;
+  margin: 0;
+  text-align: left;
+}
+body[data-mode="profile"] .home-title {
+  font-size: 1.15rem;
+  margin: 0 0 6px;
+}
+body[data-mode="profile"] .home-sub {
+  margin: 4px 0 10px;
+  max-width: none;
+}
+body[data-mode="profile"] .home-section-title {
+  font-size: 0.92rem;
+  margin: 0 0 8px;
+}
+body[data-mode="profile"] .home-langs {
+  justify-content: flex-start;
+  margin: 4px 0 6px;
+}
+body[data-mode="profile"] .home-stat-row {
+  justify-content: flex-start;
+  gap: 22px;
+  margin: 4px 0 2px;
+}
+body[data-mode="profile"] .home-stat {
+  align-items: flex-start;
+}
+
+/* Spreads the identity/streak/settings/danger-zone blocks into a 2x2 grid
+   (see renderSignedOut/renderSignedIn/renderNotConfigured in profile.js --
+   each returns its own <section class="home-hero"> "card", and the caller
+   wraps all 4 in this grid container) instead of stacking them full-width
+   in one tall column -- makes the page wider but noticeably shorter. Each
+   card keeps equal height per row via `align-items: stretch` (the grid
+   default), and collapses back to a single column on narrow/phone screens
+   where two half-width cards would cramp the settings/danger rows. */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 720px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Row pairing a section heading with a small icon-link (e.g. streak -> History) */
+.profile-row-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.profile-row-head .home-section-title {
+  margin: 0;
+}
+.profile-history-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.08s ease;
+}
+.profile-history-link:hover,
+.profile-history-link:focus-visible {
+  border-color: var(--primary-2);
+  transform: translateY(-1px);
+}
+
+/* One setting per row: label+info-tip on the left, the control on the
+   right; wraps to 2 lines on narrow phones instead of overlapping. */
+.profile-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  padding: 6px 0;
+  border-top: 1px solid var(--border);
+}
+.profile-setting-row:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+.profile-setting-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+.profile-setting-row .profile-checkbox-row {
+  margin: 0;
+  justify-content: flex-start;
+}
+.profile-setting-row .profile-select {
+  width: auto;
+  min-width: 180px;
+}
+.profile-setting-row .profile-select-wrap,
+#profile-start-page {
+  margin: 0;
+}
+
+/* Danger zone: same one-row-per-action layout, with a smaller/compact
+   danger button instead of the full-size .home-lang-btn pill (these live
+   in a tight list now, not a spaced-out standalone section each). */
+.profile-danger-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  padding: 6px 0;
+  border-top: 1px solid var(--border);
+}
+.profile-danger-row:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+.profile-danger-btn {
+  padding: 7px 14px;
+  font-size: 0.8rem;
+}
+
+/* Small "ⓘ"/icon trigger that reveals its explanation only on hover/focus,
+   reusing the SAME [data-tip] mechanism already used site-wide (streak
+   flame, PV level abbreviation) -- see that rule's comment further up this
+   file. Only the wrapping/width/anchor differ here since Profile's
+   explanations are full sentences, not short single-line labels. */
+.info-tip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: help;
+  flex-shrink: 0;
+  outline: none;
+}
+.info-tip:hover,
+.info-tip:focus-visible {
+  border-color: var(--primary-2);
+  color: var(--primary-2);
+}
+[data-tip].info-tip::after {
+  white-space: normal;
+  width: max-content;
+  max-width: min(280px, calc(100vw - 40px));
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.78rem;
+  left: 0;
+  transform: translateY(4px);
+}
+[data-tip].info-tip::before {
+  left: 8px;
+}
+[data-tip].info-tip:hover::after,
+[data-tip].info-tip:focus-visible::after {
+  transform: translateY(0);
+}
+
+/* Site-wide "create a free profile" nudge banner (shared.js,
+   renderProfileNudgeBanner()) -- injected at the top of <main> on all 17
+   study/game pages when this device has no linked cloud profile yet. */
+.profile-nudge-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.16), rgba(139, 92, 246, 0.16));
+  border: 1px solid var(--primary-2);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin: 0 0 14px;
+}
+.profile-nudge-text {
+  flex: 1 1 240px;
+  font-size: 0.82rem;
+  color: var(--text);
+}
+.profile-nudge-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.profile-nudge-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* "How it works" replay button (home dashboard) */
+.home-howto-row {
+  text-align: center;
+  margin: -4px 0 20px;
+}
+.home-howto {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 9px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.home-howto:hover {
+  border-color: var(--primary-2);
+  color: var(--primary-2);
+}
+
+/* ---------- New-visitor welcome hero (redesigned onboarding, 2026-07-22) ---------- */
+.home-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.16);
+  border: 1px solid rgba(129, 140, 248, 0.4);
+  color: var(--primary-2);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 14px;
+}
+.home-hero-new {
+  text-align: left;
+  padding: 28px 26px;
+}
+.home-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 26px;
+  align-items: center;
+}
+.home-hero-copy .home-title {
+  font-size: 1.7rem;
+  line-height: 1.3;
+  margin: 0 0 10px;
+}
+.home-hero-copy .home-sub {
+  margin: 0;
+  max-width: 42ch;
+}
+.home-hero-card {
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.home-hero-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.14);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.home-hero-card-title {
+  display: block;
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+}
+.home-hero-globe {
+  position: relative;
+  width: 132px;
+  height: 132px;
+  margin: 4px auto 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  background: radial-gradient(circle at 35% 30%, rgba(129, 140, 248, 0.35), rgba(15, 23, 42, 0) 70%),
+    linear-gradient(160deg, rgba(99, 102, 241, 0.25), rgba(34, 211, 238, 0.12));
+  border: 1px solid var(--border);
+}
+.home-hero-globe span {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+.home-hero-globe span:nth-child(1) {
+  top: -6px;
+  left: 8px;
+}
+.home-hero-globe span:nth-child(2) {
+  top: 14px;
+  right: -12px;
+}
+.home-hero-globe span:nth-child(3) {
+  bottom: -8px;
+  left: 26px;
+}
+.home-hero-tag {
+  display: inline-block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.home-picker {
+  margin: 0 0 22px;
+}
+.home-picker-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 0 0 4px;
+  text-align: center;
+}
+.home-picker-sub {
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+  margin: 0 0 16px;
+}
+.home-langs-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}
+.home-lang-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 10px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.08s ease, background 0.15s ease;
+}
+.home-lang-card:hover {
+  border-color: var(--primary-2);
+  transform: translateY(-2px);
+}
+.home-lang-card.is-selected {
+  border-color: var(--primary-2);
+  background: linear-gradient(160deg, rgba(99, 102, 241, 0.22), rgba(34, 211, 238, 0.08));
+  box-shadow: 0 0 0 1px var(--primary-2) inset;
+}
+.home-lang-flag {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+.home-lang-name {
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+.home-lang-native {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+.home-picker.home-nudge {
+  animation: home-nudge-kf 0.4s ease;
+}
+@keyframes home-nudge-kf {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.home-setup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 0 0 24px;
+}
+.home-setup-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.home-setup-card h3 {
+  font-size: 0.92rem;
+  margin: 0 0 12px;
+}
+.home-goal-options,
+.home-mode-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.home-opt-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.home-opt-btn:hover {
+  border-color: var(--primary-2);
+}
+.home-opt-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.home-opt-text strong {
+  font-size: 0.85rem;
+}
+.home-opt-sub {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+.home-opt-text small {
+  color: var(--muted);
+  font-size: 0.66rem;
+}
+.home-opt-check {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: transparent;
+}
+.home-goal-options .home-opt-btn.is-selected {
+  border-color: var(--primary-2);
+  background: linear-gradient(160deg, rgba(99, 102, 241, 0.2), rgba(129, 140, 248, 0.06));
+}
+.home-mode-options .home-opt-btn.is-selected {
+  border-color: var(--success);
+  background: linear-gradient(160deg, rgba(34, 197, 94, 0.18), rgba(34, 197, 94, 0.05));
+}
+.home-opt-btn.is-selected .home-opt-check {
+  color: #fff;
+}
+.home-goal-options .home-opt-btn.is-selected .home-opt-check {
+  background: var(--primary-2);
+  border-color: var(--primary-2);
+}
+.home-mode-options .home-opt-btn.is-selected .home-opt-check {
+  background: var(--success);
+  border-color: var(--success);
+}
+
+.home-cta-row {
+  text-align: center;
+  margin: 4px 0 26px;
+}
+.home-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 40px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2), var(--accent));
+  box-shadow: 0 10px 26px rgba(99, 102, 241, 0.45);
+  transition: transform 0.1s ease, filter 0.15s ease;
+}
+.home-cta-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+.home-cta-note {
+  color: var(--muted);
+  font-size: 0.72rem;
+  margin: 10px 0 0;
+}
+
+/* ===== Home page (home.html): compact layout ===== */
+/* Several of these classes are shared with profile.html/history.html, so
+   scope via data-mode (same pattern as the profile page's own compacting
+   overrides) -- tightens both the returning-user hero and the new-user
+   onboarding flow so the page needs noticeably less scrolling. */
+body[data-mode="home"] .home-hero {
+  padding: 18px 20px;
+  margin: 0 0 12px;
+}
+body[data-mode="home"] .home-hero-new {
+  padding: 20px 22px;
+}
+body[data-mode="home"] .home-title {
+  margin: 0 0 6px;
+}
+body[data-mode="home"] .home-stat-row {
+  margin: 4px 0 10px;
+}
+body[data-mode="home"] .home-goal {
+  margin: 0 auto 12px;
+}
+body[data-mode="home"] .home-continue {
+  padding: 11px 22px;
+}
+body[data-mode="home"] .home-picker {
+  margin: 0 0 14px;
+}
+body[data-mode="home"] .home-picker-sub {
+  margin: 0 0 10px;
+}
+body[data-mode="home"] .home-setup-grid {
+  margin: 0 0 14px;
+}
+body[data-mode="home"] .home-setup-card {
+  padding: 12px 14px;
+}
+body[data-mode="home"] .home-setup-card h3 {
+  margin: 0 0 8px;
+}
+body[data-mode="home"] .home-cta-row {
+  margin: 4px 0 14px;
+}
+body[data-mode="home"] .home-cta-btn {
+  padding: 13px 34px;
+}
+body[data-mode="home"] .home-howto-row {
+  margin: -2px 0 12px;
+}
+body[data-mode="home"] .home-section-title {
+  margin: 0 0 8px;
+}
+body[data-mode="home"] .game-tiles {
+  gap: 8px;
+  margin-top: 0;
+}
+body[data-mode="home"] .game-tile {
+  padding: 10px 6px;
+}
+
+@media (max-width: 720px) {
+  .home-hero-new {
+    padding: 18px 16px;
+  }
+  .home-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .home-hero-card {
+    display: none;
+  }
+  .home-hero-copy {
+    text-align: center;
+  }
+  .home-hero-copy .home-title {
+    font-size: 1.3rem;
+  }
+  .home-hero-copy .home-sub {
+    margin: 0 auto;
+  }
+  .home-badge {
+    margin-bottom: 10px;
+  }
+  .home-setup-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .home-cta-btn {
+    width: 100%;
+    padding: 14px 20px;
+  }
+}
+
+/* ===== Intro tour: auto-playing onboarding overlay (home.html) ===== */
+.intro-tour {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(8, 13, 26, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: intro-fade 0.25s ease;
+}
+.intro-tour.is-closing {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+@keyframes intro-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+body.intro-open {
+  overflow: hidden;
+}
+.intro-card {
+  position: relative;
+  width: min(460px, 100%);
+  background: linear-gradient(165deg, #233156, #141f38);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  padding: 18px 22px 20px;
+  overflow: hidden;
+}
+.intro-bars {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding-right: 88px;
+}
+.intro-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+.intro-bar span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary-2), var(--accent));
+}
+.intro-bar.is-done span {
+  width: 100%;
+}
+.intro-bar.is-active span {
+  animation: intro-fill var(--intro-dur, 4.2s) linear forwards;
+}
+@keyframes intro-fill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+.intro-skip {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  border: none;
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 999px;
+  z-index: 1;
+}
+.intro-skip:hover {
+  background: rgba(255, 255, 255, 0.24);
+  color: #fff;
+}
+.intro-slide {
+  text-align: center;
+  padding: 6px 2px 2px;
+  min-height: 232px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: intro-slide-in 0.4s ease;
+}
+@keyframes intro-slide-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.intro-icon {
+  font-size: 3.4rem;
+  line-height: 1;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 6px 16px rgba(99, 102, 241, 0.5));
+}
+.intro-title {
+  margin: 0 0 8px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.intro-text {
+  margin: 0 auto;
+  color: #cbd5e1;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  max-width: 34ch;
+}
+.intro-langs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 18px;
+}
+.intro-langs[hidden] {
+  display: none;
+}
+.intro-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+.intro-nav {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: border-color 0.15s ease, filter 0.15s ease;
+}
+.intro-nav:hover:not(:disabled) {
+  border-color: var(--primary);
+}
+.intro-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.intro-next {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  border: none;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+}
+.intro-next[hidden] {
+  display: none;
+}
+.intro-next:hover {
+  filter: brightness(1.08);
+}
+.intro-count {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+@media (max-width: 480px) {
+  /* .games-hub's base 20px side padding eats a lot of a ~375px phone's
+     width before the grid even starts -- tightened here so narrow phones
+     (iPhone SE and similar) keep as many columns (and as few rows) as
+     possible at this still-legible size. */
+  .games-hub {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .game-tiles {
+    /* A smaller minmax than the base rule needs, on purpose: while the
+       grid is even slightly too tall to fit, .container's own scrollbar
+       (overflow-y: auto, mobile app-shell) steals ~15-16px of width,
+       which would otherwise shrink this to fewer/bigger columns and make
+       it taller still. Sized with that worst case already subtracted so
+       the fit isn't self-defeating. */
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .game-tile {
+    padding: 6px 4px;
+    border-radius: 12px;
+  }
+  .game-tile-icon {
+    font-size: 1.45rem;
+  }
+  .game-tile-name {
+    font-size: 0.66rem;
+  }
+}
+
+/* ===== Word Scramble ===== */
+.scramble-answer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 18px 0;
+  min-height: 52px;
+}
+.scramble-slot {
+  width: 40px;
+  height: 48px;
+  border: none;
+  border-bottom: 3px solid var(--muted);
+  border-radius: 6px 6px 0 0;
+  background: var(--bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--accent);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+.scramble-slot.is-filled {
+  border-bottom-color: var(--accent);
+}
+.scramble-slot.is-locked {
+  color: var(--success);
+  cursor: default;
+  border-bottom-color: var(--success);
+}
+.scramble-slot.is-empty {
+  cursor: default;
+}
+.scramble-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 10px 0 18px;
+}
+.scramble-tile {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  border-radius: 10px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.scramble-tile:hover:not(:disabled) {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+.scramble-tile:disabled {
+  visibility: hidden;
+}
+.scramble-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+@keyframes scramble-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+.scramble-answer.is-shaking {
+  animation: scramble-shake 0.4s ease;
+}
+
+/* ===== Matching Pairs (memory game) ===== */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 14px auto;
+  max-width: 460px;
+}
+.memory-card {
+  aspect-ratio: 1 / 1;
+  perspective: 800px;
+  cursor: pointer;
+}
+.memory-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.memory-card.is-flipped .memory-card-inner {
+  transform: rotateY(180deg);
+}
+.memory-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.15;
+  overflow: hidden;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+.memory-card-front {
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  font-size: 1.5rem;
+}
+.memory-card-back {
+  transform: rotateY(180deg);
+  background: var(--bg-soft);
+  color: var(--text);
+}
+.memory-card.is-matched .memory-card-back {
+  background: rgba(34, 197, 94, 0.18);
+  border-color: var(--success);
+  color: var(--success);
+}
+.memory-card.is-matched {
+  cursor: default;
+}
+.memory-card.is-matched.is-audible {
+  cursor: pointer;
+}
+.mem-audio-icon {
+  font-size: 0.82em;
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  .memory-grid {
+    gap: 6px;
+    margin: 10px auto;
+  }
+  .memory-card-face {
+    font-size: 0.78rem;
+    padding: 4px;
+  }
+  .memory-card-front {
+    font-size: 1.3rem;
+  }
+}
+
+/* ===== Speed Round ===== */
+.speedround-timer-big {
+  font-size: 1.9rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--accent);
+  margin: 4px 0 12px;
+  transition: color 0.2s ease;
+}
+.speedround-timer-big.is-low {
+  color: var(--danger);
+}
+.speedround-streak {
+  text-align: center;
+  color: var(--warn);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  min-height: 20px;
+}
+
+/* ===== Word Race (typing challenge) ===== */
+.wordrace-input-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 14px 0;
+  flex-wrap: wrap;
+}
+.wordrace-input {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+  width: min(240px, 70vw);
+}
+.wordrace-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.wordrace-input.is-correct {
+  border-color: var(--success);
+  color: var(--success);
+}
+.wordrace-input.is-wrong {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ===== Sentence Scramble (word-order game) ===== */
+.sentscr-answer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 16px 0;
+  min-height: 46px;
+}
+.sentscr-slot {
+  min-width: 40px;
+  height: 42px;
+  padding: 0 10px;
+  border: none;
+  border-bottom: 3px solid var(--muted);
+  border-radius: 6px 6px 0 0;
+  background: var(--bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sentscr-slot.is-filled {
+  border-bottom-color: var(--accent);
+}
+.sentscr-slot.is-locked {
+  color: var(--success);
+  cursor: default;
+  border-bottom-color: var(--success);
+}
+.sentscr-slot.is-empty {
+  cursor: default;
+  min-width: 26px;
+}
+.sentscr-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 10px 0 18px;
+}
+.sentscr-tile {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.sentscr-tile:hover:not(:disabled) {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+.sentscr-tile:disabled {
+  visibility: hidden;
+}
+.sentscr-answer.is-shaking {
+  animation: scramble-shake 0.4s ease;
+}
+
+/* ===== Listening Dictation ===== */
+.dictation-play-btn {
+  display: block;
+  margin: 18px auto;
+  font-size: 2.2rem;
+  background: none;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  width: 84px;
+  height: 84px;
+  cursor: pointer;
+  color: var(--accent);
+  transition: all 0.18s ease;
+}
+.dictation-play-btn:hover {
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+.dictation-input-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 10px 0;
+}
+.dictation-input {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+  width: min(240px, 70vw);
+}
+.dictation-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.dictation-input.is-correct {
+  border-color: var(--success);
+  color: var(--success);
+}
+.dictation-input.is-wrong {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ===== True or False Blitz ===== */
+.tf-progress {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+.tf-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin: 18px 0 10px;
+}
+.tf-btn {
+  flex: 1;
+  max-width: 160px;
+  padding: 18px 10px;
+  border-radius: 14px;
+  border: 2px solid var(--border);
+  background: var(--bg-soft);
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.tf-btn-true {
+  color: var(--success);
+}
+.tf-btn-false {
+  color: var(--danger);
+}
+.tf-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+.tf-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.tf-btn.is-correct {
+  border-color: var(--success);
+  background: rgba(34, 197, 94, 0.18);
+}
+.tf-btn.is-wrong {
+  border-color: var(--danger);
+  background: rgba(239, 68, 68, 0.18);
+}
+
+/* ===== Survival Streak ===== */
+.survival-streak-big {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--warn);
+  margin: 4px 0 12px;
+}
+
+/* ===== Word Matrix (letter-grid word search) ===== */
+.matrix-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 3px;
+  max-width: 380px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+.matrix-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.12s ease;
+}
+.matrix-cell.is-selected {
+  background: rgba(99, 102, 241, 0.35);
+  border-color: var(--primary);
+}
+.matrix-cell.is-found {
+  background: rgba(34, 197, 94, 0.28);
+  border-color: var(--success);
+  color: var(--success);
+  cursor: default;
+}
+.matrix-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+  max-width: 380px;
+}
+.matrix-word-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  border-radius: 20px;
+  padding: 5px 10px 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.matrix-word-item.is-found {
+  border-color: var(--success);
+  color: var(--success);
+  text-decoration: line-through;
+  opacity: 0.75;
+}
+.matrix-hint-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0;
+  line-height: 1;
+}
+.matrix-hint-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.matrix-hint-text {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.82rem;
+  min-height: 20px;
+  max-width: 380px;
+}
+
+@media (max-width: 480px) {
+  .matrix-cell {
+    font-size: 0.72rem;
+  }
+}
+
+/* ===== Word Morph (synonym / antonym guessing) ===== */
+/* This game uses its own standalone word lists (data/synanten.js,
+   data/synantde.js) keyed by language only, not by CEFR level, so
+   switching the shared Level selector has no effect on Word Morph's own
+   content -- but it's shown anyway (2026-07-13, explicit request) for a
+   consistent toolbar across every page; changing it just resets the
+   current round back to the setup screen, same as switching Language
+   already did. */
+.morph-type-badge {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.morph-type-badge.synonym {
+  background: rgba(34, 197, 94, 0.18);
+  color: var(--success);
+  border: 1px solid rgba(34, 197, 94, 0.5);
+}
+.morph-type-badge.antonym {
+  background: rgba(239, 68, 68, 0.18);
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+/* ===== Reading Comprehension ===== */
+/* This game uses its own standalone passages (data/readingcomp.js for
+   English, keyed by grade 1-12; data/readingcompde.js for German, keyed
+   by CEFR level A1-C2), not the shared WORD_SETS/currentLevel system, so
+   switching the shared Level selector has no direct effect on which
+   passage is shown -- but it's shown anyway (2026-07-13, explicit
+   request) for a consistent toolbar across every page; changing it just
+   resets back to the picker screen, same as switching Language already
+   did. The page's own `#rc-grade-picker` (grade/CEFR picker) remains the
+   real way to choose content here. */
+.rc-mode-toggle {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 4px auto 0;
+}
+.rc-mode-toggle[hidden] {
+  display: none;
+}
+.rc-grade-picker {
+  margin: 14px auto;
+  justify-content: center;
+}
+.rc-passage {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.rc-passage-title {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+.rc-passage-text {
+  margin: 0;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre-line;
+}
+.rc-aids {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 12px 0 4px;
+  flex-wrap: wrap;
+}
+.chip-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.game-hint-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 4px;
+}
+.game-hint-row .feedback {
+  margin: 0;
+}
+
+/* ===== Data loading indicator =====
+   shared.js fetches one level's word file at a time (see ensureLevelData).
+   When the file is already cached the callback runs synchronously and this
+   never paints; it only shows on a genuine network fetch. */
+body.data-loading::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 3000;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent, #4f8cff),
+    transparent
+  );
+  background-size: 40% 100%;
+  background-repeat: no-repeat;
+  animation: data-loading-sweep 1s linear infinite;
+}
+@keyframes data-loading-sweep {
+  from {
+    background-position: -40% 0;
+  }
+  to {
+    background-position: 140% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.data-loading::before {
+    animation: none;
+    background: var(--accent, #4f8cff);
+  }
+}
+
+/* ===== Odd One Out =====
+   The domain tag is appended to every .option AFTER the answer, so it has to
+   sit on its own line inside a button that was laid out for a single label. */
+.ooo-tag {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.option.correct .ooo-tag {
+  color: var(--success);
+}
+.option.wrong .ooo-tag {
+  color: var(--danger);
+}
+
+/* ===== Word Class ===== */
+.wc-tr {
+  color: var(--muted);
+  font-weight: 600;
+}
+.option.correct .wc-tr,
+.option.wrong .wc-tr {
+  color: inherit;
+  opacity: 0.85;
+}
+
+/* ===== Word Bingo =====
+   Unlike .matrix-grid the cells hold whole words, so they cannot be square:
+   the row height follows the longest word on the card and long entries shrink
+   rather than overflow. */
+.bingo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  max-width: 460px;
+  width: 100%;
+  margin: 12px auto 4px;
+}
+.bingo-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 54px;
+  padding: 6px 4px;
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  line-height: 1.15;
+  color: var(--text);
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  transition: background 0.12s ease, border-color 0.12s ease, opacity 0.12s ease;
+}
+.bingo-cell:hover:not(.is-found) {
+  border-color: var(--primary);
+}
+.bingo-cell.is-found {
+  background: rgba(34, 197, 94, 0.28);
+  border-color: var(--success);
+  color: var(--success);
+  cursor: default;
+}
+.bingo-cell.is-wrong {
+  background: rgba(239, 68, 68, 0.28);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.bingo-cell.is-line {
+  background: rgba(99, 102, 241, 0.4);
+  border-color: var(--primary);
+  color: var(--text);
+}
+.bingo-cell.is-dimmed {
+  opacity: 0.28;
+}
+@media (max-width: 380px) {
+  .bingo-cell {
+    min-height: 48px;
+    font-size: 0.72rem;
+  }
+}
+
+/* ===== Daily Challenge =====
+   The guess grid and on-screen keyboard reuse Word Guess's .wg-* classes
+   verbatim (see below) -- only the streak line and setup copy are unique. */
+.dc-streak-line {
+  text-align: center;
+  color: var(--warn);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 2px 0 10px;
+}
+
+/* ===== Boss Rush =====
+   The most visually reactive game in the app on purpose: a live HP bar,
+   floating damage numbers and hit/miss feedback around the same proven
+   four-option meaning match used by Speed Round and Survival Streak. */
+.br-arena {
+  text-align: center;
+  position: relative;
+  margin: 4px auto 14px;
+  padding: 14px 12px 10px;
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.br-boss-counter {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.br-boss-avatar {
+  font-size: 3.2rem;
+  line-height: 1;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+}
+.br-boss-avatar.is-hit {
+  animation: br-hit 0.22s ease;
+}
+.br-boss-avatar.is-defeated {
+  animation: br-boss-defeat 0.6s ease forwards;
+}
+@keyframes br-hit {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+  }
+  40% {
+    transform: scale(0.88);
+    filter: drop-shadow(0 6px 14px rgba(239, 68, 68, 0.6)) brightness(1.4);
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+  }
+}
+@keyframes br-boss-defeat {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25) rotate(-4deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(8deg);
+    opacity: 0;
+  }
+}
+.br-hp-bar {
+  height: 12px;
+  max-width: 260px;
+  margin: 0 auto;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.br-hp-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--danger), var(--warn));
+  transition: width 0.25s ease-out;
+}
+.br-hp-text {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.br-dmg {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-weight: 800;
+  font-size: 1.3rem;
+  pointer-events: none;
+  animation: br-dmg-float 0.6s ease-out forwards;
+}
+.br-dmg-hit {
+  color: var(--danger);
+}
+.br-dmg-miss {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+@keyframes br-dmg-float {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -34px);
+    opacity: 0;
+  }
+}
+.br-card.is-shaking {
+  animation: scramble-shake 0.4s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .br-boss-avatar.is-hit,
+  .br-boss-avatar.is-defeated,
+  .br-dmg,
+  .br-card.is-shaking {
+    animation: none;
+  }
+}
+
+/* ===== Scrabble =====
+   The build row reuses .wg-cell's overall footprint via its own smaller
+   .scrab-slot class (point badges need extra room the plain letter cell
+   doesn't reserve), and the rack reuses the .scramble-shake keyframes for
+   its wrong-answer feedback via the shared .quiz-card wrapper. */
+.scrab-build {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 14px 0;
+  flex-wrap: wrap;
+}
+.scrab-slot {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--text);
+  background: var(--card-2);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.scrab-slot.is-filled {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.14);
+}
+.scrab-rack {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0 6px;
+  flex-wrap: wrap;
+}
+.scrab-tile {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: linear-gradient(160deg, var(--card-2), var(--card));
+  color: var(--text);
+  font-weight: 800;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.scrab-tile:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+.scrab-tile.is-used,
+.scrab-tile:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+.scrab-value {
+  position: absolute;
+  right: 3px;
+  bottom: 2px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.scrab-card.is-shaking {
+  animation: scramble-shake 0.4s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrab-card.is-shaking {
+    animation: none;
+  }
+}
+
+/* ===== Crossword =====
+   A generated grid (see crossword.js) rather than a fixed layout, so every
+   size lives inside the same CSS grid driven by the --cw-cols custom
+   property set at render time. */
+.cw-layout {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.cw-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cw-cols), minmax(0, 32px));
+  gap: 2px;
+  flex: 0 0 auto;
+}
+.cw-cell {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+.cw-cell.is-block {
+  background: transparent;
+  border-color: transparent;
+}
+.cw-cell input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  padding: 0;
+}
+.cw-cell input:focus {
+  outline: none;
+}
+.cw-number {
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  font-size: 0.5rem;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--muted);
+  pointer-events: none;
+}
+.cw-cell.is-active-word {
+  background: rgba(34, 211, 238, 0.14);
+}
+.cw-cell.is-active-cell {
+  background: rgba(34, 211, 238, 0.34);
+}
+.cw-cell.is-correct {
+  background: rgba(34, 197, 94, 0.3);
+}
+.cw-cell.is-wrong {
+  background: rgba(239, 68, 68, 0.3);
+}
+.cw-clues {
+  flex: 1 1 220px;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cw-clues-title {
+  margin: 0 0 4px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.cw-clue-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cw-clue {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: var(--text);
+}
+.cw-clue:hover {
+  background: var(--bg-soft);
+}
+.cw-clue.is-active {
+  background: rgba(34, 211, 238, 0.14);
+}
+.cw-clue.is-solved .cw-clue-text {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.cw-clue-num {
+  font-weight: 800;
+  color: var(--primary-2);
+  flex-shrink: 0;
+}
+.cw-clue-text {
+  flex: 1 1 auto;
+}
+.cw-clue-audio {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+@media (max-width: 480px) {
+  .cw-grid {
+    grid-template-columns: repeat(var(--cw-cols), minmax(0, 26px));
+  }
+  .cw-cell {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* ===== On-demand clue reveal (2026-09-02) =====
+   Several games show a word's meaning as a memory-jogging clue rather than
+   as graded content (Hangman, Word Guess, Daily Challenge, Scrabble, Word
+   Race, Word Scramble, Sentence Scramble, CodyCross, Crossword). Those clues
+   are masked until the player hovers the text or taps the adjacent bulb, so
+   recall is tested before the hint is given. Games where the definition IS
+   the graded content -- True or False, the multiple-choice games, Word
+   Bingo, Cloze Test -- are deliberately left untouched: hiding an answer
+   choice would break the mechanic rather than add a hint gate. */
+.clue-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+}
+.clue-bulb {
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  padding: 0 2px;
+  opacity: 0.7;
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.clue-bulb:hover,
+.clue-bulb:focus-visible {
+  transform: scale(1.18);
+  opacity: 1;
+}
+.clue-gated {
+  cursor: help;
+}
+.clue-gated:not(.is-revealed) {
+  filter: blur(7px);
+  opacity: 0.5;
+  user-select: none;
+  transition: filter 0.15s ease, opacity 0.15s ease;
+}
+.clue-gated.is-revealed {
+  filter: none;
+  opacity: 1;
+}
+.clue-gated:not(.is-revealed):hover,
+.clue-gated:not(.is-revealed):focus-visible {
+  filter: none;
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .clue-gated {
+    transition: none;
+  }
+}
+
+/* ===== External link return banner (2026-09-02) =====
+   Website-only (see shared.js): Details/Examples open in a real tab -- the
+   dictionary sites (Cambridge in particular) send X-Frame-Options headers
+   that block iframe embedding, so an in-page modal would just show a blank
+   frame -- but the app keeps the window handle and offers to close it and
+   return, instead of leaving the visitor to find their own way back. */
+.external-return-banner {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483000;
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid rgba(248, 250, 252, 0.18);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  font: 14px/1.5 system-ui, Segoe UI, sans-serif;
+}
+.external-return-banner[hidden] {
+  display: none;
+}
+.external-return-text {
+  flex: 1 1 240px;
+}
+#external-return-close {
+  flex-shrink: 0;
+  background: transparent;
+  color: inherit;
+  border: 1px solid rgba(248, 250, 252, 0.35);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+#external-return-close:hover {
+  border-color: rgba(248, 250, 252, 0.6);
+}
+
+/* ===== CodyCross =====
+   Clue rows reuse Word Guess's .wg-cell / .wg-keyboard classes for the
+   per-word letter tiles and shared on-screen keyboard. */
+.cc-code-strip {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 4px 0 16px;
+}
+.cc-code-letter {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.cc-code-letter.is-revealed {
+  border-style: solid;
+  border-color: var(--warn);
+  color: var(--warn);
+  animation: cc-code-pop 0.3s ease;
+}
+@keyframes cc-code-pop {
+  0% {
+    transform: scale(0.7);
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.cc-clue-rows {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cc-clue-row {
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  cursor: pointer;
+}
+.cc-clue-row.is-active {
+  border-color: var(--primary);
+}
+.cc-clue-row.is-solved {
+  opacity: 0.75;
+  cursor: default;
+}
+.cc-clue-text-wrap {
+  margin: 0 0 8px;
+  font-size: 0.88rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cc-row-cells {
+  justify-content: flex-start;
+}
+.cc-row-cells.is-shaking {
+  animation: scramble-shake 0.4s ease;
+}
+.cc-bonus-cell {
+  border-color: var(--warn) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cc-code-letter.is-revealed,
+  .cc-row-cells.is-shaking {
+    animation: none;
+  }
+}
+
+/* ===== Word Guess ===== */
+.wg-board {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  margin: 14px auto;
+}
+.wg-row {
+  display: grid;
+  grid-template-columns: repeat(var(--wg-cols), minmax(0, 1fr));
+  gap: 6px;
+  width: 100%;
+  max-width: var(--wg-row-max);
+}
+.wg-cell {
+  width: auto;
+  min-width: 0;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+  background: var(--card-2);
+  text-transform: uppercase;
+}
+.wg-cell.wg-filled {
+  border-color: var(--muted);
+}
+.wg-cell.wg-correct {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+}
+.wg-cell.wg-present {
+  background: #d4a72c;
+  border-color: #d4a72c;
+  color: #fff;
+}
+.wg-cell.wg-absent {
+  background: var(--card-2);
+  border-color: var(--border);
+  color: var(--muted);
+  opacity: 0.6;
+}
+.wg-keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  margin-top: 14px;
+}
+.wg-kb-row {
+  display: flex;
+  gap: 4px;
+}
+.wg-key {
+  min-width: 30px;
+  height: 42px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: var(--card-2);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.wg-key:hover {
+  background: var(--border);
+}
+.wg-key-wide {
+  min-width: 52px;
+  font-size: 0.75rem;
+}
+.wg-key-correct {
+  background: var(--success);
+  color: #fff;
+}
+.wg-key-present {
+  background: #d4a72c;
+  color: #fff;
+}
+.wg-key-absent {
+  opacity: 0.45;
+}
+@media (max-width: 480px) {
+  .wg-cell {
+    font-size: 0.95rem;
+  }
+  .wg-key {
+    min-width: 24px;
+    height: 36px;
+    font-size: 0.75rem;
+  }
+}
+
+/* ===== Category Sprint ===== */
+.cs-category {
+  margin: 2px 0 0;
+  color: var(--accent);
+  font-size: 1.45rem;
+  font-weight: 800;
+  text-align: center;
+}
+.cs-found {
+  min-height: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 12px;
+}
+.cs-found-word {
+  padding: 6px 10px;
+  border: 1px solid var(--success);
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--success);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* ===== Listening Choice ===== */
+.lc-prompt {
+  margin: 2px 0 12px;
+  color: var(--muted);
+  text-align: center;
+}
+.lc-listen {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 16px;
+  padding: 0 20px;
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  background: rgba(99, 102, 241, 0.14);
+  color: var(--text);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+.lc-listen span[aria-hidden="true"] {
+  font-size: 1.6rem;
+}
+.lc-listen:hover {
+  background: rgba(99, 102, 241, 0.24);
+}
+.lc-word-reveal {
+  margin: -4px 0 12px;
+  color: var(--accent);
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-align: center;
+}
+.lc-option-number {
+  flex: 0 0 24px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+.lc-option-text {
+  flex: 1 1 auto;
+}
+
+/* ===== Clue Detective ===== */
+.cd-points {
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-align: center;
+}
+.cd-clues {
+  display: grid;
+  gap: 8px;
+  max-width: 520px;
+  min-height: 48px;
+  margin: 0 auto 14px;
+  padding: 0;
+  list-style: none;
+}
+.cd-clues li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-soft);
+  color: var(--text);
+  font-size: 0.86rem;
+}
+.cd-clue-number {
+  flex: 0 0 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.18);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+.cd-answer {
+  margin: 10px 0;
+  color: var(--success);
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-align: center;
+}
+.cd-next {
+  display: block;
+  margin: 12px auto 0;
+}
+.cd-next[hidden] {
+  display: none;
+}
+
+

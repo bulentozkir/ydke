@@ -1,0 +1,417 @@
+# 404 entries
+
+# ===== wordsa1gode.js
+    "wordsa1gode.js|Knurren": ("knurren", "noun", "", ""),   # rewrite gerund :: Toms Magen fing an zu knurren.
+    "wordsa1gode.js|Messen": ("messen", "noun", "", ""),   # rewrite gerund :: Lass mich deine Temperatur messen.
+    "wordsa1gode.js|Misstrauen": ("Misstrauen", "noun", "", ""),   # redefine gerund :: Ihr ungewöhnliches Verhalten erweckte unser Misstrauen.
+    "wordsa1gode.js|Nachkommen": ("Nachkomme", "noun", "", ""),   # rewrite inflection :: Es kann vorkommen, dass die Nachkommen mit dem Einkommen nic
+    "wordsa1gode.js|Nachäffen": ("nachäffen", "noun", "", ""),   # rewrite gerund :: Provinz bleibt Provinz. Will sie Paris nachäffen, macht sie 
+
+# ===== wordsa2gode.js
+    "wordsa2gode.js|Abfragen": ("abfragen", "noun", "", ""),   # rewrite gerund :: Tom ließ sich von seiner Mutter Türkischvokabeln abfragen.
+    "wordsa2gode.js|Abheften": ("abheften", "noun", "", ""),   # rewrite gerund :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsa2gode.js|Abkommen": ("Abkommen", "noun", "", ""),   # redefine gerund :: Das Abkommen wurde ignoriert, und ein Krieg brach aus.
+    "wordsa2gode.js|Abschneiden": ("abschneiden", "noun", "", ""),   # rewrite gerund :: Viele küssen die Hand, die sie abschneiden möchten.
+    "wordsa2gode.js|Abschwören": ("abschwören", "noun", "", ""),   # rewrite gerund :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsa2gode.js|Absenden": ("absenden", "noun", "", ""),   # rewrite gerund :: Kannst du diesen Brief für mich absenden?
+    "wordsa2gode.js|Abstimmen": ("abstimmen", "noun", "", ""),   # rewrite gerund :: Auf alle Fälle muss man in dem Referendum am 18. Februar mit
+    "wordsa2gode.js|Adressieren": ("adressieren", "noun", "", ""),   # rewrite gerund :: An wen muss ich den Brief adressieren?
+    "wordsa2gode.js|Allüren": ("Allüre", "noun", "", ""),   # rewrite plural :: Tom gibt sich immer Allüren.
+    "wordsa2gode.js|Anheften": ("anheften", "noun", "", ""),   # rewrite gerund :: Tom und Ken spielen jeden Abend Tennis, indes sich Maria und
+    "wordsa2gode.js|Anschreiben": ("anschreiben", "noun", "", ""),   # rewrite gerund :: Der Besitzer dieser Bar lässt beim Verkauf alkoholischer Get
+    "wordsa2gode.js|Ansiedeln": ("ansiedeln", "noun", "", ""),   # rewrite gerund :: Ich habe lange darüber nachgedacht, ob ich mich in Rom oder 
+    "wordsa2gode.js|Durchbrennen": ("durchbrennen", "noun", "", ""),   # rewrite gerund :: Sie versuchten, die feindliche Linie zu durchbrechen.
+    "wordsa2gode.js|Schlafengehen": ("Schlafengehen", "noun", "", ""),   # redefine gerund :: Es ist besser für dich, vor dem Schlafengehen nichts mehr zu
+
+# ===== wordsb1gode.js
+    "wordsb1gode.js|Aufsehen": ("Aufsehen", "noun", "", ""),   # redefine gerund :: Aufsehen erregen.
+    "wordsb1gode.js|Aufstellen": ("aufstellen", "noun", "", ""),   # rewrite gerund :: Lasst uns den Weihnachtsbaum hier aufstellen.
+    "wordsb1gode.js|Auseinandergehen": ("auseinandergehen", "noun", "", ""),   # rewrite gerund :: Die Vorstandsmitglieder werden auseinandergehen, da niemand 
+    "wordsb1gode.js|Aushalten": ("aushalten", "noun", "", ""),   # rewrite gerund :: Ich kann diesen Schmerz nicht mehr aushalten.
+    "wordsb1gode.js|Aussetzen": ("aussetzen", "noun", "", ""),   # rewrite gerund :: Gegen die Schläfrigkeit werde ich mal einen Kaffee trinken u
+    "wordsb1gode.js|Bauchschmerzen": ("Bauchschmerz", "noun", "", ""),   # rewrite plural :: Ich halte diese Bauchschmerzen nicht aus.
+    "wordsb1gode.js|Bedenken": ("Bedenken", "noun", "", ""),   # redefine gerund :: Bedenken haben.
+    "wordsb1gode.js|Beiwohnen": ("beiwohnen", "noun", "", ""),   # rewrite gerund :: Jeder kann der Auszählung der Stimmen in einem Wahllokal bei
+    "wordsb1gode.js|Bellen": ("bellen", "noun", "", ""),   # rewrite gerund :: Hunde, die bellen, beißen nicht.
+    "wordsb1gode.js|Bergsteigen": ("Bergsteigen", "noun", "", ""),   # redefine gerund :: Er ist ans Bergsteigen gewöhnt.
+
+# ===== wordsb2gode.js
+    "wordsb2gode.js|Beugen": ("beugen", "noun", "", ""),   # rewrite gerund :: Ich kann meine Handflächen auf den Boden setzen, ohne meine 
+    "wordsb2gode.js|Chancen": ("Chance", "noun", "", ""),   # rewrite plural :: Die Chancen stehen günstig für ihn.
+    "wordsb2gode.js|Rütteln": ("rütteln", "noun", "", ""),   # rewrite gerund :: Daran gibt es nichts zu rütteln.
+    "wordsb2gode.js|Scheren": ("scheren", "noun", "", ""),   # rewrite gerund :: Diese Scheren schneiden nicht gut.
+    "wordsb2gode.js|Schleifen": ("schleifen", "noun", "", ""),   # rewrite gerund :: Das Mädchen trug gelbe Schleifen im Haar.
+    "wordsb2gode.js|Stichpunkte": ("Stichpunkt", "noun", "", ""),   # rewrite plural :: Bitte notieren Sie lediglich Stichpunkte! Ganze Sätze sind n
+    "wordsb2gode.js|Vergolden": ("vergolden", "noun", "", ""),   # rewrite gerund :: Ich kenne Menschen, die ihre Seele verkaufen, um von dem Erl
+    "wordsb2gode.js|Verschrotten": ("verschrotten", "noun", "", ""),   # rewrite gerund :: Die Amerikaner verfügen sicherlich über ausreichende Kapazit
+    "wordsb2gode.js|Vorgehen": ("Vorgehen", "noun", "", ""),   # redefine gerund :: Das nächste Mal sollten wir unser Vorgehen gründlicher mitei
+    "wordsb2gode.js|abgearbeitet": ("abgearbeitet", "adjective", "", ""),   # redefine perfect-participle :: Er arbeitet immer so hart, dass er richtig abgearbeitet auss
+    "wordsb2gode.js|abgedroschen": ("abdreschen", "verb", "", ""),   # rewrite perfect-participle :: Hier ein Beispiel für ein semantisches Spektrum: nicht exist
+    "wordsb2gode.js|abgegriffen": ("abgreifen", "verb", "", ""),   # rewrite perfect-participle :: Die Sitzbezüge sind abgegriffen.
+    "wordsb2gode.js|abgehackt": ("abgehackt", "adjective", "", ""),   # redefine perfect-participle :: ein abgehacktes Glied.
+    "wordsb2gode.js|abgehärtet": ("abgehärtet", "adjective", "", ""),   # redefine perfect-participle :: abgehärtet gegen Trockenheit.
+    "wordsb2gode.js|abgekapselt": ("abgekapselt", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsb2gode.js|abgeklungen": ("abklingen", "verb", "", ""),   # rewrite perfect-participle :: Inzwischen ist die Radioaktivität abgeklungen.
+    "wordsb2gode.js|abgeklärt": ("abgeklärt", "adjective", "", ""),   # redefine perfect-participle :: Langeweile ist das Gefühl, dass alles Zeitverschwendung ist;
+    "wordsb2gode.js|abgelegen": ("abliegen", "verb", "", ""),   # rewrite perfect-participle :: Toms Haus liegt so weit abgelegen, dass es kaum jemanden je 
+    "wordsb2gode.js|abgeleitet": ("abgeleitet", "adjective", "", ""),   # redefine perfect-participle :: Dieses Wort ist aus dem Deutschen abgeleitet.
+    "wordsb2gode.js|abgemacht": ("abgemacht", "adjective", "", ""),   # redefine perfect-participle :: Abgemacht! Wir treffen uns vor dem Kino!
+    "wordsb2gode.js|abgemagert": ("abgemagert", "adjective", "", ""),   # redefine perfect-participle :: Der arme Mann ist so abgemagert, dass er jetzt nur noch aus 
+    "wordsb2gode.js|abgenutzt": ("abgenutzt", "adjective", "", ""),   # redefine perfect-participle :: Ich habe ihn abgenutzt, veraltet und müde gefunden.
+    "wordsb2gode.js|abgepackt": ("abgepackt", "adjective", "", ""),   # redefine perfect-participle :: Der Aufschnitt wird zu 100 Gramm in Plastik abgepackt.
+    "wordsb2gode.js|abgerundet": ("abgerundet", "adjective", "", ""),   # redefine perfect-participle :: Das war ein geräumiger Saal, mit vier Seiten und abgerundete
+    "wordsb2gode.js|abgeschieden": ("abscheiden", "verb", "", ""),   # rewrite perfect-participle :: abgeschiedene Gegend.
+    "wordsb2gode.js|abgeschüttelt": ("abschütteln", "verb", "", ""),   # rewrite perfect-participle :: Der Mensch kann unendlich viel, wenn der die Faulheit abgesc
+    "wordsb2gode.js|abgesondert": ("abgesondert", "adjective", "", ""),   # redefine perfect-participle :: Abgesondertheit und Zugehörigkeit sind die beiden Pole, die 
+    "wordsb2gode.js|abgestanden": ("abstehen", "verb", "", ""),   # rewrite perfect-participle :: Das Wasser war warm und abgestanden.
+    "wordsb2gode.js|abgestempelt": ("abstempeln", "verb", "", ""),   # rewrite perfect-participle :: Die Bescheinigung muss von der Behörde unterschrieben und ab
+    "wordsb2gode.js|abgestimmt": ("abgestimmt", "adjective", "", ""),   # redefine perfect-participle :: Zwei Vorrichtungen sind auf einander abgestimmt, wenn sie mi
+    "wordsb2gode.js|ablehnend": ("ablehnend", "adjective", "", ""),   # redefine present-participle :: eine ablehnende Reaktion.
+    "wordsb2gode.js|abschließend": ("abschließend", "adjective", "", ""),   # redefine present-participle :: eine abschließende Prüfung.
+    "wordsb2gode.js|abwehrend": ("abwehrend", "adjective", "", ""),   # redefine present-participle :: Gefühle, Denken und Stress beeinflussen unsere Abwehrkräfte.
+    "wordsb2gode.js|abwertend": ("abwertend", "adjective", "", ""),   # redefine present-participle :: So gut wie jedes Saiteninstrument lässt sich abwertend auch 
+    "wordsb2gode.js|affektiert": ("affektiert", "adjective", "", ""),   # redefine perfect-participle :: Sie war eine etwas affektierte Tochter aus gutem Hause.
+    "wordsb2gode.js|alkoholisiert": ("alkoholisiert", "adjective", "", ""),   # redefine perfect-participle :: Waren Sie alkoholisiert?
+    "wordsb2gode.js|alle": ("alle", "adjective", "", ""),   # redefine inflection :: Die Milch ist alle.
+    "wordsb2gode.js|andauernd": ("andauernd", "adjective", "", ""),   # redefine present-participle :: Andauernd kritisierst du mich!
+    "wordsb2gode.js|andere": ("andere", "adjective", "", ""),   # redefine inflection :: die andere Hand.
+    "wordsb2gode.js|anerkannt": ("anerkannt", "adjective", "", ""),   # redefine perfect-participle :: Seine Leistungen wurden anerkannt.
+    "wordsb2gode.js|angebracht": ("angebracht", "adjective", "", ""),   # redefine perfect-participle :: Die Straßenlaterne ist hoch an der Mauer angebracht.
+    "wordsb2gode.js|angepasst": ("angepasst", "adjective", "", ""),   # redefine perfect-participle :: Die Website wird automatisch angepasst.
+    "wordsb2gode.js|angespannt": ("angespannt", "adjective", "", ""),   # redefine perfect-participle :: Ich bin immer angespannt, bevor ich ein Flugzeug besteige.
+    "wordsb2gode.js|angestellt": ("angestellt", "adjective", "", ""),   # redefine perfect-participle :: Der junge Mann, den ich als Assistenten angestellt habe, arb
+    "wordsb2gode.js|angrenzend": ("angrenzend", "adjective", "", ""),   # redefine present-participle :: Rußland ist ein Land, angrenzend an Finnland und Nordkorea.
+    "wordsb2gode.js|annähernd": ("annähernd", "adjective", "", ""),   # redefine present-participle :: Es waren annähernd dreitausend geladene Gäste, fünf Feuerweh
+    "wordsb2gode.js|anschließend": ("anschließend", "adjective", "", ""),   # redefine present-participle :: Anschließend wird eine Bestätigungs-E-Mail verschickt.
+    "wordsb2gode.js|ansprechend": ("ansprechend", "adjective", "", ""),   # redefine present-participle :: Ich finde Parkettböden optisch sehr ansprechend!
+    "wordsb2gode.js|anstrengend": ("anstrengend", "adjective", "", ""),   # redefine present-participle :: Er arbeitete anstrengend, um seine Familie zu unterhalten.
+    "wordsb2gode.js|aufbauend": ("aufbauend", "adjective", "", ""),   # redefine present-participle :: eine aufbauende Wirkung.
+    "wordsb2gode.js|aufbrausend": ("aufbrausend", "adjective", "", ""),   # redefine present-participle :: Sie ist aufbrausend.
+    "wordsb2gode.js|aufgeblasen": ("aufblasen", "verb", "", ""),   # rewrite perfect-participle :: Dieser Mann agiert aufgeblasen, gewissenlos, rechtsbeugend u
+    "wordsb2gode.js|aufgebracht": ("aufgebracht", "adjective", "", ""),   # redefine perfect-participle :: Was hat sie so aufgebracht?
+    "wordsb2gode.js|aufgebraucht": ("aufgebraucht", "adjective", "", ""),   # redefine perfect-participle :: Er hat seine Energie aufgebraucht.
+    "wordsb2gode.js|aufgeklärt": ("aufgeklärt", "adjective", "", ""),   # redefine perfect-participle :: Es hat sich bereits aufgeklärt.
+    "wordsb2gode.js|aufgeladen": ("aufladen", "verb", "", ""),   # rewrite perfect-participle :: Diese Batterie ist aufgeladen.
+    "wordsb2gode.js|aufgelauert": ("auflauern", "verb", "", ""),   # rewrite perfect-participle :: Das Schiff ist in Küstennähe auf eine Sandbank aufgelaufen.
+    "wordsb2gode.js|aufgelöst": ("aufgelöst", "adjective", "", ""),   # redefine perfect-participle :: Es ist wahrscheinlich, dass das Parlament aufgelöst wird.
+    "wordsb2gode.js|aufgeräumt": ("aufgeräumt", "adjective", "", ""),   # redefine perfect-participle :: Er hat sein Zimmer aufgeräumt.
+    "wordsb2gode.js|aufgeschnitten": ("aufschneiden", "verb", "", ""),   # rewrite perfect-participle :: Blut strömte aus dem aufgeschnittenen Blutgefäß.
+    "wordsb2gode.js|aufgeweckt": ("aufgeweckt", "adjective", "", ""),   # redefine perfect-participle :: Warum hast du mich aufgeweckt, um mir etwas so wichtiges zu 
+    "wordsb2gode.js|aufopfernd": ("aufopfernd", "adjective", "", ""),   # redefine present-participle :: Erlange keinen Reichtum, wenn du dein Gewissen aufopfern mus
+    "wordsb2gode.js|aufreizend": ("aufreizend", "adjective", "", ""),   # redefine present-participle :: Mary hat sich ganz schön aufreizend gekleidet.
+    "wordsb2gode.js|ausdauernd": ("ausdauernd", "adjective", "", ""),   # redefine present-participle :: Wir sind ausdauernd.
+    "wordsb2gode.js|auserkoren": ("auserkiesen", "verb", "", ""),   # rewrite perfect-participle :: Mein Freund ist weiß und rot, auserkoren unter vielen Tausen
+    "wordsb2gode.js|ausgebeutet": ("ausgebeutet", "adjective", "", ""),   # redefine perfect-participle :: Im Kapitalismus wird der Mensch durch den Menschen ausgebeut
+    "wordsb2gode.js|ausgebildet": ("ausgebildet", "adjective", "", ""),   # redefine perfect-participle :: In der Fußballschule von Peter werden die besten Fußballer a
+    "wordsb2gode.js|ausgedacht": ("ausgedacht", "adjective", "", ""),   # redefine perfect-participle :: Er hat sich die Geschichte ausgedacht.
+    "wordsb2gode.js|ausgedehnt": ("ausgedehnt", "adjective", "", ""),   # redefine perfect-participle :: Unser Einflussbereich hat sich seit damals stark ausgedehnt.
+    "wordsb2gode.js|ausgeführt": ("ausgeführt", "adjective", "", ""),   # redefine perfect-participle :: Viele Pläne werden nie ausgeführt.
+    "wordsb2gode.js|ausgeheckt": ("aushecken", "verb", "", ""),   # rewrite perfect-participle :: Du grinst wie ein kleiner Frechdachs, der gerade etwas ausge
+    "wordsb2gode.js|ausgeklügelt": ("ausgeklügelt", "adjective", "", ""),   # redefine perfect-participle :: Hast du es schon ausgeklügelt?
+    "wordsb2gode.js|ausgelastet": ("ausgelastet", "adjective", "", ""),   # redefine perfect-participle :: Der Sonntag ist der Tag, an dem ich am wenigsten ausgelastet
+    "wordsb2gode.js|ausgenommen": ("ausnehmen", "verb", "", ""),   # rewrite perfect-participle :: Eintritt verboten, ausgenommen die Beschäftigten.
+    "wordsb2gode.js|ausgerechnet": ("ausgerechnet", "adjective", "", ""),   # redefine perfect-participle :: Von allen Kaschemmen der ganzen Welt kommt sie ausgerechnet 
+    "wordsb2gode.js|ausgereift": ("ausgereift", "adjective", "", ""),   # redefine perfect-participle :: ein ausgereifter Apfel.
+    "wordsb2gode.js|ausgespannt": ("ausspannen", "verb", "", ""),   # rewrite perfect-participle :: Meine beste Freundin hat mit den Freund ausgespannt.
+    "wordsb2gode.js|ausgewachsen": ("auswachsen", "verb", "", ""),   # rewrite perfect-participle :: Wer weiß, was Tom machen will, wenn er ausgewachsen ist?
+    "wordsb2gode.js|ausgezeichnet": ("ausgezeichnet", "adjective", "", ""),   # redefine perfect-participle :: ausgezeichnete Qualität.
+    "wordsb2gode.js|ausreichend": ("ausreichend", "adjective", "", ""),   # redefine present-participle :: Die Geräusche wurden durch die Schallisolierung ausreichend 
+    "wordsb2gode.js|ausverkauft": ("ausverkauft", "adjective", "", ""),   # redefine perfect-participle :: Die Karten waren innerhalb einer Woche ausverkauft.
+    "wordsb2gode.js|bedeckt": ("bedeckt", "adjective", "", ""),   # redefine perfect-participle :: Geben Sie so viel Wasser zu den Kartoffeln, dass sie bedeckt
+    "wordsb2gode.js|bedeutend": ("bedeutend", "adjective", "", ""),   # redefine present-participle :: Heirate unter keinen Umständen des Geldes wegen. Es ist imme
+    "wordsb2gode.js|bedingt": ("bedingt", "adjective", "", ""),   # redefine perfect-participle :: Sie wurde zu zwei Jahren bedingt verurteilt.
+    "wordsb2gode.js|bedrückend": ("bedrückend", "adjective", "", ""),   # redefine present-participle :: Besonders sonntags fühle ich mich elend, weil die Stimmung i
+    "wordsb2gode.js|bedrückt": ("bedrückt", "adjective", "", ""),   # redefine perfect-participle :: Das bedrückt mich ein bisschen.
+    "wordsb2gode.js|eingebrannt": ("einbrennen", "verb", "", ""),   # rewrite perfect-participle :: Dieser Vorfall hatte sich in sein Gedächtnis eingebrannt.
+    "wordsb2gode.js|festgebunden": ("festbinden", "verb", "", ""),   # rewrite perfect-participle :: Das Boot war mit einem Tau am Ufer festgebunden.
+    "wordsb2gode.js|gebraucht": ("gebraucht", "adjective", "", ""),   # redefine perfect-participle :: Ich habe über zwei Stunden gebraucht, um einige Seiten Engli
+    "wordsb2gode.js|herumgeführt": ("herumführen", "verb", "", ""),   # rewrite perfect-participle :: Er hat uns an der Nase herumgeführt.
+    "wordsb2gode.js|hingekommen": ("hinkommen", "verb", "", ""),   # rewrite perfect-participle :: Bob ist hier hingekommen, nicht wahr?
+    "wordsb2gode.js|hingesehen": ("hinsehen", "verb", "", ""),   # rewrite perfect-participle :: Ich habe nicht hingesehen.
+    "wordsb2gode.js|nachgeforscht": ("nachforschen", "verb", "", ""),   # rewrite perfect-participle :: Tom hat nachgeforscht.
+    "wordsb2gode.js|nachgestellt": ("nachstellen", "verb", "", ""),   # rewrite perfect-participle :: Die Binnenstruktur dieser Bauten ist derjenigen der für die 
+    "wordsb2gode.js|umgeworfen": ("umwerfen", "verb", "", ""),   # rewrite perfect-participle :: Erfolg ist, einmal mehr aufzustehen, als man umgeworfen wird
+    "wordsb2gode.js|vergönnt": ("vergönnen", "verb", "", ""),   # rewrite bare-participle :: Maestro! Ich schwimme in Seligkeit, dass es mir vergönnt ist
+    "wordsb2gode.js|verschwitzt": ("verschwitzen", "verb", "", ""),   # rewrite bare-participle :: Du bist verschwitzt.
+    "wordsb2gode.js|vorbestimmt": ("vorbestimmen", "verb", "", ""),   # rewrite bare-participle :: Seither war mein Schicksal vorbestimmt.
+    "wordsb2gode.js|vorgefunden": ("vorfinden", "verb", "", ""),   # rewrite perfect-participle :: Ich habe die Kiste leer vorgefunden.
+    "wordsb2gode.js|vorgesungen": ("vorsingen", "verb", "", ""),   # rewrite perfect-participle :: Ich habe ihr ein Lied vorgesungen.
+    "wordsb2gode.js|vorverlegt": ("vorverlegen", "verb", "", ""),   # rewrite bare-participle :: Der Termin wurde vorverlegt.
+    "wordsb2gode.js|weggeschafft": ("wegschaffen", "verb", "", ""),   # rewrite perfect-participle :: Um die hohe, durch Gelbfieber verursachte Sterblichkeit zu v
+    "wordsb2gode.js|zerfleischt": ("zerfleischen", "verb", "", ""),   # rewrite bare-participle :: Tom ist von einem Bären zerfleischt worden.
+    "wordsb2gode.js|zurückgeschlagen": ("zurückschlagen", "verb", "", ""),   # rewrite perfect-participle :: Tom ist so vieler alter Sprachen kundig, dass er, in die Ver
+
+# ===== wordsc1gode.js
+    "wordsc1gode.js|Eindringen": ("Eindringen", "noun", "", ""),   # redefine gerund :: Sie hat mich in sie eindringen lassen.
+    "wordsc1gode.js|Eingreifen": ("Eingreifen", "noun", "", ""),   # redefine gerund :: Eltern sollten sich um ihre im Jugendalter befindlichen Töch
+    "wordsc1gode.js|Einkommen": ("Einkommen", "noun", "", ""),   # redefine gerund :: Wenn ich 25% mehr Einkommen hätte, wäre ich zufriedener mit 
+    "wordsc1gode.js|Entgegenkommen": ("Entgegenkommen", "noun", "", ""),   # redefine gerund :: Wir glauben, dass Sie uns beim Preis entgegenkommen können.
+    "wordsc1gode.js|Entsetzen": ("Entsetzen", "noun", "", ""),   # redefine gerund :: Zu meinem Entsetzen zog der Mann eine Waffe aus seiner Tasch
+    "wordsc1gode.js|Entzücken": ("Entzücken", "noun", "", ""),   # redefine gerund :: Das Entzücken, das wir empfanden ist nicht mit Worten zu bes
+    "wordsc1gode.js|Ernten": ("ernten", "noun", "", ""),   # rewrite gerund :: Ihr kennt den Satz, wir ernten, was wir säen. Ich habe den W
+    "wordsc1gode.js|Erstaunen": ("Erstaunen", "noun", "", ""),   # redefine gerund :: Zu unser aller Erstaunen trat er plötzlich zurück.
+    "wordsc1gode.js|Essen": ("Essen", "noun", "", ""),   # redefine gerund :: Das Trinken lernt der Mensch schon früh, und später erst das
+    "wordsc1gode.js|Finanzen": ("Finanz", "noun", "", ""),   # rewrite plural :: Tom achtet auf seine Finanzen.
+    "wordsc1gode.js|Flattern": ("flattern", "noun", "", ""),   # rewrite gerund :: Frühling lässt sein blaues Band wieder flattern durch die Lü
+    "wordsc1gode.js|Flusen": ("Fluse", "noun", "", ""),   # rewrite plural :: Den Stecker nur dann in eine Steckdose stecken, wenn kein St
+    "wordsc1gode.js|Flüstern": ("flüstern", "noun", "", ""),   # rewrite gerund :: Er nahm mich beiseite um mir etwas ins Ohr zu flüstern.
+    "wordsc1gode.js|Funkeln": ("funkeln", "noun", "", ""),   # rewrite gerund :: Planeten sind leicht zu erkennen, denn sie funkeln nicht wie
+    "wordsc1gode.js|Versilbern": ("versilbern", "noun", "", ""),   # rewrite gerund :: Immer häufiger lassen sich die Sportler ihre Erfolge versilb
+    "wordsc1gode.js|abfallend": ("abfallend", "adjective", "", ""),   # redefine present-participle :: Der Abfall hat einen Teil unseres Wassers verseucht.
+    "wordsc1gode.js|abgeknöpft": ("abknöpfen", "verb", "", ""),   # rewrite perfect-participle :: Tom hat seinem kleinen Bruder das ganze Taschengeld abgeknöp
+    "wordsc1gode.js|abgemildert": ("abgemildert", "adjective", "", ""),   # redefine perfect-participle :: Das Abkommen kam nur deswegen zustande, weil die Dolmetscher
+    "wordsc1gode.js|abgemurkst": ("abmurksen", "verb", "", ""),   # rewrite perfect-participle :: Er hatte seinen Nebenbuhler einfach abgemurkst.
+    "wordsc1gode.js|abgerackert": ("abrackern", "verb", "", ""),   # rewrite perfect-participle :: Tom hat sich den ganzen Tag abgerackert.
+    "wordsc1gode.js|abgeschrägt": ("abgeschrägt", "adjective", "", ""),   # redefine perfect-participle :: Als du das Lehrbuch abgeschrieben hast, hast du ein Wort aus
+    "wordsc1gode.js|abgetastet": ("abtasten", "verb", "", ""),   # rewrite perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|abgewirtschaftet": ("abgewirtschaftet", "adjective", "", ""),   # redefine perfect-participle :: Eine Idee, die als Wahrheit abgewirtschaftet hat, kann als S
+    "wordsc1gode.js|abweichend": ("abweichend", "adjective", "", ""),   # redefine present-participle :: Versuchen Sie zunächst, die Abweichung mit einem Oszilloskop
+    "wordsc1gode.js|alliiert": ("alliiert", "adjective", "", ""),   # redefine perfect-participle :: Deutschland war einmal ein Alliierter Italiens.
+    "wordsc1gode.js|angefüllt": ("anfüllen", "verb", "", ""),   # rewrite perfect-participle :: Mein Sohn ist sehr an den Naturwissenschaften interessiert. 
+    "wordsc1gode.js|angegliedert": ("angegliedert", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|angekleidet": ("ankleiden", "verb", "", ""),   # rewrite perfect-participle :: Al sich mich gerade angekleidet hatte, um das Büro zu verlas
+    "wordsc1gode.js|angeklopft": ("anklopfen", "verb", "", ""),   # rewrite perfect-participle :: Noch ehe Maria angeklopft hatte, öffnete Tom die Tür.
+    "wordsc1gode.js|angestaut": ("anstauen", "verb", "", ""),   # rewrite perfect-participle :: Gonzales schenkt allen seinen Angestellten in Europa ein Fah
+    "wordsc1gode.js|anheimelnd": ("anheimelnd", "adjective", "", ""),   # redefine present-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|anklagend": ("anklagend", "adjective", "", ""),   # redefine present-participle :: Herr T., 19, entging der Anklage des Mordes, wurde aber der 
+    "wordsc1gode.js|ausgehöhlt": ("aushöhlen", "verb", "", ""),   # rewrite perfect-participle :: Der Unternehmens-Wettbewerbsvorteil wird ausgehöhlt, wenn di
+    "wordsc1gode.js|ausgemergelt": ("ausgemergelt", "adjective", "", ""),   # redefine perfect-participle :: Sind die letzten Fehler jetzt ausgemerzt?
+    "wordsc1gode.js|ausgerückt": ("ausrücken", "verb", "", ""),   # rewrite perfect-participle :: Ich habe gehört, dass die Feuerwehr schon wieder ausgerückt 
+    "wordsc1gode.js|ausgeschickt": ("ausschicken", "verb", "", ""),   # rewrite perfect-participle :: Letzte Woche bin ich aus der Baseballmannschaft ausgeschiede
+    "wordsc1gode.js|ausgeschlachtet": ("ausschlachten", "verb", "", ""),   # rewrite perfect-participle :: Sie hat die Einladung ausgeschlagen.
+    "wordsc1gode.js|beeinflussend": ("beeinflussend", "adjective", "", ""),   # redefine present-participle :: Wahrscheinlich war es das, was ihre Entscheidung beeinflusst
+    "wordsc1gode.js|beeinflusst": ("beeinflusst", "adjective", "", ""),   # redefine perfect-participle :: Wahrscheinlich war es das, was ihre Entscheidung beeinflusst
+    "wordsc1gode.js|beflissen": ("befleißen", "verb", "", ""),   # rewrite perfect-participle :: Niemand ist so beflissen, immer neue Eindrücke zu sammeln, a
+    "wordsc1gode.js|befriedigt": ("befriedigt", "adjective", "", ""),   # redefine perfect-participle :: Sie schien befriedigt zu sein mit den Examensergebnissen.
+    "wordsc1gode.js|befugt": ("befugt", "adjective", "", ""),   # redefine perfect-participle :: In freien Staaten kann jeder seine Meinung sagen, und jeder 
+    "wordsc1gode.js|begabt": ("begabt", "adjective", "", ""),   # redefine perfect-participle :: Der Künstler ist begabt.
+    "wordsc1gode.js|beginnend": ("beginnend", "adjective", "", ""),   # redefine present-participle :: Außerdem gab es eine Vorliebe für Geschichten, beginnend mit
+    "wordsc1gode.js|begleitend": ("begleitend", "adjective", "", ""),   # redefine present-participle :: Darf ich Sie begleiten?
+    "wordsc1gode.js|beglückt": ("beglückt", "adjective", "", ""),   # redefine perfect-participle :: Wo man beglückt, ist man im Vaterlande.
+    "wordsc1gode.js|begrenzt": ("begrenzt", "adjective", "", ""),   # redefine perfect-participle :: Es ist schwierig, deinen Stil wiederzuerkennen, wenn die Nac
+    "wordsc1gode.js|begründend": ("begründend", "adjective", "", ""),   # redefine present-participle :: Wieso fiel es dermaßen schwer zu begründen, dass die Nervenz
+    "wordsc1gode.js|beheimatet": ("beheimatet", "adjective", "", ""),   # redefine perfect-participle :: Am Silicon Roundabout ist eine große Anzahl an IT-Start-Ups 
+    "wordsc1gode.js|beherrschend": ("beherrschend", "adjective", "", ""),   # redefine present-participle :: Es ist ziemlich schwierig, Französisch nach 2, 3 Jahren zu b
+    "wordsc1gode.js|behindert": ("behindert", "adjective", "", ""),   # redefine perfect-participle :: Die ganze Situation ist so behindert, Mann!
+    "wordsc1gode.js|bekannt": ("bekannt", "adjective", "", ""),   # redefine perfect-participle :: Mittelmeerländer sind für ihr gutes Olivenöl bekannt.
+    "wordsc1gode.js|belehrend": ("belehrend", "adjective", "", ""),   # redefine present-participle :: Eine gute Frau ist wie ein gutes Buch: unterhaltsam, anregen
+    "wordsc1gode.js|beleidigend": ("beleidigend", "adjective", "", ""),   # redefine present-participle :: Das Wort „Krüppel“ kann beleidigend sein.
+    "wordsc1gode.js|bemitleidet": ("bemitleiden", "verb", "", ""),   # rewrite bare-participle :: Behinderte können es nicht ausstehen, wenn man sie bemitleid
+    "wordsc1gode.js|berauscht": ("berauscht", "adjective", "", ""),   # redefine perfect-participle :: Der würzige Duft von Blumen berauscht mich gewissermaßen.
+    "wordsc1gode.js|berechtigt": ("berechtigt", "adjective", "", ""),   # redefine perfect-participle :: Ich bin nicht berechtigt, Sie über den Vorfall zu unterricht
+    "wordsc1gode.js|beruhigend": ("beruhigend", "adjective", "", ""),   # redefine present-participle :: eine beruhigende Atmosphäre.
+    "wordsc1gode.js|beschreibend": ("beschreibend", "adjective", "", ""),   # redefine present-participle :: Eine Grammatik im sprachwissenschaftlichen Sinne ist nicht v
+    "wordsc1gode.js|beschränkt": ("beschränkt", "adjective", "", ""),   # redefine perfect-participle :: In den Städten ist die Geschwindigkeit auf 50 km/h beschränk
+    "wordsc1gode.js|beschädigt": ("beschädigt", "adjective", "", ""),   # redefine perfect-participle :: Das Dach wurde durch den Sturm beschädigt.
+    "wordsc1gode.js|beschämend": ("beschämend", "adjective", "", ""),   # redefine present-participle :: Wie beschämend!
+    "wordsc1gode.js|beschützend": ("beschützend", "adjective", "", ""),   # redefine present-participle :: Er ist sehr beschützend.
+    "wordsc1gode.js|bestehend": ("bestehend", "adjective", "", ""),   # redefine present-participle :: Sahne ist eine weiße und leicht gelbliche Flüssigkeit besteh
+    "wordsc1gode.js|bestimmt": ("bestimmt", "adjective", "", ""),   # redefine perfect-participle :: Nicht die materielle Seite bestimmt unser Leben, sondern die
+    "wordsc1gode.js|beurkundet": ("beurkundet", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|bewaldet": ("bewaldet", "adjective", "", ""),   # redefine perfect-participle :: Der Park ist gut bewaldet.
+    "wordsc1gode.js|bewandert": ("bewandert", "adjective", "", ""),   # redefine perfect-participle :: Sie war im Englischen sehr bewandert.
+    "wordsc1gode.js|bewährt": ("bewährt", "adjective", "", ""),   # redefine perfect-participle :: Es hat sich bewährt, an das Gute im Menschen zu glauben, abe
+    "wordsc1gode.js|beängstigend": ("beängstigend", "adjective", "", ""),   # redefine present-participle :: Wie stickig und beängstigend ist es hier in dieser engen Stu
+    "wordsc1gode.js|bindend": ("bindend", "adjective", "", ""),   # redefine present-participle :: Diese Krawatte lässt sich nicht ordentlich binden.
+    "wordsc1gode.js|blendend": ("blendend", "adjective", "", ""),   # redefine present-participle :: blendend weißes Licht.
+    "wordsc1gode.js|das": ("das", "adjective", "", ""),   # redefine singular :: Ich kenne ein Mädchen, das das kann.
+    "wordsc1gode.js|dediziert": ("dediziert", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|demotivierend": ("demotivierend", "adjective", "", ""),   # redefine present-participle :: Wenn Menschen beginnen, sich mit denen zu vergleichen, die b
+    "wordsc1gode.js|designiert": ("designiert", "adjective", "", ""),   # redefine perfect-participle :: der designierte Präsident.
+    "wordsc1gode.js|desorientiert": ("desorientieren", "verb", "", ""),   # rewrite bare-participle :: Tom ist ein bisschen desorientiert.
+    "wordsc1gode.js|diese": ("diese", "adjective", "", ""),   # redefine singular :: Ich will diese Frau, I want this woman.
+    "wordsc1gode.js|distanziert": ("distanziert", "adjective", "", ""),   # redefine perfect-participle :: Der neue Junge verhält sich distanziert, weil er uns nicht k
+    "wordsc1gode.js|diverse": ("diverse", "adjective", "", ""),   # redefine inflection :: Ein weiterer Stein des Anstoßes sind Preissenkungen, die div
+    "wordsc1gode.js|doppelt": ("doppelt", "adjective", "", ""),   # redefine perfect-participle :: Die Preise sind doppelt so hoch wie vor zehn Jahren.
+    "wordsc1gode.js|dringend": ("dringend", "adjective", "", ""),   # redefine present-participle :: Wir müssen ihn dringend ins Krankenhaus bringen, er ist schw
+    "wordsc1gode.js|duftend": ("duftend", "adjective", "", ""),   # redefine present-participle :: Die Welt ist ein wunderschöner Obstgarten: im Garten scheint
+    "wordsc1gode.js|durchdacht": ("durchdacht", "adjective", "", ""),   # redefine perfect-participle :: Er hat die Sache gut durchdacht und entschied sich, nicht zu
+    "wordsc1gode.js|durchgearbeitet": ("durcharbeiten", "verb", "", ""),   # rewrite perfect-participle :: Er hat den ganzen Tag durchgearbeitet.
+    "wordsc1gode.js|durchgespielt": ("durchspielen", "verb", "", ""),   # rewrite perfect-participle :: Auch das noch: Tom hat Google Earth durchgespielt!
+    "wordsc1gode.js|durchscheinend": ("durchscheinend", "adjective", "", ""),   # redefine present-participle :: Ihre Haut war fast durchscheinend.
+    "wordsc1gode.js|eingearbeitet": ("eingearbeitet", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|eingebaut": ("eingebaut", "adjective", "", ""),   # redefine perfect-participle :: Das Modem war in den Computer eingebaut.
+    "wordsc1gode.js|eingebildet": ("eingebildet", "adjective", "", ""),   # redefine perfect-participle :: Tom findet, dass Mary total eingebildet ist.
+    "wordsc1gode.js|eingedrückt": ("eindrücken", "verb", "", ""),   # rewrite perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|eingefasst": ("eingefasst", "adjective", "", ""),   # redefine perfect-participle :: Das Bild war in einen verzierten Rahmen eingefasst.
+    "wordsc1gode.js|eingekehrt": ("einkehren", "verb", "", ""),   # rewrite perfect-participle :: Seid ihr auf eurer Wanderung auch wo eingekehrt?
+    "wordsc1gode.js|eingeschläfert": ("einschläfern", "verb", "", ""),   # rewrite perfect-participle :: Du hast mir mein Gehirn fast eingeschläfert.
+    "wordsc1gode.js|eingewandert": ("eingewandert", "adjective", "", ""),   # redefine perfect-participle :: Wann sind Sie in Deutschland eingewandert?
+    "wordsc1gode.js|eingliedernd": ("eingliedernd", "adjective", "", ""),   # redefine present-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|eingreifend": ("eingreifend", "adjective", "", ""),   # redefine present-participle :: Eltern sollten sich um ihre im Jugendalter befindlichen Töch
+    "wordsc1gode.js|einige": ("einige", "adjective", "", ""),   # redefine inflection :: Ich will meine Ideen nicht verlieren, selbst wenn einige von
+    "wordsc1gode.js|einschläfernd": ("einschläfernd", "adjective", "", ""),   # redefine present-participle :: Besonders sonntags fühle ich mich elend, weil die Stimmung i
+    "wordsc1gode.js|entfernt": ("entfernt", "adjective", "", ""),   # redefine perfect-participle :: Der Bahnhof ist 15 Minuten vom Stadtzentrum entfernt.
+    "wordsc1gode.js|entgegengenommen": ("entgegennehmen", "verb", "", ""),   # rewrite perfect-participle :: Gut gemeinte Vorschläge werden gern entgegengenommen.
+    "wordsc1gode.js|entgegengesetzt": ("entgegengesetzt", "adjective", "", ""),   # redefine perfect-participle :: Tom schrie verzweifelt \"Mary! Wo bist du?\" vom linken Satz
+    "wordsc1gode.js|entgegenkommend": ("entgegenkommend", "adjective", "", ""),   # redefine present-participle :: Er war sehr nett und entgegenkommend.
+    "wordsc1gode.js|enthemmt": ("enthemmt", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|entkräftet": ("entkräftet", "adjective", "", ""),   # redefine perfect-participle :: Ein Einsamer sinkt unter der Last der eigenen Gedanken entkr
+    "wordsc1gode.js|entsprechend": ("entsprechend", "adjective", "", ""),   # redefine present-participle :: Sie schickten mir entsprechend meiner Bitte ein Muster.
+    "wordsc1gode.js|entzündet": ("entzündet", "adjective", "", ""),   # redefine perfect-participle :: Ein kleiner Funke entzündet oft eine große Flamme.
+    "wordsc1gode.js|ergänzend": ("ergänzend", "adjective", "", ""),   # redefine present-participle :: ergänzende Informationen.
+    "wordsc1gode.js|erzählend": ("erzählend", "adjective", "", ""),   # redefine present-participle :: Die letzte Person, der ich meine Idee erzählt habe, dachte, 
+    "wordsc1gode.js|exaltiert": ("exaltiert", "adjective", "", ""),   # redefine perfect-participle :: Was ich als exaltierten Satz geneigt war einzuschätzen, stel
+    "wordsc1gode.js|faszinierend": ("faszinierend", "adjective", "", ""),   # redefine present-participle :: Es ist faszinierend sie zu sehen, wie sie hinter einer Kaker
+    "wordsc1gode.js|festgelegt": ("festgelegt", "adjective", "", ""),   # redefine perfect-participle :: Preise werden durch Angebot und Nachfrage festgelegt.
+    "wordsc1gode.js|forciert": ("forciert", "adjective", "", ""),   # redefine perfect-participle :: Die Sache scheint mir etwas forciert.
+    "wordsc1gode.js|fortschreitend": ("fortschreitend", "adjective", "", ""),   # redefine present-participle :: Wenn der Fortschritt so fortschreitet, muss befürchtet werde
+    "wordsc1gode.js|gebildet": ("gebildet", "adjective", "", ""),   # redefine perfect-participle :: Ein neues Team wurde gebildet, um an dem Ruderboot-Rennen te
+    "wordsc1gode.js|gedatet": ("daten", "verb", "", ""),   # rewrite perfect-participle :: So ein Mädel hab ich vor Jahren mal gedatet.
+    "wordsc1gode.js|gedeckt": ("gedeckt", "adjective", "", ""),   # redefine perfect-participle :: ein gedeckter Tisch.
+    "wordsc1gode.js|gedämpft": ("gedämpft", "adjective", "", ""),   # redefine perfect-participle :: Der kapitalistische Eifer von Herrn Aznar ist durch seine Ko
+    "wordsc1gode.js|gefragt": ("gefragt", "adjective", "", ""),   # redefine perfect-participle :: Ich habe mich immer gefragt, wie es wäre, Geschwister zu hab
+    "wordsc1gode.js|gefüllt": ("gefüllt", "adjective", "", ""),   # redefine perfect-participle :: Ich habe die Blumenvase mit Wasser gefüllt.
+    "wordsc1gode.js|gehasst": ("gehasst", "adjective", "", ""),   # redefine perfect-participle :: Lieber für das gehasst werden, was man ist, als geliebt werd
+    "wordsc1gode.js|geheiligt": ("geheiligt", "adjective", "", ""),   # redefine perfect-participle :: Vater unser im Himmel, geheiligt werde dein Name.
+    "wordsc1gode.js|gehäuft": ("gehäuft", "adjective", "", ""),   # redefine perfect-participle :: Letztes Jahr haben sich bei ihr die Unglücke gehäuft.
+    "wordsc1gode.js|gekürzt": ("gekürzt", "adjective", "", ""),   # redefine perfect-participle :: Unser Etat ist brutal gekürzt worden.
+    "wordsc1gode.js|gelehrt": ("gelehrt", "adjective", "", ""),   # redefine perfect-participle :: Dieses Jahr im März verbreitete sich die Geschichte, dass la
+    "wordsc1gode.js|gemischt": ("gemischt", "adjective", "", ""),   # redefine perfect-participle :: Eine Mischung aus Chili-Extrakt, gemischt mit einer Hand vol
+    "wordsc1gode.js|gemäßigt": ("gemäßigt", "adjective", "", ""),   # redefine perfect-participle :: Die politische Ausrichtung der Zeitung war bis zum Jahr 2006
+    "wordsc1gode.js|genervt": ("genervt", "adjective", "", ""),   # redefine perfect-participle :: Ach, irgendwie bin ich genervt!
+    "wordsc1gode.js|genormt": ("genormt", "adjective", "", ""),   # redefine perfect-participle :: In Deutschland zugelassene Autos müssen eine genormte Erste-
+    "wordsc1gode.js|geordnet": ("geordnet", "adjective", "", ""),   # redefine perfect-participle :: Wir haben die Bücher nach Größe geordnet.
+    "wordsc1gode.js|gepfeffert": ("gepfeffert", "adjective", "", ""),   # redefine perfect-participle :: Wer mir an den Hintern grapscht, kriegt eine gepfeffert!
+    "wordsc1gode.js|geplant": ("geplant", "adjective", "", ""),   # redefine perfect-participle :: Es ist geplant, dass die Konferenz in Tokyo stattfindet.
+    "wordsc1gode.js|geprüft": ("geprüft", "adjective", "", ""),   # redefine perfect-participle :: Er hat die Maschine auf Herz und Nieren geprüft.
+    "wordsc1gode.js|geputzt": ("geputzt", "adjective", "", ""),   # redefine perfect-participle :: Wir haben gerade die Toilette geputzt.
+    "wordsc1gode.js|geriffelt": ("geriffelt", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|gerüstet": ("gerüstet", "adjective", "", ""),   # redefine perfect-participle :: Man muss stets für den Notfall gerüstet sein.
+    "wordsc1gode.js|geschickt": ("geschickt", "adjective", "", ""),   # redefine perfect-participle :: Mit Hilfe eines geschickten Marketings wuchs das Unternehmen
+    "wordsc1gode.js|geschröpft": ("geschröpft", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|geschützt": ("geschützt", "adjective", "", ""),   # redefine perfect-participle :: Die Einrichtung muss geschützt werden.
+    "wordsc1gode.js|gesellt": ("gesellen", "verb", "", ""),   # rewrite bare-participle :: Gleich und Gleich gesellt sich gern.
+    "wordsc1gode.js|gestresst": ("gestresst", "adjective", "", ""),   # redefine perfect-participle :: Ich fühle mich gestresst.
+    "wordsc1gode.js|gestrichelt": ("gestrichelt", "adjective", "", ""),   # redefine perfect-participle :: Viele Flüge wurden wegen des Taifuns gestrichen.
+    "wordsc1gode.js|gestört": ("gestört", "adjective", "", ""),   # redefine perfect-participle :: Er ist nicht exzentrisch, sondern gestört.
+    "wordsc1gode.js|gesättigt": ("gesättigt", "adjective", "", ""),   # redefine perfect-participle :: Der Arbeitsmarkt ist nicht gesättigt.
+    "wordsc1gode.js|getakelt": ("getakelt", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|getürkt": ("türken", "verb", "", ""),   # rewrite perfect-participle :: Sein Ausweis war getürkt.
+    "wordsc1gode.js|gewagt": ("gewagt", "adjective", "", ""),   # redefine perfect-participle :: Frisch gewagt ist halb gewonnen.
+    "wordsc1gode.js|gewandt": ("gewandt", "adjective", "", ""),   # redefine perfect-participle :: gewandte Finger.
+    "wordsc1gode.js|gezackt": ("gezackt", "adjective", "", ""),   # redefine perfect-participle :: Der operative Verschluss war geschlampt und hinterließ eine 
+    "wordsc1gode.js|gezeichnet": ("gezeichnet", "adjective", "", ""),   # redefine perfect-participle :: ein gezeichnetes Bild.
+    "wordsc1gode.js|gezielt": ("gezielt", "adjective", "", ""),   # redefine perfect-participle :: Er hat auf mich gezielt und geschossen.
+    "wordsc1gode.js|gezähmt": ("gezähmt", "adjective", "", ""),   # redefine perfect-participle :: Während meines Sabbatjahrs habe ich eine Fuge komponiert und
+    "wordsc1gode.js|gleichgestellt": ("gleichstellen", "verb", "", ""),   # rewrite perfect-participle :: Du darfst auf der Internetseite Tatoeba in deiner Wahlsprach
+    "wordsc1gode.js|grundlegend": ("grundlegend", "adjective", "", ""),   # redefine present-participle :: grundlegendes Konzept.
+    "wordsc1gode.js|hemmend": ("hemmend", "adjective", "", ""),   # redefine present-participle :: Die deutsche Sucht nach ewigen Lösungen, die Angst vor Exper
+    "wordsc1gode.js|herabgesetzt": ("herabgesetzt", "adjective", "", ""),   # redefine perfect-participle :: Da die Skisaison fast endete, sind die herabgesetzten Skibek
+    "wordsc1gode.js|herausfordernd": ("herausfordernd", "adjective", "", ""),   # redefine present-participle :: Jede echte Kunst ist oder war in ihrer Zeit modern, herausfo
+    "wordsc1gode.js|hineingesteckt": ("hineinstecken", "verb", "", ""),   # rewrite perfect-participle :: Du darfst jetzt nicht aufgeben — nicht nach all der Mühe, di
+    "wordsc1gode.js|innere": ("innere", "adjective", "", ""),   # redefine inflection :: Rücken Sie bitte ins Innere des Busses vor.
+    "wordsc1gode.js|interessiert": ("interessiert", "adjective", "", ""),   # redefine perfect-participle :: Er ist an dir interessiert.
+    "wordsc1gode.js|irgendeiner": ("irgendeiner", "adjective", "", ""),   # redefine singular :: Wir sind immer irgendeiner Gefahr ausgesetzt.
+    "wordsc1gode.js|lebend": ("lebend", "adjective", "", ""),   # redefine present-participle :: Wir haben ihn lebend gefunden.
+    "wordsc1gode.js|leitend": ("leitend", "adjective", "", ""),   # redefine present-participle :: Tom leitet den Fußballverein.
+    "wordsc1gode.js|letzter": ("letzter", "adjective", "", ""),   # redefine inflection :: Muiriel ärgert mich in letzter Zeit gerne.
+    "wordsc1gode.js|losgemacht": ("losmachen", "verb", "", ""),   # rewrite perfect-participle :: Christian hat sich gerade losgemacht.
+    "wordsc1gode.js|missfallend": ("missfallend", "adjective", "", ""),   # redefine present-participle :: Hast du an ihm kein Missfallen bemerkt in Worten oder Mienen
+    "wordsc1gode.js|nachwachsend": ("nachwachsend", "adjective", "", ""),   # redefine present-participle :: Dein Haar wird nachwachsen.
+    "wordsc1gode.js|passend": ("passend", "adjective", "", ""),   # redefine present-participle :: Der Krieg in Vietnam ist dort, und das ganz passend, als ame
+    "wordsc1gode.js|prädestiniert": ("prädestiniert", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|quälend": ("quälend", "adjective", "", ""),   # redefine present-participle :: Sie müssen achtgeben, dass Sie nicht in eine finanzielle Zwa
+    "wordsc1gode.js|retardiert": ("retardiert", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc1gode.js|schwankend": ("schwankend", "adjective", "", ""),   # redefine present-participle :: eine schwankende Brücke.
+    "wordsc1gode.js|telegrafiert": ("telegrafieren", "verb", "", ""),   # rewrite bare-participle :: Das Auto fuhr gegen einen Telegrafenmast.
+    "wordsc1gode.js|verblüht": ("verblüht", "adjective", "", ""),   # redefine perfect-participle :: Im Schatten der Bescheidenheit verblüht der Hochmut schnelle
+    "wordsc1gode.js|verfrüht": ("verfrüht", "adjective", "", ""),   # redefine perfect-participle :: Die Realisierung dieses Planes wäre momentan verfrüht.
+    "wordsc1gode.js|vorbeigelaufen": ("vorbeilaufen", "verb", "", ""),   # rewrite perfect-participle :: Meine beste Freundin ist an mir vorbeigelaufen und hat mich 
+    "wordsc1gode.js|vorbestellt": ("vorbestellen", "verb", "", ""),   # rewrite bare-participle :: Haben Sie im Hotel ein Zimmer vorbestellt?
+    "wordsc1gode.js|vorgebracht": ("vorbringen", "verb", "", ""),   # rewrite perfect-participle :: Er hat eine Entschuldigung vorgebracht, warum er nicht zur P
+    "wordsc1gode.js|vorgeschoben": ("vorschieben", "verb", "", ""),   # rewrite perfect-participle :: Die Einvernehmlichkeit deutet darauf hin, dass wir gegen die
+    "wordsc1gode.js|vorgesetzt": ("vorsetzen", "verb", "", ""),   # rewrite perfect-participle :: Ist es denn so schwer, diejenigen, denen man vorgesetzt ist,
+    "wordsc1gode.js|weggefegt": ("wegfegen", "verb", "", ""),   # rewrite perfect-participle :: Mein Hut ist wegen des Windes weggeflogen.
+    "wordsc1gode.js|weggetragen": ("wegtragen", "verb", "", ""),   # rewrite perfect-participle :: Die Brücke wurde von den Wassermassen weggetragen.
+    "wordsc1gode.js|zugedrückt": ("zudrücken", "verb", "", ""),   # rewrite perfect-participle :: Ich habe ein Auge zugedrückt.
+    "wordsc1gode.js|zugefallen": ("zufallen", "verb", "", ""),   # rewrite perfect-participle :: Mir ist die Tür zugefallen.
+    "wordsc1gode.js|zugeflüstert": ("zuflüstern", "verb", "", ""),   # rewrite perfect-participle :: Was hat sie dir zugeflüstert?
+    "wordsc1gode.js|zugelaufen": ("zulaufen", "verb", "", ""),   # rewrite perfect-participle :: Ein Junge kam auf mich zugelaufen.
+    "wordsc1gode.js|zugestanden": ("zustehen", "verb", "", ""),   # rewrite perfect-participle :: Jedem Sprecher wurden fünf Minuten zugestanden.
+    "wordsc1gode.js|zugeworfen": ("zuwerfen", "verb", "", ""),   # rewrite perfect-participle :: Ich habe meinem Hund einen Ball zugeworfen, und er hat ihn m
+    "wordsc1gode.js|zurechtgelegt": ("zurechtlegen", "verb", "", ""),   # rewrite perfect-participle :: Jetzt zahlen wir den Preis dafür, dass wir uns keinen Plan B
+    "wordsc1gode.js|zurückgefallen": ("zurückfallen", "verb", "", ""),   # rewrite perfect-participle :: Meine Noten waren ans Ende der Leistungen in meiner Schulkla
+    "wordsc1gode.js|zusammengelegt": ("zusammenlegen", "verb", "", ""),   # rewrite perfect-participle :: Ich habe die Handtücher zusammengelegt.
+    "wordsc1gode.js|zusammengepackt": ("zusammenpacken", "verb", "", ""),   # rewrite perfect-participle :: Ich habe die Zähne zusammengebissen.
+    "wordsc1gode.js|zusammengepasst": ("zusammenpassen", "verb", "", ""),   # rewrite perfect-participle :: Ich habe die Zähne zusammengebissen.
+
+# ===== wordsc2gode.js
+    "wordsc2gode.js|Abkommen": ("Abkommen", "noun", "", ""),   # redefine gerund :: Das Abkommen wurde ignoriert, und ein Krieg brach aus.
+    "wordsc2gode.js|Aufsehen": ("Aufsehen", "noun", "", ""),   # redefine gerund :: Aufsehen erregen.
+    "wordsc2gode.js|Bedenken": ("Bedenken", "noun", "", ""),   # redefine gerund :: Bedenken haben.
+    "wordsc2gode.js|Bergsteigen": ("Bergsteigen", "noun", "", ""),   # redefine gerund :: Er ist ans Bergsteigen gewöhnt.
+    "wordsc2gode.js|Gefolgsleute": ("Gefolgsmann", "noun", "", ""),   # rewrite plural :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc2gode.js|Gewissensbisse": ("Gewissensbiss", "noun", "", ""),   # rewrite plural :: Ich bin durch meine Laster Sklave und frei durch meine Gewis
+    "wordsc2gode.js|Glucksen": ("glucksen", "noun", "", ""),   # rewrite gerund :: Tom gluckste.
+    "wordsc2gode.js|Grauen": ("Grauen", "noun", "", ""),   # redefine gerund :: Das Grauen, das im Verborgenen lauert.
+    "wordsc2gode.js|Großbuchstaben": ("Großbuchstabe", "noun", "", ""),   # rewrite plural :: Sätze beginnen mit einem Großbuchstaben.
+    "wordsc2gode.js|Handgreiflichkeiten": ("Handgreiflichkeit", "noun", "", ""),   # rewrite plural :: Es endete in Handgreiflichkeiten.
+    "wordsc2gode.js|Hautschuppen": ("Hautschuppe", "noun", "", ""),   # rewrite plural :: Das ist bizarr, sie haben viele harte Hautschuppen auf ihren
+    "wordsc2gode.js|Heben": ("heben", "noun", "", ""),   # rewrite gerund :: Heben Sie vorsichtig den geriebenen Gruyère, den ungekochten
+    "wordsc2gode.js|Intimitäten": ("Intimität", "noun", "", ""),   # rewrite plural :: Sie sagte sich: Mit ihm schlafen, ja — aber nur keine Intimi
+    "wordsc2gode.js|Schlafengehen": ("Schlafengehen", "noun", "", ""),   # redefine gerund :: Es ist besser für dich, vor dem Schlafengehen nichts mehr zu
+    "wordsc2gode.js|Vernickeln": ("Vernickeln", "noun", "", ""),   # redefine gerund :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc2gode.js|abbildend": ("abbildend", "adjective", "", ""),   # redefine present-participle :: Sei f die kanonische Abbildung.
+    "wordsc2gode.js|abgemüht": ("abmühen", "verb", "", ""),   # rewrite perfect-participle :: Ich habe mich so sehr abgemüht, dass ich nicht mehr weiterka
+    "wordsc2gode.js|adstringierend": ("adstringierend", "adjective", "", ""),   # redefine present-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc2gode.js|aktivierend": ("aktivierend", "adjective", "", ""),   # redefine present-participle :: Wir haben Ihnen eine E-Mail mit einem Aktivierungslink gesch
+    "wordsc2gode.js|alternierend": ("alternierend", "adjective", "", ""),   # redefine present-participle :: Ein in der MRT-Röhre erzeugtes, alternierendes Magnetfeld re
+    "wordsc2gode.js|angebellt": ("anbellen", "verb", "", ""),   # rewrite perfect-participle :: Der Hund hat den Fremden angebellt.
+    "wordsc2gode.js|angefeindet": ("anfeinden", "verb", "", ""),   # rewrite perfect-participle :: Ist es nicht die Höhe, als Freiwilliger auch noch angefeinde
+    "wordsc2gode.js|angefixt": ("anfixen", "verb", "", ""),   # rewrite perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc2gode.js|angeworfen": ("anwerfen", "verb", "", ""),   # rewrite perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc2gode.js|angezählt": ("anzählen", "verb", "", ""),   # rewrite perfect-participle :: Der Boxer war angezählt, aber gab noch nicht auf.
+    "wordsc2gode.js|angreifend": ("angreifend", "adjective", "", ""),   # redefine present-participle :: Die kämpfenden Armeen marschierten durch das Land längs und 
+    "wordsc2gode.js|animierend": ("animierend", "adjective", "", ""),   # redefine present-participle :: Imogen aus dem Internet übersetzt Shakespeares Werke in ihre
+    "wordsc2gode.js|antizipierend": ("antizipierend", "adjective", "", ""),   # redefine present-participle :: Der Spieler war gedächtnisschneller, hat die Situation richt
+    "wordsc2gode.js|aufgespielt": ("aufspielen", "verb", "", ""),   # rewrite perfect-participle :: Tom mag Schmetterlinge sehr. Er hat schon mehrere hundert fü
+    "wordsc2gode.js|ausbrechend": ("ausbrechend", "adjective", "", ""),   # redefine present-participle :: Jederzeit könnte Krieg ausbrechen.
+    "wordsc2gode.js|ausgeblieben": ("ausbleiben", "verb", "", ""),   # rewrite perfect-participle :: Meine Periode ist ausgeblieben.
+    "wordsc2gode.js|ausgepustet": ("auspusten", "verb", "", ""),   # rewrite perfect-participle :: Die Kerze wurde vom Wind ausgepustet.
+    "wordsc2gode.js|ausgleichend": ("ausgleichend", "adjective", "", ""),   # redefine present-participle :: Blinde entwickeln manchmal eine ausgleichende Fähigkeit, die
+    "wordsc2gode.js|auswählend": ("auswählend", "adjective", "", ""),   # redefine present-participle :: Welches Kriterium wendeten Sie an, als Sie diesen Aufsatz al
+    "wordsc2gode.js|bereitgelegt": ("bereitlegen", "verb", "", ""),   # rewrite perfect-participle :: Eine Karte wird auf Verlangen bereitgestellt.
+    "wordsc2gode.js|diffundiert": ("diffundiert", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc2gode.js|durchgevögelt": ("durchvögeln", "verb", "", ""),   # rewrite perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc2gode.js|eingelenkt": ("einlenken", "verb", "", ""),   # rewrite perfect-participle :: Tom hat eingelenkt.
+    "wordsc2gode.js|eingeschossen": ("einschießen", "verb", "", ""),   # rewrite perfect-participle :: „Augenblick mal, Jungs! Wie wär's, wenn ... wenn wir ...“, b
+    "wordsc2gode.js|einverleibt": ("einverleiben", "verb", "", ""),   # rewrite bare-participle :: Im Alter gibt es keinen schöneren Trost, als dass man die ga
+    "wordsc2gode.js|entwöhnt": ("entwöhnen", "verb", "", ""),   # rewrite bare-participle :: Als sie Lo-Ryhamo entwöhnt hatte, wurde sie wieder schwanger
+    "wordsc2gode.js|geemailt": ("emailen", "verb", "", ""),   # rewrite perfect-participle :: Meine Großmutter hat in ihrem Leben noch nie geemailt.
+    "wordsc2gode.js|gefakt": ("faken", "verb", "", ""),   # rewrite perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc2gode.js|geschlampt": ("schlampen", "verb", "", ""),   # rewrite perfect-participle :: Der operative Verschluss war geschlampt und hinterließ eine 
+    "wordsc2gode.js|gezollt": ("zollen", "verb", "", ""),   # rewrite perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc2gode.js|heimgegangen": ("heimgehen", "verb", "", ""),   # rewrite perfect-participle :: Meine Großmutter ist in der Nacht friedlich heimgegangen.
+    "wordsc2gode.js|herabgelassen": ("herablassen", "verb", "", ""),   # rewrite perfect-participle :: Tom griff das Seil, das von dem Hubschrauber herabgelassen w
+    "wordsc2gode.js|laminiert": ("laminieren", "verb", "", ""),   # rewrite bare-participle :: Ich habe das alte Dokument zwecks Konservierung laminiert.
+    "wordsc2gode.js|umgeschlagen": ("umschlagen", "verb", "", ""),   # rewrite perfect-participle :: Über Nacht war das Wetter umgeschlagen.
+    "wordsc2gode.js|umrandet": ("umranden", "verb", "", ""),   # rewrite bare-participle :: Tom trägt eine schwarz umrandete Brille.
+    "wordsc2gode.js|vergilbt": ("vergilben", "verb", "", ""),   # rewrite bare-participle :: Diese vergilbten Dokumente sind Adelsbriefe aus einer längst
+    "wordsc2gode.js|verkalkuliert": ("verkalkulieren", "verb", "", ""),   # rewrite bare-participle :: Hat sich der Präsident verkalkuliert?
+    "wordsc2gode.js|verlacht": ("verlachen", "verb", "", ""),   # rewrite bare-participle :: Ich bin verlacht worden.
+    "wordsc2gode.js|verletzt": ("verletzt", "adjective", "", ""),   # redefine perfect-participle :: Wir müssen ihn dringend ins Krankenhaus bringen, er ist schw
+    "wordsc2gode.js|versiebt": ("versieben", "verb", "", ""),   # rewrite bare-participle :: Bevor du dich versiehst, wirst du in der Zeitung sein.
+    "wordsc2gode.js|verwandt": ("verwandt", "adjective", "", ""),   # redefine perfect-participle :: Niederländisch ist eng verwandt mit Deutsch.
+    "wordsc2gode.js|vorangegangen": ("vorangehen", "verb", "", ""),   # rewrite perfect-participle :: der vorangegangene Präsident.
+    "wordsc2gode.js|vorgelassen": ("vorlassen", "verb", "", ""),   # rewrite perfect-participle :: Wie lange musstest du warten, bis du zum Arzt vorgelassen wu
+    "wordsc2gode.js|vorgewagt": ("vorwagen", "verb", "", ""),   # rewrite perfect-participle :: Ihr wurde vorgeworfen, gelogen zu haben.
+    "wordsc2gode.js|weggedrückt": ("wegdrücken", "verb", "", ""),   # rewrite perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc2gode.js|wiedergekehrt": ("wiederkehren", "verb", "", ""),   # rewrite perfect-participle :: Du hast kein Glück, ich bin 5 Minuten, nachdem du gegangen w
+    "wordsc2gode.js|wiedergewinnend": ("wiedergewinnend", "adjective", "", ""),   # redefine present-participle :: Haltung lässt sich leichter bewahren als wiedergewinnen.
+    "wordsc2gode.js|zugekehrt": ("zukehren", "verb", "", ""),   # rewrite perfect-participle :: Tom nickte, mir den Rücken zugekehrt.
+    "wordsc2gode.js|zugerufen": ("zurufen", "verb", "", ""),   # rewrite perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc2gode.js|zugeschoben": ("zuschieben", "verb", "", ""),   # rewrite perfect-participle :: Er hat mir die Schuld an dem Unfall zugeschoben.
+    "wordsc2gode.js|zugewachsen": ("zuwachsen", "verb", "", ""),   # rewrite perfect-participle :: Die alte Straße ist viele Jahre lang nicht benutzt worden un
+    "wordsc2gode.js|zurückgelehnt": ("zurücklehnen", "verb", "", ""),   # rewrite perfect-participle :: Als ich mich zurückgelehnt hatte, ist die Lehne gebrochen un
+    "wordsc2gode.js|zurückgewichen": ("zurückweichen", "verb", "", ""),   # rewrite perfect-participle :: Warum bist du zurückgewichen?
+    "wordsc2gode.js|zusammengeblieben": ("zusammenbleiben", "verb", "", ""),   # rewrite perfect-participle :: Wir sind zusammengeblieben, bis wir unser gemeinsames Ziel e
+    "wordsc2gode.js|zusammengezuckt": ("zusammenzucken", "verb", "", ""),   # rewrite perfect-participle :: Warum bist du zusammengezuckt, Tom? Hast du ein schlechtes G
+    "wordsc2gode.js|ätzend": ("ätzend", "adjective", "", ""),   # redefine present-participle :: ätzende Kritik.
+    "wordsc2gode.js|äußerster": ("äußerster", "adjective", "", ""),   # redefine inflection :: Jener Shogun verbrachte nach seinem Rücktritt seinen Lebensa
+    "wordsc2gode.js|überdimensioniert": ("überdimensioniert", "adjective", "", ""),   # redefine perfect-participle :: Kein Beispielsatz für dieses Wort verfügbar.
+    "wordsc2gode.js|übereingekommen": ("übereinkommen", "verb", "", ""),   # rewrite perfect-participle :: Tom und Maria sind übereingekommen, mit ihren Kindern nicht 
+    "wordsc2gode.js|überhäuft": ("überhäuft", "adjective", "", ""),   # redefine inflection :: Tom ist mit Arbeit überhäuft.
+    "wordsc2gode.js|überschäumend": ("überschäumend", "adjective", "", ""),   # redefine present-participle :: überschäumende Freude.
+    "wordsc2gode.js|überströmt": ("überströmen", "verb", "", ""),   # rewrite bare-participle :: Im Sommer wurde die Stadt von Touristen überströmt.
+    "wordsc2gode.js|überwuchert": ("überwuchern", "verb", "", ""),   # rewrite bare-participle :: Der Garten war von Unkraut überwuchert.

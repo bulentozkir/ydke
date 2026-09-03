@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Farklı Olanı Bul (Odd One Out) | Top Words</title>
+    <meta
+      name="description"
+      content="İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca, Portekizce ve Hollandaca Farklı Olanı Bul (Odd One Out) oyunu: dört kelimeden konusu farklı olanı seçin. A1–C2, YDS, YÖKDİL, TOEFL, telc ve CEFR kelimeleriyle anlam alanı pratiği."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f172a" />
+    <script>
+      (function () {
+        try {
+          var t = JSON.parse(localStorage.getItem("udsp_theme_v1") || '"dark"');
+          if (t === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (m) m.setAttribute("content", "#f8fafc");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="canonical" href="https://udsp.vercel.app/oddoneout.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Top Words" />
+    <meta property="og:title" content="Farklı Olanı Bul (Odd One Out) | Top Words" />
+    <meta
+      property="og:description"
+      content="Dört kelimeden konusu farklı olanı seçin. Anlam alanı ve konu kelimeleri pratiği."
+    />
+    <meta property="og:url" content="https://udsp.vercel.app/oddoneout.html" />
+    <meta property="og:image" content="https://udsp.vercel.app/og-image.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Top Words – İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca, Portekizce ve Hollandaca kelime öğrenme uygulaması" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Farklı Olanı Bul (Odd One Out) | Top Words" />
+    <meta
+      name="twitter:description"
+      content="Dört kelimeden konusu farklı olanı seçin. Anlam alanı ve konu kelimeleri pratiği."
+    />
+    <meta name="twitter:image" content="https://udsp.vercel.app/og-image.svg" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Top Words" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="site.webmanifest" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://udsp.vercel.app/oddoneout.html",
+            "url": "https://udsp.vercel.app/oddoneout.html",
+            "name": "Farklı Olanı Bul (Odd One Out) | Top Words",
+            "description": "İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca, Portekizce ve Hollandaca Farklı Olanı Bul oyunu: dört kelimeden konusu farklı olanı seçin.",
+            "inLanguage": "tr",
+            "isPartOf": { "@id": "https://udsp.vercel.app/#webapp" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Top Words", "item": "https://udsp.vercel.app/" },
+              { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://udsp.vercel.app/games.html" },
+              { "@type": "ListItem", "position": 3, "name": "Odd One Out", "item": "https://udsp.vercel.app/oddoneout.html" }
+            ]
+          }
+        ]
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-mode="oddoneout">
+    <header class="site-header">
+      <div class="brand">
+        <a class="logo-link" href="home.html" aria-label="Home"><img class="logo" src="icon.svg" alt="Top Words logo" width="44" height="44" /></a>
+        <span class="brand-title">Yabancı Dil Kelime Ezberleme</span>
+        <!-- Main toolbar: shares the header's first line -->
+        <nav class="bottom-nav" aria-label="Main navigation">
+        <a class="bottom-nav-item" href="index.html"><span class="bn-icon">🃏</span><span class="bn-label">Cards</span></a>
+        <a class="bottom-nav-item" href="quiz.html"><span class="bn-icon">📝</span><span class="bn-label">Quiz</span></a>
+        <a class="bottom-nav-item is-active" href="games.html"><span class="bn-icon">🎮</span><span class="bn-label">Games</span></a>
+        <a class="bottom-nav-item" href="wordlist.html"><span class="bn-icon">📋</span><span class="bn-label">Words</span></a>
+        <a class="bottom-nav-item bn-morph" href="wordmorph.html"><span class="bn-icon">🔄</span><span class="bn-label">Morph</span></a>
+        <button class="bottom-nav-item" id="more-btn" type="button"><span class="bn-icon">⋯</span><span class="bn-label">More</span></button>
+        </nav>
+        <div class="brand-actions">
+          <a class="about-btn" href="about.html" aria-label="Hakkında / About" data-tip="Hakkında / About">ℹ️<span class="btn-txt"> About</span></a>
+          <a class="about-btn" href="help.html" aria-label="Yardım / Help" data-tip="Yardım / Help">❓<span class="btn-txt"> Help</span></a>
+          <a class="about-btn" href="stats.html" aria-label="İstatistikler / Stats" data-tip="İstatistikler / Stats">📊<span class="btn-txt"> Stats</span></a>
+          <a class="profile-icon-link" href="profile.html" id="profile-icon-link" data-tip="Profil / Profile" aria-label="Profil / Profile">👤</a>
+        </div>
+      </div>
+      <div class="selectors-row">
+        <label class="select-group">
+          <span class="select-label">Lang</span>
+          <select class="langs select-pill" id="langs-nav" aria-label="Language">
+            <option value="en">English</option>
+            <option value="de">German</option>
+            <option value="fr">French</option>
+            <option value="it">Italian</option>
+            <option value="es">Spanish</option>
+            <option value="pt">Portuguese</option>
+            <option value="nl">Dutch</option>
+          </select>
+        </label>
+        <label class="select-group">
+          <span class="select-label">Level</span>
+          <select class="levels select-pill" id="levels-nav" aria-label="Level"></select>
+        </label>
+        <div class="select-group">
+          <span class="select-label">Category</span>
+          <button class="filter-btn select-pill" id="category-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Filter by category">🗂️ All</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Odd One Out game -->
+      <section id="view-oddoneout" class="view is-active">
+        <!-- Level picker -->
+        <div id="oddoneout-setup" class="hangman-setup">
+          <div class="picker-intro">
+            <a class="ghost-btn games-hub-link" href="games.html">← All Games</a>
+            <h2>🚫 Odd One Out</h2>
+            <p>15 rounds — three words share a topic, one doesn't.</p>
+          </div>
+          <div class="game-start" id="oddoneout-start">
+            <p class="game-start-level">Level: <strong id="oddoneout-start-level">B2</strong></p>
+            <p class="game-start-count" id="oddoneout-start-count"></p>
+            <p class="game-start-warning" id="oddoneout-start-warning" hidden></p>
+            <button class="nav-btn primary game-start-btn" id="oddoneout-start-btn" type="button">▶ Start</button>
+            <p class="game-start-hint">Change the level above.</p>
+          </div>
+        </div>
+
+        <!-- Game board -->
+        <div id="oddoneout-game" hidden>
+          <div class="toolbar">
+            <button class="ghost-btn" id="oddoneout-back" type="button">← Back</button>
+            <span class="counter" id="oddoneout-level-badge">A1</span>
+            <span class="score">Score: <span id="oddoneout-score">0</span></span>
+          </div>
+
+          <p class="tf-progress" id="oddoneout-progress">Round 1 / 15</p>
+
+          <div class="quiz-card" id="oddoneout-card">
+            <p class="quiz-prompt">Which word does not belong?</p>
+            <div class="options" id="oddoneout-options"></div>
+            <p class="feedback" id="oddoneout-feedback"></p>
+            <div class="game-hint-row">
+              <button class="chip-btn" id="oddoneout-hint-btn" type="button">💡 Topic</button>
+            </div>
+            <p class="example" id="oddoneout-hint" hidden></p>
+          </div>
+
+          <div class="hangman-result" id="oddoneout-result" hidden>
+            <p class="hangman-result-text win">🎉 Round complete!</p>
+            <p class="hangman-answer">Score: <strong id="oddoneout-final-score">0 / 15</strong></p>
+            <p class="example" id="oddoneout-final-best"></p>
+            <div class="nav-row">
+              <button class="nav-btn" id="oddoneout-change" type="button">← Back</button>
+              <button class="nav-btn primary" id="oddoneout-restart" type="button">Play again ↻</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="seo-content" aria-label="Odd One Out hakkında">
+        <div class="seo-inner">
+          <h2>Odd One Out · Farklı Olanı Bul</h2>
+          <p><strong>Odd One Out</strong> size dört kelime gösterir: üçü aynı <strong>konu alanına</strong> (tıp, hukuk, spor, teknoloji…) aittir, biri ise başka bir alandan gelir. Göreviniz farklı olanı bulmaktır.</p>
+          <p>Bu oyun kelimeleri tek tek değil, <strong>anlam alanlarıyla birlikte</strong> öğretir. Sınavlarda ve gerçek metinlerde kelimeler tek başına değil, konu bağlamı içinde karşınıza çıkar; bir kelimenin hangi alana ait olduğunu bilmek, tanımını hatırlamasanız bile doğru seçeneği bulmanızı sağlar.</p>
+          <p>Yanıtladıktan sonra <strong>her kelimenin konusu</strong> gösterilir — böylece yanlış yaptığınızda da yeni bir bilgi kazanırsınız.</p>
+          <ul class="seo-features">
+            <li>🗂️ Kelimeleri konu konu gruplayın; birlikte öğrenilen kelimeler birlikte hatırlanır.</li>
+            <li>💡 Takıldığınızda <strong>Topic</strong> ipucu ortak konuyu söyler, farklı olanı yine siz bulursunuz.</li>
+            <li>🎯 Konu kelimelerini derinlemesine çalışmak için üstteki <strong>Category</strong> filtresiyle Kelime Listesi'ne bakın.</li>
+          </ul>
+          <p class="seo-en" lang="en">Odd One Out shows four words: three from one topic domain and one intruder. It teaches vocabulary in semantic fields rather than in isolation, which is how words actually appear in exams and real texts. Every word's domain is revealed after you answer, so a wrong guess still teaches you something.</p>
+          <h3>İlgili sayfalar · Related pages</h3>
+          <nav class="cert-links" aria-label="İlgili sayfalar">
+            <a class="cert-link" href="games.html">
+              <span class="cert-name">🎮 Oyunlar</span>
+              <span class="cert-org">25 kelime oyunu · 25 games</span>
+            </a>
+            <a class="cert-link" href="index.html">
+              <span class="cert-name">🃏 Kelime Kartları</span>
+              <span class="cert-org">Flashcards · A1–C2</span>
+            </a>
+            <a class="cert-link" href="quiz.html">
+              <span class="cert-name">📝 Quiz</span>
+              <span class="cert-org">20 soruluk sınav · 20-question exam</span>
+            </a>
+            <a class="cert-link" href="wordlist.html">
+              <span class="cert-name">📋 Kelime Listesi</span>
+              <span class="cert-org">Tüm kelimeler · Full word list</span>
+            </a>
+            <a class="cert-link" href="help.html">
+              <span class="cert-name">❓ Yardım</span>
+              <span class="cert-org">Kullanım kılavuzu · How to use</span>
+            </a>
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <div class="more-sheet" id="more-sheet" hidden>
+      <div class="more-sheet-inner">
+        <div class="more-sheet-handle"></div>
+        <a class="more-link" href="home.html">🏠 Home</a>
+        <a class="more-link" href="stats.html">📊 Stats</a>
+        <a class="more-link" href="listening.html">🎧 Listening</a>
+        <a class="more-link" href="about.html">ℹ️ About</a>
+        <a class="more-link" href="help.html">❓ Help</a>
+        <a class="more-link" href="profile.html">👤 Profile</a>
+        <a class="more-link" href="history.html">📜 History</a>
+        <a class="more-link" href="privacy.html">🔒 Gizlilik · Privacy</a>
+        <a class="more-link" href="terms.html">📄 Şartlar · Terms</a>
+        <a class="more-link" href="terms.html#contact">✉️ İletişim · Contact</a>
+        <button type="button" id="more-close" class="more-close-btn">Close</button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <nav class="footer-links" aria-label="Site bilgileri ve yasal sayfalar">
+        <a href="about.html">Hakkında</a>
+        <a href="help.html">Yardım</a>
+        <a href="privacy.html">Gizlilik Politikası</a>
+        <a href="terms.html">Kullanım Şartları</a>
+        <a href="terms.html#contact">İletişim</a>
+      </nav>
+      <p>
+        <strong>Top Words</strong> — Türk öğrenciler için ücretsiz İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca, Portekizce ve Hollandaca kelime ezberleme uygulaması · YDS, YÖKDİL, ÜDS, UDSP,
+        TOEFL, telc &amp; CEFR ·
+        <span id="word-total">0</span> <span id="footer-level">B2</span> top
+        words.
+      </p>
+    </footer>
+
+    <script defer src="shared.js"></script>
+    <script defer src="i18n.js"></script>
+    <script defer src="oddoneout.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function () { startApp(); });</script>
+  </body>
+</html>

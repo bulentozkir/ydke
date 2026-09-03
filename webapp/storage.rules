@@ -1,0 +1,25 @@
+rules_version = '2';
+
+// Firebase Cloud Storage rules for Top Words.
+//
+// This app does not use Cloud Storage anywhere in its code today (no file
+// uploads/downloads -- profile data lives entirely in Firestore, see
+// firestore.rules). Denies ALL read/write access by default (least
+// privilege) so an enabled-but-unconfigured Storage bucket can't be an
+// open door. If Storage is ever actually used later (e.g. profile photo
+// uploads), replace the inner rule with real per-user rules scoped to
+// request.auth.uid, mirroring firestore.rules' ownership pattern, e.g.:
+//   match /users/{userId}/{allPaths=**} {
+//     allow read: if true; // or request.auth.uid == userId for private
+//     allow write, delete: if request.auth != null && request.auth.uid == userId;
+//   }
+//
+// Deploy: paste into Firebase Console -> Storage -> Rules -> Publish,
+// or `firebase deploy --only storage` (after firebase login).
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

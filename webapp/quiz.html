@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Kelime Testi (Quiz) – 20 Soruluk Sınavlar | Top Words</title>
+    <meta
+      name="description"
+      content="İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime testi: her biri 20 soruluk çoktan seçmeli sınavlarla A1–C2 kelimelerini test edin. En iyi puanınız kaydedilir. YDS, YÖKDİL, TOEFL, telc, CEFR hazırlığı."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f172a" />
+    <script>
+      (function () {
+        try {
+          var t = JSON.parse(localStorage.getItem("udsp_theme_v1") || '"dark"');
+          if (t === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (m) m.setAttribute("content", "#f8fafc");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="canonical" href="https://udsp.vercel.app/quiz.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Top Words" />
+    <meta property="og:title" content="Kelime Testi (Quiz) | Top Words" />
+    <meta
+      property="og:description"
+      content="A1–C2 İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelimelerini 20 soruluk sınavlarla test edin."
+    />
+    <meta property="og:url" content="https://udsp.vercel.app/quiz.html" />
+    <meta property="og:image" content="https://udsp.vercel.app/og-image.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Top Words – İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime öğrenme uygulaması" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kelime Testi (Quiz) | Top Words" />
+    <meta
+      name="twitter:description"
+      content="A1–C2 İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelimelerini 20 soruluk sınavlarla test edin."
+    />
+    <meta name="twitter:image" content="https://udsp.vercel.app/og-image.svg" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Top Words" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="site.webmanifest" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://udsp.vercel.app/quiz.html",
+            "url": "https://udsp.vercel.app/quiz.html",
+            "name": "Kelime Testi (Quiz) | Top Words",
+            "description": "İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime testi: her biri 20 soruluk çoktan seçmeli sınavlarla A1–C2 kelimelerini test edin.",
+            "inLanguage": "tr",
+            "isPartOf": { "@id": "https://udsp.vercel.app/#webapp" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Top Words", "item": "https://udsp.vercel.app/" },
+              { "@type": "ListItem", "position": 2, "name": "Quiz", "item": "https://udsp.vercel.app/quiz.html" }
+            ]
+          }
+        ]
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4464915775427405"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body data-mode="quiz">
+    <header class="site-header">
+      <div class="brand">
+        <a class="logo-link" href="home.html" aria-label="Home"><img class="logo" src="icon.svg" alt="Top Words logo" width="44" height="44" /></a>
+        <span class="brand-title">Yabancı Dil Kelime Ezberleme</span>
+        <!-- Main toolbar: shares the header's first line -->
+        <nav class="bottom-nav" aria-label="Main navigation">
+        <a class="bottom-nav-item" href="index.html"><span class="bn-icon">🃏</span><span class="bn-label">Cards</span></a>
+        <a class="bottom-nav-item is-active" href="quiz.html"><span class="bn-icon">📝</span><span class="bn-label">Quiz</span></a>
+        <a class="bottom-nav-item" href="games.html"><span class="bn-icon">🎮</span><span class="bn-label">Games</span></a>
+        <a class="bottom-nav-item" href="wordlist.html"><span class="bn-icon">📋</span><span class="bn-label">Words</span></a>
+        <button class="bottom-nav-item" id="more-btn" type="button"><span class="bn-icon">⋯</span><span class="bn-label">More</span></button>
+        </nav>
+        <div class="brand-actions">
+          <a class="about-btn" href="about.html" aria-label="Hakkında / About" data-tip="Hakkında / About">ℹ️<span class="btn-txt"> About</span></a>
+          <a class="about-btn" href="help.html" aria-label="Yardım / Help" data-tip="Yardım / Help">❓<span class="btn-txt"> Help</span></a>
+          <a class="about-btn" href="stats.html" aria-label="İstatistikler / Stats" data-tip="İstatistikler / Stats">📊<span class="btn-txt"> Stats</span></a>
+          <a class="profile-icon-link" href="profile.html" id="profile-icon-link" data-tip="Profil / Profile" aria-label="Profil / Profile">👤</a>
+        </div>
+      </div>
+      <div class="selectors-row">
+        <label class="select-group">
+          <span class="select-label">Lang</span>
+          <select class="langs select-pill" id="langs-nav" aria-label="Language">
+            <option value="en">English</option>
+            <option value="de">German</option>
+            <option value="fr">French</option>
+            <option value="it">Italian</option>
+            <option value="es">Spanish</option>
+            <option value="pt">Portuguese</option>
+          </select>
+        </label>
+        <label class="select-group">
+          <span class="select-label">Level</span>
+          <select class="levels select-pill" id="levels-nav" aria-label="Level"></select>
+        </label>
+        <label class="select-group">
+          <span class="select-label">Study</span>
+          <select class="levels select-pill" id="source-nav" aria-label="Which words to study"></select>
+        </label>
+        <div class="select-group">
+          <span class="select-label">Category</span>
+          <button class="filter-btn select-pill" id="category-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Filter by category">🗂️ All</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Quiz -->
+      <section id="view-quiz" class="view is-active">
+        <div class="study-status" id="study-status">
+          <div class="goal-ring" id="daily-goal" data-tip="Günlük çalışma hedefi · Daily goal" tabindex="0" role="img" aria-label="Daily study goal progress">
+            <svg viewBox="0 0 46 46" width="46" height="46" aria-hidden="true">
+              <circle class="goal-ring-track" cx="23" cy="23" r="19"></circle>
+              <circle class="goal-ring-fill" id="daily-goal-ring" cx="23" cy="23" r="19" transform="rotate(-90 23 23)"></circle>
+            </svg>
+            <span class="goal-ring-num" id="daily-goal-count">0</span>
+          </div>
+          <div class="study-status-main">
+            <div class="study-status-top">
+              <span class="study-status-label">🔥 Today's goal</span>
+              <span class="study-status-msg" id="daily-goal-msg">0 / 20 cards</span>
+            </div>
+            <div class="mastery-bar"><span id="mastery-fill"></span></div>
+            <span class="mastery-count">✓ <strong id="mastery-known">0</strong> / <span id="mastery-total">0</span> known at this level · <span id="mastery-pct">0%</span></span>
+          </div>
+        </div>
+        <!-- Exam picker -->
+        <div id="quiz-picker" class="quiz-picker">
+          <div class="picker-intro">
+            <label class="reverse-banner" for="reverse-toggle">
+              <input type="checkbox" id="reverse-toggle" />
+              <span class="reverse-banner-icon" aria-hidden="true">🔄</span>
+              <span class="reverse-banner-text">
+                <strong>Reverse mode</strong>
+                <span class="reverse-banner-sub">See the meaning → pick the word</span>
+              </span>
+              <span class="reverse-banner-state" aria-hidden="true"></span>
+              <span class="switch"></span>
+            </label>
+            <h2>Choose a <span id="picker-level">B2</span> exam</h2>
+            <p>
+              <strong>20</strong> questions each ·
+              <span id="exam-total">0</span> exams ·
+              <span id="picker-word-total">0</span>
+              <span id="picker-level-2">B2</span> words
+            </p>
+          </div>
+          <p class="pool-empty" id="quiz-empty" role="status" hidden></p>
+          <div class="exam-grid" id="exam-grid"></div>
+        </div>
+
+        <!-- Active question -->
+        <div id="quiz-active" class="quiz-active" hidden>
+          <div class="toolbar">
+            <button class="ghost-btn" id="quiz-back" type="button">← Exams</button>
+            <span class="counter" id="quiz-progress">Question 1 / 20</span>
+            <span class="score" id="quiz-score">Score: 0</span>
+          </div>
+
+          <div class="progress-bar"><span id="quiz-progress-fill"></span></div>
+
+          <div class="quiz-card" id="quiz-card">
+            <div class="quiz-question-line">
+              <p class="quiz-prompt">
+                <span id="quiz-exam-label">Exam 1</span> ·
+                <span id="quiz-prompt-text">What is the meaning of:</span>
+              </p>
+              <h2 class="quiz-word" id="quiz-word">—</h2>
+              <span class="badge" id="quiz-word-pos"></span>
+            </div>
+            <div class="options" id="quiz-options"></div>
+            <p class="example" id="quiz-example" hidden></p>
+            <div class="quiz-feedback-row">
+              <p class="feedback" id="quiz-feedback" role="status"></p>
+              <div class="vocab-links" id="quiz-links">
+                <button class="vocab-link" id="quiz-audio" type="button" hidden>🔊 Listen</button>
+                <button class="vocab-link" id="quiz-example-btn" type="button" hidden>
+                  📝 Example
+                </button>
+                <a
+                  class="vocab-link"
+                  id="quiz-link-details"
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-tip="Detaylar"
+                  >Details ↗</a
+                >
+                <a
+                  class="vocab-link"
+                  id="quiz-link-examples"
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-tip="Örnekler"
+                  >Examples ↗</a
+                >
+              </div>
+              <button class="nav-btn primary" id="quiz-next" type="button" hidden>
+                Next question →
+              </button>
+              <button class="nav-btn primary" id="quiz-submit" type="button" hidden>
+                Submit exam ✓
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result -->
+        <div class="quiz-result" id="quiz-result" hidden>
+          <div class="result-emoji" id="result-emoji">🎉</div>
+          <h2 id="result-title">Exam complete!</h2>
+          <div class="result-score" id="result-score">0 / 20</div>
+          <div class="result-bar"><span id="result-bar-fill"></span></div>
+          <p id="result-text"></p>
+          <p class="result-best" id="result-best"></p>
+          <div class="result-actions">
+            <button class="nav-btn" id="quiz-review" type="button">Review answers</button>
+            <button class="nav-btn" id="quiz-retry" type="button">Retry exam</button>
+            <button class="nav-btn primary" id="quiz-back-list" type="button">
+              Back to exams
+            </button>
+          </div>
+          <ul class="review-list" id="review-list" hidden></ul>
+        </div>
+      </section>
+      <section class="seo-content" aria-label="Quiz hakkında">
+        <div class="seo-inner">
+          <h2>20 Soruluk Kelime Testi · YDS, YÖKDİL, TOEFL ve telc Hazırlığı</h2>
+          <p><strong>Quiz</strong> modu, seçtiğiniz dil ve seviyedeki kelimeleri <strong>20 soruluk sınavlar</strong> hâlinde ölçer. Her soruda bir kelime ve dört seçenek görürsünüz; doğru anlamı seçtiğinizde anında geri bildirim ve <strong>örnek cümle</strong> alırsınız. Sınav bittiğinde puanınızı, en iyi skorunuzu ve <strong>yanlış yaptığınız soruların tümünü</strong> tek tek inceleyebileceğiniz bir özet çıkar.</p>
+          <p><strong>Reverse mode</strong> (ters mod) düğmesini açarsanız soru yönü değişir: anlamı görüp <strong>kelimeyi</strong> seçersiniz. Bu, sınavda gerçekten ihtiyaç duyduğunuz <strong>aktif hatırlama</strong> becerisini geliştirir; kelimeyi tanımak ile hatırlamak farklı şeylerdir.</p>
+          <p>Kelime havuzu seviyeye göre bölünür, böylece <strong>A1</strong> sınavında C2 kelimesiyle karşılaşmazsınız. İngilizce için <strong>YDS, YÖKDİL, ÜDS, UDSP ve TOEFL</strong>, Almanca için <strong>telc</strong> ve CEFR sınavlarına hazırlananlar bu modu doğrudan deneme sınavı gibi kullanabilir.</p>
+          <ul class="seo-features">
+            <li>⏱️ Bir oturumda <strong>1–2 sınav</strong> çözün; yorulunca doğruluk oranınız düşer ve yanlışlarınız pekişir.</li>
+            <li>🔄 Aynı sınavı <strong>Retry</strong> ile tekrar çözerek skorunuzu yükseltmeye çalışın.</li>
+            <li>🔍 <strong>Review answers</strong> ekranını atlamayın — asıl öğrenme yanlışları incelerken gerçekleşir.</li>
+            <li>🃏 Zorlandığınız seviyede önce <strong>Kelime Kartları</strong> ile çalışın, sonra sınava dönün.</li>
+          </ul>
+          <p class="seo-en" lang="en">Quiz mode tests the level you selected in 20-question exams with four options per question, instant feedback and an example sentence. Turn on Reverse mode to see the meaning and pick the word — active recall, the skill real exams measure. Ideal for YDS, YÖKDİL, ÜDS, UDSP, TOEFL, telc and CEFR vocabulary preparation.</p>
+          <h3>İlgili sayfalar · Related pages</h3>
+          <nav class="cert-links" aria-label="İlgili sayfalar">
+            <a class="cert-link" href="index.html">
+              <span class="cert-name">🃏 Kelime Kartları</span>
+              <span class="cert-org">Flashcards · A1–C2</span>
+            </a>
+            <a class="cert-link" href="wordlist.html">
+              <span class="cert-name">📋 Kelime Listesi</span>
+              <span class="cert-org">Tüm kelimeler · Full word list</span>
+            </a>
+            <a class="cert-link" href="games.html">
+              <span class="cert-name">🎮 Oyunlar</span>
+              <span class="cert-org">16 kelime oyunu · 16 games</span>
+            </a>
+            <a class="cert-link" href="stats.html">
+              <span class="cert-name">📊 İstatistikler</span>
+              <span class="cert-org">İlerlemeniz · Your progress</span>
+            </a>
+            <a class="cert-link" href="help.html">
+              <span class="cert-name">❓ Yardım</span>
+              <span class="cert-org">Kullanım kılavuzu · How to use</span>
+            </a>
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <div class="more-sheet" id="more-sheet" hidden>
+      <div class="more-sheet-inner">
+        <div class="more-sheet-handle"></div>
+        <a class="more-link" href="home.html">🏠 Home</a>
+        <a class="more-link" href="stats.html">📊 Stats</a>
+        <a class="more-link" href="listening.html">🎧 Listening</a>
+        <a class="more-link" href="about.html">ℹ️ About</a>
+        <a class="more-link" href="help.html">❓ Help</a>
+        <a class="more-link" href="profile.html">👤 Profile</a>
+        <a class="more-link" href="history.html">📜 History</a>
+        <a class="more-link" href="privacy.html">🔒 Gizlilik · Privacy</a>
+        <a class="more-link" href="terms.html">📄 Şartlar · Terms</a>
+        <a class="more-link" href="terms.html#contact">✉️ İletişim · Contact</a>
+        <button type="button" id="more-close" class="more-close-btn">Close</button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <nav class="footer-links" aria-label="Site bilgileri ve yasal sayfalar">
+        <a href="about.html">Hakkında</a>
+        <a href="help.html">Yardım</a>
+        <a href="privacy.html">Gizlilik Politikası</a>
+        <a href="terms.html">Kullanım Şartları</a>
+        <a href="terms.html#contact">İletişim</a>
+      </nav>
+      <p>
+        <strong>Top Words</strong> — Türk öğrenciler için ücretsiz İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime ezberleme uygulaması · YDS, YÖKDİL, ÜDS, UDSP,
+        TOEFL, telc &amp; CEFR ·
+        <span id="word-total">0</span> <span id="footer-level">B2</span> top
+        words.
+      </p>
+    </footer>
+
+    <script defer src="shared.js"></script>
+    <script defer src="quiz.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function () { startApp(); });</script>
+  </body>
+</html>

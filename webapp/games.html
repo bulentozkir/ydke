@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Oyunlar (Games) | Top Words</title>
+    <meta
+      name="description"
+      content="İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce için 16 ücretsiz kelime oyunu: Adam Asmaca (Hangman), Boşluk Doldurma (Cloze Test), Karışık Harfler (Word Scramble), Eşleştirme (Matching Pairs), Hız Turu (Speed Round), Word Morph, Farklı Olanı Bul (Odd One Out), Kelime Türü (Word Class) ve Kelime Tombalası (Word Bingo)."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f172a" />
+    <script>
+      (function () {
+        try {
+          var t = JSON.parse(localStorage.getItem("udsp_theme_v1") || '"dark"');
+          if (t === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (m) m.setAttribute("content", "#f8fafc");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="canonical" href="https://udsp.vercel.app/games.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Top Words" />
+    <meta property="og:title" content="Oyunlar (Games) | Top Words" />
+    <meta
+      property="og:description"
+      content="16 ücretsiz kelime oyunu: Hangman, Cloze Test, Word Scramble, Matching Pairs, Speed Round, Word Morph, Odd One Out, Word Class, Word Bingo."
+    />
+    <meta property="og:url" content="https://udsp.vercel.app/games.html" />
+    <meta property="og:image" content="https://udsp.vercel.app/og-image.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Top Words – İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime öğrenme uygulaması" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Oyunlar (Games) | Top Words" />
+    <meta
+      name="twitter:description"
+      content="16 ücretsiz kelime oyunu: Hangman, Cloze Test, Word Scramble, Matching Pairs, Speed Round, Word Morph, Odd One Out, Word Class, Word Bingo."
+    />
+    <meta name="twitter:image" content="https://udsp.vercel.app/og-image.svg" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Top Words" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://udsp.vercel.app/games.html",
+            "url": "https://udsp.vercel.app/games.html",
+            "name": "Oyunlar (Games) | Top Words",
+            "description": "İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce için 16 ücretsiz kelime oyunu: Hangman, Cloze Test, Word Scramble, Matching Pairs, Speed Round, Word Morph, Odd One Out, Word Class, Word Bingo.",
+            "inLanguage": "tr",
+            "isPartOf": { "@id": "https://udsp.vercel.app/#webapp" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Top Words", "item": "https://udsp.vercel.app/" },
+              { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://udsp.vercel.app/games.html" }
+            ]
+          }
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4464915775427405"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body data-mode="games">
+    <header class="site-header">
+      <div class="brand">
+        <a class="logo-link" href="home.html" aria-label="Home"><img class="logo" src="icon.svg" alt="Top Words logo" width="44" height="44" /></a>
+        <h1 class="brand-title">Yabancı Dil Kelime Ezberleme</h1>
+        <!-- Main toolbar: shares the header's first line -->
+        <nav class="bottom-nav" aria-label="Main navigation">
+        <a class="bottom-nav-item" href="index.html"><span class="bn-icon">🃏</span><span class="bn-label">Cards</span></a>
+        <a class="bottom-nav-item" href="quiz.html"><span class="bn-icon">📝</span><span class="bn-label">Quiz</span></a>
+        <a class="bottom-nav-item is-active" href="games.html"><span class="bn-icon">🎮</span><span class="bn-label">Games</span></a>
+        <a class="bottom-nav-item" href="wordlist.html"><span class="bn-icon">📋</span><span class="bn-label">Words</span></a>
+        <button class="bottom-nav-item" id="more-btn" type="button"><span class="bn-icon">⋯</span><span class="bn-label">More</span></button>
+        </nav>
+        <div class="brand-actions">
+          <a class="about-btn" href="about.html" aria-label="Hakkında / About" data-tip="Hakkında / About">ℹ️<span class="btn-txt"> About</span></a>
+          <a class="about-btn" href="help.html" aria-label="Yardım / Help" data-tip="Yardım / Help">❓<span class="btn-txt"> Help</span></a>
+        <a class="about-btn" href="stats.html" aria-label="İstatistikler / Stats" data-tip="İstatistikler / Stats">📊<span class="btn-txt"> Stats</span></a>
+        <a class="profile-icon-link" href="profile.html" id="profile-icon-link" data-tip="Profil / Profile" aria-label="Profil / Profile">👤</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="seo-content" aria-label="Oyunlar">
+        <div class="seo-inner">
+          <h2>🎮 Bir oyun seçin · Pick a game</h2>
+          <p>
+            <strong>16 kelime oyunu</strong> — İngilizce, Almanca, Fransızca,
+            İtalyanca, İspanyolca ve Portekizce için. Her oyun, seçtiğiniz dil ve
+            <strong>seviyedeki (A1–C2)</strong> kelime havuzunu kullanır; yani
+            oynarken gerçekten çalışmış olursunuz. Oyunlar aynı kelimeyi farklı
+            yönlerden test eder: <strong>yazım</strong> (Hangman, Word Scramble,
+            Dictation), <strong>anlam</strong> (Matching Pairs, True or False,
+            Word Bingo), <strong>bağlam</strong> (Cloze Test, Sentence Scramble,
+            Reading), <strong>kelime ilişkileri</strong> (Word Morph, Odd One Out,
+            Word Class) ve <strong>hız</strong> (Speed Round, Word Race, Survival
+            Streak).
+          </p>
+          <p>
+            Bir kelimeyi tek bir yöntemle çalışmak nadiren yeterlidir. Kartlarda
+            tanıdığınız bir kelimeyi Word Race'te yazamıyorsanız, o kelimeyi henüz
+            <strong>aktif olarak</strong> bilmiyorsunuz demektir. Bu yüzden en iyi
+            sonuç, aynı seviyede <strong>iki ya da üç farklı oyunu</strong>
+            dönüşümlü oynamaktan gelir. Skorlarınız tarayıcınızda saklanır ve
+            kayıt gerektirmez.
+          </p>
+          <div class="game-tiles">
+            <a class="game-tile" href="hangman.html">
+              <span class="game-tile-icon">🎯</span>
+              <span class="game-tile-name">Hangman</span>
+              <span class="game-tile-desc">Adam asmaca — kelimeyi harf harf tahmin edin</span>
+            </a>
+            <a class="game-tile" href="clozetest.html">
+              <span class="game-tile-icon">📝</span>
+              <span class="game-tile-name">Cloze Test</span>
+              <span class="game-tile-desc">Boşluk doldurma — örnek cümledeki doğru kelimeyi seçin</span>
+            </a>
+            <a class="game-tile" href="scramble.html">
+              <span class="game-tile-icon">🔤</span>
+              <span class="game-tile-name">Word Scramble</span>
+              <span class="game-tile-desc">Karışık harfleri doğru sıraya dizin</span>
+            </a>
+            <a class="game-tile" href="memory.html">
+              <span class="game-tile-icon">🧠</span>
+              <span class="game-tile-name">Matching Pairs</span>
+              <span class="game-tile-desc">Kartları çevirin, kelime ile anlamını eşleştirin</span>
+            </a>
+            <a class="game-tile" href="speedround.html">
+              <span class="game-tile-icon">⚡</span>
+              <span class="game-tile-name">Speed Round</span>
+              <span class="game-tile-desc">60 saniyede kaç doğru yapabilirsiniz?</span>
+            </a>
+            <a class="game-tile" href="wordrace.html">
+              <span class="game-tile-icon">⌨️</span>
+              <span class="game-tile-name">Word Race</span>
+              <span class="game-tile-desc">Anlamından yola çıkarak kelimeyi süre bitmeden yazın</span>
+            </a>
+            <a class="game-tile" href="sentencescramble.html">
+              <span class="game-tile-icon">🧩</span>
+              <span class="game-tile-name">Sentence Scramble</span>
+              <span class="game-tile-desc">Karışık kelimeleri doğru sıraya dizerek cümleyi tamamlayın</span>
+            </a>
+            <a class="game-tile" href="dictation.html">
+              <span class="game-tile-icon">🎧</span>
+              <span class="game-tile-name">Listening Dictation</span>
+              <span class="game-tile-desc">Kelimeyi dinleyin ve doğru yazın</span>
+            </a>
+            <a class="game-tile" href="truefalse.html">
+              <span class="game-tile-icon">⚖️</span>
+              <span class="game-tile-name">True or False</span>
+              <span class="game-tile-desc">Anlam doğru mu yanlış mı, hızlıca karar verin</span>
+            </a>
+            <a class="game-tile" href="survival.html">
+              <span class="game-tile-icon">🔥</span>
+              <span class="game-tile-name">Survival Streak</span>
+              <span class="game-tile-desc">İlk yanlışa kadar kaç doğru yapabilirsiniz?</span>
+            </a>
+            <a class="game-tile" href="matrix.html">
+              <span class="game-tile-icon">🔎</span>
+              <span class="game-tile-name">Word Matrix</span>
+              <span class="game-tile-desc">Harf ızgarasında gizli kelimeleri bulun</span>
+            </a>
+            <a class="game-tile" href="readingcomprehension.html">
+              <span class="game-tile-icon">📖</span>
+              <span class="game-tile-name">Reading Comprehension</span>
+              <span class="game-tile-desc">Parçayı okuyun, anlama sorularını yanıtlayın</span>
+            </a>
+            <a class="game-tile" href="wordmorph.html">
+              <span class="game-tile-icon">🔄</span>
+              <span class="game-tile-name">Word Morph</span>
+              <span class="game-tile-desc">Eş ve zıt anlamlı kelimelerle kelime ağınızı büyütün</span>
+            </a>
+            <a class="game-tile" href="oddoneout.html">
+              <span class="game-tile-icon">🚫</span>
+              <span class="game-tile-name">Odd One Out</span>
+              <span class="game-tile-desc">Dört kelimeden konusu farklı olanı bulun</span>
+            </a>
+            <a class="game-tile" href="wordclass.html">
+              <span class="game-tile-icon">🏷️</span>
+              <span class="game-tile-name">Word Class</span>
+              <span class="game-tile-desc">İsim mi, fiil mi, sıfat mı, zarf mı?</span>
+            </a>
+            <a class="game-tile" href="bingo.html">
+              <span class="game-tile-icon">🎱</span>
+              <span class="game-tile-name">Word Bingo</span>
+              <span class="game-tile-desc">Okunan tanımı 4×4 karttaki kelimeyle eşleştirin</span>
+            </a>
+          </div>
+          <p class="seo-en" lang="en">
+            Sixteen vocabulary games for English, German, French, Italian, Spanish
+            and Portuguese. Every game draws from the language and CEFR level you
+            selected, so playing is studying. They attack the same word from
+            different angles — spelling, meaning, context, word relationships and
+            speed — and the best results come from rotating two or three games at
+            the same level. No sign-up required; scores are kept in your browser.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div class="more-sheet" id="more-sheet" hidden>
+      <div class="more-sheet-inner">
+        <div class="more-sheet-handle"></div>
+        <a class="more-link" href="home.html">🏠 Home</a>
+        <a class="more-link" href="stats.html">📊 Stats</a>
+        <a class="more-link" href="listening.html">🎧 Listening</a>
+        <a class="more-link" href="about.html">ℹ️ About</a>
+        <a class="more-link" href="help.html">❓ Help</a>
+        <a class="more-link" href="profile.html">👤 Profile</a>
+        <a class="more-link" href="history.html">📜 History</a>
+        <a class="more-link" href="privacy.html">🔒 Gizlilik · Privacy</a>
+        <a class="more-link" href="terms.html">📄 Şartlar · Terms</a>
+        <a class="more-link" href="terms.html#contact">✉️ İletişim · Contact</a>
+        <button type="button" id="more-close" class="more-close-btn">Close</button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <nav class="footer-links" aria-label="Site bilgileri ve yasal sayfalar">
+        <a href="about.html">Hakkında</a>
+        <a href="help.html">Yardım</a>
+        <a href="privacy.html">Gizlilik Politikası</a>
+        <a href="terms.html">Kullanım Şartları</a>
+        <a href="terms.html#contact">İletişim</a>
+      </nav>
+      <p>
+        <strong>Top Words</strong> — Türk öğrenciler için ücretsiz İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime ezberleme uygulaması · YDS, YÖKDİL, ÜDS, UDSP,
+        TOEFL, telc &amp; CEFR.
+      </p>
+    </footer>
+    <script src="moresheet.js"></script>
+  </body>
+</html>

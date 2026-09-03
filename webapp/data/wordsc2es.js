@@ -1,0 +1,94 @@
+/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
+ * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
+ * <https://polyformproject.org/licenses/noncommercial/1.0.0>
+ *
+ * Any commercial use requires prior written permission from the copyright
+ * holders. Written permission from any ONE of bulentozkir@hotmail.com,
+ * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
+ * is sufficient and binding on all of them.
+ *
+ * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
+ * Ozkir (https://udsp.vercel.app)
+ * Full terms: see LICENSE and NOTICE in this repository.
+ */
+/*! Compilation notice — read together with the licence above.
+ * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
+ * translations in this file are the copyright holders' own work and ARE
+ * covered by the PolyForm Noncommercial licence above. Copying this list, or
+ * any substantial part of it, into a commercial product or service requires
+ * prior written permission from one of the addresses above.
+ *
+ * Some individual definitions and example sentences come from open community
+ * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
+ * others — see NOTICE). Those items keep THEIR OWN licence and the
+ * noncommercial term is not asserted over them.
+ */
+
+// Spanish C2 vocabulary (self-authored, CEFR C2).
+// 100% original content -- see wordsa1es.js for the full authorship /
+// level-assignment note. These are literary / highly formal words: nearly all
+// fall outside the top 50,000 of the open hermitdave/FrequencyWords Spanish
+// list (subtitle-based, so it barely covers this register). Definitions &
+// examples: "English. - Türkçe." and "Español. - Türkçe."
+window.WORDS_ES_C2 = [
+  { word: "el ahínco", pos: "noun", level: "C2", category: "General", definition: "Determination, earnest effort. - Azim, gayret.", example: "Estudió con un ahínco poco común. - Alışılmadık bir azimle çalıştı." },
+  { word: "el atisbo", pos: "noun", level: "C2", category: "General", definition: "Glimpse, hint. - İşaret, kırıntı.", example: "No hubo el menor atisbo de duda. - En ufak bir şüphe belirtisi yoktu." },
+  { word: "la bonanza", pos: "noun", level: "C2", category: "Weather", definition: "Prosperity, fair weather. - Refah dönemi, dinginlik.", example: "La bonanza económica duró apenas un lustro. - Ekonomik refah ancak beş yıl sürdü." },
+  { word: "el cariz", pos: "noun", level: "C2", category: "General", definition: "Aspect, look (of a situation). - Görünüm, seyir.", example: "El asunto tomó un cariz preocupante. - Mesele endişe verici bir seyir aldı." },
+  { word: "el denuedo", pos: "noun", level: "C2", category: "General", definition: "Bravery, boldness. - Yiğitlik, cesaret.", example: "Defendió su tesis con denuedo. - Tezini büyük bir cesaretle savundu." },
+  { word: "el desasosiego", pos: "noun", level: "C2", category: "General", definition: "Unease, restlessness. - Huzursuzluk.", example: "Un profundo desasosiego se apoderó de él. - Derin bir huzursuzluk onu ele geçirdi." },
+  { word: "el fárrago", pos: "noun", level: "C2", category: "General", definition: "Jumble, confused mass. - Karmakarışık yığın.", example: "El informe es un fárrago de datos inconexos. - Rapor birbiriyle ilgisiz verilerden oluşan bir yığın." },
+  { word: "el hastío", pos: "noun", level: "C2", category: "General", definition: "Weariness, tedium. - Bıkkınlık, usanç.", example: "La rutina le producía un hastío insoportable. - Rutin onda dayanılmaz bir bıkkınlık yaratıyordu." },
+  { word: "la impronta", pos: "noun", level: "C2", category: "General", definition: "Imprint, stamp, mark. - İz, damga.", example: "Su impronta se percibe en toda la obra. - Onun izi eserin tamamında hissediliyor." },
+  { word: "el menoscabo", pos: "noun", level: "C2", category: "General", definition: "Detriment, impairment. - Zarar, eksilme.", example: "Se aprobó sin menoscabo de los derechos adquiridos. - Kazanılmış haklara zarar vermeden onaylandı." },
+  { word: "el óbice", pos: "noun", level: "C2", category: "General", definition: "Obstacle, impediment. - Engel.", example: "La distancia no fue óbice para colaborar. - Mesafe iş birliğine engel olmadı." },
+  { word: "la parquedad", pos: "noun", level: "C2", category: "General", definition: "Sparseness, terseness. - Azlık, ölçülülük.", example: "Responde siempre con notable parquedad. - Her zaman dikkat çekici bir ölçülülükle yanıt verir." },
+  { word: "el pormenor", pos: "noun", level: "C2", category: "General", definition: "Detail, particular. - Ayrıntı.", example: "Explicó el proceso con todo pormenor. - Süreci tüm ayrıntılarıyla anlattı." },
+  { word: "la quimera", pos: "noun", level: "C2", category: "General", definition: "Pipe dream, chimera. - Hayal, ütopya.", example: "Ese proyecto resultó ser una quimera. - O proje bir hayalden ibaret çıktı." },
+  { word: "el rédito", pos: "noun", level: "C2", category: "General", definition: "Yield, return, benefit. - Getiri, kazanç.", example: "Buscaba rédito político con esa medida. - Bu önlemle siyasi kazanç arıyordu." },
+  { word: "el resquicio", pos: "noun", level: "C2", category: "General", definition: "Chink, loophole. - Aralık, boşluk.", example: "La ley deja un resquicio para la interpretación. - Yasa yoruma açık bir boşluk bırakıyor." },
+  { word: "la salvaguarda", pos: "noun", level: "C2", category: "General", definition: "Safeguard. - Koruma, güvence.", example: "El tratado incluye salvaguardas ambientales. - Antlaşma çevresel güvenceler içeriyor." },
+  { word: "el talante", pos: "noun", level: "C2", category: "General", definition: "Disposition, temperament. - Mizaç, tutum.", example: "Negoció con un talante conciliador. - Uzlaşmacı bir tutumla müzakere etti." },
+  { word: "el trasfondo", pos: "noun", level: "C2", category: "General", definition: "Background, underlying context. - Arka plan, alt metin.", example: "El trasfondo del conflicto es económico. - Çatışmanın arka planı ekonomik." },
+  { word: "la zozobra", pos: "noun", level: "C2", category: "General", definition: "Anxiety, distress. - Endişe, tedirginlik.", example: "Vivieron semanas de auténtica zozobra. - Haftalarca gerçek bir tedirginlik yaşadılar." },
+  { word: "el acopio", pos: "noun", level: "C2", category: "General", definition: "Stockpile, gathering. - Stok, biriktirme.", example: "Hicieron acopio de víveres antes del temporal. - Fırtınadan önce erzak biriktirdiler." },
+  { word: "la anuencia", pos: "noun", level: "C2", category: "General", definition: "Consent, approval. - Rıza, onay.", example: "Actuó con la anuencia del comité. - Komitenin onayıyla hareket etti." },
+  { word: "el escarnio", pos: "noun", level: "C2", category: "General", definition: "Public mockery, derision. - Alay, aşağılama.", example: "Fue objeto de escarnio en la prensa. - Basında alay konusu oldu." },
+  { word: "el albur", pos: "noun", level: "C2", category: "General", definition: "Chance, risk. - Şans, rastlantı.", example: "Dejó la decisión al albur del destino. - Kararı kaderin şansına bıraktı." },
+  { word: "abogar", pos: "verb", level: "C2", category: "General", definition: "To advocate, to plead for. - Savunmak, taraftar olmak.", example: "Aboga por una reforma profunda. - Köklü bir reformu savunuyor." },
+  { word: "acaecer", pos: "verb", level: "C2", category: "General", definition: "To occur, to come to pass. - Vuku bulmak.", example: "Los hechos acaecieron en pleno invierno. - Olaylar kışın ortasında vuku buldu." },
+  { word: "adolecer", pos: "verb", level: "C2", category: "General", definition: "To suffer from (a flaw). - Malul olmak, eksikliğini taşımak.", example: "El texto adolece de falta de rigor. - Metin titizlik eksikliğinden mustarip." },
+  { word: "ahuyentar", pos: "verb", level: "C2", category: "General", definition: "To drive away, to scare off. - Kaçırmak, uzaklaştırmak.", example: "El ruido ahuyentó a los pájaros. - Gürültü kuşları kaçırdı." },
+  { word: "amedrentar", pos: "verb", level: "C2", category: "General", definition: "To intimidate, to daunt. - Yıldırmak, korkutmak.", example: "Las amenazas no lograron amedrentarlos. - Tehditler onları yıldıramadı." },
+  { word: "colegir", pos: "verb", level: "C2", category: "General", definition: "To infer, to deduce. - Çıkarımda bulunmak.", example: "No hay frase de ejemplo disponible para esta palabra. - Bu kelime için örnek cümle bulunamadı." },
+  { word: "denostar", pos: "verb", level: "C2", category: "General", definition: "To revile, to disparage. - Yermek, kötülemek.", example: "Denostó públicamente a sus adversarios. - Rakiplerini açıkça yerdi." },
+  { word: "dilucidar", pos: "verb", level: "C2", category: "General", definition: "To elucidate, to clear up. - Aydınlatmak, açıklığa kavuşturmak.", example: "Falta dilucidar quién dio la orden. - Emri kimin verdiğinin açıklığa kavuşması gerekiyor." },
+  { word: "enardecer", pos: "verb", level: "C2", category: "General", definition: "To inflame, to stir up. - Coşturmak, kışkırtmak.", example: "Su discurso enardeció a la multitud. - Konuşması kalabalığı coşturdu." },
+  { word: "escatimar", pos: "verb", level: "C2", category: "General", definition: "To skimp on, to stint. - Esirgemek, kısmak.", example: "No escatimó esfuerzos para lograrlo. - Bunu başarmak için hiçbir çabayı esirgemedi." },
+  { word: "fustigar", pos: "verb", level: "C2", category: "General", definition: "To lash out at, to criticise harshly. - Sert şekilde eleştirmek.", example: "Fustigó la pasividad de las autoridades. - Yetkililerin pasifliğini sert şekilde eleştirdi." },
+  { word: "granjear", pos: "verb", level: "C2", category: "General", definition: "To earn, to win (esteem). - Kazanmak (saygı vb.).", example: "Su honestidad le granjeó muchos aliados. - Dürüstlüğü ona birçok müttefik kazandırdı." },
+  { word: "obviar", pos: "verb", level: "C2", category: "General", definition: "To avoid, to leave aside. - Es geçmek, atlamak.", example: "No podemos obviar el impacto ambiental. - Çevresel etkiyi görmezden gelemeyiz." },
+  { word: "pergeñar", pos: "verb", level: "C2", category: "General", definition: "To knock together, to draft roughly. - Alelacele hazırlamak.", example: "Pergeñó el discurso en media hora. - Konuşmayı yarım saatte alelacele hazırladı." },
+  { word: "soslayar", pos: "verb", level: "C2", category: "General", definition: "To sidestep, to evade. - Geçiştirmek, savuşturmak.", example: "Soslayó la pregunta con elegancia. - Soruyu zarifçe geçiştirdi." },
+  { word: "zanjar", pos: "verb", level: "C2", category: "General", definition: "To settle, to put an end to. - Sonuçlandırmak, kesip atmak.", example: "El juez zanjó la disputa en una sesión. - Hâkim anlaşmazlığı tek oturumda sonuçlandırdı." },
+  { word: "otear", pos: "verb", level: "C2", category: "General", definition: "To scan, to survey from afar. - Uzaktan gözlemek.", example: "Oteaba el horizonte desde la torre. - Kuleden ufku gözlüyordu." },
+  { word: "apostillar", pos: "verb", level: "C2", category: "General", definition: "To add a remark, to annotate. - Şerh düşmek, eklemek.", example: "Apostilló que el plazo era inamovible. - Sürenin değişmez olduğunu ekledi." },
+  { word: "abstruso", pos: "adjective", level: "C2", category: "General", definition: "Abstruse, obscure. - Anlaşılması güç, muğlak.", example: "El ensayo resulta abstruso para el lector medio. - Deneme ortalama okur için anlaşılması güç." },
+  { word: "acendrado", pos: "adjective", level: "C2", category: "General", definition: "Pure, unwavering. - Saf, sarsılmaz.", example: "Muestra un acendrado amor por su tierra. - Toprağına karşı sarsılmaz bir sevgi gösteriyor." },
+  { word: "aciago", pos: "adjective", level: "C2", category: "General", definition: "Ill-fated, fateful. - Uğursuz, kara.", example: "Fue un día aciago para el equipo. - Takım için kara bir gündü." },
+  { word: "baladí", pos: "adjective", level: "C2", category: "General", definition: "Trivial, insignificant. - Önemsiz, sıradan.", example: "No es una cuestión baladí. - Bu önemsiz bir mesele değil." },
+  { word: "denodado", pos: "adjective", level: "C2", category: "General", definition: "Dauntless, strenuous. - Yılmaz, azimli.", example: "Hizo un esfuerzo denodado por convencerlos. - Onları ikna etmek için yılmaz bir çaba gösterdi." },
+  { word: "exiguo", pos: "adjective", level: "C2", category: "General", definition: "Meagre, scanty. - Yetersiz, cılız.", example: "Contaban con un presupuesto exiguo. - Yetersiz bir bütçeye sahiptiler." },
+  { word: "farragoso", pos: "adjective", level: "C2", category: "General", definition: "Muddled, long-winded. - Karmakarışık, ağdalı.", example: "Escribe de forma farragosa y confusa. - Ağdalı ve kafa karıştırıcı biçimde yazıyor." },
+  { word: "inefable", pos: "adjective", level: "C2", category: "General", definition: "Ineffable, indescribable. - Tarifsiz, anlatılamaz.", example: "Sintió una alegría inefable. - Tarifsiz bir sevinç duydu." },
+  { word: "inicuo", pos: "adjective", level: "C2", category: "General", definition: "Iniquitous, grossly unjust. - Haksız, zalim.", example: "Denunció aquel reparto inicuo. - O haksız paylaşımı kınadı." },
+  { word: "prolijo", pos: "adjective", level: "C2", category: "General", definition: "Long-winded, overly detailed. - Uzun uzadıya, ayrıntıcı.", example: "Su relato fue exacto pero prolijo. - Anlatısı isabetliydi ama fazla uzundu." },
+  { word: "pletórico", pos: "adjective", level: "C2", category: "General", definition: "Brimming, full of. - Dolup taşan.", example: "Volvió pletórico de energía. - Enerji dolup taşarak döndü." },
+  { word: "ubérrimo", pos: "adjective", level: "C2", category: "General", definition: "Extremely fertile, abundant. - Çok bereketli.", example: "Cultivan un valle ubérrimo. - Çok bereketli bir vadiyi ekiyorlar." },
+  { word: "a la postre", pos: "phrase", level: "C2", category: "General", definition: "In the end, ultimately. - Nihayetinde.", example: "A la postre, la decisión fue acertada. - Nihayetinde karar isabetliydi." },
+  { word: "con creces", pos: "phrase", level: "C2", category: "General", definition: "Amply, more than enough. - Fazlasıyla.", example: "Cumplió con creces las expectativas. - Beklentileri fazlasıyla karşıladı." },
+  { word: "de soslayo", pos: "phrase", level: "C2", category: "General", definition: "Sideways, obliquely. - Yan gözle, üstünkörü.", example: "Lo miró de soslayo sin decir nada. - Hiçbir şey demeden ona yan gözle baktı." },
+  { word: "so pena de", pos: "phrase", level: "C2", category: "General", definition: "Under penalty of, at the risk of. - Cezası olarak, riskiyle.", example: "Hay que declarar, so pena de multa. - Beyan etmek gerekiyor, aksi hâlde ceza var." },
+  { word: "a ultranza", pos: "phrase", level: "C2", category: "General", definition: "At all costs, staunchly. - Ne pahasına olursa olsun.", example: "Defiende a ultranza su punto de vista. - Görüşünü ne pahasına olursa olsun savunuyor." },
+  { word: "amén de", pos: "phrase", level: "C2", category: "General", definition: "Besides, in addition to. - Ayrıca, bir yana.", example: "Es caro, amén de poco práctico. - Pahalı, ayrıca pek de pratik değil." },
+];

@@ -1,0 +1,64 @@
+rules_version = '2';
+
+// Firestore Security Rules for Top Words user profiles.
+//
+// Data model: one document per user at /users/{uid}, where {uid} is the
+// user's FIREBASE AUTH UID (not an app-chosen id) -- that's what lets these
+// rules compare the path segment directly against request.auth.uid below.
+// The document itself should also store a `uid` field with the same value
+// (see isValidProfile) so writes can be validated against spoofing.
+//
+// Deploy with the Firebase CLI from this repo:
+//   firebase login
+//   firebase use udsp-9fedc          (matches .firebaserc)
+//   firebase deploy --only firestore:rules
+// ...or paste this file's contents into
+//   Firebase Console -> Firestore Database -> Rules -> Publish
+//
+// This does NOT require the Admin SDK / service-account key at all -- that
+// credential is only for privileged server-side operations that bypass
+// these rules entirely. Normal per-user profile create/read/update/delete
+// should always go through the Firebase CLIENT SDK + these rules instead.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /users/{userId} {
+      // Change to `allow read: if true;` if profiles should be publicly
+      // readable (e.g. a leaderboard) while keeping writes owner-only
+      // below. Defaults to private: only the owner can read their own doc.
+      allow read: if isOwner(userId);
+
+      allow create: if isOwner(userId) && isValidProfile(userId);
+      allow update: if isOwner(userId) && isValidProfile(userId) && keepsProtectedFields();
+      allow delete: if isOwner(userId);
+    }
+
+    // Deny anything not explicitly matched above (defense in depth).
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function isValidProfile(userId) {
+      let data = request.resource.data;
+      // The document must self-identify as belonging to this uid -- blocks
+      // writing under your own id but claiming to be someone else's, and
+      // blocks a missing/blank uid field.
+      return data.uid == userId;
+    }
+
+    function keepsProtectedFields() {
+      // List any privileged fields here (admin flags, roles, verification
+      // status, credit balances, etc.) that a user must NEVER be able to
+      // set/change on their own profile document, even though they own it.
+      // Empty today = safe no-op; add real field names once your profile
+      // schema has any such fields.
+      let protectedFields = [];
+      return !request.resource.data.diff(resource.data).affectedKeys().hasAny(protectedFields);
+    }
+  }
+}

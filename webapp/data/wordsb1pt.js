@@ -1,0 +1,102 @@
+/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
+ * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
+ * <https://polyformproject.org/licenses/noncommercial/1.0.0>
+ *
+ * Any commercial use requires prior written permission from the copyright
+ * holders. Written permission from any ONE of bulentozkir@hotmail.com,
+ * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
+ * is sufficient and binding on all of them.
+ *
+ * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
+ * Ozkir (https://udsp.vercel.app)
+ * Full terms: see LICENSE and NOTICE in this repository.
+ */
+/*! Compilation notice — read together with the licence above.
+ * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
+ * translations in this file are the copyright holders' own work and ARE
+ * covered by the PolyForm Noncommercial licence above. Copying this list, or
+ * any substantial part of it, into a commercial product or service requires
+ * prior written permission from one of the addresses above.
+ *
+ * Some individual definitions and example sentences come from open community
+ * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
+ * others — see NOTICE). Those items keep THEIR OWN licence and the
+ * noncommercial term is not asserted over them.
+ */
+
+// Portuguese B1 vocabulary (self-authored, CEFR B1).
+// 100% original content -- see wordsa1pt.js for the full authoring and
+// levelling policy. These words support the B1 descriptors: expressing
+// opinions, describing experiences, handling work and study situations, and
+// following argument in familiar contexts.
+window.WORDS_PT_B1 = [
+  { word: "o desenvolvimento", pos: "noun", level: "B1", category: "General", definition: "Development, growth. - Gelişme; kalkınma.", example: "O desenvolvimento do projeto foi rápido. - Projenin gelişimi hızlı oldu." },
+  { word: "a experiência", pos: "noun", level: "B1", category: "General", definition: "Experience. - Deneyim; tecrübe.", example: "Ela tem muita experiência na área. - Onun bu alanda çok deneyimi var." },
+  { word: "a formação", pos: "noun", level: "B1", category: "Education", definition: "Training; education. - Eğitim; formasyon.", example: "A formação dura seis meses. - Eğitim altı ay sürüyor." },
+  { word: "o objetivo", pos: "noun", level: "B1", category: "Sports", definition: "Objective, goal. - Amaç; hedef.", example: "O nosso objetivo é claro. - Amacımız açık." },
+  { word: "a reunião", pos: "noun", level: "B1", category: "General", definition: "Meeting. - Toplantı.", example: "A reunião foi adiada para sexta. - Toplantı cumaya ertelendi." },
+  { word: "o relatório", pos: "noun", level: "B1", category: "General", definition: "Report. - Rapor.", example: "Entreguei o relatório ontem. - Raporu dün teslim ettim." },
+  { word: "a empresa", pos: "noun", level: "B1", category: "General", definition: "Company, firm. - Şirket; firma.", example: "A empresa contratou dez pessoas. - Şirket on kişi işe aldı." },
+  { word: "o contrato", pos: "noun", level: "B1", category: "Law", definition: "Contract. - Sözleşme.", example: "Assinámos o contrato na segunda. - Sözleşmeyi pazartesi imzaladık." },
+  { word: "o salário", pos: "noun", level: "B1", category: "Business", definition: "Salary, wage. - Maaş; ücret.", example: "O salário é pago no dia trinta. - Maaş ayın otuzunda ödeniyor." },
+  { word: "o investimento", pos: "noun", level: "B1", category: "Business", definition: "Investment. - Yatırım.", example: "O investimento deu bons resultados. - Yatırım iyi sonuç verdi." },
+  { word: "a sociedade", pos: "noun", level: "B1", category: "General", definition: "Society. - Toplum.", example: "A sociedade mudou muito. - Toplum çok değişti." },
+  { word: "o governo", pos: "noun", level: "B1", category: "Government", definition: "Government. - Hükümet.", example: "O governo anunciou novas medidas. - Hükümet yeni önlemler açıkladı." },
+  { word: "a lei", pos: "noun", level: "B1", category: "Law", definition: "Law. - Kanun; yasa.", example: "A nova lei entra em vigor amanhã. - Yeni yasa yarın yürürlüğe giriyor." },
+  { word: "o direito", pos: "noun", level: "B1", category: "Agriculture", definition: "Right; law (field). - Hak; hukuk.", example: "Todos têm direito à educação. - Herkesin eğitim hakkı vardır." },
+  { word: "a decisão", pos: "noun", level: "B1", category: "General", definition: "Decision. - Karar.", example: "Foi uma decisão difícil. - Zor bir karardı." },
+  { word: "a opinião", pos: "noun", level: "B1", category: "General", definition: "Opinion, view. - Fikir; görüş.", example: "Na minha opinião, ele tem razão. - Bence o haklı." },
+  { word: "o conselho", pos: "noun", level: "B1", category: "General", definition: "Advice; council. - Tavsiye; konsey.", example: "Segui o conselho do meu pai. - Babamın tavsiyesine uydum." },
+  { word: "a vantagem", pos: "noun", level: "B1", category: "General", definition: "Advantage. - Avantaj; üstünlük.", example: "A principal vantagem é o preço. - Başlıca avantaj fiyattır." },
+  { word: "a desvantagem", pos: "noun", level: "B1", category: "General", definition: "Disadvantage, drawback. - Dezavantaj; sakınca.", example: "A desvantagem é a distância. - Dezavantajı mesafedir." },
+  { word: "a dificuldade", pos: "noun", level: "B1", category: "General", definition: "Difficulty. - Zorluk; güçlük.", example: "Tive dificuldade em perceber. - Anlamakta zorluk çektim." },
+  { word: "a solução", pos: "noun", level: "B1", category: "General", definition: "Solution. - Çözüm.", example: "Encontrámos uma boa solução. - İyi bir çözüm bulduk." },
+  { word: "o ambiente", pos: "noun", level: "B1", category: "Nature", definition: "Environment; atmosphere. - Çevre; ortam.", example: "Devemos proteger o ambiente. - Çevreyi korumalıyız." },
+  { word: "a poluição", pos: "noun", level: "B1", category: "General", definition: "Pollution. - Kirlilik.", example: "A poluição do ar aumentou. - Hava kirliliği arttı." },
+  { word: "a energia", pos: "noun", level: "B1", category: "General", definition: "Energy. - Enerji.", example: "A energia solar é mais limpa. - Güneş enerjisi daha temiz." },
+  { word: "a investigação", pos: "noun", level: "B1", category: "General", definition: "Research; investigation. - Araştırma; soruşturma.", example: "A investigação durou dois anos. - Araştırma iki yıl sürdü." },
+  { word: "a tecnologia", pos: "noun", level: "B1", category: "Technology", definition: "Technology. - Teknoloji.", example: "A tecnologia mudou o nosso dia a dia. - Teknoloji günlük hayatımızı değiştirdi." },
+  { word: "o computador", pos: "noun", level: "B1", category: "Technology", definition: "Computer. - Bilgisayar.", example: "O meu computador está avariado. - Bilgisayarım bozuk." },
+  { word: "a rede", pos: "noun", level: "B1", category: "Technology", definition: "Network; net. - Ağ; şebeke.", example: "A rede está muito lenta hoje. - Ağ bugün çok yavaş." },
+  { word: "a segurança", pos: "noun", level: "B1", category: "General", definition: "Safety, security. - Güvenlik; emniyet.", example: "A segurança é a nossa prioridade. - Güvenlik önceliğimizdir." },
+  { word: "o comportamento", pos: "noun", level: "B1", category: "General", definition: "Behaviour. - Davranış.", example: "O comportamento dele surpreendeu-me. - Onun davranışı beni şaşırttı." },
+  { word: "a relação", pos: "noun", level: "B1", category: "General", definition: "Relationship; relation. - İlişki; bağlantı.", example: "Têm uma boa relação de trabalho. - İyi bir çalışma ilişkileri var." },
+  { word: "a saudade", pos: "noun", level: "B1", category: "Emotions", definition: "Longing for someone or something absent, a feeling seen as typically Portuguese. - Özlem; hasret.", example: "Tenho saudades da minha terra. - Memleketimi özlüyorum." },
+  { word: "conseguir", pos: "verb", level: "B1", category: "General", definition: "To manage to, to achieve. - Başarmak; -ebilmek.", example: "Consegui terminar o trabalho. - İşi bitirmeyi başardım." },
+  { word: "tentar", pos: "verb", level: "B1", category: "General", definition: "To try, to attempt. - Denemek; çalışmak.", example: "Vou tentar outra vez. - Bir kez daha deneyeceğim." },
+  { word: "melhorar", pos: "verb", level: "B1", category: "General", definition: "To improve. - İyileştirmek; düzelmek.", example: "Quero melhorar o meu português. - Portekizcemi geliştirmek istiyorum." },
+  { word: "aumentar", pos: "verb", level: "B1", category: "General", definition: "To increase, to raise. - Artırmak; artmak.", example: "Os preços aumentaram este ano. - Fiyatlar bu yıl arttı." },
+  { word: "diminuir", pos: "verb", level: "B1", category: "General", definition: "To reduce, to decrease. - Azaltmak; azalmak.", example: "O ruído diminuiu à noite. - Gürültü gece azaldı." },
+  { word: "mudar", pos: "verb", level: "B1", category: "Household", definition: "To change; to move house. - Değiştirmek; taşınmak.", example: "Mudámos de casa no mês passado. - Geçen ay ev değiştirdik." },
+  { word: "escolher", pos: "verb", level: "B1", category: "General", definition: "To choose, to select. - Seçmek.", example: "Escolhi o curso de economia. - Ekonomi bölümünü seçtim." },
+  { word: "decidir", pos: "verb", level: "B1", category: "General", definition: "To decide. - Karar vermek.", example: "Decidimos ficar mais um dia. - Bir gün daha kalmaya karar verdik." },
+  { word: "explicar", pos: "verb", level: "B1", category: "General", definition: "To explain. - Açıklamak; anlatmak.", example: "O professor explicou a regra. - Öğretmen kuralı açıkladı." },
+  { word: "descrever", pos: "verb", level: "B1", category: "General", definition: "To describe. - Tarif etmek; betimlemek.", example: "Descreve a tua cidade natal. - Doğduğun şehri anlat." },
+  { word: "comparar", pos: "verb", level: "B1", category: "General", definition: "To compare. - Karşılaştırmak.", example: "Comparei os dois modelos. - İki modeli karşılaştırdım." },
+  { word: "acontecer", pos: "verb", level: "B1", category: "General", definition: "To happen, to occur. - Olmak; meydana gelmek.", example: "O que aconteceu ontem? - Dün ne oldu?" },
+  { word: "permitir", pos: "verb", level: "B1", category: "General", definition: "To allow, to permit. - İzin vermek.", example: "A lei não permite isso. - Kanun buna izin vermiyor." },
+  { word: "proibir", pos: "verb", level: "B1", category: "General", definition: "To forbid, to ban. - Yasaklamak.", example: "É proibido fumar aqui. - Burada sigara içmek yasaktır." },
+  { word: "evitar", pos: "verb", level: "B1", category: "General", definition: "To avoid. - Kaçınmak; önlemek.", example: "Devemos evitar o trânsito. - Trafikten kaçınmalıyız." },
+  { word: "preocupar", pos: "verb", level: "B1", category: "General", definition: "To worry. - Endişelendirmek; kaygılandırmak.", example: "Não te preocupes com isso. - Bunun için endişelenme." },
+  { word: "desenvolver", pos: "verb", level: "B1", category: "General", definition: "To develop. - Geliştirmek.", example: "A equipa desenvolveu uma aplicação. - Ekip bir uygulama geliştirdi." },
+  { word: "apoiar", pos: "verb", level: "B1", category: "General", definition: "To support, to back. - Desteklemek.", example: "Todos apoiaram a proposta. - Herkes öneriyi destekledi." },
+  { word: "participar", pos: "verb", level: "B1", category: "General", definition: "To take part, to participate. - Katılmak.", example: "Participei no concurso. - Yarışmaya katıldım." },
+  { word: "sugerir", pos: "verb", level: "B1", category: "General", definition: "To suggest. - Önermek.", example: "Ela me entregou a cesta e sugerir que eu esperasse até chegar em casa para abri-la, no caso de alguém estar olhando. - Sepeti bana verdi ve eğer biri bakarsa diye, eve gelip sepeti açmamı beklememi önerdi." },
+  { word: "provável", pos: "adjective", level: "B1", category: "General", definition: "Likely, probable. - Muhtemel; olası.", example: "É provável que chova amanhã. - Yarın yağmur yağması muhtemel." },
+  { word: "necessário", pos: "adjective", level: "B1", category: "General", definition: "Necessary. - Gerekli.", example: "Não é necessário pagar já. - Hemen ödemek gerekli değil." },
+  { word: "disponível", pos: "adjective", level: "B1", category: "General", definition: "Available. - Müsait; mevcut.", example: "O quarto já não está disponível. - Oda artık müsait değil." },
+  { word: "responsável", pos: "adjective", level: "B1", category: "General", definition: "Responsible; person in charge. - Sorumlu.", example: "Ele é responsável pela equipa. - O ekipten sorumlu." },
+  { word: "capaz", pos: "adjective", level: "B1", category: "General", definition: "Capable, able. - Yetenekli; muktedir.", example: "Ela é capaz de resolver isto. - O bunu çözebilecek yetenekte." },
+  { word: "seguro", pos: "adjective", level: "B1", category: "General", definition: "Safe; sure; insurance. - Güvenli; emin; sigorta.", example: "Este bairro é muito seguro. - Bu mahalle çok güvenli." },
+  { word: "perigoso", pos: "adjective", level: "B1", category: "General", definition: "Dangerous. - Tehlikeli.", example: "Conduzir à chuva é perigoso. - Yağmurda araba sürmek tehlikeli." },
+  { word: "estranho", pos: "adjective", level: "B1", category: "General", definition: "Strange, odd. - Garip; tuhaf.", example: "Ouvi um barulho estranho. - Garip bir ses duydum." },
+  { word: "parecido", pos: "adjective", level: "B1", category: "General", definition: "Similar, alike. - Benzer.", example: "Os dois irmãos são muito parecidos. - İki kardeş birbirine çok benziyor." },
+  { word: "atual", pos: "adjective", level: "B1", category: "General", definition: "Current, present-day. - Güncel; mevcut.", example: "A situação atual é complicada. - Mevcut durum karmaşık." },
+  { word: "além disso", pos: "phrase", level: "B1", category: "General", definition: "Moreover, besides. - Ayrıca; bunun yanı sıra.", example: "É barato e, além disso, é rápido. - Ucuz ve ayrıca hızlı." },
+  { word: "por causa de", pos: "phrase", level: "B1", category: "General", definition: "Because of, due to. - -den dolayı; yüzünden.", example: "Chegámos tarde por causa do trânsito. - Trafik yüzünden geç kaldık." },
+  { word: "apesar de", pos: "phrase", level: "B1", category: "General", definition: "In spite of, despite. - -e rağmen.", example: "Saiu apesar da chuva. - Yağmura rağmen dışarı çıktı." },
+  { word: "de repente", pos: "phrase", level: "B1", category: "General", definition: "Suddenly, all of a sudden. - Aniden; birdenbire.", example: "De repente, a luz apagou-se. - Aniden ışık söndü." },
+  { word: "talvez", pos: "adverb", level: "B1", category: "General", definition: "Maybe, perhaps. - Belki.", example: "Talvez ele venha mais tarde. - Belki daha sonra gelir." },
+  { word: "sobretudo", pos: "adverb", level: "B1", category: "General", definition: "Above all, especially. - Özellikle; her şeyden önce.", example: "Gosto de fruta, sobretudo de laranjas. - Meyveyi, özellikle portakalı severim." },
+  { word: "quase", pos: "adverb", level: "B1", category: "General", definition: "Almost, nearly. - Neredeyse.", example: "Quase perdi o comboio. - Neredeyse treni kaçırıyordum." },
+];

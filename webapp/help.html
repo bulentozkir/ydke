@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Yardım · Help · Hilfe · Aide – Top Words</title>
+    <meta
+      name="description"
+      content="Top Words nasıl kullanılır? İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime kartları, testler, 16 oyun, okuduğunu anlama ve istatistikler için Türkçe, İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce yardım kılavuzu."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f172a" />
+    <script>
+      (function () {
+        try {
+          var t = JSON.parse(localStorage.getItem("udsp_theme_v1") || '"dark"');
+          if (t === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (m) m.setAttribute("content", "#f8fafc");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="canonical" href="https://udsp.vercel.app/help.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Top Words" />
+    <meta property="og:title" content="Yardım · Help · Hilfe · Aide – Top Words" />
+    <meta
+      property="og:description"
+      content="Top Words nasıl kullanılır? Türkçe, İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce yardım kılavuzu."
+    />
+    <meta property="og:url" content="https://udsp.vercel.app/help.html" />
+    <meta property="og:image" content="https://udsp.vercel.app/og-image.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Top Words – İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime öğrenme uygulaması" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Yardım · Help · Hilfe · Aide – Top Words" />
+    <meta
+      name="twitter:description"
+      content="Top Words nasıl kullanılır? Türkçe, İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce yardım kılavuzu."
+    />
+    <meta name="twitter:image" content="https://udsp.vercel.app/og-image.svg" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Top Words" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Google AdSense -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4464915775427405"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://udsp.vercel.app/help.html",
+            "url": "https://udsp.vercel.app/help.html",
+            "name": "Yardım · Help · Hilfe · Aide – Top Words",
+            "description": "Top Words nasıl kullanılır? Türkçe, İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce yardım kılavuzu.",
+            "inLanguage": "tr",
+            "isPartOf": { "@id": "https://udsp.vercel.app/#webapp" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Top Words", "item": "https://udsp.vercel.app/" },
+              { "@type": "ListItem", "position": 2, "name": "Yardım", "item": "https://udsp.vercel.app/help.html" }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <a class="logo-link" href="home.html" aria-label="Home"><img class="logo" src="icon.svg" alt="Top Words logo" width="44" height="44" /></a>
+        <h1 class="brand-title">Yabancı Dil Kelime Ezberleme</h1>
+        <!-- Main toolbar: shares the header's first line -->
+        <nav class="bottom-nav" aria-label="Main navigation">
+        <a class="bottom-nav-item" href="index.html"><span class="bn-icon">🃏</span><span class="bn-label">Cards</span></a>
+        <a class="bottom-nav-item" href="quiz.html"><span class="bn-icon">📝</span><span class="bn-label">Quiz</span></a>
+        <a class="bottom-nav-item" href="games.html"><span class="bn-icon">🎮</span><span class="bn-label">Games</span></a>
+        <a class="bottom-nav-item" href="wordlist.html"><span class="bn-icon">📋</span><span class="bn-label">Words</span></a>
+        <button class="bottom-nav-item" id="more-btn" type="button"><span class="bn-icon">⋯</span><span class="bn-label">More</span></button>
+        </nav>
+        <div class="brand-actions">
+          <a class="about-btn" href="about.html" aria-label="Hakkında / About" data-tip="Hakkında / About">ℹ️<span class="btn-txt"> About</span></a>
+          <a class="about-btn" href="index.html">← Uygulama</a>
+          <a class="profile-icon-link" href="profile.html" id="profile-icon-link" data-tip="Profil / Profile" aria-label="Profil / Profile">👤</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Language quick navigation -->
+      <nav class="help-langnav" aria-label="Yardım dili / Help language">
+        <a href="#tr">🇹🇷 Türkçe</a>
+        <a href="#en">🇬🇧 English</a>
+        <a href="#de">🇩🇪 Deutsch</a>
+        <a href="#fr">🇫🇷 Français</a>
+        <a href="#it">🇮🇹 Italiano</a>
+        <a href="#es">🇪🇸 Español</a>
+        <a href="#pt">🇵🇹 Português</a>
+      </nav>
+
+      <!-- ============ TÜRKÇE ============ -->
+      <section id="tr" class="seo-content" aria-label="Türkçe yardım">
+        <div class="seo-inner">
+          <h2>🇹🇷 Türkçe — Nasıl kullanılır?</h2>
+          <p>
+            <strong>Top Words</strong>, <strong>İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce</strong>
+            kelime çalışmak için ücretsiz bir uygulamadır. Kayıt gerekmez; ilerlemeniz
+            tarayıcınıza kaydedilir.
+          </p>
+
+          <h3>Başlarken — üstteki seçiciler</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Dil (Lang):</strong> <em>English</em>, <em>German</em>,
+              <em>French</em>, <em>Italian</em>, <em>Spanish</em> veya <em>Portuguese</em> — çalışacağınız dili seçin.
+            </li>
+            <li>
+              <strong>Seviye (Level):</strong> İngilizce için <em>Phrasal Verbs, A1,
+              A2, B1, B2, C1, C2, TOEFL</em>; Almanca için <em>Partikelverb, A1–C2</em>;
+              Fransızca, İtalyanca, İspanyolca ve Portekizce için <em>A1–C2</em>. <em>Mix</em> tüm seviyeleri birleştirir.
+            </li>
+            <li>
+              <strong>Kategori (Category):</strong> Kelimeleri konu alanına göre süzün —
+              Spor, Yemek, Bilim, Teknoloji, Hukuk, Doğa ve daha fazlası.
+              <em>Mix</em> tüm kategorileri kapsar (varsayılan).
+            </li>
+            <li>
+              <strong>Uygulama (App):</strong> Çalışma modları arasında geçiş yapın —
+              Flashcards, Quiz, Word Morph, Games, Word List, Listening.
+            </li>
+          </ul>
+
+          <h3>Çalışma modları</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Flashcards (Kelime Kartları):</strong> Karta dokunun/tıklayın,
+              kart çevrilir ve anlam (ör. İngilizce–Türkçe) görünür. Düğmeler:
+              🔊 dinle, ★ favori, 🔀 karıştır, ⚑ bildir, 📝 örnek ve
+              ← Önceki / Sonraki → / 🏠 Ana Sayfa.
+            </li>
+            <li>
+              <strong>Quiz (Test):</strong> 20 soruluk çoktan seçmeli sınav.
+              Gönderdiğinizde puanınız gösterilir ve en iyi puanınız kaydedilir.
+            </li>
+            <li>
+              <strong>Word Morph (Eş &amp; Zıt Anlam):</strong> 10 soruluk turlar
+              hâlinde bir kelimenin eş anlamlısını veya zıt anlamlısını seçersiniz;
+              10 soruda 5+ doğru = kazandınız.
+            </li>
+            <li>
+              <strong>Word List (Kelime Listesi):</strong> Seçili seviyedeki tüm
+              kelimeler; arama kutusuyla arayabilir, anlam ve sözlük bağlantılarına
+              bakabilirsiniz.
+            </li>
+            <li>
+              <strong>Stats (İstatistik):</strong> İlerlemeniz — seviyeye göre bilinen
+              kelime sayısı, günlük seri ve toplamlar. Buradan ilerlemeyi
+              sıfırlayabilirsiniz.
+            </li>
+          </ul>
+
+          <h3>🎮 Oyunlar (Games)</h3>
+          <p>
+            <em>Games</em> menüsünde kelime bilginizi 16 oyunla pekiştirin. Her oyunda
+            önce üstteki Seviye/Kategori seçicileriyle çalışacağınız kelimeleri
+            belirler, sonra <em>▶ Başlat</em>'a basarsınız. Çoğu oyunda 💡 İpucu ve
+            🔊 Dinle düğmeleri bulunur.
+          </p>
+          <ul class="help-list">
+            <li><strong>🎯 Hangman (Adam Asmaca):</strong> anlamdan yola çıkarak kelimeyi harf harf tahmin edin (6 yanlış hakkı).</li>
+            <li><strong>📝 Cloze Test (Boşluk Doldurma):</strong> örnek cümledeki boşluğa dört seçenekten doğru kelimeyi seçin.</li>
+            <li><strong>🔤 Word Scramble (Harf Karıştırma):</strong> karışık harfleri doğru sıraya dizin.</li>
+            <li><strong>🧠 Matching Pairs (Eşleştirme):</strong> kartları çevirin, kelimeyle anlamını eşleştirin.</li>
+            <li><strong>⚡ Speed Round (Hız Turu):</strong> 60 saniyede kaç doğru yapabilirsiniz?</li>
+            <li><strong>⌨️ Word Race (Kelime Yarışı):</strong> anlamından yola çıkarak kelimeyi süre bitmeden yazın.</li>
+            <li><strong>🧩 Sentence Scramble (Cümle Dizme):</strong> karışık kelimeleri doğru sıraya dizin.</li>
+            <li><strong>🎧 Listening Dictation (Dikte):</strong> kelimeyi dinleyin ve doğru yazın.</li>
+            <li><strong>⚖️ True or False (Doğru/Yanlış):</strong> gösterilen anlam doğru mu yanlış mı, hızlıca karar verin.</li>
+            <li><strong>🔥 Survival Streak (Hayatta Kalma):</strong> ilk yanlışa kadar kaç doğru yapabilirsiniz?</li>
+            <li><strong>🔎 Word Matrix (Kelime Bulmaca):</strong> harf ızgarasında gizli kelimeleri bulun.</li>
+            <li><strong>📖 Reading Comprehension (Okuduğunu Anlama):</strong> bir parça okuyun ve anlama sorularını yanıtlayın (İngilizce: Grade 1–12 veya CEFR; Almanca ve Fransızca: CEFR). Her soruda 💡 İpucu ve ❓ Açıklama vardır.</li>
+            <li><strong>🔄 Word Morph (Eş &amp; Zıt Anlam):</strong> verilen kelimenin eş ya da zıt anlamlısını seçin.</li>
+            <li><strong>🚫 Odd One Out (Farklı Olanı Bul):</strong> dört kelimeden üçü aynı konu alanındandır; farklı olanı seçin.</li>
+            <li><strong>🏷️ Word Class (Kelime Türü):</strong> kelime isim mi, fiil mi, sıfat mı, zarf mı? Klavyeden 1–4 ile de oynayabilirsiniz.</li>
+            <li><strong>🎱 Word Bingo (Kelime Tombalası):</strong> 4×4 kartta okunan tanıma uyan kelimeye dokunun; satır, sütun ve çapraz bonusları kazanın (3 can).</li>
+          </ul>
+
+          <h3>Simgeler ve düğmeler</h3>
+          <ul class="help-list">
+            <li>🔥 <strong>Günlük seri:</strong> her gün çalıştıkça artar.</li>
+            <li>✓ <strong>Biliyorum</strong> ve ★ <strong>Favori:</strong> kelimeleri işaretler.</li>
+            <li>🔊 <strong>Dinle:</strong> kelimeyi hedef dilde sesli okur.</li>
+            <li>📝 <strong>Örnek / 💡 İpucu:</strong> örnek cümleyi veya ipucunu küçük bir kutuda gösterir.</li>
+            <li><strong>Sözlük bağlantıları:</strong> her kelimede iki bağlantı — <em>Details</em> (Detaylar) ve <em>Examples</em> (Örnekler). İngilizce: Cambridge; Almanca: PONS &amp; Cambridge; Fransızca, İtalyanca ve İspanyolca: Collins &amp; Reverso; Portekizce: Cambridge &amp; Reverso.</li>
+          </ul>
+
+          <h3>Kayıt ve gizlilik</h3>
+          <p>
+            İlerlemeniz (bilinenler, favoriler, puanlar, seri) yalnızca
+            <strong>tarayıcınızda yerel olarak</strong> saklanır. Hesap veya giriş
+            gerekmez. Tarayıcı verilerinizi silerseniz ilerleme sıfırlanır.
+          </p>
+
+          <h3>Sesli okuma çalışmıyorsa</h3>
+          <p>
+            🔊 Dinle düğmesi Almanca/Fransızca/İtalyanca/İspanyolca/Portekizce kelimeleri İngilizce aksanıyla okuyorsa
+            ya da hiç ses çıkmıyorsa, cihazınızda o dilin sesi yüklü olmayabilir.
+            Windows'ta <em>Ayarlar → Saat ve Dil → Dil ve Bölge</em>, iOS/macOS'ta
+            <em>Ayarlar → Erişilebilirlik → Sözlü İçerik → Sesler</em> bölümünden
+            ilgili dili ekleyin.
+          </p>
+
+          <h3>İpuçları</h3>
+          <ul class="help-list">
+            <li>Her gün kısa çalışın; seriyi (🔥) koruyun.</li>
+            <li>Önce Flashcards ile tanışın, sonra Quiz veya oyunlarla kendinizi test edin.</li>
+            <li>Zorlandığınız kelimeleri ★ favorilere ekleyip Word List’te tekrar çalışın.</li>
+            <li>Belirli bir konuya odaklanmak için Kategori seçicisini kullanın.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ ENGLISH ============ -->
+      <section id="en" class="seo-content" aria-label="English help" lang="en">
+        <div class="seo-inner">
+          <h2>🇬🇧 English — How to use</h2>
+          <p>
+            <strong>Top Words</strong> is a free app for learning
+            <strong>English, German, French, Italian, Spanish and Portuguese</strong> vocabulary. No sign-up is
+            needed; your progress is saved in your browser.
+          </p>
+
+          <h3>Getting started — the selectors at the top</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Lang:</strong> choose <em>English</em>, <em>German</em>,
+              <em>French</em>, <em>Italian</em>, <em>Spanish</em> or <em>Portuguese</em>.
+            </li>
+            <li>
+              <strong>Level:</strong> English — <em>Phrasal Verbs, A1, A2, B1, B2,
+              C1, C2, TOEFL</em>; German — <em>Partikelverb, A1–C2</em>; French,
+              Italian, Spanish and Portuguese —
+              <em>A1–C2</em>. <em>Mix</em> combines all levels.
+            </li>
+            <li>
+              <strong>Category:</strong> filter words by topic — Sports, Food,
+              Science, Technology, Law, Nature and more. <em>Mix</em> covers every
+              category (the default).
+            </li>
+            <li>
+              <strong>App:</strong> switch between study modes — Flashcards, Quiz,
+              Word Morph, Games, Word List, Listening.
+            </li>
+          </ul>
+
+          <h3>Study modes</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Flashcards:</strong> tap/click a card to flip it and reveal the
+              meaning (e.g. English–Turkish). Buttons: 🔊 listen, ★ favourite,
+              🔀 shuffle, ⚑ report, 📝 example, and ← Previous / Next → / 🏠 Home.
+            </li>
+            <li>
+              <strong>Quiz:</strong> a 20-question multiple-choice exam. Your score is
+              shown on submit and your best score is saved.
+            </li>
+            <li>
+              <strong>Word Morph (synonyms &amp; antonyms):</strong> in rounds of 10
+              questions, pick a synonym or antonym of the given word; 5+ correct out
+              of 10 wins the round.
+            </li>
+            <li>
+              <strong>Word List:</strong> every word in the selected level; search it
+              and see meanings and dictionary links.
+            </li>
+            <li>
+              <strong>Stats:</strong> your progress — words known by level, your daily
+              streak and totals. You can reset progress here.
+            </li>
+          </ul>
+
+          <h3>🎮 Games</h3>
+          <p>
+            The <em>Games</em> menu has 16 games to reinforce your vocabulary. In each
+            one you first set the words with the Level/Category selectors at the top,
+            then press <em>▶ Start</em>. Most games offer a 💡 Hint and a 🔊 Listen
+            button.
+          </p>
+          <ul class="help-list">
+            <li><strong>🎯 Hangman:</strong> guess the word letter by letter from its meaning (6 wrong guesses allowed).</li>
+            <li><strong>📝 Cloze Test:</strong> pick the correct word from four choices to fill the blank in a sentence.</li>
+            <li><strong>🔤 Word Scramble:</strong> reorder the scrambled letters into the correct word.</li>
+            <li><strong>🧠 Matching Pairs:</strong> flip the cards and match each word to its meaning.</li>
+            <li><strong>⚡ Speed Round:</strong> how many can you get right in 60 seconds?</li>
+            <li><strong>⌨️ Word Race:</strong> type the word from its meaning before time runs out.</li>
+            <li><strong>🧩 Sentence Scramble:</strong> reorder the shuffled words into the correct sentence.</li>
+            <li><strong>🎧 Listening Dictation:</strong> listen to the word and type it correctly.</li>
+            <li><strong>⚖️ True or False:</strong> decide quickly whether the shown meaning is right or wrong.</li>
+            <li><strong>🔥 Survival Streak:</strong> how many can you get right before your first mistake?</li>
+            <li><strong>🔎 Word Matrix:</strong> find the hidden words in a grid of letters.</li>
+            <li><strong>📖 Reading Comprehension:</strong> read a passage and answer comprehension questions (English: Grade 1–12 or CEFR; German and French: CEFR). Every question has a 💡 Hint and an ❓ Explain.</li>
+            <li><strong>🔄 Word Morph:</strong> choose the synonym or the antonym of the given word.</li>
+            <li><strong>🚫 Odd One Out:</strong> three of the four words share a topic — pick the intruder.</li>
+            <li><strong>🏷️ Word Class:</strong> is it a noun, a verb, an adjective or an adverb? Keys 1–4 work too.</li>
+            <li><strong>🎱 Word Bingo:</strong> tap the word on your 4×4 card that matches the called definition; complete rows, columns and diagonals for bonuses (3 lives).</li>
+          </ul>
+
+          <h3>Icons &amp; buttons</h3>
+          <ul class="help-list">
+            <li>🔥 <strong>Daily streak:</strong> grows each day you study.</li>
+            <li>✓ <strong>Known</strong> and ★ <strong>Favourite</strong> mark words.</li>
+            <li>🔊 <strong>Listen:</strong> reads the word aloud in the target language.</li>
+            <li>📝 <strong>Example / 💡 Hint:</strong> shows the example sentence or a hint in a small pop-up box.</li>
+            <li><strong>Dictionary links:</strong> every word has two — <em>Details</em> and <em>Examples</em>. English: Cambridge; German: PONS &amp; Cambridge; French, Italian and Spanish: Collins &amp; Reverso; Portuguese: Cambridge &amp; Reverso.</li>
+          </ul>
+
+          <h3>Saving &amp; privacy</h3>
+          <p>
+            Your progress (known words, favourites, scores, streak) is stored
+            <strong>locally in your browser only</strong>. No account or login is
+            required. Clearing your browser data resets your progress.
+          </p>
+
+          <h3>If the audio sounds wrong</h3>
+          <p>
+            If the 🔊 Listen button reads German/French/Italian/Spanish/Portuguese words with an English accent,
+            or plays no sound at all, your device may not have that language's voice
+            installed. Add it under <em>Settings → Time &amp; Language → Language
+            &amp; region</em> on Windows, or <em>Settings → Accessibility → Spoken
+            Content → Voices</em> on iOS/macOS.
+          </p>
+
+          <h3>Tips</h3>
+          <ul class="help-list">
+            <li>Study a little every day to keep your streak (🔥).</li>
+            <li>Start with Flashcards, then test yourself with the Quiz or the games.</li>
+            <li>Mark tricky words as ★ favourites and revisit them in the Word List.</li>
+            <li>Use the Category selector to focus on a specific topic.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ DEUTSCH ============ -->
+      <section id="de" class="seo-content" aria-label="Deutsche Hilfe" lang="de">
+        <div class="seo-inner">
+          <h2>🇩🇪 Deutsch — Anleitung</h2>
+          <p>
+            <strong>Top Words</strong> ist eine kostenlose App zum Lernen von
+            <strong>englischem, deutschem, französischem, italienischem und spanischem</strong> Wortschatz. Keine
+            Anmeldung nötig; dein Fortschritt wird im Browser gespeichert.
+          </p>
+
+          <h3>Erste Schritte — die Auswahlfelder oben</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Lang:</strong> wähle <em>English</em>, <em>German</em>,
+              <em>French</em>, <em>Italian</em>, <em>Spanish</em> oder <em>Portuguese</em>.
+            </li>
+            <li>
+              <strong>Level:</strong> Englisch — <em>Phrasal Verbs, A1, A2, B1, B2,
+              C1, C2, TOEFL</em>; Deutsch — <em>Partikelverb, A1–C2</em>; Französisch,
+              Italienisch, Spanisch und Portugiesisch —
+              <em>A1–C2</em>. <em>Mix</em> kombiniert alle Niveaus.
+            </li>
+            <li>
+              <strong>Category:</strong> filtere Wörter nach Themengebiet — Sport,
+              Essen, Wissenschaft, Technik, Recht, Natur und mehr. <em>Mix</em> umfasst
+              alle Kategorien (Standard).
+            </li>
+            <li>
+              <strong>App:</strong> wechsle zwischen den Lernmodi — Flashcards, Quiz,
+              Word Morph, Games, Word List, Listening.
+            </li>
+          </ul>
+
+          <h3>Lernmodi</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Flashcards (Karteikarten):</strong> Karte antippen/anklicken, um
+              sie umzudrehen und die Bedeutung (z. B. Englisch–Türkisch) zu sehen.
+              Tasten: 🔊 anhören, ★ Favorit, 🔀 mischen, ⚑ melden, 📝 Beispiel und
+              ← Zurück / Weiter → / 🏠 Startseite.
+            </li>
+            <li>
+              <strong>Quiz (Test):</strong> ein Test mit 20 Multiple-Choice-Fragen.
+              Nach dem Absenden wird dein Ergebnis angezeigt und die beste Punktzahl
+              gespeichert.
+            </li>
+            <li>
+              <strong>Word Morph (Synonyme &amp; Antonyme):</strong> in Runden zu 10
+              Fragen wählst du ein Synonym oder Antonym des gezeigten Wortes; 5+ von 10
+              richtig gewinnt die Runde.
+            </li>
+            <li>
+              <strong>Word List (Wortliste):</strong> alle Wörter des gewählten Niveaus;
+              du kannst suchen und Bedeutungen sowie Wörterbuch-Links sehen.
+            </li>
+            <li>
+              <strong>Stats (Statistik):</strong> dein Fortschritt — gewusste Wörter pro
+              Niveau, deine tägliche Serie und Summen. Hier kannst du den Fortschritt
+              zurücksetzen.
+            </li>
+          </ul>
+
+          <h3>🎮 Spiele (Games)</h3>
+          <p>
+            Das <em>Games</em>-Menü bietet 12 Spiele, um deinen Wortschatz zu festigen.
+            In jedem Spiel legst du zuerst mit den Auswahlfeldern Level/Category oben
+            die Wörter fest und drückst dann <em>▶ Start</em>. Die meisten Spiele
+            haben einen 💡 Hint- und einen 🔊 Listen-Knopf.
+          </p>
+          <ul class="help-list">
+            <li><strong>🎯 Hangman (Galgenmännchen):</strong> errate das Wort Buchstabe für Buchstabe anhand seiner Bedeutung (6 Fehlversuche).</li>
+            <li><strong>📝 Cloze Test (Lückentext):</strong> wähle aus vier Optionen das richtige Wort für die Lücke im Satz.</li>
+            <li><strong>🔤 Word Scramble:</strong> bringe die durcheinandergewürfelten Buchstaben in die richtige Reihenfolge.</li>
+            <li><strong>🧠 Matching Pairs:</strong> drehe die Karten um und ordne jedes Wort seiner Bedeutung zu.</li>
+            <li><strong>⚡ Speed Round:</strong> wie viele schaffst du in 60 Sekunden?</li>
+            <li><strong>⌨️ Word Race:</strong> tippe das Wort anhand seiner Bedeutung, bevor die Zeit abläuft.</li>
+            <li><strong>🧩 Sentence Scramble:</strong> ordne die gemischten Wörter zum richtigen Satz.</li>
+            <li><strong>🎧 Listening Dictation:</strong> höre das Wort und tippe es korrekt.</li>
+            <li><strong>⚖️ True or False:</strong> entscheide schnell, ob die gezeigte Bedeutung richtig oder falsch ist.</li>
+            <li><strong>🔥 Survival Streak:</strong> wie viele schaffst du bis zum ersten Fehler?</li>
+            <li><strong>🔎 Word Matrix:</strong> finde die versteckten Wörter in einem Buchstabengitter.</li>
+            <li><strong>📖 Reading Comprehension:</strong> lies einen Text und beantworte Verständnisfragen (Englisch: Klasse 1–12 oder CEFR; Deutsch und Französisch: CEFR). Jede Frage hat einen 💡 Hint und ein ❓ Explain.</li>
+          </ul>
+
+          <h3>Symbole &amp; Tasten</h3>
+          <ul class="help-list">
+            <li>🔥 <strong>Tägliche Serie:</strong> wächst mit jedem Lerntag.</li>
+            <li>✓ <strong>Gewusst</strong> und ★ <strong>Favorit</strong> markieren Wörter.</li>
+            <li>🔊 <strong>Anhören:</strong> liest das Wort in der Zielsprache vor.</li>
+            <li>📝 <strong>Beispiel / 💡 Hinweis:</strong> zeigt den Beispielsatz oder einen Hinweis in einem kleinen Pop-up-Kasten.</li>
+            <li><strong>Wörterbuch-Links:</strong> jedes Wort hat zwei — <em>Details</em> und <em>Examples</em>. Englisch: Cambridge; Deutsch: PONS &amp; Cambridge; Französisch, Italienisch und Spanisch: Collins &amp; Reverso; Portugiesisch: Cambridge &amp; Reverso.</li>
+          </ul>
+
+          <h3>Speichern &amp; Datenschutz</h3>
+          <p>
+            Dein Fortschritt (gewusste Wörter, Favoriten, Ergebnisse, Serie) wird
+            <strong>nur lokal in deinem Browser</strong> gespeichert. Kein Konto und
+            kein Login nötig. Wenn du die Browserdaten löschst, wird der Fortschritt
+            zurückgesetzt.
+          </p>
+
+          <h3>Wenn die Aussprache falsch klingt</h3>
+          <p>
+            Wenn der 🔊 Listen-Knopf deutsche/französische Wörter mit englischem Akzent
+            liest oder gar kein Ton kommt, ist auf deinem Gerät womöglich keine Stimme
+            für diese Sprache installiert. Füge sie unter <em>Einstellungen → Zeit
+            &amp; Sprache → Sprache &amp; Region</em> (Windows) bzw. <em>Einstellungen
+            → Bedienungshilfen → Gesprochene Inhalte → Stimmen</em> (iOS/macOS) hinzu.
+          </p>
+
+          <h3>Tipps</h3>
+          <ul class="help-list">
+            <li>Lerne täglich ein wenig, um deine Serie (🔥) zu halten.</li>
+            <li>Beginne mit Flashcards und teste dich dann im Quiz oder in den Spielen.</li>
+            <li>Markiere schwierige Wörter als ★ Favoriten und wiederhole sie in der Word List.</li>
+            <li>Nutze das Category-Auswahlfeld, um dich auf ein Thema zu konzentrieren.</li>
+          </ul>
+
+        </div>
+      </section>
+
+      <!-- ============ FRANÇAIS ============ -->
+      <section id="fr" class="seo-content" aria-label="Aide en français" lang="fr">
+        <div class="seo-inner">
+          <h2>🇫🇷 Français — Mode d'emploi</h2>
+          <p>
+            <strong>Top Words</strong> est une application gratuite pour apprendre le
+            vocabulaire <strong>anglais, allemand, français, italien, espagnol et portugais</strong>. Aucune
+            inscription n'est requise ; votre progression est enregistrée dans votre
+            navigateur.
+          </p>
+
+          <h3>Pour commencer — les sélecteurs en haut</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Lang :</strong> choisissez <em>English</em>, <em>German</em>,
+              <em>French</em>, <em>Italian</em>, <em>Spanish</em> ou <em>Portuguese</em>.
+            </li>
+            <li>
+              <strong>Level (niveau) :</strong> anglais — <em>Phrasal Verbs, A1, A2, B1,
+              B2, C1, C2, TOEFL</em> ; allemand — <em>Partikelverb, A1–C2</em> ; français,
+              italien, espagnol et portugais
+              — <em>A1–C2</em>. <em>Mix</em> combine tous les niveaux.
+            </li>
+            <li>
+              <strong>Category (catégorie) :</strong> filtrez les mots par thème — Sport,
+              Nourriture, Science, Technologie, Droit, Nature et plus encore. <em>Mix</em>
+              couvre toutes les catégories (par défaut).
+            </li>
+            <li>
+              <strong>App :</strong> passez d'un mode d'étude à l'autre — Flashcards, Quiz,
+              Word Morph, Games, Word List, Listening.
+            </li>
+          </ul>
+
+          <h3>Modes d'étude</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Flashcards (cartes) :</strong> touchez/cliquez une carte pour la
+              retourner et voir le sens (par ex. anglais–turc). Boutons : 🔊 écouter,
+              ★ favori, 🔀 mélanger, ⚑ signaler, 📝 exemple et
+              ← Précédent / Suivant → / 🏠 Accueil.
+            </li>
+            <li>
+              <strong>Quiz (test) :</strong> un test de 20 questions à choix multiple.
+              Votre score s'affiche à la validation et votre meilleur score est
+              enregistré.
+            </li>
+            <li>
+              <strong>Word Morph (synonymes &amp; antonymes) :</strong> en manches de 10
+              questions, choisissez un synonyme ou un antonyme du mot affiché ; 5 bonnes
+              réponses sur 10 remportent la manche.
+            </li>
+            <li>
+              <strong>Word List (liste de mots) :</strong> tous les mots du niveau
+              choisi ; vous pouvez chercher et voir les sens ainsi que les liens de
+              dictionnaire.
+            </li>
+            <li>
+              <strong>Stats (statistiques) :</strong> votre progression — mots connus par
+              niveau, votre série quotidienne et les totaux. Vous pouvez réinitialiser la
+              progression ici.
+            </li>
+          </ul>
+
+          <h3>🎮 Jeux (Games)</h3>
+          <p>
+            Le menu <em>Games</em> propose 12 jeux pour consolider votre vocabulaire.
+            Dans chaque jeu, choisissez d'abord les mots avec les sélecteurs Level/Category
+            en haut, puis appuyez sur <em>▶ Start</em>. La plupart des jeux ont un bouton
+            💡 Hint (indice) et 🔊 Listen (écouter).
+          </p>
+          <ul class="help-list">
+            <li><strong>🎯 Hangman (le pendu) :</strong> devinez le mot lettre par lettre à partir de son sens (6 erreurs autorisées).</li>
+            <li><strong>📝 Cloze Test (texte à trous) :</strong> choisissez parmi quatre options le bon mot pour compléter la phrase.</li>
+            <li><strong>🔤 Word Scramble :</strong> remettez les lettres mélangées dans le bon ordre.</li>
+            <li><strong>🧠 Matching Pairs :</strong> retournez les cartes et associez chaque mot à son sens.</li>
+            <li><strong>⚡ Speed Round :</strong> combien pouvez-vous en réussir en 60 secondes ?</li>
+            <li><strong>⌨️ Word Race :</strong> tapez le mot à partir de son sens avant la fin du temps.</li>
+            <li><strong>🧩 Sentence Scramble :</strong> remettez les mots mélangés dans le bon ordre pour former la phrase.</li>
+            <li><strong>🎧 Listening Dictation :</strong> écoutez le mot et tapez-le correctement.</li>
+            <li><strong>⚖️ True or False :</strong> décidez rapidement si le sens affiché est correct ou faux.</li>
+            <li><strong>🔥 Survival Streak :</strong> combien pouvez-vous en réussir avant la première erreur ?</li>
+            <li><strong>🔎 Word Matrix :</strong> trouvez les mots cachés dans une grille de lettres.</li>
+            <li><strong>📖 Reading Comprehension :</strong> lisez un texte et répondez aux questions de compréhension (anglais : Grade 1–12 ou CEFR ; allemand et français : CEFR). Chaque question a un 💡 Hint et un ❓ Explain.</li>
+          </ul>
+
+          <h3>Icônes &amp; boutons</h3>
+          <ul class="help-list">
+            <li>🔥 <strong>Série quotidienne :</strong> augmente chaque jour où vous étudiez.</li>
+            <li>✓ <strong>Connu</strong> et ★ <strong>Favori</strong> marquent les mots.</li>
+            <li>🔊 <strong>Écouter :</strong> lit le mot à voix haute dans la langue cible.</li>
+            <li>📝 <strong>Exemple / 💡 Indice :</strong> affiche la phrase d'exemple ou un indice dans une petite fenêtre.</li>
+            <li><strong>Liens de dictionnaire :</strong> chaque mot en a deux — <em>Details</em> (détails) et <em>Examples</em> (exemples). Anglais : Cambridge ; allemand : PONS &amp; Cambridge ; français, italien et espagnol : Collins &amp; Reverso ; portugais : Cambridge &amp; Reverso.</li>
+          </ul>
+
+          <h3>Enregistrement &amp; confidentialité</h3>
+          <p>
+            Votre progression (mots connus, favoris, scores, série) est enregistrée
+            <strong>uniquement en local dans votre navigateur</strong>. Aucun compte ni
+            connexion n'est nécessaire. Si vous effacez les données de votre navigateur,
+            la progression est réinitialisée.
+          </p>
+
+          <h3>Si la prononciation semble incorrecte</h3>
+          <p>
+            Si le bouton 🔊 Listen lit les mots allemands/français avec un accent anglais,
+            ou ne produit aucun son, il se peut qu'aucune voix pour cette langue ne soit
+            installée sur votre appareil. Ajoutez-la sous <em>Paramètres → Heure et langue
+            → Langue et région</em> (Windows) ou <em>Réglages → Accessibilité → Contenu
+            énoncé → Voix</em> (iOS/macOS).
+          </p>
+
+          <h3>Conseils</h3>
+          <ul class="help-list">
+            <li>Étudiez un peu chaque jour pour garder votre série (🔥).</li>
+            <li>Commencez par les Flashcards, puis testez-vous avec le Quiz ou les jeux.</li>
+            <li>Marquez les mots difficiles comme ★ favoris et révisez-les dans la Word List.</li>
+            <li>Utilisez le sélecteur Category pour vous concentrer sur un thème précis.</li>
+          </ul>
+
+          <p class="about-back">
+            <a class="nav-btn primary" href="index.html">← Top Words</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ ITALIANO ============ -->
+      <section id="it" class="seo-content" aria-label="Guida in italiano" lang="it">
+        <div class="seo-inner">
+          <h2>🇮🇹 Italiano — Come si usa</h2>
+          <p>
+            <strong>Top Words</strong> è un'applicazione gratuita per imparare il
+            vocabolario <strong>inglese, tedesco, francese, italiano, spagnolo e portoghese</strong>. Non è
+            richiesta alcuna registrazione; i tuoi progressi vengono salvati nel tuo
+            browser.
+          </p>
+
+          <h3>Per iniziare — i selettori in alto</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Lang:</strong> scegli <em>English</em>, <em>German</em>,
+              <em>French</em>, <em>Italian</em>, <em>Spanish</em> o <em>Portuguese</em>.
+            </li>
+            <li>
+              <strong>Level (livello):</strong> inglese — <em>Phrasal Verbs, A1, A2,
+              B1, B2, C1, C2, TOEFL</em>; tedesco — <em>Partikelverb, A1–C2</em>;
+              francese, italiano, spagnolo e portoghese — <em>A1–C2</em>. <em>Mix</em> combina tutti i
+              livelli.
+            </li>
+            <li>
+              <strong>Category (categoria):</strong> filtra le parole per tema —
+              Sport, Cibo, Scienza, Tecnologia, Diritto, Natura e altro. <em>Mix</em>
+              include tutte le categorie (predefinito).
+            </li>
+            <li>
+              <strong>App:</strong> passa da una modalità di studio all'altra —
+              Flashcards, Quiz, Word Morph, Games, Word List, Listening.
+            </li>
+          </ul>
+
+          <h3>Modalità di studio</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Flashcards (schede):</strong> tocca/clicca una scheda per
+              girarla e vedere il significato (es. inglese–turco). Pulsanti: 🔊
+              ascolta, ★ preferito, 🔀 mescola, ⚑ segnala, 📝 esempio e
+              ← Precedente / Successivo → / 🏠 Home.
+            </li>
+            <li>
+              <strong>Quiz:</strong> un test a scelta multipla di 20 domande. Il
+              punteggio appare al termine e il tuo record viene salvato.
+            </li>
+            <li>
+              <strong>Word Morph (sinonimi &amp; contrari):</strong> in turni di 10
+              domande, scegli un sinonimo o un contrario della parola mostrata; 5
+              risposte corrette su 10 vincono il turno.
+            </li>
+            <li>
+              <strong>Word List (elenco parole):</strong> tutte le parole del
+              livello scelto; puoi cercare e vedere i significati e i link ai
+              dizionari.
+            </li>
+            <li>
+              <strong>Stats (statistiche):</strong> i tuoi progressi — parole
+              conosciute per livello, la tua serie giornaliera e i totali. Puoi
+              azzerare i progressi da qui.
+            </li>
+          </ul>
+
+          <h3>🎮 Giochi (Games)</h3>
+          <p>
+            Il menu <em>Games</em> offre 12 giochi per rafforzare il tuo
+            vocabolario. In ogni gioco, scegli prima le parole con i selettori
+            Level/Category in alto, poi premi <em>▶ Start</em>. La maggior parte
+            dei giochi ha un pulsante 💡 Hint (suggerimento) e 🔊 Listen (ascolta).
+          </p>
+          <ul class="help-list">
+            <li><strong>🎯 Hangman (impiccato):</strong> indovina la parola lettera per lettera a partire dal significato (6 errori consentiti).</li>
+            <li><strong>📝 Cloze Test (testo con spazi vuoti):</strong> scegli tra quattro opzioni la parola giusta per completare la frase.</li>
+            <li><strong>🔤 Word Scramble:</strong> rimetti in ordine le lettere mescolate.</li>
+            <li><strong>🧠 Matching Pairs:</strong> gira le carte e abbina ogni parola al suo significato.</li>
+            <li><strong>⚡ Speed Round:</strong> quante ne indovini in 60 secondi?</li>
+            <li><strong>⌨️ Word Race:</strong> scrivi la parola a partire dal suo significato prima che scada il tempo.</li>
+            <li><strong>🧩 Sentence Scramble:</strong> rimetti in ordine le parole mescolate per formare la frase.</li>
+            <li><strong>🎧 Listening Dictation:</strong> ascolta la parola e scrivila correttamente.</li>
+            <li><strong>⚖️ True or False:</strong> decidi rapidamente se il significato mostrato è corretto o falso.</li>
+            <li><strong>🔥 Survival Streak:</strong> quante ne indovini prima del primo errore?</li>
+            <li><strong>🔎 Word Matrix:</strong> trova le parole nascoste in una griglia di lettere.</li>
+            <li><strong>📖 Reading Comprehension:</strong> leggi un testo e rispondi alle domande di comprensione (inglese: Grade 1–12 o CEFR; tedesco e francese: CEFR). Ogni domanda ha un 💡 Hint e uno ❓ Explain.</li>
+          </ul>
+
+          <h3>Icone &amp; pulsanti</h3>
+          <ul class="help-list">
+            <li>🔥 <strong>Serie giornaliera:</strong> aumenta ogni giorno in cui studi.</li>
+            <li>✓ <strong>Conosciuta</strong> e ★ <strong>Preferito</strong> segnano le parole.</li>
+            <li>🔊 <strong>Ascolta:</strong> legge la parola ad alta voce nella lingua di destinazione.</li>
+            <li>📝 <strong>Esempio / 💡 Suggerimento:</strong> mostra la frase di esempio o un suggerimento in una piccola finestra.</li>
+            <li><strong>Link ai dizionari:</strong> ogni parola ne ha due — <em>Details</em> (dettagli) ed <em>Examples</em> (esempi). Inglese: Cambridge; tedesco: PONS &amp; Cambridge; francese, italiano e spagnolo: Collins &amp; Reverso; portoghese: Cambridge &amp; Reverso.</li>
+          </ul>
+
+          <h3>Salvataggio &amp; privacy</h3>
+          <p>
+            I tuoi progressi (parole conosciute, preferiti, punteggi, serie) sono
+            salvati <strong>solo localmente nel tuo browser</strong>. Non è
+            necessario alcun account né accesso. Se cancelli i dati del browser, i
+            progressi vengono azzerati.
+          </p>
+
+          <h3>Se la pronuncia sembra sbagliata</h3>
+          <p>
+            Se il pulsante 🔊 Listen legge le parole tedesche/francesi/italiane/spagnole/portoghesi con
+            un accento inglese, o non emette alcun suono, potrebbe non essere
+            installata una voce per quella lingua sul tuo dispositivo. Aggiungila
+            da <em>Impostazioni → Ora e lingua → Lingua e area geografica</em>
+            (Windows) o <em>Impostazioni → Accessibilità → Contenuto parlato →
+            Voci</em> (iOS/macOS).
+          </p>
+
+          <h3>Consigli</h3>
+          <ul class="help-list">
+            <li>Studia un po' ogni giorno per mantenere la tua serie (🔥).</li>
+            <li>Inizia con le Flashcards, poi mettiti alla prova con il Quiz o i giochi.</li>
+            <li>Segna le parole difficili come ★ preferite e rivedile nella Word List.</li>
+            <li>Usa il selettore Category per concentrarti su un tema specifico.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ ESPAÑOL ============ -->
+      <section id="es" class="seo-content" aria-label="Guía en español" lang="es">
+        <div class="seo-inner">
+          <h2>🇪🇸 Español — Cómo se usa</h2>
+          <p>
+            <strong>Top Words</strong> es una aplicación gratuita para estudiar
+            vocabulario <strong>inglés, alemán, francés, italiano, español y
+            portugués</strong>.
+            No hace falta registrarse; tu progreso se guarda en tu navegador.
+          </p>
+
+          <h3>Para empezar — los selectores de arriba</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Lang:</strong> elige <em>English</em>, <em>German</em>,
+              <em>French</em>, <em>Italian</em>, <em>Spanish</em> o <em>Portuguese</em>.
+            </li>
+            <li>
+              <strong>Level (nivel):</strong> inglés — <em>Phrasal Verbs, A1, A2,
+              B1, B2, C1, C2, TOEFL</em>; alemán — <em>Partikelverb, A1–C2</em>;
+              francés, italiano, español y portugués — <em>A1–C2</em>. <em>Mix</em> combina
+              todos los niveles.
+            </li>
+            <li>
+              <strong>Category (categoría):</strong> filtra las palabras por tema —
+              Deporte, Comida, Ciencia, Tecnología, Derecho, Naturaleza y más.
+              <em>Mix</em> incluye todas las categorías (opción predeterminada).
+            </li>
+            <li>
+              <strong>App:</strong> cambia de modo de estudio — Flashcards, Quiz,
+              Word Morph, Games, Word List, Listening.
+            </li>
+          </ul>
+
+          <h3>Modos de estudio</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Flashcards (tarjetas):</strong> toca o haz clic en una tarjeta
+              para girarla y ver el significado (por ejemplo inglés–turco). Botones:
+              🔊 escuchar, ★ favorito, 🔀 mezclar, ⚑ reportar, 📝 ejemplo y
+              ← Anterior / Siguiente → / 🏠 Inicio.
+            </li>
+            <li>
+              <strong>Quiz:</strong> una prueba de opción múltiple de 20 preguntas.
+              La puntuación aparece al final y se guarda tu mejor resultado.
+            </li>
+            <li>
+              <strong>Word Morph (sinónimos y antónimos):</strong> en rondas de 10
+              preguntas, elige un sinónimo o un antónimo de la palabra mostrada; 5
+              aciertos de 10 ganan la ronda.
+            </li>
+            <li>
+              <strong>Word List (lista de palabras):</strong> todas las palabras del
+              nivel elegido; puedes buscar y ver significados y enlaces a
+              diccionarios.
+            </li>
+            <li>
+              <strong>Stats (estadísticas):</strong> tu progreso — palabras conocidas
+              por nivel, tu racha diaria y los totales. Desde aquí puedes reiniciar
+              el progreso.
+            </li>
+          </ul>
+
+          <h3>🎮 Juegos (Games)</h3>
+          <p>
+            El menú <em>Games</em> ofrece 12 juegos para reforzar tu vocabulario. En
+            cada juego, elige primero las palabras con los selectores Level/Category
+            de arriba y luego pulsa <em>▶ Start</em>. Casi todos los juegos tienen un
+            botón 💡 Hint (pista) y 🔊 Listen (escuchar).
+          </p>
+          <ul class="help-list">
+            <li><strong>🎯 Hangman (ahorcado):</strong> adivina la palabra letra por letra a partir de su significado (6 fallos permitidos).</li>
+            <li><strong>📝 Cloze Test (huecos):</strong> elige entre cuatro opciones la palabra que completa la frase.</li>
+            <li><strong>🔤 Word Scramble:</strong> ordena las letras mezcladas.</li>
+            <li><strong>🧠 Matching Pairs:</strong> gira las cartas y empareja cada palabra con su significado.</li>
+            <li><strong>⚡ Speed Round:</strong> ¿cuántas aciertas en 60 segundos?</li>
+            <li><strong>⌨️ Word Race:</strong> escribe la palabra a partir de su significado antes de que acabe el tiempo.</li>
+            <li><strong>🧩 Sentence Scramble:</strong> ordena las palabras mezcladas para formar la frase.</li>
+            <li><strong>🎧 Listening Dictation:</strong> escucha la palabra y escríbela correctamente.</li>
+            <li><strong>⚖️ True or False:</strong> decide rápidamente si el significado mostrado es correcto o falso.</li>
+            <li><strong>🔥 Survival Streak:</strong> ¿cuántas aciertas antes del primer fallo?</li>
+            <li><strong>🔎 Word Matrix:</strong> encuentra las palabras escondidas en una cuadrícula de letras.</li>
+            <li><strong>📖 Reading Comprehension:</strong> lee un texto y responde a las preguntas de comprensión (inglés: Grade 1–12 o CEFR; alemán y francés: CEFR). Cada pregunta tiene 💡 Hint y ❓ Explain.</li>
+          </ul>
+
+          <h3>Iconos y botones</h3>
+          <ul class="help-list">
+            <li>🔥 <strong>Racha diaria:</strong> sube cada día que estudias.</li>
+            <li>✓ <strong>Conocida</strong> y ★ <strong>Favorito</strong> marcan las palabras.</li>
+            <li>🔊 <strong>Escuchar:</strong> lee la palabra en voz alta en el idioma de destino.</li>
+            <li>📝 <strong>Ejemplo / 💡 Pista:</strong> muestra la frase de ejemplo o una pista en una ventanita.</li>
+            <li><strong>Enlaces a diccionarios:</strong> cada palabra tiene dos — <em>Details</em> (detalles) y <em>Examples</em> (ejemplos). Inglés: Cambridge; alemán: PONS y Cambridge; francés, italiano y español: Collins y Reverso; portugués: Cambridge y Reverso.</li>
+          </ul>
+
+          <h3>Guardado y privacidad</h3>
+          <p>
+            Tu progreso (palabras conocidas, favoritos, puntuaciones, rachas) se
+            guarda <strong>solo localmente en tu navegador</strong>. No hace falta
+            ninguna cuenta ni iniciar sesión. Si borras los datos del navegador, el
+            progreso se reinicia.
+          </p>
+
+          <h3>Si la pronunciación suena mal</h3>
+          <p>
+            Si el botón 🔊 Listen lee las palabras alemanas, francesas, italianas o
+            españolas con acento inglés, o no suena nada, puede que no haya una voz
+            instalada para ese idioma en tu dispositivo. Aádela desde
+            <em>Configuración → Hora e idioma → Idioma y región</em> (Windows) o
+            <em>Ajustes → Accesibilidad → Contenido hablado → Voces</em>
+            (iOS/macOS).
+          </p>
+
+          <h3>Consejos</h3>
+          <ul class="help-list">
+            <li>Estudia un poco cada día para mantener tu racha (🔥).</li>
+            <li>Empieza con las Flashcards y luego ponte a prueba con el Quiz o los juegos.</li>
+            <li>Marca las palabras difíciles como ★ favoritas y repásalas en la Word List.</li>
+            <li>Usa el selector Category para centrarte en un tema concreto.</li>
+          </ul>
+
+          <p class="about-back">
+            <a class="nav-btn primary" href="index.html">← Top Words</a>
+          </p>
+        </div>
+      </section>
+
+      <section id="pt" class="seo-content" aria-label="Guia em português" lang="pt">
+        <div class="seo-inner">
+          <h2>🇵🇹 Português — Como se usa</h2>
+          <p>
+            <strong>Top Words</strong> é uma aplicação gratuita para estudar
+            vocabulário <strong>inglês, alemão, francês, italiano, espanhol e
+            português</strong>. Não é preciso registar-se; o teu progresso fica
+            guardado no teu navegador.
+          </p>
+
+          <h3>Para começar — os seletores no topo</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Lang:</strong> escolhe <em>English</em>, <em>German</em>,
+              <em>French</em>, <em>Italian</em>, <em>Spanish</em> ou
+              <em>Portuguese</em>.
+            </li>
+            <li>
+              <strong>Level (nível):</strong> inglês — <em>Phrasal Verbs, A1, A2,
+              B1, B2, C1, C2, TOEFL</em>; alemão — <em>Partikelverb, A1–C2</em>;
+              francês, italiano, espanhol e português — <em>A1–C2</em>.
+              <em>Mix</em> combina todos os níveis.
+            </li>
+            <li>
+              <strong>Category (categoria):</strong> filtra as palavras por tema —
+              Desporto, Comida, Ciência, Tecnologia, Direito, Natureza e mais.
+              <em>Mix</em> inclui todas as categorias (opção predefinida).
+            </li>
+            <li>
+              <strong>App:</strong> muda de modo de estudo — Flashcards, Quiz,
+              Word Morph, Games, Word List, Listening.
+            </li>
+          </ul>
+
+          <h3>Modos de estudo</h3>
+          <ul class="help-list">
+            <li>
+              <strong>Flashcards (cartões):</strong> toca ou clica num cartão para
+              o virar e ver o significado (por exemplo inglês–turco). Botões:
+              🔊 ouvir, ★ favorito, 🔀 baralhar, ⚑ reportar, 📝 exemplo e
+              ← Anterior / Seguinte → / 🏠 Início.
+            </li>
+            <li>
+              <strong>Quiz:</strong> um teste de escolha múltipla com 20 perguntas.
+              A pontuação aparece no fim e o teu melhor resultado é guardado.
+            </li>
+            <li>
+              <strong>Word Morph:</strong> treina sinónimos e antónimos.
+            </li>
+            <li>
+              <strong>Word List:</strong> vê todas as palavras do nível escolhido,
+              procura e marca as que já sabes.
+            </li>
+            <li>
+              <strong>Listening:</strong> uma página de recursos que liga a
+              sites externos gratuitos de compreensão oral, organizados por
+              nível, para as seis línguas da aplicação.
+            </li>
+            <li>
+              <strong>Games:</strong> 12 jogos — Hangman, Cloze Test, Word Scramble,
+              Matching Pairs, Speed Round, Word Race, Sentence Scramble, Listening
+              Dictation, True or False, Survival Streak, Word Matrix e Reading
+              Comprehension.
+            </li>
+            <li>
+              <strong>Ligações para dicionários:</strong> cada palavra tem duas —
+              <em>Details</em> (detalhes) e <em>Examples</em> (exemplos). Inglês:
+              Cambridge; alemão: PONS e Cambridge; francês, italiano e espanhol:
+              Collins e Reverso; português: Cambridge e Reverso.
+            </li>
+          </ul>
+
+          <h3>Guardar e privacidade</h3>
+          <p>
+            O teu progresso (palavras conhecidas, favoritos, pontuações, sequências)
+            é guardado <strong>apenas localmente no teu navegador</strong>. Não é
+            preciso conta nem iniciar sessão. Se apagares os dados do navegador, o
+            progresso é reposto.
+          </p>
+
+          <h3>Se a pronúncia soar mal</h3>
+          <p>
+            Se o botão 🔊 Listen ler as palavras alemãs, francesas, italianas,
+            espanholas ou portuguesas com sotaque inglês, ou não soar nada, pode não
+            haver uma voz instalada para esse idioma no teu dispositivo.
+            Adiciona-a em <em>Definições → Hora e idioma → Idioma e região</em>
+            (Windows) ou <em>Definições → Acessibilidade → Conteúdo falado → Vozes</em>
+            (iOS/macOS).
+          </p>
+
+          <h3>Dicas</h3>
+          <ul class="help-list">
+            <li>Estuda um pouco todos os dias para manteres a tua sequência (🔥).</li>
+            <li>Começa pelos Flashcards e depois testa-te com o Quiz ou os jogos.</li>
+            <li>Marca as palavras difíceis como ★ favoritas e revê-as na Word List.</li>
+            <li>Usa o seletor Category para te focares num tema concreto.</li>
+          </ul>
+
+          <p class="about-back">
+            <a class="nav-btn primary" href="index.html">← Top Words</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div class="more-sheet" id="more-sheet" hidden>
+      <div class="more-sheet-inner">
+        <div class="more-sheet-handle"></div>
+        <a class="more-link" href="home.html">🏠 Home</a>
+        <a class="more-link" href="stats.html">📊 Stats</a>
+        <a class="more-link" href="listening.html">🎧 Listening</a>
+        <a class="more-link" href="about.html">ℹ️ About</a>
+        <a class="more-link is-active" href="help.html">❓ Help</a>
+        <a class="more-link" href="profile.html">👤 Profile</a>
+        <a class="more-link" href="history.html">📜 History</a>
+        <a class="more-link" href="privacy.html">🔒 Gizlilik · Privacy</a>
+        <a class="more-link" href="terms.html">📄 Şartlar · Terms</a>
+        <a class="more-link" href="terms.html#contact">✉️ İletişim · Contact</a>
+        <button type="button" id="more-close" class="more-close-btn">Close</button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <nav class="footer-links" aria-label="Site bilgileri ve yasal sayfalar">
+        <a href="about.html">Hakkında</a>
+        <a href="help.html">Yardım</a>
+        <a href="privacy.html">Gizlilik Politikası</a>
+        <a href="terms.html">Kullanım Şartları</a>
+        <a href="terms.html#contact">İletişim</a>
+      </nav>
+      <p>
+        <strong>Top Words</strong> — Türk öğrenciler için ücretsiz İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime ezberleme uygulaması · YDS, YÖKDİL, ÜDS, UDSP,
+        TOEFL, telc &amp; CEFR.
+      </p>
+    </footer>
+    <script src="moresheet.js"></script>
+  </body>
+</html>

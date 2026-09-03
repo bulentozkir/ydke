@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Vercel
+.vercel
+
+# Secrets — never commit real credentials. Copy .env.example -> .env and
+# fill in real values locally; set the real values in Vercel's Environment
+# Variables dashboard for deployed environments. See .env.example.
+.env
+.env.local
+.env.*.local
+*firebase-adminsdk*.json
+serviceAccountKey.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+
+# Downloaded third-party corpora (68 MB, re-fetch with
+# scripts/fix_examples_tatoeba.py --download)
+scripts/.cache/tatoeba/

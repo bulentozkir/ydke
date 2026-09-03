@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Boss Rush | Top Words</title>
+    <meta
+      name="description"
+      content="İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca, Portekizce ve Hollandaca için Boss Rush: doğru anlamı seçerek üç boss'u sırayla yenin, yanlış cevap can kaybettirir. A1–C2, TOEFL, telc, CEFR kelimeleriyle hızlı ve enerjik pratik."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0f172a" />
+    <script>
+      (function () {
+        try {
+          var t = JSON.parse(localStorage.getItem("udsp_theme_v1") || '"dark"');
+          if (t === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (m) m.setAttribute("content", "#f8fafc");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="canonical" href="https://udsp.vercel.app/bossrush.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Top Words" />
+    <meta property="og:title" content="Boss Rush | Top Words" />
+    <meta
+      property="og:description"
+      content="Doğru anlamı seçerek üç boss'u sırayla yenin — yanlış cevap can kaybettirir. Enerjik bir kelime savaşı."
+    />
+    <meta property="og:url" content="https://udsp.vercel.app/bossrush.html" />
+    <meta property="og:image" content="https://udsp.vercel.app/og-image.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Top Words – İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca, Portekizce ve Hollandaca kelime öğrenme uygulaması" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Boss Rush | Top Words" />
+    <meta
+      name="twitter:description"
+      content="Doğru anlamı seçerek üç boss'u sırayla yenin — yanlış cevap can kaybettirir."
+    />
+    <meta name="twitter:image" content="https://udsp.vercel.app/og-image.svg" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Top Words" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="site.webmanifest" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://udsp.vercel.app/bossrush.html",
+            "url": "https://udsp.vercel.app/bossrush.html",
+            "name": "Boss Rush | Top Words",
+            "description": "Doğru anlamı seçerek üç boss'u sırayla yenin, yanlış cevap can kaybettirir.",
+            "inLanguage": "tr",
+            "isPartOf": { "@id": "https://udsp.vercel.app/#webapp" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Top Words", "item": "https://udsp.vercel.app/" },
+              { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://udsp.vercel.app/games.html" },
+              { "@type": "ListItem", "position": 3, "name": "Boss Rush", "item": "https://udsp.vercel.app/bossrush.html" }
+            ]
+          }
+        ]
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-mode="bossrush">
+    <header class="site-header">
+      <div class="brand">
+        <a class="logo-link" href="home.html" aria-label="Home"><img class="logo" src="icon.svg" alt="Top Words logo" width="44" height="44" /></a>
+        <span class="brand-title">Yabancı Dil Kelime Ezberleme</span>
+        <!-- Main toolbar: shares the header's first line -->
+        <nav class="bottom-nav" aria-label="Main navigation">
+        <a class="bottom-nav-item" href="index.html"><span class="bn-icon">🃏</span><span class="bn-label">Cards</span></a>
+        <a class="bottom-nav-item" href="quiz.html"><span class="bn-icon">📝</span><span class="bn-label">Quiz</span></a>
+        <a class="bottom-nav-item is-active" href="games.html"><span class="bn-icon">🎮</span><span class="bn-label">Games</span></a>
+        <a class="bottom-nav-item" href="wordlist.html"><span class="bn-icon">📋</span><span class="bn-label">Words</span></a>
+        <a class="bottom-nav-item bn-morph" href="wordmorph.html"><span class="bn-icon">🔄</span><span class="bn-label">Morph</span></a>
+        <button class="bottom-nav-item" id="more-btn" type="button"><span class="bn-icon">⋯</span><span class="bn-label">More</span></button>
+        </nav>
+        <div class="brand-actions">
+          <a class="about-btn" href="about.html" aria-label="Hakkında / About" data-tip="Hakkında / About">ℹ️<span class="btn-txt"> About</span></a>
+          <a class="about-btn" href="help.html" aria-label="Yardım / Help" data-tip="Yardım / Help">❓<span class="btn-txt"> Help</span></a>
+          <a class="about-btn" href="stats.html" aria-label="İstatistikler / Stats" data-tip="İstatistikler / Stats">📊<span class="btn-txt"> Stats</span></a>
+          <a class="profile-icon-link" href="profile.html" id="profile-icon-link" data-tip="Profil / Profile" aria-label="Profil / Profile">👤</a>
+        </div>
+      </div>
+      <div class="selectors-row">
+        <label class="select-group">
+          <span class="select-label">Lang</span>
+          <select class="langs select-pill" id="langs-nav" aria-label="Language">
+            <option value="en">English</option>
+            <option value="de">German</option>
+            <option value="fr">French</option>
+            <option value="it">Italian</option>
+            <option value="es">Spanish</option>
+            <option value="pt">Portuguese</option>
+            <option value="nl">Dutch</option>
+          </select>
+        </label>
+        <label class="select-group">
+          <span class="select-label">Level</span>
+          <select class="levels select-pill" id="levels-nav" aria-label="Level"></select>
+        </label>
+        <div class="select-group">
+          <span class="select-label">Category</span>
+          <button class="filter-btn select-pill" id="category-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Filter by category">🗂️ All</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Boss Rush game -->
+      <section id="view-bossrush" class="view is-active">
+        <!-- Level picker -->
+        <div id="bossrush-setup" class="hangman-setup">
+          <div class="picker-intro">
+            <a class="ghost-btn games-hub-link" href="games.html">← All Games</a>
+            <h2>🐉 Boss Rush</h2>
+            <p>3 bosses, 3 hearts — pick the right meaning to deal damage</p>
+          </div>
+          <div class="game-start" id="bossrush-start">
+            <p class="game-start-level">Level: <strong id="bossrush-start-level">B2</strong></p>
+            <p class="game-start-count" id="bossrush-start-count"></p>
+            <p class="game-start-warning" id="bossrush-start-warning" hidden></p>
+            <p class="example" id="bossrush-start-best"></p>
+            <button class="nav-btn primary game-start-btn" id="bossrush-start-btn" type="button">▶ Start Battle</button>
+            <p class="game-start-hint">Change the level above.</p>
+          </div>
+        </div>
+
+        <!-- Game board -->
+        <div id="bossrush-game" hidden>
+          <div class="toolbar">
+            <button class="ghost-btn" id="bossrush-back" type="button">← Back</button>
+            <span class="counter" id="bossrush-level-badge">A1</span>
+            <span class="score" id="bossrush-hearts">❤️❤️❤️</span>
+          </div>
+
+          <div class="br-arena" id="bossrush-arena">
+            <p class="br-boss-counter" id="bossrush-boss-counter">Boss 1 / 3</p>
+            <div class="br-boss-avatar" id="bossrush-boss-avatar">👹</div>
+            <div class="br-hp-bar"><span class="br-hp-fill" id="bossrush-hp-fill"></span></div>
+            <p class="br-hp-text" id="bossrush-hp-text">5 / 5</p>
+          </div>
+
+          <div class="quiz-card br-card" id="bossrush-card">
+            <p class="quiz-prompt">What is the meaning of:</p>
+            <h2 class="quiz-word" id="bossrush-word">—</h2>
+            <span class="badge" id="bossrush-word-pos"></span>
+            <div class="options" id="bossrush-options"></div>
+            <div class="game-hint-row">
+              <button class="chip-btn" id="bossrush-audio" type="button">🔊 Listen</button>
+            </div>
+          </div>
+
+          <div class="hangman-result" id="bossrush-result" hidden>
+            <p class="hangman-result-text win" id="bossrush-final-result">🏆 Victory!</p>
+            <p class="hangman-answer" id="bossrush-final-detail"></p>
+            <p class="example" id="bossrush-final-best"></p>
+            <div class="nav-row">
+              <button class="nav-btn" id="bossrush-change" type="button">← Back</button>
+              <button class="nav-btn primary" id="bossrush-restart" type="button">Play again ↻</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="seo-content" aria-label="Boss Rush hakkında">
+        <div class="seo-inner">
+          <h2>Boss Rush · Kelime Savaşı</h2>
+          <p><strong>Boss Rush</strong>, kelime bilginizi bir dizi patronla mücadeleye çevirir: her doğru anlam seçimi karşınızdaki boss'a hasar verir, yanlış cevap ise üç canınızdan birini götürür. Bir boss'u sıfırlarsanız sıradaki (daha güçlü görünen) boss'a geçersiniz; üçünü de yenerseniz zafer sizindir.</p>
+          <p>Mekanik olarak Speed Round ve Survival Streak ile aynı dört seçenekli anlam eşleştirmeyi kullanır, ama sunumu tamamen farklıdır: canlı HP çubuğu, uçan hasar sayıları ve isabet/kaçırma titreşimleriyle diğer oyunlardan daha enerjik bir deneyim hedefler.</p>
+          <ul class="seo-features">
+            <li>⚔️ Hızlı düşünün ama acele etmeyin — yanlış cevap can götürür, sınırlı zaman baskısı yoktur.</li>
+            <li>❤️ Üç canınız var; bir boss'u yenmek can yenilemez, dikkatli ilerleyin.</li>
+            <li>🏆 En iyi skorunuz, en çok boss yendiğiniz ve en çok can bıraktığınız koşudur.</li>
+          </ul>
+          <p class="seo-en" lang="en">Boss Rush turns your vocabulary knowledge into a battle: pick the correct meaning to damage the boss on screen, a wrong pick costs one of three hearts, and clearing a boss' HP bar moves you to the next of three. Same proven four-option meaning match as Speed Round and Survival Streak, presented with a live HP bar, floating damage numbers and hit/miss feedback for a far more energetic feel.</p>
+          <h3>İlgili sayfalar · Related pages</h3>
+          <nav class="cert-links" aria-label="İlgili sayfalar">
+            <a class="cert-link" href="games.html">
+              <span class="cert-name">🎮 Oyunlar</span>
+              <span class="cert-org">25 kelime oyunu · 25 games</span>
+            </a>
+            <a class="cert-link" href="speedround.html">
+              <span class="cert-name">⚡ Speed Round</span>
+              <span class="cert-org">60 saniye · 60 seconds</span>
+            </a>
+            <a class="cert-link" href="survival.html">
+              <span class="cert-name">🔥 Survival Streak</span>
+              <span class="cert-org">İlk yanlışa kadar · Until your first mistake</span>
+            </a>
+            <a class="cert-link" href="help.html">
+              <span class="cert-name">❓ Yardım</span>
+              <span class="cert-org">Kullanım kılavuzu · How to use</span>
+            </a>
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <div class="more-sheet" id="more-sheet" hidden>
+      <div class="more-sheet-inner">
+        <div class="more-sheet-handle"></div>
+        <a class="more-link" href="home.html">🏠 Home</a>
+        <a class="more-link" href="stats.html">📊 Stats</a>
+        <a class="more-link" href="listening.html">🎧 Listening</a>
+        <a class="more-link" href="about.html">ℹ️ About</a>
+        <a class="more-link" href="help.html">❓ Help</a>
+        <a class="more-link" href="profile.html">👤 Profile</a>
+        <a class="more-link" href="history.html">📜 History</a>
+        <a class="more-link" href="privacy.html">🔒 Gizlilik · Privacy</a>
+        <a class="more-link" href="terms.html">📄 Şartlar · Terms</a>
+        <a class="more-link" href="terms.html#contact">✉️ İletişim · Contact</a>
+        <button type="button" id="more-close" class="more-close-btn">Close</button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <nav class="footer-links" aria-label="Site bilgileri ve yasal sayfalar">
+        <a href="about.html">Hakkında</a>
+        <a href="help.html">Yardım</a>
+        <a href="privacy.html">Gizlilik Politikası</a>
+        <a href="terms.html">Kullanım Şartları</a>
+        <a href="terms.html#contact">İletişim</a>
+      </nav>
+      <p>
+        <strong>Top Words</strong> — Türk öğrenciler için ücretsiz İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca, Portekizce ve Hollandaca kelime ezberleme uygulaması · YDS, YÖKDİL, ÜDS, UDSP,
+        TOEFL, telc &amp; CEFR ·
+        <span id="word-total">0</span> <span id="footer-level">B2</span> top
+        words.
+      </p>
+    </footer>
+
+    <script defer src="shared.js"></script>
+    <script defer src="i18n.js"></script>
+    <script defer src="bossrush.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function () { startApp(); });</script>
+  </body>
+</html>

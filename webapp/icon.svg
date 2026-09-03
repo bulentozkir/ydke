@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Kelime Ezberleme - Top Words">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366f1" />
+      <stop offset="0.55" stop-color="#818cf8" />
+      <stop offset="1" stop-color="#22d3ee" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)" />
+
+  <!-- graduation cap -->
+  <g fill="#ffffff">
+    <polygon points="256,50 344,82 256,114 168,82" />
+    <path d="M226,90 h60 v34 a30,26 0 0 1 -60,0 z" opacity="0.97" />
+    <line x1="336" y1="86" x2="352" y2="128" stroke="#ffffff" stroke-width="6" stroke-linecap="round" />
+    <circle cx="354" cy="136" r="7" />
+  </g>
+
+  <!-- sparkle accent -->
+  <polygon points="392,150 399,166 416,172 399,178 392,194 385,178 368,172 385,166" fill="#facc15" />
+
+  <!-- open book -->
+  <g fill="#ffffff">
+    <rect x="150" y="140" width="100" height="164" rx="9" opacity="0.97" />
+    <rect x="262" y="140" width="100" height="164" rx="9" opacity="0.97" />
+    <rect x="250" y="140" width="12" height="164" opacity="0.55" />
+  </g>
+  <g stroke="#6366f1" stroke-width="7" stroke-linecap="round" opacity="0.5">
+    <line x1="168" y1="176" x2="220" y2="176" />
+    <line x1="168" y1="204" x2="220" y2="204" />
+    <line x1="168" y1="232" x2="220" y2="232" />
+    <line x1="292" y1="176" x2="344" y2="176" />
+    <line x1="292" y1="204" x2="344" y2="204" />
+    <line x1="292" y1="232" x2="344" y2="232" />
+  </g>
+
+  <!-- text -->
+  <text x="256" y="372" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="62" font-weight="800" fill="#ffffff" letter-spacing="1" textLength="260" lengthAdjust="spacingAndGlyphs">Kelime</text>
+  <text x="256" y="434" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="50" font-weight="800" fill="#ffffff" letter-spacing="1" textLength="360" lengthAdjust="spacingAndGlyphs">Ezberleme</text>
+</svg>

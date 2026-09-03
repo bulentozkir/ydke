@@ -1,0 +1,343 @@
+Schlafengehen	Schlafengehen	geru	schlafen	Gerundium von schlafen gehen: der Akt des Ei	Zubettgehen
+Abfragen	Abfragen	geru	abfragen	Gerundium von abfragen	Abrufen
+Durchbrennen	Durchbrennen	geru	durchbrennen	Gerundium von durchbrennen	Entkommen; Fliehen; Flucht
+Abheften	Abheften	geru	abheften	Gerundium von abheften	Ablage; Ablagekasten; Ablagerung; Ablegen; Aufstapeln; Kellern
+Abkommen	Abkommen	geru	abkommen	Gerundium von abkommen	Abmachung; Übereinkommen; Übereinkunft; Vereinbarung; Vertrag
+Abnehmen	Abnehmen	geru	abnehmen	Gerundium von abnehmen	Nachlassen; Sinken; Verringerung
+Abschneiden	Abschneiden	geru	abschneiden	Gerundium von abschneiden	Abtrennen; Trennung; Beschneiden; Zurechtschneiden
+Abschwören	Abschwören	geru	abschwören	Gerundium von abschwören	Abschwörung; Entsagung
+Absenden	Absenden	geru	absenden	Gerundium von absenden	Entsendung
+Abstimmen	Abstimmen	geru	abstimmen	Gerundium von abstimmen	Abstimmung; Entscheidung; Anpassen
+Adressieren	Adressieren	geru	adressieren	Gerundium von adressieren	Adressierung
+Allüren	Allüre	plur	Allüre	Plural von Allüre	Angabe; Aufhebens; Gehabe; Getue
+Anheften	Anheften	geru	anheften	Gerundium von anheften	Beiheften
+Anschreiben	Anschreiben	geru	anschreiben	Gerundium von anschreiben	Begleitbrief
+Ansehen	Ansehen	geru	ansehen	Gerundium von ansehen	Image; Leumund; Prestige; Renommee; Reputation; Ruf; Stellung
+Ansiedeln	Ansiedeln	geru	ansiedeln	Gerundium von ansiedeln	Ansiedlung; Besiedeln
+Aufstellen	Aufstellen	geru	aufstellen	Gerundium von aufstellen	Errichten; Hinstellen; Legen; Setzen; Stellen
+Aufsehen	Aufsehen	geru	aufsehen	Gerundium von aufsehen	Clou; Medienereignis; Sensation; Eklat; Skandal; Furore
+Auseinandergehen	Auseinandergehen	geru	auseinandergehen	Gerundium von auseinandergehen	Divergenz
+Aushalten	Aushalten	geru	aushalten	Gerundium von aushalten	Erdulden; Ertragen
+Aussetzen	Aussetzen	geru	aussetzen	Gerundium von aussetzen	Preisgabe
+Bauchschmerzen	Bauchschmerz	plur	Bauchschmerz	Plural von Bauchschmerz	Bauchweh; Kolik; Magenschmerzen; Leibschmerzen
+Bedenken	Bedenken	geru	bedenken	Gerundium von bedenken	Hader; Unsicherheit; Zweifel; Skrupel
+Begießen	Begießen	geru	begießen	Gerundium von begießen	Besprengen
+Begreifen	Begreifen	geru	begreifen	Gerundium von begreifen	Fassungsgabe; Verständnis; Verstand
+Beiwohnen	Beiwohnen	geru	beiwohnen	Gerundium von beiwohnen	Hospitanz
+Beißen	Beißen	geru	beißen	Gerundium von beißen	Biss
+Bekannten	Bekannte	sing	Bekannte	Genitiv Singular von Bekannte	Bekanntschaften; Umgang
+Bellen	Bellen	geru	bellen	Gerundium von bellen	Kläffen
+Bergsteigen	Bergsteigen	geru	bergsteigen	Gerundium von bergsteigen, Bergsteigen, Berg	Bergsteigerei; Klettern
+Beugen	Beugen	geru	beugen	Gerundium von beugen	Bücken; Ducken; Neigen
+Chancen	Chance	plur	Chance	Plural von Chance	Entwicklungsmöglichkeiten; Möglichkeiten; Wege
+Daten	Daten	plur	Datum	Daten, Plural von Datum („Information“)	Datenansammlung; Fakten; Information; Wissen
+Eindringen	Eindringen	geru	eindringen	Gerundium von eindringen, Intrusion	Invasion; Okkupation
+Eingehen	Eingehen	geru	eingehen	Gerundium von eingehen	Einlaufen
+Eingreifen	Eingreifen	geru	eingreifen	Gerundium von eingreifen	Eingriff; Einmischung; Intervention
+Einkommen	Einkommen	geru	Einkommen	Gerundium von Einkommen, Einkommen	Einkommensquelle; Einkünfte; Revenue; Verdienst
+Erbrechen	Erbrechen	geru	erbrechen	Gerundium von erbrechen	Übergeben
+Entgegenkommen	Entgegenkommen	geru	entgegenkommen	Gerundium von entgegenkommen	Freundlichkeit; Güte; Herzensgüte; Herzlichkeit; Liebenswürdigke
+Entsetzen	Entsetzen	geru	entsetzen	Gerundium von entsetzen, Horror	Erschrecken; Schreck; Schrecken
+Entzücken	Entzücken	geru	entzücken	Gerundium von entzücken	Vergnügen; Wonne
+Ernten	Ernten	geru	ernten	Gerundium von ernten	Lesen; Pflücken
+Erstaunen	Erstaunen	geru	erstaunen	Gerundium von erstaunen	Verblüffung
+Essen	Essen	geru	essen	Gerundium von essen, Essen	Esswaren; Lebensmittel; Nahrung; Nahrungsmittel; Gericht; Mahl; 
+Finanzen	Finanzen	plur	Finanzen	Plural von Finanzen	Geldmittel; Kapital; Vermögen
+Flattern	Flattern	geru	Flattern	Gerundium von Flattern	Gleichlaufschwankung
+Flusen	Fluse	plur	Fluse	Plural von Fluse	Fusseln
+Flüstern	Flüstern	geru	flüstern	Gerundium von flüstern	Geflüster; Murmeln
+Funkeln	Funkeln	geru	funkeln	Gerundium von funkeln	Glanz; Glanzton
+Gefolgsleute	Gefolgsleute	plur	Gefolgsmann	Nominativ/Akkusativ/Genitiv Plural von Gefol	Untertanen
+Gewissensbisse	Gewissensbiss	plur	Gewissensbiss	Nominativ/Akkusativ/Genitiv Plural von Gewis	Reuegefühl; Schamgefühl; Schuldgefühle; Selbstvorwürfe; Skrupel
+Glucksen	Glucksen	geru	Glucksen	Gerundium von Glucksen	Kichern
+Grauen	Grauen	geru	grauen	Gerundium von grauen, Horror	Horror
+Großbuchstaben	Großbuchstabe	plur	Großbuchstabe	Plural von Großbuchstabe	Versalien
+Güter	Gut	plur	Gut	Nominativ/Akkusativ/Genitiv Plural von Gut	Waren
+Handgreiflichkeiten	Handgreiflichkeit	plur	Handgreiflichkeit	Plural von Handgreiflichkeit	Tätlichkeiten
+Hautschuppen	Hautschuppe	plur	Hautschuppe	Plural von Hautschuppe	Kopfschuppen; Schuppen
+Heben	Heben	geru	heben	Gerundium von heben	Hebung; Hochziehen
+Hülsenfrüchte	Hülsenfrucht	plur	Hülsenfrucht	Nominativ/Akkusativ/Genitiv Plural von Hülse	Hülsenfrüchtler; Leguminose
+Intimitäten	Intimität	plur	Intimität	Nominativ/Genitiv/Dativ/Akkusativ Plural von	Vertraulichkeiten
+Knurren	Knurren	geru	knurren	Gerundium von knurren	Murren
+Kräfte	Kraft	plur	Kraft	Nominativ/Akkusativ/Genitiv Plural von Kraft	Lebendigkeit; Lebhaftigkeit; Vitalität
+Schuhe	Schuh	plur	Schuh	Nominativ/Akkusativ/Genitiv Plural von Schuh	Schuhwerk
+Messen	Messen	geru	messen	Gerundium von messen	Messung
+Millionen	Million	plur	Million	Plural von Million	Mio.
+Misstrauen	Misstrauen	geru	misstrauen	Gerundium von misstrauen, Misstrauen	Skepsis; Ungläubigkeit; Unglaube; Unglauben; Zweifel
+Nachkommen	Nachkomme	flex	Nachkomme	Flexion von Nachkomme:	Nachkommenschaft
+Nachäffen	Nachäffen	geru	nachäffen	Gerundium von nachäffen	Nachahmen; Nachahmung
+Nudeln	Nudel	plur	Nudel	Plural von Nudel	Pasta; Teigwaren
+Rütteln	Rütteln	geru	rütteln	Gerundium von rütteln	Schütteln
+Scheren	Scheren	geru	scheren	Gerundium von scheren	Schur
+Schleifen	Schleifen	geru	schleifen	Gerundium von schleifen	Schliff
+Stichpunkte	Stichpunkt	plur	Stichpunkt	Plural von Stichpunkt	Stichworte
+Strümpfe	Strumpf	plur	Strumpf	Nominativ/Akkusativ/Genitiv Plural von Strum	Strumpfwaren
+Vergolden	Vergolden	geru	vergolden	Gerundium von vergolden	Vergoldung
+Vernickeln	Vernickeln	geru	vernickeln	Gerundium von vernickeln: Vernickeln	Vernickelung
+Verschrotten	Verschrotten	geru	verschrotten	Gerundium von verschrotten	Verschrottung
+Versilbern	Versilbern	geru	versilbern	Gerundium von versilbern	Versilberung
+Vertrauen	Vertrauen	geru	vertrauen	Gerundium von vertrauen, Vertrauen (Vertraue	Zuversicht
+Vorgehen	Vorgehen	geru	vorgehen	Gerundium von vorgehen	Vorgehensweise
+abbildend	abbildend	part	abbilden	Partizip Präsens von abbilden	repräsentativ; vertretend
+abfallend	abfallend	part	abfallen	Partizip Präsens von abfallen	degressiv
+abgearbeitet	abgearbeitet	part	abarbeiten	Partizip Perfekt von abarbeiten	abgehetzt; abgekämpft; abgespannt; angeschlagen; ausgebrannt; au
+abgedroschen	abgedroschen	part	abdreschen	Partizip Perfekt von abdreschen	abgegriffen; altmodisch; obsolet; überholt; veraltet; abgeschmac
+abgehoben	abgehoben	part	abheben	Partizip Perfekt von abheben	ausgelassen; wahnsinnig
+abgegriffen	abgegriffen	part	abgreifen	Partizip Perfekt von abgreifen	abgenutzt
+abgehackt	abgehackt	part	abhacken	Partizip Perfekt von abhacken	holprig; ruckartig
+abgehärtet	abgehärtet	part	abhärten	Partizip Perfekt von abhärten	robust; zäh
+abgekapselt	abgekapselt	part	abkapseln	Partizip Perfekt von abkapseln	abgeschieden; einsam; isoliert; vereinsamt; verlassen; verwaist
+abgeklungen	abgeklungen	part	abklingen	Partizip Perfekt von abklingen	abgeschwollen
+abgeklärt	abgeklärt	part	abklären	Partizip Perfekt von abklären	ausgeglichen; bedacht; besonnen
+abgelegen	abgelegen	part	abliegen	Partizip Perfekt von abliegen	abgeschieden; abseitig; einsam; entlegen; menschenleer; öde
+abgeleitet	abgeleitet	part	ableiten	Partizip Perfekt von ableiten	denkrichtig; durchdacht; folgerichtig; logisch; methodisch
+abgemacht	abgemacht	part	abmachen	Partizip Perfekt von abmachen	abgesprochen; ausgemacht; festgelegt; vereinbart
+abgemagert	abgemagert	part	abmagern	Partizip Perfekt von abmagern	abgemergelt; abgezehrt; ausgemergelt; dünn; eingefallen
+abgemildert	abgemildert	part	abmildern	Partizip Perfekt von abmildern	gemildert
+abgenutzt	abgenutzt	part	abnutzen	Partizip Perfekt von abnutzen	ausgeschöpft; schäbig
+abgepackt	abgepackt	part	abpacken	Partizip Perfekt von abpacken	eingehüllt; eingepackt; verpackt
+abgerissen	abgerissen	part	abreißen	Partizip Perfekt von abreißen	ausgefranst; zerlumpt
+abgerundet	abgerundet	part	abrunden	Partizip Perfekt von abrunden	abgestimmt; geschmackvoll; harmonisch
+abgeschieden	abgeschieden	part	abscheiden	Partizip Perfekt von abscheiden	menschenleer; öde; verlassen
+abgeschlossen	abgeschlossen	part	abschließen	Partizip Perfekt von abschließen	abgesperrt; verriegelt; verschlossen; versperrt
+abgeschrägt	abgeschrägt	part	abschrägen	Partizip Perfekt von abschrägen	schräg
+ausgenommen	ausgenommen	part	ausnehmen	Partizip Perfekt von ausnehmen	außer
+abgesondert	abgesondert	part	absondern	Partizip Perfekt von absondern	abgetrennt; geteilt; getrennt; separat
+abgestanden	abgestanden	part	abstehen	Perfektes Partizip von abstehen	fad; lasch; schal
+abgestimmt	abgestimmt	part	abstimmen	Partizip Perfekt von abstimmen	angepasst; konzertiert
+abgewirtschaftet	abgewirtschaftet	part	abwirtschaften	Partizip Perfekt von abwirtschaften	desolat; heruntergekommen; ruiniert; verdorben; verkommen; verle
+ablehnend	ablehnend	part	ablehnen	Partizip Präsens von ablehnen	abschlägig; abweisend; verweigernd; distanziert; eisig; unnahbar
+abschließend	abschließend	part	abschließen	Partizip Präsens von abschließen	endlich; letztendlich; letztlich; schließlich; zuletzt
+abwehrend	abwehrend	part	abwehren	Partizip Präsens von abwehren	defensiv; verteidigend
+abweichend	abweichend	part	abweichen	Partizip Präsens von abweichen	uneinheitlich
+abwertend	abwertend	part	abwerten	Partizip Präsens von abwerten	pejorativ
+adstringierend	adstringierend	part	adstringieren	Partizip Präsens von adstringieren	zusammenziehend
+affektiert	affektiert	part	affektieren	Partizip Perfekt von affektieren	betroffen; gekünstelt; geziert; manieriert; pretiös; preziös; th
+aktivierend	aktivierend	part	aktivieren	Partizip Präsens von aktivieren	anregend; aufmunternd; belebend; erfrischend; erquickend; stimul
+alkoholisiert	alkoholisiert	part	alkoholisieren	Partizip Perfekt von alkoholisieren	betrunken; volltrunken
+aufgebraucht	aufgebraucht	part	aufbrauchen	Partizip Perfekt von aufbrauchen	leer
+alle	alle	flex	allen	Flexion von allen („all“):	ganz; jeder; jedweder; jeglicher; sämtliche
+alliiert	alliiert	part	alliieren	Partizip Perfekt von alliieren	verbündet
+alternative	alternativ	flex	alternativ	Flexion von alternativ:	andere; sonstige; weitere; zusätzliche
+alternierend	alternierend	part	alternieren	Partizip Präsens von alternieren	turnusmäßig; wechselhaft; wechselnd; wechselweise
+andauernd	andauernd	part	andauern	Partizip Präsens von andauern	anhaltend; langwierig
+andere	andere	flex	anderer	Flexion von anderer:	zusätzlich; Zusatz...
+anerkannt	anerkannt	part	anerkennen	Partizip Perfekt von anerkennen	renommiert
+angebracht	angebracht	part	anbringen	Partizip Perfekt von anbringen	brauchbar; dienlich; nützlich; patent; praktisch; zweckdienlich;
+angebrochen	angebrochen	part	anbrechen	Partizip Perfekt von anbrechen	angefangen; begonnen
+angefochten	angefochten	part	anfechten	Partizip Perfekt von anfechten	fraglich; kontrovers; strittig; umstritten; uneinig
+angegliedert	angegliedert	part	angliedern	Partizip Perfekt von angliedern	angeschlossen; einig; verbunden; zugehörig; zugehörend; zugeordn
+angemessen	angemessen	part	anmessen	Partizip Perfekt von anmessen	gescheit; rational; sinnvoll; vernünftig; vernunftgemäß
+angenommen	angenommen	part	annehmen	Partizip Perfekt von annehmen	ausgedacht; erdacht; erfunden; fiktiv; imaginär; spekulativ
+angepasst	angepasst	part	anpassen	Partizip Perfekt von anpassen	individuell
+angeschlagen	angeschlagen	part	anschlagen	Partizip Perfekt von anschlagen	angestoßen; beschädigt; ramponiert; taumelig
+angeschlossen	angeschlossen	part	anschließen	Partizip Perfekt von anschließen	online; verbunden
+angeschwollen	angeschwollen	part	anschwellen	Partizip Perfekt von anschwellen	dick; wulstig; geschwollen; verschwollen
+angesehen	angesehen	part	ansehen	Partizip Perfekt von ansehen	geachtet; geschätzt; namhaft; wertgeschätzt
+angespannt	angespannt	part	anspannen	Partizip Perfekt von anspannen	gespannt; nervös; überdreht; überreizt
+angestellt	angestellt	part	stellen	Partizip Perfekt von stellen	beschäftigt; tätig
+angreifend	angreifend	part	angreifen	Partizip Präsens von angreifen	angriffslustig; kämpferisch; offensiv
+angrenzend	angrenzend	part	angrenzen	Partizip Präsens von angrenzen	bei; daneben; nahe; neben
+anheimelnd	anheimelnd	part	anheimeln	Partizip Präsens von anheimeln	gemütlich; malerisch; pittoresk; romantisch
+animierend	animierend	part	animieren	Partizip Präsens von animieren	anspornend; antreibend; aufbauend; aufputschend; ermutigend; mot
+anklagend	anklagend	part	anklagen	Partizip Präsens von anklagen	vorwurfsvoll
+annähernd	annähernd	part	annähern	Partizip Präsens von annähern	annäherungsweise; etwa; näherungsweise; schätzungsweise; ungefäh
+anschließend	anschließend	part	anschließen	Partizip Präsens von anschließen	danach; dann; folgend; hiernach; später
+ansprechend	ansprechend	part	ansprechen	Partizip Präsens von ansprechen	anziehend; attraktiv; betörend; bezaubernd; gefällig; reizend; r
+anstrengend	anstrengend	part	anstrengen	Partizip Präsens von anstrengen	aufwändig; aufwendig; mühsam; schwierig; stressig; stressvoll
+antizipierend	antizipierend	part	antizipieren	Partizip Präsens von antizipieren	bedacht; überlegt; umsichtig; vorausschauend; vorsorglich
+einleuchtend	einleuchtend	part	einleuchten	Partizip Präsens von einleuchten	selbstdokumentierend; überzeugend
+aufbauend	aufbauend	part	aufbauen	Partizip Präsens von aufbauen	konstruktiv
+aufbrausend	aufbrausend	part	aufbrausen	Partizip Präsens von aufbrausen	cholerisch; hitzköpfig; impulsiv; jähzornig; unbeherrscht; ungez
+aufgeblasen	aufgeblasen	part	aufblasen	Partizip Perfekt von aufblasen	geschwollen; großspurig; selbstüberzeugt; selbstwichtig
+aufgebracht	aufgebracht	part	aufbringen	Partizip Perfekt von aufbringen	empört; erbost; ungehalten; verärgert; wütend; wutentbrannt; zor
+aufgeklärt	aufgeklärt	part	aufklären	Partizip Perfekt von aufklären	realistisch; vorurteilsfrei
+aufgeregt	aufgeregt	part	aufregen	Partizip Perfekt von aufregen	ausgelassen; stürmisch; ungestüm; wild; gereizt; nervös; schreck
+aufgeladen	aufgeladen	part	aufladen	Partizip Perfekt von aufladen	beladen; geladen
+aufgelöst	aufgelöst	part	auflösen	Partizip Perfekt von auflösen	durchgedreht; hysterisch; zerlassen
+aufgeräumt	aufgeräumt	part	aufräumen	Partizip Perfekt von aufräumen	bereinigt; geordnet; ordentlich
+aufgeschlossen	aufgeschlossen	part	aufschließen	Partizip Perfekt von aufschließen	extravertiert; extrovertiert; weltoffen; offen
+aufgeweckt	aufgeweckt	part	aufwecken	Partizip Perfekt von aufwecken	clever; raffiniert; schlau; lebhaft; klug; scharfsinnig
+aufopfernd	aufopfernd	part	aufopfern	Partizip Präsens von aufopfern	aufopferungsvoll; entbehrungsreich; entbehrungsvoll; entsagungsv
+aufreizend	aufreizend	part	aufreizen	Partizip Präsens von aufreizen	frech; keck; kess; kokett
+gebraucht	gebraucht	part	brauchen	Partizip Perfekt von brauchen	getragen
+ausbrechend	ausbrechend	part	ausbrechen	Partizip Präsens von ausbrechen	eruptiv; hervorbrechend
+ausdauernd	ausdauernd	part	ausdauern	Partizip Präsens von ausdauern	beharrlich; hartnäckig; unentwegt; unermüdlich; unverdrossen; st
+diffundiert	diffundiert	part	diffundieren	Partizip Perfekt von diffundieren	diffus; diversifiziert; verteilt; zerstreut
+auserkoren	auserkoren	part	auserkiesen	Partizip Perfekt von auserkiesen	bestimmt; erkoren
+ausgebeutet	ausgebeutet	part	ausbeuten	Partizip Perfekt von ausbeuten	ausgenutzt
+ausgebildet	ausgebildet	part	ausbilden	Partizip Perfekt von ausbilden	fähig; kompetent
+ausgedacht	ausgedacht	part	ausdenken	Partizip Perfekt von ausdenken	eingebildet
+ausgedehnt	ausgedehnt	part	ausdehnen	Partizip Perfekt von ausdehnen	weit
+ausgefallen	ausgefallen	part	ausfallen	Partizip Perfekt von ausfallen	besonders; eigen; eigenartig; eigentümlich; originell
+ausgeführt	ausgeführt	part	ausführen	Partizip Perfekt von ausführen	umgesetzt; vollzogen
+ausgeglichen	ausgeglichen	part	ausgleichen	Partizip Perfekt von ausgleichen	ausgewogen; harmonisch; ausgewuchtet; geglättet; gleichmäßig; sy
+ausgeklügelt	ausgeklügelt	part	ausklügeln	Partizip Perfekt von ausklügeln	durchdacht; raffiniert; spitzfindig; scharfsinnig
+ausgelastet	ausgelastet	part	auslasten	Partizip Perfekt von auslasten	gesättigt
+ausgemergelt	ausgemergelt	part	ausmergeln	Partizip Perfekt von ausmergeln	ausgezehrt; unterernährt
+ausgeprägt	ausgeprägt	part	ausprägen	Partizip Perfekt von ausprägen	beträchtlich; deutlich; enorm; erheblich; immens; sehr; viel; we
+ausgerechnet	ausgerechnet	part	ausrechnen	Partizip Perfekt von ausrechnen	unbedingt
+ausgereift	ausgereift	part	ausreifen	Partizip Perfekt von ausreifen	begründet; fundiert; gerechtfertigt; substantiiert; untermauert;
+ausgeschlossen	ausgeschlossen	part	ausschließen	Partizip Perfekt von ausschließen	unmöglich
+ausgestoßen	ausgestoßen	part	ausstoßen	Partizip Perfekt von ausstoßen	geächtet; unwillkommen; verstoßen
+ausgewachsen	ausgewachsen	part	auswachsen	Partizip Perfekt von auswachsen	erwachsen; reif; volljährig
+ausgezeichnet	ausgezeichnet	part	auszeichnen	Partizip Perfekt von auszeichnen	außergewöhnlich; außerordentlich; exzeptionell; herausragend; vo
+ausgleichend	ausgleichend	part	ausgleichen	Partizip Präsens von ausgleichen	kompensatorisch
+ausreichend	ausreichend	part	ausreichen	Partizip Präsens von ausreichen	befriedigend; genügend; hinlänglich; hinreichend; zufriedenstell
+ausverkauft	ausverkauft	part	ausverkaufen	Partizip Perfekt von ausverkaufen	belegt; besetzt; voll
+auswählend	auswählend	part	auswählen	Partizip Präsens von auswählen	selektiv
+bedacht	bedacht	part	bedenken	Partizip Perfekt von bedenken	behutsam; zurückhaltend
+bedeckt	bedeckt	part	bedecken	Partizip Perfekt von bedecken	bewölkt; bezogen; trüb; wolkig
+bedeutend	bedeutend	part	bedeuten	Partizip Präsens von bedeuten	bedeutsam; essentiell; gewichtig; gravierend; schwerwiegend; wes
+bedingt	bedingt	part	bedingen	Partizip Perfekt von bedingen	relativ; vergleichsweise; verhältnismäßig
+bedrückend	bedrückend	part	bedrücken	Partizip Präsens von bedrücken	deprimierend
+bedrückt	bedrückt	part	bedrücken	Partizip Perfekt von bedrücken	betrübt; depressiv; deprimiert; niedergeschlagen; schwermütig; t
+beeinflussend	beeinflussend	part	beeinflussen	Partizip Präsens von beeinflussen	suggestiv
+beeinflusst	beeinflusst	part	beeinflussen	Partizip Perfekt von beeinflussen	gelenkt; geprägt
+beflissen	beflissen	part	befleißen	Partizip Perfekt von befleißen	eifrig; emsig; fleißig; geschäftig; pflichteifrig
+befriedigt	befriedigt	part	befriedigen	Partizip Perfekt von befriedigen	satt; saturiert; zufrieden
+befugt	befugt	part	befugen	Partizip Perfekt von befugen	verantwortlich; zuständig
+begabt	begabt	part	gegeben	Partizip Perfekt von gegeben	geeignet; talentiert; talentvoll
+beginnend	beginnend	part	beginnen	Partizip Präsens von beginnen	inzipient
+begleitend	begleitend	part	begleiten	Partizip Präsens von begleiten	gleichzeitig; konkomitierend
+beglückt	beglückt	part	beglücken	Partizip Perfekt von beglücken	erheitert; fidel; fröhlich; frohgemut; heiter; lustig
+begrenzt	begrenzt	part	begrenzen	Partizip Perfekt von begrenzen	beschränkt; limitiert; eingeengt; einschränkend; restriktiv
+begründend	begründend	part	begründen	Partizip Präsens von begründen	beweisend; diskursiv; logisch
+beheimatet	beheimatet	part	beheimaten	Partizip Perfekt von beheimaten	einheimisch; heimisch; ortsansässig
+beherrschend	beherrschend	part	beherrschen	Partizip Präsens von beherrschen	dominant; führend; herrschend; tonangebend; überlegen; übermächt
+behindert	behindert	part	behindern	Partizip Perfekt von behindern	eingeschränkt; gestört
+bekannt	bekannt	part	bekennen	Partizip Perfekt von bekennen	berühmt; namhaft; prominent; familiär; traut; vertraut
+belehrend	belehrend	part	belehren	Partizip Präsens von belehren („unterweisen,	besserwisserisch
+beleidigend	beleidigend	part	beleidigen	Partizip Präsens von beleidigen, beleidigend	bissig; satirisch; scharfzüngig; spöttisch; zynisch; höhnisch; k
+berauscht	berauscht	part	berauschen	Partizip Perfekt von berauschen	ekstatisch
+berechtigt	berechtigt	part	berechtigen	Partizip Perfekt von berechtigen	erlaubt; gesetzlich; legal; legitim; rechtmäßig; zugelassen; zul
+beruhigend	beruhigend	part	beruhigen	Partizip Präsens von beruhigen	dämpfend; entspannend; wohltuend
+beschreibend	beschreibend	part	beschreiben	Partizip Präsens von beschreiben	deskriptiv
+beschränkt	beschränkt	part	beschränken	Partizip Perfekt von beschränken	borniert; engstirnig; unbelehrbar
+beschädigt	beschädigt	part	beschädigen	Partizip Perfekt von beschädigen	defekt; defizitär; fehlerhaft; kaputt; mangelbehaftet; mangelhaf
+beschämend	beschämend	part	beschämen	Partizip Präsens von beschämen	blamabel; peinlich; unangenehm
+beschützend	beschützend	part	beschützen	Partizip Präsens von beschützen	protektiv
+besonnen	besonnen	part	besinnen	Partizip Perfekt von besinnen	cool; gefasst; gelassen; kühl; lässig; locker; ruhig; klug
+bestehend	bestehend	part	bestehen	Partizip Präsens von bestehen	existent; seiend; vorhanden
+bestimmt	bestimmt	part	bestimmen	Partizip Perfekt von bestimmen („bestimmen“)	definit; determiniert; festgelegt; gewiss; sicher; unbedingt
+beurkundet	beurkundet	part	beurkunden	Partizip Perfekt von beurkunden	diplomiert; graduiert
+bewaldet	bewaldet	part	bewalden	Partizip Perfekt von bewalden	waldig
+bewandert	bewandert	part	bewandern	Partizip Perfekt von bewandern	bewandt; fachkundig; kenntnisreich; klug; kompetent
+bewiesen	bewiesen	part	beweisen	Partizip Perfekt von beweisen	erwiesen
+bewährt	bewährt	part	bewähren	Partizip Perfekt von bewähren	etabliert; probat
+beängstigend	beängstigend	part	beängstigen	Partizip Präsens von beängstigen	bedrohlich; gefährlich
+bindend	bindend	part	binden	Partizip Präsens von binden	obligatorisch; verpflichtend
+blendend	blendend	part	blenden	Partizip Präsens von blenden	grell; hell
+das	das	sing	der	Nominativ/Akkusativ Neutrum Singular von der	dasjenige; dies
+dediziert	dediziert	part	dedizieren	Partizip Perfekt von dedizieren	eigens; gesondert; speziell
+demotivierend	demotivierend	part	demotivieren	Partizip Präsens von demotivieren	einschüchternd; entmutigend
+gehäuft	gehäuft	part	häufen	Partizip Perfekt von häufen	vermehrt; verstärkt
+designiert	designiert	part	designieren	Partizip Perfekt von designieren	vorgesehen
+diese	diese	sing	dieser	Nominativ feminin Singular von dieser, \"Das	dieser; dieses; jene
+distanziert	distanziert	part	distanzieren	Partizip Perfekt von distanzieren	menschenscheu; ungesellig; unnahbar
+diverse	divers	flex	divers	Flexion von Divers:	einige; manche; verschiedene; etliche; mehrere; viele; zahlreich
+doppelt	doppelt	part	doppeln	Partizip Perfekt von doppeln	pleonastisch; zweifach; mehrfach; redundant; überreichlich
+dringend	dringend	part	dringen	Partizip Präsens von dringen	eilig; präferiert; vordringlich; vorrangig
+duftend	duftend	part	duften	Partizip Präsens von duften	wohlduftend; wohlriechend
+durchdacht	durchdacht	part	durchdenken	Partizip Perfekt von durchdenken	intelligent; sinnvoll; vernünftig; weise; tiefgründig
+durchscheinend	durchscheinend	part	durchscheinen	Partizip Präsens von durchscheinen	durchsichtig; transparent
+eingearbeitet	eingearbeitet	part	einarbeiten	Partizip Perfekt von einarbeiten	hineingearbeitet
+eingebaut	eingebaut	part	einbauen	Partizip Perfekt von einbauen	integriert
+eingebildet	eingebildet	part	einbilden	Partizip Perfekt von einbilden	hochnäsig; pikiert; schnippisch; überkandidelt; imaginär
+eingefasst	eingefasst	part	einfassen	Partizip Perfekt von einfassen	eingegrenzt; eingerahmt; eingezäunt
+eingefroren	eingefroren	part	einfrieren	Partizip Perfekt von einfrieren	tiefgekühlt
+eingegangen	eingegangen	part	gehen	Partizip Perfekt von gehen	zusammengeschrumpft
+eingeschlossen	eingeschlossen	part	einschließen	Partizip Perfekt von einschließen	enthaltend; implizit; mitgemeint; unausgesprochen
+eingewandert	eingewandert	part	einwandern	Partizip Perfekt von einwandern	immigriert
+eingliedernd	eingliedernd	part	eingliedern	Partizip Präsens von eingliedern	integrativ
+eingreifend	eingreifend	part	eingreifen	Partizip Präsens von eingreifen	invasiv
+einige	einige	flex	einig	Flexion von einig:	manche
+einschläfernd	einschläfernd	part	einschläfern	Partizip Präsens von einschläfern	ermüdend; schlaffördernd
+entfernt	entfernt	part	entfernen	Partizip Perfekt von entfernen	fern; weit
+entgegengesetzt	entgegengesetzt	part	entgegensetzen	Partizip Perfekt von entgegensetzen	gegensätzlich; gegenteilig; konträr; widersprüchlich
+entgegenkommend	entgegenkommend	part	entgegenkommen	Partizip Präsens von entgegenkommen	gefällig; gnädig; gütig; kulant; liebenswürdig; wohlgesinnt; woh
+enthemmt	enthemmt	part	enthemmen	Partizip Perfekt von enthemmen	hemmungslos; unbändig; ungebärdig; ungehemmt; ungezügelt
+entkräftet	entkräftet	part	entkräften	Partizip Perfekt von entkräften	kaputt; kraftlos; lasch; matt; müde; schlaff; schlapp
+entschieden	entschieden	part	entscheiden	Partizip Perfekt von entscheiden	entschlossen; kategorisch
+entsprechend	entsprechend	part	entsprechen	Partizip Präsens von entsprechen	gemäß; getreu; laut; nach; zufolge; hinsichtlich; wie
+enttäuscht	enttäuscht	part	enttäuschen	Partizip Perfekt von enttäuschen	frustriert; niedergeschlagen
+entzündet	entzündet	part	entzünden	Partizip Perfekt von entzünden	wund
+erfunden	erfunden	part	erfinden	Partizip Perfekt von erfinden	falsch; gefälscht; unecht; unrichtig; unwahr
+ergänzend	ergänzend	part	ergänzen	Partizip Präsens von ergänzen	komplementär
+erzählend	erzählend	part	erzählen	Partizip Präsens von erzählen	narrativ
+exaltiert	exaltiert	part	exaltieren	Partizip Perfekt von exaltieren	exzentrisch; überspannt
+vorgeschoben	vorgeschoben	part	vorschieben	Partizip Perfekt von vorschieben	vorgetäuscht
+faszinierend	faszinierend	part	faszinieren	Partizip Präsens von faszinieren	interessant
+festgelegt	festgelegt	part	festlegen	Partizip Perfekt von festlegen	festgesetzt
+forciert	forciert	part	forcieren	Partizip Perfekt von forcieren	gequält; gezwungen
+fortschreitend	fortschreitend	part	fortschreiten	Partizip Präsens von fortschreiten	progredient; progressiv
+gebildet	gebildet	part	bilden	Partizip Perfekt von bilden	kultiviert; weltmännisch; zivilisiert
+gebraten	gebraten	part	braten	Partizip Perfekt von braten	gegrillt; geröstet; gesotten
+gedeckt	gedeckt	part	decken	Partizip Perfekt von decken	matt
+gedrungen	gedrungen	part	dringen	Partizip Perfekt von dringen	klein; kompakt; massiv; zusammengedrängt; stämmig; vierschrötig
+gedämpft	gedämpft	part	dämpfen	Partizip Perfekt von dämpfen	leise; ruhig; still
+gefangen	gefangen	part	fangen	Partizip Perfekt von fangen	inhaftiert; verhaftet
+gefragt	gefragt	part	fragen	Partizip Perfekt von fragen („fragen“)	gesucht; nachgefragt; populär
+gefüllt	gefüllt	part	füllen	Partizip Perfekt von füllen	voll
+gehasst	gehasst	part	Hass	Partizip Perfekt von Hass	verhasst
+geheiligt	geheiligt	part	heiligen	Partizip Perfekt von heiligen	heilig
+gekürzt	gekürzt	part	kürzen	Partizip Perfekt von kürzen	zensiert
+gelehrt	gelehrt	part	lehren	Partizip Perfekt von lehren	wissenschaftlich
+gemischt	gemischt	part	mischen	Partizip Perfekt von mischen	Misch...; verschiedenartig; vielseitig; unrein; vermischt; zusam
+gemäßigt	gemäßigt	part	mäßigen	Partizip Perfekt von mäßigen	mäßig; maßvoll
+genervt	genervt	part	nerven	Partizip Perfekt von nerven	missmutig; nörglerisch; quengelig; unruhig
+genormt	genormt	part	normen	Partizip Perfekt von normen	serienmäßig; standardmäßig
+geordnet	geordnet	part	ordnen	Partizip Perfekt von ordnen	ordentlich; planmäßig; strukturiert; systematisch
+gepfeffert	gepfeffert	part	pfeffern	Partizip Perfekt von pfeffern	gepfefferten; pfefferig
+geplant	geplant	part	planen	Partizip Perfekt von planen	vorgesehen
+geprüft	geprüft	part	prüfen	Partizip Perfekt von prüfen, verifiziert, üb	nachgewiesen
+geputzt	geputzt	part	putzen	Partizip Perfekt von putzen	gereinigt; gesäubert; sauber
+geriffelt	geriffelt	part	riffeln	Partizip Perfekt von riffeln	gerillt; gewellt
+gerissen	gerissen	part	reißen	Partizip Perfekt von reißen	hinterlistig; listig; pfiffig; schlau; verschlagen
+gerüstet	gerüstet	part	rüsten	Partizip Perfekt von rüsten	gewappnet; kampfbereit; vorbereitet
+geschickt	geschickt	part	schicken	Partizip Perfekt von schicken	gewandt
+geschröpft	geschröpft	part	schröpfen	Partizip Perfekt von schröpfen	hohl
+geschützt	geschützt	part	schützen	Partizip Perfekt von schützen	sicher
+gestresst	gestresst	part	stressen	Partizip Perfekt von stressen	hypertroph; überspannt
+gestrichelt	gestrichelt	part	streicheln	Partizip Perfekt von streicheln	getüpfelt
+gestört	gestört	part	stören	Partizip Perfekt von stören	instabil
+gesättigt	gesättigt	part	sättigen	Partizip Perfekt von sättigen	satt
+getakelt	getakelt	part	takeln	Partizip Perfekt von takeln	zurechtgebastelt
+getrieben	getrieben	part	treiben	Partizip Perfekt von treiben	rastlos; ruhelos; unruhig; zappelig
+gewagt	gewagt	part	wagen	Partizip Perfekt von wagen	halsbrecherisch; lebensgefährlich; riskant; selbstmörderisch
+gewandt	gewandt	part	wenden	Partizip Perfekt von wenden	weltmännisch
+gewunden	gewunden	part	winden	Partizip Perfekt von winden	schneckenförmig; schraubenförmig; spiralförmig
+gezackt	gezackt	part	zacken	Partizip Perfekt von zacken	gezähnt; zackig; zinkig
+gezeichnet	gezeichnet	part	zeichnen	Partizip Perfekt von zeichnen	mitgenommen
+gezielt	gezielt	part	zielen	Partizip Perfekt von zielen	präzise; spezifisch
+gezähmt	gezähmt	part	zähmen	Partizip Perfekt von zähmen	zahm; zutraulich
+grundlegend	grundlegend	part	grundlegen	Partizip Präsens von grundlegen	konstitutiv; notwendig; substanziell; unerlässlich; wesentlich
+hemmend	hemmend	part	hemmen	Partizip Präsens von hemmen	repressiv; unterdrückend
+herabgesetzt	herabgesetzt	part	herabsetzen	Partizip Perfekt von herabsetzen	rabattiert; verbilligt
+herausfordernd	herausfordernd	part	herausfordern	Partizip Präsens von herausfordern	provokant; provokativ; provozierend; reizend
+herausgegeben	herausgegeben	part	herausgeben	Partizip Perfekt von herausgeben	hrsg.
+heruntergekommen	heruntergekommen	part	herunterkommen	Partizip Perfekt von herunterkommen	mies; minderwertig; schäbig
+hingewiesen	hingewiesen	part	anzeigen	Partizip Perfekt von anzeigen	referenziert; verwiesen
+innere	inner	flex	inner	Flexion von inner:	innerer; intern; inwendig
+interessiert	interessiert	part	interessieren	Partizip Perfekt von interessieren	neugierig; schaulustig; wissbegierig; wissensdurstig
+lebend	lebend	part	leben	Partizip Präsens von leben	lebendig; untot
+leitend	leitend	part	leiten	Partizip Präsens von leiten	verantwortlich
+letzter	letzt	flex	letzt	Flexion von letzte:	letztes; voriger; voriges
+missfallend	missfallend	part	missfallen	Partizip Präsens von missfallen	unsympathisch
+nachwachsend	nachwachsend	part	nachwachsen	Partizip Präsens von nachwachsen	regenerativ
+passend	passend	part	passen	Partizip Präsens von passen	rechtzeitig; zeitgemäß
+preisgegeben	preisgegeben	part	preisgeben	Partizip Perfekt von preisgeben	verloren
+prädestiniert	prädestiniert	part	prädestinieren	Partizip Perfekt von prädestinieren	vorherbestimmt
+quälend	quälend	part	quälen	Partizip Präsens von quälen	quälerisch; schmerzhaft; schmerzlich; schmerzvoll; wehtuend
+retardiert	retardiert	part	retardieren	Partizip Perfekt von retardieren	verspätet; verzögert
+schnellen	schnellen	flex	schnell	Flexion von schnell:	schnipsen
+schwankend	schwankend	part	schwanken	Partizip Präsens von schwanken	volatil
+verblüht	verblüht	part	verblühen	Partizip Perfekt von verblühen	verdorrt; vertrocknet; welk
+verfrüht	verfrüht	part	verfrühen	Partizip Perfekt von verfrühen	vorzeitig
+verletzt	verletzt	part	verletzen	Partizip Perfekt von verletzen	verwundet
+verwandt	verwandt	part	verwenden	Partizip Perfekt von verwenden	zugehörig
+vorangegangen	vorangegangen	part	vorangehen	Perfektes Partizip von vorangehen	vorherig
+wiedergewinnend	wiedergewinnend	part	wiedergewinnen	Partizip Präsens von wiedergewinnen	zurückgewinnend
+ätzend	ätzend	part	ätzen	Partizip Präsens von ätzen	beißend; kaustisch; scharf; polemisch; unsachlich
+überdimensioniert	überdimensioniert	part	überdimensionieren	Partizip Perfekt von überdimensionieren	übergroß
+überschäumend	überschäumend	part	überschäumen	Partizip Präsens von überschäumen	überschwänglich

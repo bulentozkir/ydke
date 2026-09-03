@@ -1,0 +1,12 @@
+{
+  "name": "udsp-b2-quizlet",
+  "version": "1.0.0",
+  "private": true,
+  "description": "English exam top-words Quizlet — flashcards and 20-question vocabulary exams.",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve ."
+  },
+  "keywords": ["german", "udsp", "english", "vocabulary", "quizlet", "türkçe", "exam"],
+  "license": "PolyForm-Noncommercial-1.0.0"
+}

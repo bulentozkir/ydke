@@ -1,0 +1,95 @@
+/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
+ * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
+ * <https://polyformproject.org/licenses/noncommercial/1.0.0>
+ *
+ * Any commercial use requires prior written permission from the copyright
+ * holders. Written permission from any ONE of bulentozkir@hotmail.com,
+ * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
+ * is sufficient and binding on all of them.
+ *
+ * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
+ * Ozkir (https://udsp.vercel.app)
+ * Full terms: see LICENSE and NOTICE in this repository.
+ */
+/*! Compilation notice — read together with the licence above.
+ * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
+ * translations in this file are the copyright holders' own work and ARE
+ * covered by the PolyForm Noncommercial licence above. Copying this list, or
+ * any substantial part of it, into a commercial product or service requires
+ * prior written permission from one of the addresses above.
+ *
+ * Some individual definitions and example sentences come from open community
+ * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
+ * others — see NOTICE). Those items keep THEIR OWN licence and the
+ * noncommercial term is not asserted over them.
+ */
+
+// Spanish C1 vocabulary (self-authored, CEFR C1).
+// 100% original content -- see wordsa1es.js for the full authorship /
+// level-assignment note. These are formal/written-register words: most sit
+// beyond rank ~10,000 in the open hermitdave/FrequencyWords Spanish list (or
+// outside its top 50,000 entirely, since that corpus is subtitle-based and
+// under-represents formal prose). Definitions & examples:
+// "English. - Türkçe." and "Español. - Türkçe."
+window.WORDS_ES_C1 = [
+  { word: "el auge", pos: "noun", level: "C1", category: "General", definition: "Boom, peak, rise. - Yükseliş, zirve.", example: "El sector vive un auge sin precedentes. - Sektör benzeri görülmemiş bir yükseliş yaşıyor." },
+  { word: "el declive", pos: "noun", level: "C1", category: "General", definition: "Decline. - Gerileme, düşüş.", example: "La industria entró en declive hace décadas. - Sanayi onlarca yıl önce gerilemeye başladı." },
+  { word: "la cumbre", pos: "noun", level: "C1", category: "General", definition: "Summit, peak. - Zirve.", example: "La cumbre reunió a doce jefes de Estado. - Zirve on iki devlet başkanını bir araya getirdi." },
+  { word: "el hito", pos: "noun", level: "C1", category: "General", definition: "Milestone, landmark. - Dönüm noktası, kilometre taşı.", example: "El acuerdo supone un hito histórico. - Anlaşma tarihî bir dönüm noktası niteliğinde." },
+  { word: "el matiz", pos: "noun", level: "C1", category: "General", definition: "Nuance, shade of meaning. - Nüans, ince ayrım.", example: "La traducción pierde algunos matices. - Çeviri bazı nüansları kaybediyor." },
+  { word: "el sesgo", pos: "noun", level: "C1", category: "General", definition: "Bias, slant. - Önyargı, eğilim.", example: "El estudio presenta un claro sesgo ideológico. - Çalışma açık bir ideolojik önyargı taşıyor." },
+  { word: "la brecha", pos: "noun", level: "C1", category: "General", definition: "Gap, breach. - Uçurum, gedik.", example: "La brecha entre ambos grupos se ensancha. - İki grup arasındaki uçurum genişliyor." },
+  { word: "el rechazo", pos: "noun", level: "C1", category: "General", definition: "Rejection. - Reddetme, ret.", example: "La propuesta generó un rechazo generalizado. - Öneri yaygın bir tepkiyle reddedildi." },
+  { word: "el respaldo", pos: "noun", level: "C1", category: "General", definition: "Backing, support. - Destek.", example: "Cuenta con el respaldo de todo el consejo. - Tüm kurulun desteğine sahip." },
+  { word: "el ámbito", pos: "noun", level: "C1", category: "Agriculture", definition: "Sphere, field, scope. - Alan, kapsam.", example: "En el ámbito académico se le respeta mucho. - Akademik alanda ona çok saygı duyulur." },
+  { word: "la vigencia", pos: "noun", level: "C1", category: "Business", definition: "Validity, currency (of a rule). - Geçerlilik.", example: "La ley perdió vigencia el año pasado. - Yasa geçen yıl geçerliliğini yitirdi." },
+  { word: "la injerencia", pos: "noun", level: "C1", category: "General", definition: "Interference, meddling. - Müdahale, karışma.", example: "Denunciaron la injerencia de terceros países. - Üçüncü ülkelerin müdahalesini kınadılar." },
+  { word: "el cauce", pos: "noun", level: "C1", category: "General", definition: "Riverbed, channel (means). - Yatak, kanal, mecra.", example: "La protesta buscó un cauce institucional. - Protesto kurumsal bir mecra aradı." },
+  { word: "el desenlace", pos: "noun", level: "C1", category: "General", definition: "Outcome, ending. - Sonuç, final.", example: "El desenlace de la novela sorprende a todos. - Romanın finali herkesi şaşırtıyor." },
+  { word: "la premisa", pos: "noun", level: "C1", category: "General", definition: "Premise. - Öncül, varsayım.", example: "Su argumento parte de una premisa falsa. - Savı yanlış bir öncülden yola çıkıyor." },
+  { word: "la salvedad", pos: "noun", level: "C1", category: "General", definition: "Proviso, exception, caveat. - Çekince, kayıt.", example: "Aceptó el plan con una salvedad importante. - Planı önemli bir çekinceyle kabul etti." },
+  { word: "el sustento", pos: "noun", level: "C1", category: "General", definition: "Livelihood, support, basis. - Geçim, dayanak.", example: "La pesca es el sustento del pueblo. - Balıkçılık kasabanın geçim kaynağı." },
+  { word: "la envergadura", pos: "noun", level: "C1", category: "General", definition: "Scale, magnitude. - Çap, büyüklük.", example: "Es una obra de gran envergadura. - Bu büyük çaplı bir eser." },
+  { word: "el planteamiento", pos: "noun", level: "C1", category: "General", definition: "Approach, formulation. - Yaklaşım, ortaya koyuş.", example: "Su planteamiento resultó demasiado teórico. - Yaklaşımı fazla teorik kaldı." },
+  { word: "la coyuntura", pos: "noun", level: "C1", category: "General", definition: "Situation, juncture. - Konjonktür, mevcut durum.", example: "La coyuntura actual exige prudencia. - Mevcut konjonktür ihtiyat gerektiriyor." },
+  { word: "el afán", pos: "noun", level: "C1", category: "General", definition: "Eagerness, zeal. - Gayret, hevesli çaba.", example: "Trabaja con un afán admirable. - Hayranlık verici bir gayretle çalışıyor." },
+  { word: "el arraigo", pos: "noun", level: "C1", category: "General", definition: "Deep roots, attachment. - Kök salma, bağlılık.", example: "La tradición tiene mucho arraigo en la región. - Gelenek bölgede derin kök salmış." },
+  { word: "la índole", pos: "noun", level: "C1", category: "Nature", definition: "Nature, kind. - Nitelik, tür.", example: "Son problemas de índole técnica. - Bunlar teknik nitelikte sorunlar." },
+  { word: "la mengua", pos: "noun", level: "C1", category: "General", definition: "Decrease, diminution. - Azalma, eksilme.", example: "Se observa una mengua de los recursos. - Kaynaklarda bir azalma gözleniyor." },
+  { word: "acaparar", pos: "verb", level: "C1", category: "General", definition: "To hoard, to monopolise. - Stoklamak, tekelleştirmek.", example: "Acaparó toda la atención del jurado. - Jürinin bütün dikkatini üzerine topladı." },
+  { word: "ahondar", pos: "verb", level: "C1", category: "General", definition: "To delve deeper, to go into depth. - Derinleşmek, derinlemesine incelemek.", example: "Conviene ahondar en las causas del problema. - Sorunun nedenlerine derinlemesine inmek gerekir." },
+  { word: "apremiar", pos: "verb", level: "C1", category: "General", definition: "To press, to be urgent. - Sıkıştırmak, acele ettirmek.", example: "El tiempo apremia y aún faltan datos. - Zaman daralıyor ve hâlâ veri eksik." },
+  { word: "ceñirse", pos: "verb", level: "C1", category: "General", definition: "To stick to, to keep within. - Bağlı kalmak, sınırlarında kalmak.", example: "Debemos ceñirnos al presupuesto aprobado. - Onaylanan bütçeye bağlı kalmalıyız." },
+  { word: "desdeñar", pos: "verb", level: "C1", category: "General", definition: "To disdain, to scorn. - Küçümsemek, hor görmek.", example: "No conviene desdeñar esa posibilidad. - Bu ihtimali küçümsemek doğru olmaz." },
+  { word: "discrepar", pos: "verb", level: "C1", category: "General", definition: "To disagree, to differ. - Ayrı düşmek, katılmamak.", example: "Discrepo de la conclusión del informe. - Raporun sonucuna katılmıyorum." },
+  { word: "encauzar", pos: "verb", level: "C1", category: "General", definition: "To channel, to steer. - Yönlendirmek, kanalize etmek.", example: "Intentaron encauzar el debate hacia lo esencial. - Tartışmayı öze yönlendirmeye çalıştılar." },
+  { word: "entrañar", pos: "verb", level: "C1", category: "General", definition: "To entail, to involve. - İçermek, beraberinde getirmek.", example: "La reforma entraña riesgos evidentes. - Reform bariz riskler içeriyor." },
+  { word: "esbozar", pos: "verb", level: "C1", category: "General", definition: "To sketch, to outline. - Taslağını çizmek, ana hatlarıyla anlatmak.", example: "Esbozó un plan en apenas diez minutos. - On dakikada bir planın ana hatlarını çizdi." },
+  { word: "incurrir", pos: "verb", level: "C1", category: "General", definition: "To incur, to fall into (an error). - Düşmek, sebep olmak.", example: "El texto incurre en varias contradicciones. - Metin birçok çelişkiye düşüyor." },
+  { word: "matizar", pos: "verb", level: "C1", category: "General", definition: "To qualify, to add nuance. - Nüans katmak, açıklık getirmek.", example: "Quiso matizar sus palabras al día siguiente. - Ertesi gün sözlerine açıklık getirmek istedi." },
+  { word: "mermar", pos: "verb", level: "C1", category: "General", definition: "To diminish, to deplete. - Azaltmak, eksiltmek.", example: "La crisis mermó sus ahorros. - Kriz birikimlerini eritti." },
+  { word: "propiciar", pos: "verb", level: "C1", category: "General", definition: "To bring about, to favour. - Yol açmak, elverişli kılmak.", example: "El acuerdo propició un clima de confianza. - Anlaşma bir güven ortamı doğurdu." },
+  { word: "recabar", pos: "verb", level: "C1", category: "General", definition: "To gather, to obtain (information). - Toplamak, elde etmek.", example: "Recabaron datos en veinte provincias. - Yirmi ilde veri topladılar." },
+  { word: "socavar", pos: "verb", level: "C1", category: "General", definition: "To undermine. - Temelini sarsmak, zayıflatmak.", example: "Esas filtraciones socavan la confianza pública. - Bu sızıntılar kamu güvenini sarsıyor." },
+  { word: "subsanar", pos: "verb", level: "C1", category: "General", definition: "To rectify, to remedy. - Gidermek, düzeltmek.", example: "Hay que subsanar el error antes del plazo. - Hata süre dolmadan giderilmeli." },
+  { word: "vislumbrar", pos: "verb", level: "C1", category: "General", definition: "To glimpse, to make out. - Belli belirsiz görmek, sezmek.", example: "Ya se vislumbra una salida a la crisis. - Krizden bir çıkış yolu şimdiden seziliyor." },
+  { word: "acuciante", pos: "adjective", level: "C1", category: "General", definition: "Pressing, urgent. - Acil, sıkıştıran.", example: "Existe una necesidad acuciante de vivienda. - Acil bir konut ihtiyacı var." },
+  { word: "arraigado", pos: "adjective", level: "C1", category: "General", definition: "Deep-rooted, entrenched. - Kökleşmiş, yerleşik.", example: "Es una creencia muy arraigada. - Bu çok kökleşmiş bir inanç." },
+  { word: "contundente", pos: "adjective", level: "C1", category: "General", definition: "Forceful, conclusive. - Kesin, çarpıcı.", example: "Ofreció una respuesta contundente. - Kesin bir yanıt verdi." },
+  { word: "ineludible", pos: "adjective", level: "C1", category: "General", definition: "Unavoidable, inescapable. - Kaçınılmaz.", example: "Es un compromiso ineludible. - Bu kaçınılmaz bir yükümlülük." },
+  { word: "inherente", pos: "adjective", level: "C1", category: "General", definition: "Inherent. - İçkin, ayrılmaz.", example: "El riesgo es inherente a la actividad. - Risk bu faaliyetin ayrılmaz parçası." },
+  { word: "minucioso", pos: "adjective", level: "C1", category: "General", definition: "Thorough, meticulous. - Titiz, ayrıntılı.", example: "Realizaron un análisis minucioso. - Titiz bir analiz yaptılar." },
+  { word: "paulatino", pos: "adjective", level: "C1", category: "General", definition: "Gradual. - Kademeli, tedrici.", example: "Se prevé un descenso paulatino de los precios. - Fiyatlarda kademeli bir düşüş bekleniyor." },
+  { word: "propenso", pos: "adjective", level: "C1", category: "General", definition: "Prone, liable. - Eğilimli, yatkın.", example: "Es propenso a exagerar los detalles. - Ayrıntıları abartmaya yatkın." },
+  { word: "rotundo", pos: "adjective", level: "C1", category: "General", definition: "Categorical, emphatic. - Kesin, net.", example: "La respuesta fue un no rotundo. - Yanıt kesin bir hayırdı." },
+  { word: "sesgado", pos: "adjective", level: "C1", category: "General", definition: "Biased, slanted. - Taraflı, önyargılı.", example: "La cobertura resultó bastante sesgada. - Haber yapımı oldukça taraflıydı." },
+  { word: "tajante", pos: "adjective", level: "C1", category: "General", definition: "Blunt, categorical. - Kesin, sert.", example: "Fue tajante al rechazar la oferta. - Teklifi reddederken çok kesindi." },
+  { word: "insoslayable", pos: "adjective", level: "C1", category: "General", definition: "Unavoidable, that cannot be sidestepped. - Göz ardı edilemez.", example: "Es un requisito insoslayable del contrato. - Bu, sözleşmenin göz ardı edilemez bir şartı." },
+  { word: "por ende", pos: "phrase", level: "C1", category: "General", definition: "Therefore, hence. - Dolayısıyla.", example: "Faltan datos y, por ende, no hay conclusión. - Veri eksik ve dolayısıyla bir sonuç yok." },
+  { word: "en aras de", pos: "phrase", level: "C1", category: "General", definition: "For the sake of. - Uğruna, adına.", example: "Cedieron en aras de un acuerdo rápido. - Hızlı bir anlaşma uğruna taviz verdiler." },
+  { word: "si bien", pos: "phrase", level: "C1", category: "General", definition: "Although, while it is true that. - Her ne kadar.", example: "Si bien el coste es alto, el beneficio compensa. - Maliyet yüksek olsa da fayda bunu telafi ediyor." },
+  { word: "a todas luces", pos: "phrase", level: "C1", category: "General", definition: "Clearly, by any reckoning. - Her bakımdan, açıkça.", example: "La medida es a todas luces insuficiente. - Önlem her bakımdan yetersiz." },
+  { word: "de antemano", pos: "phrase", level: "C1", category: "General", definition: "Beforehand, in advance. - Önceden.", example: "Le agradezco de antemano su respuesta. - Yanıtınız için şimdiden teşekkür ederim." },
+  { word: "no en vano", pos: "phrase", level: "C1", category: "General", definition: "Not for nothing, with good reason. - Boşuna değil.", example: "No en vano es la ciudad más visitada. - En çok ziyaret edilen şehir olması boşuna değil." },
+  { word: "habida cuenta", pos: "phrase", level: "C1", category: "General", definition: "Given, bearing in mind. - Göz önünde bulundurulursa.", example: "Habida cuenta del retraso, cambiaremos el plan. - Gecikme göz önüne alınırsa planı değiştireceğiz." },
+];

@@ -1,0 +1,22 @@
+{
+  "name": "Top Words – İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce Sınav Kelimeleri",
+  "short_name": "Top Words",
+  "description": "Türk öğrenciler için ücretsiz İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime öğrenme uygulaması: A1–C2 kelimeler, phrasal verbs ve Partikelverben. YDS, YÖKDİL, ÜDS, UDSP, TOEFL, telc ve CEFR hazırlık.",
+  "lang": "tr",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "categories": ["education", "productivity", "books"],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
+ * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
+ * <https://polyformproject.org/licenses/noncommercial/1.0.0>
+ *
+ * Any commercial use requires prior written permission from the copyright
+ * holders. Written permission from any ONE of bulentozkir@hotmail.com,
+ * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
+ * is sufficient and binding on all of them.
+ *
+ * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
+ * Ozkir (https://udsp.vercel.app)
+ * Full terms: see LICENSE and NOTICE in this repository.
+ */
+/*! Compilation notice — read together with the licence above.
+ * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
+ * translations in this file are the copyright holders' own work and ARE
+ * covered by the PolyForm Noncommercial licence above. Copying this list, or
+ * any substantial part of it, into a commercial product or service requires
+ * prior written permission from one of the addresses above.
+ *
+ * Some individual definitions and example sentences come from open community
+ * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
+ * others — see NOTICE). Those items keep THEIR OWN licence and the
+ * noncommercial term is not asserted over them.
+ */
+
+// Spanish A2 vocabulary (self-authored, CEFR A2).
+// 100% original content -- see wordsa1es.js for the full authorship /
+// level-assignment note (level grounded in the open hermitdave/FrequencyWords
+// Spanish frequency list). Definitions & examples: "English. - Türkçe." and
+// "Español. - Türkçe." Nouns keep their definite article (el/la/los/las).
+window.WORDS_ES_A2 = [
+  { word: "el trabajo", pos: "noun", level: "A2", category: "General", definition: "Work, job. - İş.", example: "Mi trabajo empieza a las nueve. - İşim dokuzda başlıyor." },
+  { word: "la tienda", pos: "noun", level: "A2", category: "General", definition: "Shop, store. - Dükkân, mağaza.", example: "La tienda cierra a las ocho. - Dükkân sekizde kapanıyor." },
+  { word: "el dinero", pos: "noun", level: "A2", category: "General", definition: "Money. - Para.", example: "No llevo dinero encima. - Üstümde para yok." },
+  { word: "la playa", pos: "noun", level: "A2", category: "General", definition: "Beach. - Plaj, kumsal.", example: "En verano vamos a la playa. - Yazın plaja gideriz." },
+  { word: "el hotel", pos: "noun", level: "A2", category: "Travel", definition: "Hotel. - Otel.", example: "El hotel está cerca del centro. - Otel merkeze yakın." },
+  { word: "la estación", pos: "noun", level: "A2", category: "General", definition: "Station. - İstasyon.", example: "Te espero en la estación de tren. - Seni tren istasyonunda bekliyorum." },
+  { word: "el billete", pos: "noun", level: "A2", category: "General", definition: "Ticket. - Bilet.", example: "He comprado un billete de ida y vuelta. - Gidiş dönüş bilet aldım." },
+  { word: "el médico", pos: "noun", level: "A2", category: "Medicine", definition: "Doctor. - Doktor.", example: "Tengo cita con el médico mañana. - Yarın doktorda randevum var." },
+  { word: "el hospital", pos: "noun", level: "A2", category: "Medicine", definition: "Hospital. - Hastane.", example: "El hospital está al final de la avenida. - Hastane caddenin sonunda." },
+  { word: "la farmacia", pos: "noun", level: "A2", category: "Medicine", definition: "Pharmacy. - Eczane.", example: "La farmacia abre los domingos. - Eczane pazar günleri açık." },
+  { word: "el mercado", pos: "noun", level: "A2", category: "General", definition: "Market. - Pazar, çarşı.", example: "En el mercado la fruta es más barata. - Pazarda meyve daha ucuz." },
+  { word: "la cocina", pos: "noun", level: "A2", category: "Food", definition: "Kitchen, cooking. - Mutfak.", example: "La cocina es la habitación más grande. - Mutfak en büyük oda." },
+  { word: "el dormitorio", pos: "noun", level: "A2", category: "Household", definition: "Bedroom. - Yatak odası.", example: "Mi dormitorio tiene una ventana grande. - Yatak odamda büyük bir pencere var." },
+  { word: "el baño", pos: "noun", level: "A2", category: "General", definition: "Bathroom. - Banyo.", example: "El baño está a la derecha. - Banyo sağda." },
+  { word: "la ropa", pos: "noun", level: "A2", category: "Clothing", definition: "Clothes. - Giysi, kıyafet.", example: "Guardo la ropa en el armario. - Kıyafetleri dolapta saklarım." },
+  { word: "el zapato", pos: "noun", level: "A2", category: "Clothing", definition: "Shoe. - Ayakkabı.", example: "Estos zapatos son muy cómodos. - Bu ayakkabılar çok rahat." },
+  { word: "la camisa", pos: "noun", level: "A2", category: "Clothing", definition: "Shirt. - Gömlek.", example: "Lleva una camisa blanca. - Beyaz bir gömlek giyiyor." },
+  { word: "el abrigo", pos: "noun", level: "A2", category: "General", definition: "Coat. - Palto, manto.", example: "Ponte el abrigo, hace frío. - Paltonu giy, hava soğuk." },
+  { word: "el tiempo", pos: "noun", level: "A2", category: "Weather", definition: "Weather, time. - Hava durumu, zaman.", example: "El tiempo cambia muy rápido aquí. - Burada hava çok hızlı değişiyor." },
+  { word: "la lluvia", pos: "noun", level: "A2", category: "Weather", definition: "Rain. - Yağmur.", example: "La lluvia no paró en toda la noche. - Yağmur bütün gece durmadı." },
+  { word: "el sol", pos: "noun", level: "A2", category: "General", definition: "Sun. - Güneş.", example: "Hoy hace mucho sol. - Bugün hava çok güneşli." },
+  { word: "el viento", pos: "noun", level: "A2", category: "Weather", definition: "Wind. - Rüzgâr.", example: "El viento sopla del norte. - Rüzgâr kuzeyden esiyor." },
+  { word: "el invierno", pos: "noun", level: "A2", category: "General", definition: "Winter. - Kış.", example: "En invierno nieva en la montaña. - Kışın dağda kar yağar." },
+  { word: "el verano", pos: "noun", level: "A2", category: "General", definition: "Summer. - Yaz.", example: "El verano aquí es muy caluroso. - Buradaki yaz çok sıcak." },
+  { word: "la primavera", pos: "noun", level: "A2", category: "General", definition: "Spring. - İlkbahar.", example: "En primavera florecen los árboles. - İlkbaharda ağaçlar çiçek açar." },
+  { word: "el otoño", pos: "noun", level: "A2", category: "General", definition: "Autumn, fall. - Sonbahar.", example: "El otoño es mi estación favorita. - Sonbahar en sevdiğim mevsim." },
+  { word: "el cumpleaños", pos: "noun", level: "A2", category: "General", definition: "Birthday. - Doğum günü.", example: "Mi cumpleaños es en marzo. - Doğum günüm mart ayında." },
+  { word: "la fiesta", pos: "noun", level: "A2", category: "General", definition: "Party, celebration. - Parti, kutlama.", example: "La fiesta terminó muy tarde. - Parti çok geç bitti." },
+  { word: "trabajar", pos: "verb", level: "A2", category: "General", definition: "To work. - Çalışmak.", example: "Trabajo en una oficina pequeña. - Küçük bir ofiste çalışıyorum." },
+  { word: "comprar", pos: "verb", level: "A2", category: "General", definition: "To buy. - Satın almak.", example: "Voy a comprar fruta y verdura. - Meyve ve sebze alacağım." },
+  { word: "vender", pos: "verb", level: "A2", category: "General", definition: "To sell. - Satmak.", example: "Venden libros usados aquí. - Burada ikinci el kitap satıyorlar." },
+  { word: "viajar", pos: "verb", level: "A2", category: "Travel", definition: "To travel. - Seyahat etmek.", example: "Me gusta viajar en tren. - Trenle seyahat etmeyi severim." },
+  { word: "llegar", pos: "verb", level: "A2", category: "General", definition: "To arrive. - Varmak, gelmek.", example: "El autobús llega a las siete. - Otobüs yedide varıyor." },
+  { word: "salir", pos: "verb", level: "A2", category: "General", definition: "To go out, to leave. - Çıkmak.", example: "Salimos de casa muy temprano. - Evden çok erken çıktık." },
+  { word: "entrar", pos: "verb", level: "A2", category: "General", definition: "To enter, to go in. - Girmek.", example: "Puedes entrar sin llamar. - Kapıyı çalmadan girebilirsin." },
+  { word: "escribir", pos: "verb", level: "A2", category: "General", definition: "To write. - Yazmak.", example: "Escribo un correo a mi jefe. - Patronuma bir e-posta yazıyorum." },
+  { word: "leer", pos: "verb", level: "A2", category: "General", definition: "To read. - Okumak.", example: "Quiero leer el periódico. - Gazete okumak istiyorum." },
+  { word: "escuchar", pos: "verb", level: "A2", category: "General", definition: "To listen. - Dinlemek.", example: "Escucho música mientras cocino. - Yemek yaparken müzik dinlerim." },
+  { word: "aprender", pos: "verb", level: "A2", category: "General", definition: "To learn. - Öğrenmek.", example: "Aprendo palabras nuevas cada día. - Her gün yeni kelimeler öğreniyorum." },
+  { word: "enseñar", pos: "verb", level: "A2", category: "General", definition: "To teach, to show. - Öğretmek, göstermek.", example: "Mi tía enseña matemáticas. - Teyzem matematik öğretiyor." },
+  { word: "ayudar", pos: "verb", level: "A2", category: "General", definition: "To help. - Yardım etmek.", example: "Siempre ayudo a mis vecinos. - Komşularıma her zaman yardım ederim." },
+  { word: "empezar", pos: "verb", level: "A2", category: "General", definition: "To begin, to start. - Başlamak.", example: "Hace poco que empezó a comer vegetales. - Son zamanlarda sebze yemeye başladı." },
+  { word: "terminar", pos: "verb", level: "A2", category: "General", definition: "To finish, to end. - Bitirmek.", example: "Termino el trabajo a las seis. - İşi altıda bitiriyorum." },
+  { word: "esperar", pos: "verb", level: "A2", category: "General", definition: "To wait, to hope. - Beklemek, ummak.", example: "Espero el autobús en la esquina. - Otobüsü köşede bekliyorum." },
+  { word: "caro", pos: "adjective", level: "A2", category: "General", definition: "Expensive. - Pahalı.", example: "Ese restaurante es muy caro. - O restoran çok pahalı." },
+  { word: "barato", pos: "adjective", level: "A2", category: "General", definition: "Cheap. - Ucuz.", example: "Encontré un hotel barato. - Ucuz bir otel buldum." },
+  { word: "rápido", pos: "adjective", level: "A2", category: "General", definition: "Fast, quick. - Hızlı.", example: "El tren es más rápido que el coche. - Tren arabadan daha hızlı." },
+  { word: "lento", pos: "adjective", level: "A2", category: "General", definition: "Slow. - Yavaş.", example: "Mi ordenador es muy lento. - Bilgisayarım çok yavaş." },
+  { word: "limpio", pos: "adjective", level: "A2", category: "General", definition: "Clean. - Temiz.", example: "La habitación está muy limpia. - Oda çok temiz." },
+  { word: "sucio", pos: "adjective", level: "A2", category: "General", definition: "Dirty. - Kirli.", example: "Los platos están sucios. - Tabaklar kirli." },
+  { word: "alto", pos: "adjective", level: "A2", category: "General", definition: "Tall, high. - Uzun boylu, yüksek.", example: "Mi primo es muy alto. - Kuzenim çok uzun boylu." },
+  { word: "bajo", pos: "adjective", level: "A2", category: "General", definition: "Short, low. - Kısa, alçak.", example: "El techo es bastante bajo. - Tavan oldukça alçak." },
+  { word: "caliente", pos: "adjective", level: "A2", category: "General", definition: "Hot. - Sıcak.", example: "La sopa está demasiado caliente. - Çorba fazla sıcak." },
+  { word: "frío", pos: "adjective", level: "A2", category: "General", definition: "Cold. - Soğuk.", example: "Había nevado tanto que el frío quemaba en la montaña. - O kadar çok kar yağmıştı ki soğuk dağları yakıyordu." },
+  { word: "siempre", pos: "adverb", level: "A2", category: "General", definition: "Always. - Her zaman.", example: "Siempre desayuno antes de salir. - Çıkmadan önce her zaman kahvaltı ederim." },
+  { word: "nunca", pos: "adverb", level: "A2", category: "General", definition: "Never. - Asla, hiç.", example: "Nunca he estado en México. - Meksika'da hiç bulunmadım." },
+  { word: "temprano", pos: "adverb", level: "A2", category: "General", definition: "Early. - Erken.", example: "Me levanto muy temprano. - Çok erken kalkarım." },
+  { word: "cerca", pos: "adverb", level: "A2", category: "General", definition: "Near, close. - Yakın.", example: "El parque está cerca de aquí. - Park buraya yakın." },
+  { word: "lejos", pos: "adverb", level: "A2", category: "General", definition: "Far. - Uzak.", example: "Mi oficina está lejos del centro. - Ofisim merkezden uzak." },
+  { word: "también", pos: "adverb", level: "A2", category: "General", definition: "Also, too. - Ayrıca, de.", example: "Yo también quiero ir. - Ben de gitmek istiyorum." },
+];

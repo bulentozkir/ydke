@@ -1,0 +1,81 @@
+// Dutch A1 vocabulary (self-authored, CEFR A1).
+// 100% original content: every word, definition, and example sentence below
+// was authored directly for this project (no external source scraped or
+// copied) -- same policy already applied to this project's other
+// self-authored language files (see wordsa1es.js / wordsa1it.js /
+// wordsa1pt.js etc.). Definitions & examples shown as English - Turkish
+// (matches every other data/words*.js file's "English. - Türkçe."
+// convention). Nouns store their definite article (de/het) as part of
+// `word`, mirroring Spanish's el/la, French's le/la/l', Italian's il/lo/la
+// and German's der/die/das convention.
+// category is a placeholder "General" here -- run
+// scripts/classify_word_categories.py (with these files in TARGET_FILES) to
+// assign real topical domains, matching every other file.
+window.WORDS_NL_A1 = [
+  { word: "het huis", pos: "noun", level: "A1", category: "Household", definition: "House, home. - Ev.", example: "Mijn huis is klein maar gezellig. - Evim küçük ama sıcak." },
+  { word: "het water", pos: "noun", level: "A1", category: "General", definition: "Water. - Su.", example: "Ik drink elke dag veel water. - Her gün çok su içerim." },
+  { word: "het brood", pos: "noun", level: "A1", category: "Food", definition: "Bread. - Ekmek.", example: "Ik koop 's ochtends vers brood. - Sabahları taze ekmek alırım." },
+  { word: "de familie", pos: "noun", level: "A1", category: "Family", definition: "Family. - Aile.", example: "Mijn familie woont in Amsterdam. - Ailem Amsterdam'da yaşıyor." },
+  { word: "de vriend", pos: "noun", level: "A1", category: "General", definition: "Friend (male). - Arkadaş (erkek).", example: "Mijn vriend werkt bij een bank. - Arkadaşım bir bankada çalışıyor." },
+  { word: "de school", pos: "noun", level: "A1", category: "Education", definition: "School. - Okul.", example: "De kinderen gaan samen naar school. - Çocuklar okula birlikte gidiyor." },
+  { word: "het boek", pos: "noun", level: "A1", category: "Literature", definition: "Book. - Kitap.", example: "Dit boek is erg interessant. - Bu kitap çok ilginç." },
+  { word: "de auto", pos: "noun", level: "A1", category: "Transportation", definition: "Car. - Araba.", example: "De auto staat voor het huis. - Araba evin önünde duruyor." },
+  { word: "de stad", pos: "noun", level: "A1", category: "General", definition: "City. - Şehir.", example: "Amsterdam is een mooie stad. - Amsterdam güzel bir şehirdir." },
+  { word: "de straat", pos: "noun", level: "A1", category: "General", definition: "Street. - Sokak.", example: "De straat is vandaag erg rustig. - Sokak bugün çok sakin." },
+  { word: "de dag", pos: "noun", level: "A1", category: "General", definition: "Day. - Gün.", example: "Vandaag is een mooie dag. - Bugün güzel bir gün." },
+  { word: "de week", pos: "noun", level: "A1", category: "General", definition: "Week. - Hafta.", example: "Ik werk vijf dagen per week. - Haftada beş gün çalışıyorum." },
+  { word: "de maand", pos: "noun", level: "A1", category: "General", definition: "Month. - Ay.", example: "Volgende maand ga ik op vakantie. - Gelecek ay tatile gidiyorum." },
+  { word: "het jaar", pos: "noun", level: "A1", category: "General", definition: "Year. - Yıl.", example: "Ik woon hier al een jaar. - Bir yıldır burada yaşıyorum." },
+  { word: "de ochtend", pos: "noun", level: "A1", category: "General", definition: "Morning. - Sabah.", example: "'s Ochtends drink ik koffie. - Sabahları kahve içerim." },
+  { word: "de middag", pos: "noun", level: "A1", category: "General", definition: "Afternoon. - Öğleden sonra.", example: "'s Middags lees ik graag een boek. - Öğleden sonraları kitap okumayı severim." },
+  { word: "de avond", pos: "noun", level: "A1", category: "General", definition: "Evening. - Akşam.", example: "'s Avonds kijken we televisie. - Akşamları televizyon izleriz." },
+  { word: "de nacht", pos: "noun", level: "A1", category: "General", definition: "Night. - Gece.", example: "De nacht is erg koud. - Gece çok soğuk." },
+  { word: "de naam", pos: "noun", level: "A1", category: "General", definition: "Name. - İsim.", example: "Mijn naam is Anna. - Benim adım Anna." },
+  { word: "het kind", pos: "noun", level: "A1", category: "Family", definition: "Child. - Çocuk.", example: "Het kind speelt in de tuin. - Çocuk bahçede oynuyor." },
+  { word: "de man", pos: "noun", level: "A1", category: "General", definition: "Man. - Adam.", example: "Die man is mijn leraar. - O adam benim öğretmenim." },
+  { word: "de vrouw", pos: "noun", level: "A1", category: "General", definition: "Woman. - Kadın.", example: "De vrouw leest de krant. - Kadın gazete okuyor." },
+  { word: "de vader", pos: "noun", level: "A1", category: "Family", definition: "Father. - Baba.", example: "Mijn vader kookt heel goed. - Babam çok iyi yemek yapar." },
+  { word: "de moeder", pos: "noun", level: "A1", category: "Family", definition: "Mother. - Anne.", example: "Mijn moeder zingt graag in de auto. - Annem arabada şarkı söylemeyi sever." },
+  { word: "de broer", pos: "noun", level: "A1", category: "Family", definition: "Brother. - Erkek kardeş.", example: "Mijn broer is twintig jaar oud. - Erkek kardeşim yirmi yaşında." },
+  { word: "de zus", pos: "noun", level: "A1", category: "Family", definition: "Sister. - Kız kardeş.", example: "Mijn zus studeert geneeskunde. - Kız kardeşim tıp okuyor." },
+  { word: "de kat", pos: "noun", level: "A1", category: "General", definition: "Cat. - Kedi.", example: "De kat slaapt op de bank. - Kedi kanepede uyuyor." },
+  { word: "de hond", pos: "noun", level: "A1", category: "General", definition: "Dog. - Köpek.", example: "De hond rent door de tuin. - Köpek bahçede koşuyor." },
+  { word: "de tafel", pos: "noun", level: "A1", category: "General", definition: "Table. - Masa.", example: "Het eten staat op tafel. - Yemek masada." },
+  { word: "de deur", pos: "noun", level: "A1", category: "General", definition: "Door. - Kapı.", example: "Doe alsjeblieft de deur dicht. - Lütfen kapıyı kapat." },
+  { word: "het raam", pos: "noun", level: "A1", category: "General", definition: "Window. - Pencere.", example: "Ik open het raam voor frisse lucht. - Temiz hava için pencereyi açıyorum." },
+  { word: "de maaltijd", pos: "noun", level: "A1", category: "Food", definition: "Meal. - Yemek, öğün.", example: "De maaltijd ruikt heel lekker. - Yemek çok güzel kokuyor." },
+  { word: "de melk", pos: "noun", level: "A1", category: "Food", definition: "Milk. - Süt.", example: "Er is geen melk meer in de koelkast. - Buzdolabında süt kalmadı." },
+  { word: "de koffie", pos: "noun", level: "A1", category: "Food", definition: "Coffee. - Kahve.", example: "Wil je een kopje koffie? - Bir fincan kahve ister misin?" },
+  { word: "de hand", pos: "noun", level: "A1", category: "General", definition: "Hand. - El.", example: "Was je handen voor het eten. - Yemekten önce ellerini yıka." },
+  { word: "het oog", pos: "noun", level: "A1", category: "General", definition: "Eye. - Göz.", example: "Zij heeft groene ogen. - Onun yeşil gözleri var." },
+  { word: "het hoofd", pos: "noun", level: "A1", category: "General", definition: "Head. - Baş, kafa.", example: "Mijn hoofd doet erg pijn. - Başım çok ağrıyor." },
+  { word: "zijn", pos: "verb", level: "A1", category: "General", definition: "To be. - Olmak.", example: "Het feest zal morgen zijn. - Parti yarın olacak." },
+  { word: "hebben", pos: "verb", level: "A1", category: "General", definition: "To have. - Sahip olmak.", example: "Ik heb een nieuwe telefoon. - Yeni bir telefonum var." },
+  { word: "gaan", pos: "verb", level: "A1", category: "General", definition: "To go. - Gitmek.", example: "Ik ga morgen naar Rotterdam. - Yarın Rotterdam'a gidiyorum." },
+  { word: "doen", pos: "verb", level: "A1", category: "General", definition: "To do. - Yapmak.", example: "Wat doe je dit weekend? - Bu hafta sonu ne yapıyorsun?" },
+  { word: "komen", pos: "verb", level: "A1", category: "General", definition: "To come. - Gelmek.", example: "Kom je naar mijn feest? - Partime gelecek misin?" },
+  { word: "eten", pos: "verb", level: "A1", category: "Food", definition: "To eat. - Yemek yemek.", example: "We eten om acht uur. - Saat sekizde yemek yeriz." },
+  { word: "drinken", pos: "verb", level: "A1", category: "Food", definition: "To drink. - İçmek.", example: "Hij drinkt elke ochtend thee. - O her sabah çay içer." },
+  { word: "spreken", pos: "verb", level: "A1", category: "Communication", definition: "To speak. - Konuşmak.", example: "Ik spreek Nederlands en Engels. - Hollandaca ve İngilizce konuşurum." },
+  { word: "wonen", pos: "verb", level: "A1", category: "General", definition: "To live, to reside. - Oturmak, yaşamak.", example: "Wij wonen dicht bij het centrum. - Merkeze yakın oturuyoruz." },
+  { word: "zien", pos: "verb", level: "A1", category: "General", definition: "To see. - Görmek.", example: "Ik kan de bergen zien vanaf hier. - Buradan dağları görebiliyorum." },
+  { word: "willen", pos: "verb", level: "A1", category: "General", definition: "To want. - İstemek.", example: "Wat wil je vanavond eten? - Bu akşam ne yemek istersin?" },
+  { word: "kunnen", pos: "verb", level: "A1", category: "General", definition: "Can, to be able to. - Yapabilmek.", example: "Kun je me helpen, alsjeblieft? - Bana yardım edebilir misin, lütfen?" },
+  { word: "moeten", pos: "verb", level: "A1", category: "General", definition: "Must, to have to. - Zorunda olmak.", example: "Ik moet morgen vroeg opstaan. - Yarın erken kalkmam gerekiyor." },
+  { word: "slapen", pos: "verb", level: "A1", category: "General", definition: "To sleep. - Uyumak.", example: "Ik slaap acht uur per nacht. - Her gece sekiz saat uyurum." },
+  { word: "lopen", pos: "verb", level: "A1", category: "General", definition: "To walk. - Yürümek.", example: "We lopen elke ochtend naar school. - Her sabah okula yürüyoruz." },
+  { word: "kopen", pos: "verb", level: "A1", category: "General", definition: "To buy. - Satın almak.", example: "Ik koop een nieuwe fiets. - Yeni bir bisiklet alıyorum." },
+  { word: "groot", pos: "adjective", level: "A1", category: "General", definition: "Big, large. - Büyük.", example: "Zij wonen in een groot huis. - Onlar büyük bir evde yaşıyor." },
+  { word: "klein", pos: "adjective", level: "A1", category: "General", definition: "Small. - Küçük.", example: "Ik heb een kleine auto. - Küçük bir arabam var." },
+  { word: "goed", pos: "adjective", level: "A1", category: "General", definition: "Good. - İyi.", example: "Dit is een heel goed boek. - Bu çok iyi bir kitap." },
+  { word: "slecht", pos: "adjective", level: "A1", category: "General", definition: "Bad. - Kötü.", example: "Het weer was erg slecht vandaag. - Bugün hava çok kötüydü." },
+  { word: "nieuw", pos: "adjective", level: "A1", category: "General", definition: "New. - Yeni.", example: "Dat is een nieuw restaurant in de stad. - Bu şehirdeki yeni bir restoran." },
+  { word: "oud", pos: "adjective", level: "A1", category: "General", definition: "Old. - Eski, yaşlı.", example: "Dat gebouw is heel oud. - O bina çok eski." },
+  { word: "mooi", pos: "adjective", level: "A1", category: "General", definition: "Beautiful, pretty. - Güzel.", example: "Wat een mooie dag is het vandaag! - Bugün ne güzel bir gün!" },
+  { word: "makkelijk", pos: "adjective", level: "A1", category: "General", definition: "Easy. - Kolay.", example: "De toets was heel makkelijk. - Sınav çok kolaydı." },
+  { word: "moeilijk", pos: "adjective", level: "A1", category: "General", definition: "Difficult. - Zor.", example: "Deze vraag is best moeilijk. - Bu soru oldukça zor." },
+  { word: "hallo", pos: "interjection", level: "A1", category: "General", definition: "Hello, hi. - Merhaba.", example: "Hallo, goedemorgen! - Merhaba, günaydın!" },
+  { word: "dank je wel", pos: "interjection", level: "A1", category: "General", definition: "Thank you. - Teşekkür ederim.", example: "Dank je wel voor je hulp. - Yardımın için teşekkür ederim." },
+  { word: "vandaag", pos: "adverb", level: "A1", category: "General", definition: "Today. - Bugün.", example: "Ik heb vandaag geen les. - Bugün dersim yok." },
+  { word: "hier", pos: "adverb", level: "A1", category: "General", definition: "Here. - Burada.", example: "Kom alsjeblieft hier. - Lütfen buraya gel." },
+];

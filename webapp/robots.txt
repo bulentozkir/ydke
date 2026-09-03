@@ -1,0 +1,11 @@
+# robots.txt for Top Words
+# İngilizce ve Almanca kelime öğrenme uygulaması
+
+User-agent: *
+Allow: /
+
+# Allow image crawlers full access
+User-agent: Googlebot-Image
+Allow: /
+
+Sitemap: https://udsp.vercel.app/sitemap.xml

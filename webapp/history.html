@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Geçmiş · History – Top Words</title>
+    <meta
+      name="description"
+      content="Top Words'te çalıştığın kelimeleri, tamamladığın quizleri ve Word Morph turlarını buradan takip et — geçmişin profiline kaydedilir."
+    />
+    <!-- User-specific, JS-rendered activity log; keep out of the SEO index,
+         same precedent as home.html/profile.html. -->
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#0f172a" />
+    <script>
+      (function () {
+        try {
+          var t = JSON.parse(localStorage.getItem("udsp_theme_v1") || '"dark"');
+          if (t === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (m) m.setAttribute("content", "#f8fafc");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="canonical" href="https://udsp.vercel.app/history.html" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Top Words" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Google AdSense -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4464915775427405"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body data-mode="history">
+    <header class="site-header">
+      <div class="brand">
+        <a class="logo-link" href="home.html" aria-label="Ana Sayfa / Home">
+          <img class="logo" src="icon.svg" alt="Top Words logo" width="44" height="44" />
+        </a>
+        <span class="brand-title">Yabancı Dil Kelime Ezberleme</span>
+        <!-- Main toolbar: shares the header's first line -->
+        <nav class="bottom-nav" aria-label="Main navigation">
+        <a class="bottom-nav-item" href="index.html"><span class="bn-icon">🃏</span><span class="bn-label">Cards</span></a>
+        <a class="bottom-nav-item" href="quiz.html"><span class="bn-icon">📝</span><span class="bn-label">Quiz</span></a>
+        <a class="bottom-nav-item" href="games.html"><span class="bn-icon">🎮</span><span class="bn-label">Games</span></a>
+        <a class="bottom-nav-item" href="wordlist.html"><span class="bn-icon">📋</span><span class="bn-label">Words</span></a>
+        <button class="bottom-nav-item" id="more-btn" type="button"><span class="bn-icon">⋯</span><span class="bn-label">More</span></button>
+        </nav>
+        <div class="brand-actions">
+          <a class="about-btn" href="home.html" aria-label="Ana Sayfa / Home" data-tip="Ana Sayfa / Home">🏠<span class="btn-txt"> Home</span></a>
+          <a class="profile-icon-link" href="profile.html" id="profile-icon-link" data-tip="Profil / Profile" aria-label="Profil / Profile">👤</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" id="history-root">
+      <section class="home-hero">
+        <h1 class="home-title">📜 Geçmiş · History</h1>
+        <p class="home-sub">Çalışma kaydın · Your study log</p>
+        <div class="history-controls">
+          <button type="button" class="home-lang-btn" id="history-sync-btn" hidden>🔄 Buluttan senkronize et · Sync from cloud</button>
+          <div class="profile-select-wrap" style="max-width: 260px">
+            <select id="history-filter" class="profile-select" aria-label="Filter history">
+              <option value="all">Tümü · All</option>
+              <option value="flashcard">🃏 Kelime Kartları · Flashcards</option>
+              <option value="quiz">📝 Quiz</option>
+              <option value="wordmorph">🔄 Word Morph</option>
+              <option value="readingcomp">📖 Okuduğunu Anlama · Reading</option>
+            </select>
+          </div>
+          <span class="history-count" id="history-count"></span>
+        </div>
+        <div id="history-items"></div>
+      </section>
+      <noscript>
+        <section class="home-hero">
+          <h1 class="home-title">Geçmiş için JavaScript gerekli · JavaScript required for History</h1>
+        </section>
+      </noscript>
+    </main>
+
+    <div class="more-sheet" id="more-sheet" hidden>
+      <div class="more-sheet-inner">
+        <div class="more-sheet-handle"></div>
+        <a class="more-link" href="home.html">🏠 Home</a>
+        <a class="more-link" href="stats.html">📊 Stats</a>
+        <a class="more-link" href="listening.html">🎧 Listening</a>
+        <a class="more-link" href="about.html">ℹ️ About</a>
+        <a class="more-link" href="help.html">❓ Help</a>
+        <a class="more-link" href="profile.html">👤 Profile</a>
+        <a class="more-link is-active" href="history.html">📜 History</a>
+        <a class="more-link" href="privacy.html">🔒 Gizlilik · Privacy</a>
+        <a class="more-link" href="terms.html">📄 Şartlar · Terms</a>
+        <a class="more-link" href="terms.html#contact">✉️ İletişim · Contact</a>
+        <button type="button" id="more-close" class="more-close-btn">Close</button>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <nav class="footer-links" aria-label="Site bilgileri ve yasal sayfalar">
+        <a href="about.html">Hakkında</a>
+        <a href="help.html">Yardım</a>
+        <a href="privacy.html">Gizlilik Politikası</a>
+        <a href="terms.html">Kullanım Şartları</a>
+        <a href="terms.html#contact">İletişim</a>
+      </nav>
+      <p>
+        <strong>Top Words</strong> — Türk öğrenciler için ücretsiz İngilizce,
+        Almanca, Fransızca, İtalyanca, İspanyolca ve Portekizce kelime ezberleme uygulaması · YDS, YÖKDİL, ÜDS,
+        UDSP, TOEFL, telc &amp; CEFR.
+      </p>
+    </footer>
+
+    <!-- Firebase compat SDK: same 3 CDN scripts as profile.html, loaded here
+         too so "Sync from cloud" can pull history recorded on other devices
+         via the existing window.TWAuth.loadProfileToLocal(). -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="firebase-client.js"></script>
+    <script src="history.js"></script>
+    <script src="moresheet.js"></script>
+  </body>
+</html>
