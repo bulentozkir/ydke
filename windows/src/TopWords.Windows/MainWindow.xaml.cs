@@ -81,6 +81,10 @@ public partial class MainWindow : ChromeWindow
                 browserExecutableFolder: null,
                 userDataFolder: AppConfig.UserDataFolder);
 
+            _environment.ProcessInfosChanged -= OnWebViewProcessInfosChanged;
+            _environment.ProcessInfosChanged += OnWebViewProcessInfosChanged;
+            ApplyLowWebViewProcessPriority();
+
             await Web.EnsureCoreWebView2Async(_environment);
 
             if (!_webConfigured)
@@ -171,6 +175,33 @@ public partial class MainWindow : ChromeWindow
         UpdateNavigationState();
     }
 
+    private void OnWebViewProcessInfosChanged(object? sender, object e) =>
+        ApplyLowWebViewProcessPriority();
+
+    private void ApplyLowWebViewProcessPriority()
+    {
+        if (_environment is null)
+        {
+            return;
+        }
+
+        foreach (var processInfo in _environment.GetProcessInfos())
+        {
+            try
+            {
+                using var process = Process.GetProcessById(processInfo.ProcessId);
+                LowProcessPriority.Apply(process);
+            }
+            catch (Exception ex) when (
+                ex is ArgumentException or InvalidOperationException or System.ComponentModel.Win32Exception)
+            {
+                // WebView subprocesses are short-lived; exiting between snapshot and
+                // update is normal and the next process-list event handles replacements.
+                Debug.WriteLine($"Low WebView priority skipped for {processInfo.ProcessId}: {ex.Message}");
+            }
+        }
+    }
+
     private void OnWebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
     {
         if (!Uri.TryCreate(e.Source, UriKind.Absolute, out var source) ||
@@ -246,13 +277,6 @@ public partial class MainWindow : ChromeWindow
 
             BeginNavigation(e.NavigationId);
 
-            // Suppressed until the splash has gone: during first load the splash is
-            // already saying the same thing, and two indicators for one wait is noise.
-            if (_contentRevealed)
-            {
-                Progress.Visibility = Visibility.Visible;
-            }
-
             return;
         }
 
@@ -304,7 +328,23 @@ public partial class MainWindow : ChromeWindow
         _activeNavigationId = navigationId;
         _navigationInProgress = true;
         UpdateNavigationState();
+        _ = ShowProgressAfterDelayAsync(navigationId);
         _ = WatchNavigationAsync(navigationId, _navigationTimeout.Token);
+    }
+
+    private async Task ShowProgressAfterDelayAsync(ulong navigationId)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(200));
+
+        // Fast navigations never flash the indicator. The splash already covers the
+        // initial load, and minimized windows do not need any composited feedback.
+        if (_contentRevealed &&
+            WindowState != WindowState.Minimized &&
+            _navigationInProgress &&
+            _activeNavigationId == navigationId)
+        {
+            Progress.Visibility = Visibility.Visible;
+        }
     }
 
     private async Task WatchNavigationAsync(ulong navigationId, CancellationToken cancellationToken)
@@ -586,6 +626,7 @@ public partial class MainWindow : ChromeWindow
         {
             Web.Visibility = Visibility.Visible;
             Web.Focus();
+            Progress.Visibility = _navigationInProgress ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 

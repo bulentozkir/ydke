@@ -7,6 +7,7 @@ public partial class App : Application
 {
     protected override void OnStartup(StartupEventArgs e)
     {
+        LowProcessPriority.ApplyToCurrentProcess();
         base.OnStartup(e);
         DispatcherUnhandledException += OnDispatcherUnhandledException;
     }

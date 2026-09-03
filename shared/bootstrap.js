@@ -262,7 +262,7 @@
   var DATA_CACHE = "udsp-data-v1";
 
   var PRECACHE_KEY = "udsp_data_precache_v1";
-  var PRECACHE_CONCURRENCY = 3;
+  var PRECACHE_CONCURRENCY = 1;
 
   // The manifest chooses which cache keys get written. Anything that is not a
   // bare filename could escape /data/ and overwrite app code — a manifest
@@ -271,6 +271,47 @@
   var DATA_NAME_RE = /^[A-Za-z0-9_-]+\.js$/;
 
   var FETCH_OPTS = { cache: "no-store", credentials: "omit", referrerPolicy: "no-referrer" };
+
+  function canUseBackgroundCpu() {
+    return document.visibilityState === "visible" &&
+      !(document.body && document.body.classList.contains("is-playing"));
+  }
+
+  function waitForBackgroundIdle() {
+    return new Promise(function (resolve) {
+      var observer = null;
+      var listening = true;
+
+      function cleanup() {
+        if (!listening) return;
+        listening = false;
+        document.removeEventListener("visibilitychange", trySchedule);
+        if (observer) observer.disconnect();
+      }
+
+      function run() {
+        if (!canUseBackgroundCpu()) {
+          waitForBackgroundIdle().then(resolve);
+          return;
+        }
+        resolve();
+      }
+
+      function trySchedule() {
+        if (!listening || !canUseBackgroundCpu()) return;
+        cleanup();
+        if (window.requestIdleCallback) requestIdleCallback(run);
+        else setTimeout(run, 1500);
+      }
+
+      document.addEventListener("visibilitychange", trySchedule);
+      if (document.body && window.MutationObserver) {
+        observer = new MutationObserver(trySchedule);
+        observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+      }
+      trySchedule();
+    });
+  }
 
   function toHex(buffer) {
     var bytes = new Uint8Array(buffer);
@@ -347,7 +388,8 @@
     function worker() {
       if (next >= entries.length) { return Promise.resolve(); }
       var entry = entries[next++];
-      return fetchAndStore(cache, entry)
+      return waitForBackgroundIdle()
+        .then(function () { return fetchAndStore(cache, entry); })
         .catch(function (err) {
           failures++;
           if (window.console && console.debug) { console.debug("topwords: " + err.message); }
@@ -422,11 +464,7 @@
     // Never in front of first paint, and never in front of the first fetches
     // the page makes for itself.
     var start = function () {
-      if (window.requestIdleCallback) {
-        requestIdleCallback(warmDataCache, { timeout: 10000 });
-      } else {
-        setTimeout(warmDataCache, 3000);
-      }
+      waitForBackgroundIdle().then(warmDataCache);
     };
 
     if (document.readyState === "complete") {

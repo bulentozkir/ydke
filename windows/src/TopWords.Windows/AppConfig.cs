@@ -26,7 +26,7 @@ internal static class AppConfig
     /// <summary>Appended to the WebView2 user agent so the site can detect the packaged build.</summary>
     public const string UserAgentSuffix = "TopWordsWin/1.0";
 
-    public const string WindowTitle = "Top Words — Trainer";
+    public const string WindowTitle = "YDKE";
 
     // W10 — declare the window deliberately instead of accepting the packager default.
     public const double InitialWidth = 1000;

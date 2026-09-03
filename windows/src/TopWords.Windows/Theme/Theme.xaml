@@ -233,14 +233,13 @@
     </Setter>
   </Style>
 
-  <!-- ===================== Indeterminate progress ===================== -->
+  <!-- ===================== Navigation progress ===================== -->
   <!--
     A 2px hairline under the caption. Replaces the old behaviour where the only
     feedback that a navigation was in flight was the page not changing.
   -->
   <Style x:Key="NavigationProgressStyle" TargetType="ProgressBar">
     <Setter Property="Height" Value="2" />
-    <Setter Property="IsIndeterminate" Value="True" />
     <Setter Property="Foreground" Value="{StaticResource BrandGradientBrush}" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
@@ -248,34 +247,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ProgressBar">
-          <Grid x:Name="Root" ClipToBounds="True" Background="{TemplateBinding Background}">
-            <Border x:Name="Sweep"
-                    Background="{TemplateBinding Foreground}"
-                    HorizontalAlignment="Left"
-                    Width="220">
-              <Border.RenderTransform>
-                <TranslateTransform x:Name="SweepTransform" X="-240" />
-              </Border.RenderTransform>
-            </Border>
-          </Grid>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsIndeterminate" Value="True">
-              <Trigger.EnterActions>
-                <BeginStoryboard x:Name="SweepStoryboard">
-                  <Storyboard RepeatBehavior="Forever">
-                    <DoubleAnimation Storyboard.TargetName="SweepTransform"
-                                     Storyboard.TargetProperty="X"
-                                     From="-240"
-                                     To="1600"
-                                     Duration="0:0:1.4" />
-                  </Storyboard>
-                </BeginStoryboard>
-              </Trigger.EnterActions>
-              <Trigger.ExitActions>
-                <StopStoryboard BeginStoryboardName="SweepStoryboard" />
-              </Trigger.ExitActions>
-            </Trigger>
-          </ControlTemplate.Triggers>
+          <Border Background="{TemplateBinding Foreground}" Opacity="0.8" />
         </ControlTemplate>
       </Setter.Value>
     </Setter>

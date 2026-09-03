@@ -20,6 +20,8 @@ use std::process::{Command, Stdio};
 use tauri::WebviewWindowBuilder;
 
 fn main() {
+    apply_low_process_priority();
+
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             open_external,
@@ -78,6 +80,23 @@ fn main() {
         .run(tauri::generate_context!())
         .expect("failed to start the Top Words host");
 }
+
+#[cfg(target_os = "linux")]
+fn apply_low_process_priority() {
+    // Applied before Tauri creates WebKit processes so they inherit the same
+    // below-normal scheduling class. nice=10 is Linux's conventional "low"
+    // interactive priority; nice=19 risks starving input under heavy load.
+    let result = unsafe { libc::setpriority(libc::PRIO_PROCESS, 0, 10) };
+    if result != 0 {
+        eprintln!(
+            "topwords: low process priority unavailable: {}",
+            std::io::Error::last_os_error()
+        );
+    }
+}
+
+#[cfg(not(target_os = "linux"))]
+fn apply_low_process_priority() {}
 
 /// Open a link in the user's browser.
 ///
