@@ -12,16 +12,29 @@ namespace TopWords.Windows;
 internal static class AppConfig
 {
     /// <summary>
+    /// Virtual hostname used by the C# packaged-content responder. The RFC 6761
+    /// reserved <c>.example</c> TLD can never collide with a real network host.
+    /// </summary>
+    public const string VirtualHostName = "ydke.example";
+
+    /// <summary>
     /// Origin the app runs against.
     /// <para>
-    /// <b>W5 / B5:</b> replace with the custom domain before the first Store
-    /// submission. Changing it afterwards resets every user's local progress,
+    /// The web app ships inside the package (see <see cref="WebAppFolder"/>) and is
+    /// served by the native host at this origin. The former udsp.vercel.app source
+    /// is retired; the app no longer depends on any live remote origin.
+    /// </para>
+    /// <para>
+    /// Changing <see cref="VirtualHostName"/> resets every user's local progress,
     /// because <c>localStorage</c> is partitioned per origin.
     /// </para>
     /// </summary>
-    public const string AppOrigin = "https://udsp.vercel.app";
+    public const string AppOrigin = "https://" + VirtualHostName;
 
     public const string StartUrl = AppOrigin + "/";
+
+    /// <summary>Folder containing the bundled web app served by <see cref="PackagedContent"/>.</summary>
+    public static string WebAppFolder => Path.Combine(AppContext.BaseDirectory, "webapp");
 
     /// <summary>Appended to the WebView2 user agent so the site can detect the packaged build.</summary>
     public const string UserAgentSuffix = "TopWordsWin/1.0";
@@ -130,7 +143,7 @@ internal static class AppConfig
     /// </summary>
     private static readonly string[] InAppHosts =
     {
-        "udsp.vercel.app",
+        VirtualHostName,
         "accounts.google.com",
         "apis.google.com",
         "*.firebaseapp.com",

@@ -137,8 +137,11 @@ function Publish-Stage {
 
     if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed for $Rid ($LASTEXITCODE)." }
 
-    # Symbols and XML docs are dead weight in a shipped package.
-    Get-ChildItem $StageDir -Include '*.pdb', '*.xml' -Recurse -File | Remove-Item -Force
+    # Symbols and XML docs are dead weight in a shipped package. Exclude the
+    # bundled web app -- it legitimately ships files like sitemap.xml.
+    Get-ChildItem $StageDir -Include '*.pdb', '*.xml' -Recurse -File |
+        Where-Object { $_.FullName -notlike (Join-Path $StageDir 'webapp\*') } |
+        Remove-Item -Force
 }
 
 $architectureOf = @{ 'win-x64' = 'x64'; 'win-x86' = 'x86'; 'win-arm64' = 'arm64' }

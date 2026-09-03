@@ -45,4 +45,23 @@
     <Resource Include="..\..\assets\web\icon-192.png" Link="Assets\logo.png" />
   </ItemGroup>
 
+  <!-- Bundled web app lives at repo-root webapp/ (moved from the retired udsp
+       repo). Mirrored next to the exe so MainWindow's
+       SetVirtualHostNameToFolderMapping can find it, and so package.ps1 and
+       release.ps1 pick it up automatically since both publish straight into
+       the MSIX/MSI staging directory. -->
+  <Target Name="CopyWebApp" AfterTargets="Build;Publish">
+    <ItemGroup>
+      <WebAppFiles Include="$(MSBuildProjectDirectory)\..\..\..\webapp\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(WebAppFiles)"
+          DestinationFolder="$(OutDir)webapp\%(RecursiveDir)"
+          SkipUnchangedFiles="true"
+          Condition="'$(OutDir)' != ''" />
+    <Copy SourceFiles="@(WebAppFiles)"
+          DestinationFolder="$(PublishDir)webapp\%(RecursiveDir)"
+          SkipUnchangedFiles="true"
+          Condition="'$(PublishDir)' != ''" />
+  </Target>
+
 </Project>

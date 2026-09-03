@@ -158,6 +158,10 @@ public partial class MainWindow : ChromeWindow
         settings.IsPasswordAutosaveEnabled = false;
         settings.UserAgent = $"{settings.UserAgent} {AppConfig.UserAgentSuffix}";
 
+        core.AddWebResourceRequestedFilter(
+            AppConfig.AppOrigin + "/*",
+            CoreWebView2WebResourceContext.All);
+
         // W4 — ad networks never leave the machine.
         foreach (var pattern in AppConfig.BlockedResourcePatterns)
         {
@@ -230,11 +234,24 @@ public partial class MainWindow : ChromeWindow
         }
     }
 
-    private void OnWebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
+    private async void OnWebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
     {
-        // Only blocked patterns reach this handler, so everything here is denied.
         if (_environment is null)
         {
+            return;
+        }
+
+        if (PackagedContent.IsRequest(e.Request.Uri))
+        {
+            var deferral = e.GetDeferral();
+            try
+            {
+                e.Response = await PackagedContent.CreateResponseAsync(_environment, e.Request.Uri);
+            }
+            finally
+            {
+                deferral.Complete();
+            }
             return;
         }
 

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "YDKE.Windows (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "YDKE.Windows (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
