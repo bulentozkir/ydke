@@ -15,7 +15,26 @@ public partial class App : Application
     /// </summary>
     public App()
     {
+        ProcessEfficiency.Apply();
         InitializeComponent();
+        UnhandledException += OnUnhandledException;
+    }
+
+    private static void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+    {
+        try
+        {
+            var folder = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "YDKE");
+            Directory.CreateDirectory(folder);
+            File.WriteAllText(
+                Path.Combine(folder, "crash.log"),
+                $"{DateTimeOffset.Now:O}\r\n{e.Exception}");
+        }
+        catch
+        {
+        }
     }
 
     /// <summary>

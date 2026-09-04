@@ -124,11 +124,30 @@ internal static class Program
             icoFrames.Add((size, png));
         }
 
-        var icoPath = Path.Combine(repoRoot, "src", "TopWords.Windows", "Assets", "app.ico");
+        var icoPath = Path.Combine(repoRoot, "src", "YDKE.Windows", "Assets", "AppIcon.ico");
         Directory.CreateDirectory(Path.GetDirectoryName(icoPath)!);
         WriteIco(icoPath, icoFrames);
 
+        var nativeAssets = Path.Combine(repoRoot, "src", "YDKE.Windows", "Assets");
+        CopyAsset(msixDir, nativeAssets, "SplashScreen.scale-200.png", "SplashScreen.scale-200.png");
+        CopyAsset(msixDir, nativeAssets, "Square44x44Logo.scale-200.png", "LockScreenLogo.scale-200.png");
+        CopyAsset(msixDir, nativeAssets, "Square150x150Logo.scale-200.png", "Square150x150Logo.scale-200.png");
+        CopyAsset(msixDir, nativeAssets, "Square44x44Logo.scale-200.png", "Square44x44Logo.scale-200.png");
+        CopyAsset(msixDir, nativeAssets, "Square44x44Logo.targetsize-24_altform-unplated.png", "Square44x44Logo.targetsize-24_altform-unplated.png");
+        CopyAsset(msixDir, nativeAssets, "Square44x44Logo.targetsize-48_altform-unplated.png", "Square44x44Logo.targetsize-48_altform-lightunplated.png");
+        CopyAsset(msixDir, nativeAssets, "StoreLogo.scale-100.png", "StoreLogo.png");
+        CopyAsset(msixDir, nativeAssets, "Wide310x150Logo.scale-200.png", "Wide310x150Logo.scale-200.png");
+
         Console.WriteLine($"Generated {written} PNG assets + app.ico ({icoFrames.Count} frames).");
+    }
+
+    private static void CopyAsset(string sourceDirectory, string targetDirectory, string sourceName, string targetName)
+    {
+        Directory.CreateDirectory(targetDirectory);
+        File.Copy(
+            Path.Combine(sourceDirectory, sourceName),
+            Path.Combine(targetDirectory, targetName),
+            overwrite: true);
     }
 
     private static IEnumerable<IconSpec> Specs()

@@ -1,24 +1,45 @@
-# udsp — Multi-Platform Store Packaging Analysis
+# YDKE - Yabancı Dil Kelime Ezberleme
 
-Analysis workspace for shipping the **Top Words — Trainer** web app
-(<https://udsp.vercel.app>, source: <https://github.com/qlupala9p/udsp>) to the
-**Google Play Store**, the **Microsoft Store**, **Linux desktops**, and
-**macOS**.
+YDKE is a native Windows 11 vocabulary study application built with **C# 14**,
+**.NET 10**, **WinUI 3**, and **Windows App SDK 2.4**. It is not a website or a
+WebView wrapper. Study content and progress are local, so cards, quizzes, word
+lists, and all 25 games work without an internet connection.
 
-Nothing in the `udsp` repository is modified by this analysis. Most fixes
-identified here are described as changes to be made **in the `udsp` repo**,
-because that is where the manifest, service worker, and auth client live.
+Internet access is reserved for the optional Google profile and cloud-progress
+workflow. Users who do not opt in keep all progress privately under their local
+Windows profile.
 
-The Windows track has since moved past analysis: `windows/src/` holds a working
-WPF + WebView2 host. The layout defect recorded as W7 was found by measuring
-that running app and **fixed there**, in
-`windows/src/TopWords.Windows/Scripts/bootstrap.js`. That file is plain,
-platform-agnostic JavaScript and is reused **unchanged** by the Linux and macOS
-tracks.
+## Current Product
+
+- Native project: `windows/src/YDKE.Windows/`
+- Default interface language: **Turkish**
+- Other interface languages: English, German, French, Spanish, Portuguese,
+  Dutch
+- Study languages: English, German, French, Italian, Spanish, Portuguese,
+  Dutch; CEFR A1-C2
+- Games: 25 total, split into **11 Simple Games** and **14 Complex Games**
+- Local vocabulary source: `data/` (53 JavaScript datasets plus a SHA-256
+  manifest, parsed directly by C#)
+- Distribution: self-contained x64/ARM64 MSI and Microsoft Store MSIX bundle
+
+Build the app:
+
+```powershell
+./windows/build.ps1
+```
+
+Build release installers:
+
+```powershell
+./windows/packaging/release.ps1 -Runtime win-x64,win-arm64
+```
+
+The remaining platform-analysis documents are retained as historical research;
+they do not describe the current runtime architecture.
 
 ---
 
-## Documents
+## Archived Documents
 
 | Track | Document | Purpose |
 | --- | --- | --- |
@@ -41,7 +62,12 @@ tracks.
 
 ---
 
-## Executive summary
+## Archived Analysis (Superseded)
+
+Everything below this heading predates the native WinUI rewrite and is retained
+only for decision history.
+
+### Original Executive Summary
 
 The app is **already a competent PWA** — it has a real, well-designed service
 worker with offline support, an installable manifest, and 28 distinct study

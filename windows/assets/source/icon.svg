@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Kelime Ezberleme - Top Words">
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="YDKE - Yabancı Dil Kelime Ezberleme">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#6366f1" />
@@ -35,6 +35,6 @@
   </g>
 
   <!-- text -->
-  <text x="256" y="372" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="62" font-weight="800" fill="#ffffff" letter-spacing="1" textLength="260" lengthAdjust="spacingAndGlyphs">Kelime</text>
-  <text x="256" y="434" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="50" font-weight="800" fill="#ffffff" letter-spacing="1" textLength="360" lengthAdjust="spacingAndGlyphs">Ezberleme</text>
+  <text x="256" y="365" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="76" font-weight="800" fill="#ffffff" letter-spacing="1" textLength="250" lengthAdjust="spacingAndGlyphs">YDKE</text>
+  <text x="256" y="426" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="38" font-weight="700" fill="#ffffff" letter-spacing="1" textLength="354" lengthAdjust="spacingAndGlyphs">Kelime Ezberleme</text>
 </svg>

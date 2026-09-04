@@ -1,33 +1,29 @@
 <#
 .SYNOPSIS
-    Refresh the word-data mirror in `data/` from the udsp source repository.
+    Import a prepared word-data directory into YDKE's root `data/` store.
 
 .DESCRIPTION
-    `data/` is a mirror, not a source of truth. The word lists are authored in
-    the udsp repo (https://github.com/qlupala9p/udsp) under `data/`; this repo
-    keeps a byte-identical copy so the packaged hosts can pre-download it from
-    raw.githubusercontent.com and fill their offline cache on first run.
-
-    Re-run this after every word-list change in udsp, then commit. The hosts
-    verify each downloaded file against the SHA-256 in `data/manifest.json`, so
-    a mirror that is copied without regenerating the manifest will fail closed
-    (nothing is cached) rather than serve stale words.
+    YDKE owns and ships every word list locally. This migration helper imports
+    a prepared `data/` directory and regenerates `data/manifest.json`; normal
+    app builds read directly from YDKE's root `data/` directory and never call
+    this script or download vocabulary from the internet.
 
 .PARAMETER SourceRepo
-    Path to a checkout of the udsp repository. Defaults to a sibling checkout.
+    Path whose `data/` subdirectory should be imported. Required explicitly so
+    no retired or sibling repository can be selected by accident.
 
 .PARAMETER Check
     Report drift and exit non-zero if the mirror is stale. Writes nothing.
     Intended for CI.
 
 .EXAMPLE
-    ./scripts/sync-data.ps1
-    ./scripts/sync-data.ps1 -SourceRepo D:\src\udsp
-    ./scripts/sync-data.ps1 -Check
+    ./scripts/sync-data.ps1 -SourceRepo D:\imports\ydke-data
+    ./scripts/sync-data.ps1 -SourceRepo D:\imports\ydke-data -Check
 #>
 [CmdletBinding(SupportsShouldProcess)]
 param(
-    [string]$SourceRepo = (Join-Path (Split-Path -Parent $PSScriptRoot) '..\udsp'),
+    [Parameter(Mandatory)]
+    [string]$SourceRepo,
     [switch]$Check
 )
 
@@ -38,7 +34,7 @@ $mirrorDir = Join-Path (Split-Path -Parent $PSScriptRoot) 'data'
 $sourceDir = Join-Path $SourceRepo 'data'
 
 if (-not (Test-Path -LiteralPath $sourceDir)) {
-    throw "udsp data folder not found: $sourceDir. Pass -SourceRepo with the path to a udsp checkout."
+    throw "Import data folder not found: $sourceDir. Pass -SourceRepo with a path containing data/."
 }
 
 function Get-DataEntries {
@@ -76,7 +72,7 @@ if ($Check) {
         exit 0
     }
 
-    Write-Host "Mirror is STALE. Run ./scripts/sync-data.ps1 and commit." -ForegroundColor Yellow
+    Write-Host "YDKE data is STALE. Re-run this command without -Check, then commit." -ForegroundColor Yellow
     foreach ($d in $drift) {
         $marker = if ($d.SideIndicator -eq '=>') { 'source only / changed' } else { 'mirror only / stale' }
         Write-Host "  $marker : $($d.InputObject)"
@@ -108,7 +104,7 @@ if ($PSCmdlet.ShouldProcess($mirrorDir, "Mirror $($sourceEntries.Count) word-dat
 
     $manifest = [ordered]@{
         schema     = 1
-        source     = 'https://github.com/qlupala9p/udsp'
+        source     = 'ydke-local-import'
         sourcePath = 'data/'
         generated  = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
         fileCount  = $entries.Count
@@ -121,5 +117,5 @@ if ($PSCmdlet.ShouldProcess($mirrorDir, "Mirror $($sourceEntries.Count) word-dat
 
     $mb = [math]::Round($totalBytes / 1MB, 2)
     Write-Host "Mirrored $($entries.Count) files ($mb MB) and wrote $manifestPath."
-    Write-Host "Commit and push, then pin DATA_REF in shared/bootstrap.js to the new commit SHA."
+    Write-Host "Commit the data files and manifest together."
 }

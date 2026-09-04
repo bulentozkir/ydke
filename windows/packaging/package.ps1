@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-    Stages and builds the MSIX package for the Top Words Windows app.
+    Stages and builds the MSIX package for the native YDKE Windows app.
 
 .DESCRIPTION
-    Publishes the WPF host, assembles the MSIX layout (binaries + tile assets +
+    Publishes the WinUI 3 host, assembles the MSIX layout (binaries + tile assets +
     manifest), then invokes makepri/makeappx from the Windows SDK.
 
     Blocker W2: edit packaging/AppxManifest.xml with the real Partner Center
@@ -26,7 +26,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $root      = Split-Path -Parent $PSScriptRoot
-$project   = Join-Path $root 'src\TopWords.Windows\TopWords.Windows.csproj'
+$project   = Join-Path $root 'src\YDKE.Windows\YDKE.Windows.csproj'
 $assetsDir = Join-Path $root 'assets\msix'
 $manifest  = Join-Path $PSScriptRoot 'AppxManifest.xml'
 $stageDir  = Join-Path $root "build\msix-$Runtime"
@@ -55,7 +55,7 @@ New-Item -ItemType Directory -Force -Path $stageDir, $outputDir | Out-Null
 dotnet publish $project `
     -c Release `
     -r $Runtime `
-    --self-contained false `
+    --self-contained true `
     -p:PublishSingleFile=false `
     -o $stageDir
 
@@ -112,13 +112,20 @@ Then re-run this script.
 # --- 4. Package -----------------------------------------------------------
 $makepri  = Join-Path $sdkBin 'makepri.exe'
 $makeappx = Join-Path $sdkBin 'makeappx.exe'
-$msix     = Join-Path $outputDir "TopWords-$architecture.msix"
+$msix     = Join-Path $outputDir "YDKE-$architecture.msix"
 
-if (Test-Path $makepri) {
+$winUiPri = Join-Path $stageDir 'Microsoft.UI.Xaml.Controls.pri'
+if ((Test-Path $makepri) -and
+    -not (Test-Path $winUiPri) -and
+    -not (Test-Path (Join-Path $stageDir 'resources.pri'))) {
     Push-Location $stageDir
     try {
-        & $makepri createconfig /cf priconfig.xml /dq en-US_tr-TR /o | Out-Null
+        & $makepri createconfig /cf priconfig.xml /dq en-US_tr-TR_de-DE_fr-FR_es-ES_pt-PT_nl-NL /o | Out-Null
+        if ($LASTEXITCODE -ne 0) { throw "makepri createconfig failed with exit code $LASTEXITCODE." }
+
         & $makepri new /pr $stageDir /cf (Join-Path $stageDir 'priconfig.xml') /of resources.pri /o | Out-Null
+        if ($LASTEXITCODE -ne 0) { throw "makepri new failed with exit code $LASTEXITCODE." }
+
         Remove-Item (Join-Path $stageDir 'priconfig.xml') -Force -ErrorAction SilentlyContinue
     }
     finally { Pop-Location }

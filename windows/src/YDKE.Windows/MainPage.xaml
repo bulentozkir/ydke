@@ -6,11 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Loaded="OnLoaded"
+    Unloaded="OnUnloaded"
     mc:Ignorable="d">
 
     <Grid>
         <NavigationView
             x:Name="Navigation"
+            HorizontalContentAlignment="Stretch"
             IsBackButtonVisible="Collapsed"
             CompactPaneLength="56"
             IsPaneOpen="True"
@@ -35,17 +37,56 @@
             </NavigationView.FooterMenuItems>
 
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border
+                    x:Name="QuickSettingsBar"
+                    Grid.Row="0"
+                    Padding="28,10,28,10">
+                    <Grid x:Name="QuickSettingsGrid" ColumnSpacing="10" RowSpacing="10">
+                        <ComboBox
+                            x:Name="QuickUiLanguage"
+                            HorizontalAlignment="Stretch"
+                            DisplayMemberPath="NativeName"
+                            SelectedValuePath="Code"
+                            SelectionChanged="OnQuickUiLanguageChanged" />
+                        <ComboBox
+                            x:Name="QuickStudyLanguage"
+                            HorizontalAlignment="Stretch"
+                            DisplayMemberPath="NativeName"
+                            SelectedValuePath="Code"
+                            SelectionChanged="OnQuickStudyLanguageChanged" />
+                        <ComboBox
+                            x:Name="QuickLevel"
+                            HorizontalAlignment="Stretch"
+                            SelectionChanged="OnQuickLevelChanged" />
+                    </Grid>
+                </Border>
+
                 <ScrollViewer
                     x:Name="ContentScroll"
-                    HorizontalScrollBarVisibility="Disabled"
+                    Grid.Row="1"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    HorizontalScrollBarVisibility="Auto"
+                    SizeChanged="OnContentScrollSizeChanged"
+                    VerticalAlignment="Stretch"
                     VerticalScrollBarVisibility="Auto">
-                    <Grid MaxWidth="1180" Padding="28,24,28,52">
-                        <StackPanel x:Name="PageContent" Spacing="18" />
+                    <Grid x:Name="ContentHost" HorizontalAlignment="Stretch" Padding="28,24,28,52">
+                        <StackPanel
+                            x:Name="PageContent"
+                            MaxWidth="1080"
+                            HorizontalAlignment="Left"
+                            Spacing="18" />
                     </Grid>
                 </ScrollViewer>
 
                 <ProgressRing
                     x:Name="LoadingRing"
+                    Grid.Row="1"
                     Width="44"
                     Height="44"
                     IsActive="False"
@@ -53,6 +94,7 @@
 
                 <InfoBar
                     x:Name="Notice"
+                    Grid.Row="1"
                     Margin="24"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"

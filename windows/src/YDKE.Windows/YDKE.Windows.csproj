@@ -42,15 +42,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\..\..\webapp\data\*.js"
+    <Content Include="..\..\..\data\*.js"
              Link="Data\%(Filename)%(Extension)"
              CopyToOutputDirectory="PreserveNewest"
              CopyToPublishDirectory="PreserveNewest" />
-    <Content Include="..\..\..\webapp\LICENSE"
+    <Content Include="..\..\..\LICENSE"
              Link="ThirdParty\LICENSE"
              CopyToOutputDirectory="PreserveNewest"
              CopyToPublishDirectory="PreserveNewest" />
-    <Content Include="..\..\..\webapp\NOTICE"
+    <Content Include="..\..\..\NOTICE"
              Link="ThirdParty\NOTICE"
              CopyToOutputDirectory="PreserveNewest"
              CopyToPublishDirectory="PreserveNewest" />

@@ -48,7 +48,7 @@ $ErrorActionPreference = 'Stop'
 
 $windowsRoot = Split-Path -Parent $PSScriptRoot
 $repoRoot    = Split-Path -Parent $windowsRoot
-$project     = Join-Path $windowsRoot 'src\TopWords.Windows\TopWords.Windows.csproj'
+$project     = Join-Path $windowsRoot 'src\YDKE.Windows\YDKE.Windows.csproj'
 $assetsDir   = Join-Path $windowsRoot 'assets\msix'
 $manifestSrc = Join-Path $PSScriptRoot 'AppxManifest.xml'
 
@@ -137,11 +137,8 @@ function Publish-Stage {
 
     if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed for $Rid ($LASTEXITCODE)." }
 
-    # Symbols and XML docs are dead weight in a shipped package. Exclude the
-    # bundled web app -- it legitimately ships files like sitemap.xml.
-    Get-ChildItem $StageDir -Include '*.pdb', '*.xml' -Recurse -File |
-        Where-Object { $_.FullName -notlike (Join-Path $StageDir 'webapp\*') } |
-        Remove-Item -Force
+    # Symbols and generated API documentation are not runtime payload.
+    Get-ChildItem $StageDir -Include '*.pdb', '*.xml' -Recurse -File | Remove-Item -Force
 }
 
 $architectureOf = @{ 'win-x64' = 'x64'; 'win-x86' = 'x86'; 'win-arm64' = 'arm64' }
@@ -188,13 +185,28 @@ if (-not $SkipMsix) {
 
         Set-Content (Join-Path $stageDir 'AppxManifest.xml') -Value $manifest -Encoding utf8
 
-        Push-Location $stageDir
-        try {
-            & $makepri createconfig /cf priconfig.xml /dq en-US_tr-TR /o | Out-Null
-            & $makepri new /pr $stageDir /cf (Join-Path $stageDir 'priconfig.xml') /of resources.pri /o | Out-Null
-            Remove-Item (Join-Path $stageDir 'priconfig.xml') -Force -ErrorAction SilentlyContinue
+        $resourcesPri = Join-Path $stageDir 'resources.pri'
+        $winUiPri = Join-Path $stageDir 'Microsoft.UI.Xaml.Controls.pri'
+        if (Test-Path $winUiPri) {
+            Write-Host '  Using WinUI-generated PRI set' -ForegroundColor DarkGray
         }
-        finally { Pop-Location }
+        elseif (-not (Test-Path $resourcesPri)) {
+            Push-Location $stageDir
+            try {
+                & $makepri createconfig /cf priconfig.xml /dq en-US_tr-TR_de-DE_fr-FR_es-ES_pt-PT_nl-NL /o | Out-Null
+                if ($LASTEXITCODE -ne 0) { throw "makepri createconfig failed ($LASTEXITCODE)." }
+
+                & $makepri new /pr $stageDir /cf (Join-Path $stageDir 'priconfig.xml') /of resources.pri /o | Out-Null
+                if ($LASTEXITCODE -ne 0) { throw "makepri new failed ($LASTEXITCODE)." }
+            }
+            finally {
+                Remove-Item (Join-Path $stageDir 'priconfig.xml') -Force -ErrorAction SilentlyContinue
+                Pop-Location
+            }
+        }
+        else {
+            Write-Host '  Using generated resources.pri' -ForegroundColor DarkGray
+        }
 
         $msix = Join-Path $OutputDir "YDKE-$packageVersion-$arch.msix"
         & $makeappx pack /d $stageDir /p $msix /o | Out-Null
@@ -236,7 +248,7 @@ if (-not $SkipMsi) {
         Write-Host "`nBuilding MSI ($arch)..." -ForegroundColor Cyan
 
         $stageDir = Join-Path $windowsRoot "build\release-$rid"
-        if (-not (Test-Path (Join-Path $stageDir 'TopWords.exe'))) {
+        if (-not (Test-Path (Join-Path $stageDir 'YDKE.exe'))) {
             Publish-Stage -Rid $rid -StageDir $stageDir
         }
 

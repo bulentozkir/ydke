@@ -92,6 +92,14 @@ internal sealed class UserSettings
     public string StudyLanguage { get; set; } = "en";
 
     public string Level { get; set; } = "A1";
+
+    public double FontScale { get; set; } = 1;
+
+    public string AppBackgroundColor { get; set; } = AppearancePalette.DefaultBackground;
+
+    public string ButtonColor { get; set; } = AppearancePalette.DefaultButton;
+
+    public string BoxColor { get; set; } = AppearancePalette.DefaultBox;
 }
 
 internal sealed class ProgressState

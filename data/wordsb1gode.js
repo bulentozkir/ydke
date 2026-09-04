@@ -37,6 +37,14 @@
 // too advanced for genuine B1 difficulty were relocated to a harder level.
 window.WORDS_GODE_B1 = [
   {
+    word: "geehrter",
+    pos: "adjective",
+    level: "B1",
+    category: "General",
+    definition: "Honored, dear (formal salutation, e.g. in letters). - Sayın (resmi mektup hitabı).",
+    example: "Sehr geehrter Herr Schmidt, vielen Dank für Ihre Nachricht. - Sayın Bay Schmidt, mesajınız için teşekkür ederim.",
+  },
+  {
     word: "die Umwelt",
     pos: "noun",
     level: "B1",

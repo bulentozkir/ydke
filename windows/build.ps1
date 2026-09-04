@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Build entry point for the Top Words Windows app.
+    Build entry point for the native YDKE Windows app.
 
 .EXAMPLE
     ./build.ps1               # restore + build (Release)
@@ -31,7 +31,7 @@ if (-not (Get-Command dotnet -ErrorAction SilentlyContinue)) {
     throw 'No .NET SDK found. Install .NET 10 from https://dot.net or run dotnet-install.ps1.'
 }
 
-$app     = Join-Path $PSScriptRoot 'src\TopWords.Windows\TopWords.Windows.csproj'
+$app     = Join-Path $PSScriptRoot 'src\YDKE.Windows\YDKE.Windows.csproj'
 $iconGen = Join-Path $PSScriptRoot 'tools\TopWords.IconGen\TopWords.IconGen.csproj'
 
 if ($Icons) {
@@ -46,13 +46,13 @@ if ($LASTEXITCODE -ne 0) { throw "Build failed ($LASTEXITCODE)." }
 
 if ($Publish) {
     $out = Join-Path $PSScriptRoot 'build\publish'
-    dotnet publish $app -c $Configuration -r win-x64 --self-contained false -o $out
+    dotnet publish $app -c $Configuration -r win-x64 --self-contained true -o $out
     if ($LASTEXITCODE -ne 0) { throw "Publish failed ($LASTEXITCODE)." }
     Write-Host "Published to $out" -ForegroundColor Green
 }
 
 if ($Run) {
-    $exe = Join-Path $PSScriptRoot "src\TopWords.Windows\bin\$Configuration\net10.0-windows\TopWords.exe"
+    $exe = Join-Path $PSScriptRoot "src\YDKE.Windows\bin\$Configuration\net10.0-windows10.0.26100.0\win-x64\YDKE.exe"
     Write-Host "Launching $exe" -ForegroundColor Green
     Start-Process $exe
 }

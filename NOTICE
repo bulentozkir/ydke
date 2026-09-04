@@ -1,0 +1,67 @@
+YDKE - Yabancı Dil Kelime Ezberleme
+Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
+
+Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
+Ozkir (YDKE - Yabancı Dil Kelime Ezberleme)
+
+Licensed under the PolyForm Noncommercial License 1.0.0 (the "License").
+NONCOMMERCIAL USE ONLY. You may obtain a copy of the License at
+
+    https://polyformproject.org/licenses/noncommercial/1.0.0
+
+The full text is also reproduced in the LICENSE file in this repository.
+
+As far as the law allows, the software comes AS IS, without any warranty
+or condition, and the licensor will not be liable to you for any damages
+arising out of the License or the use or nature of the software.
+
+
+--------------------------------------------------------------------------
+Commercial licensing
+--------------------------------------------------------------------------
+
+The License does NOT grant any right to use this software for a commercial
+purpose. Any commercial use -- including selling, sublicensing or renting
+the software, hosting it as a paid or ad-supported service, bundling it
+into a commercial product, or using it in the operation of a for-profit
+business -- requires PRIOR WRITTEN PERMISSION from the copyright holders.
+
+Written permission from any ONE of the following addresses is sufficient
+and binding on all of the copyright holders:
+
+    bulentozkir@hotmail.com
+    bulentozkir@gmail.com
+    ahmetardaozkir@gmail.com
+    haliterenozkir@gmail.com
+
+Requests are welcome; separate commercial terms are available on request.
+Permission that has not been given in writing has not been given.
+
+
+--------------------------------------------------------------------------
+Third-party content
+--------------------------------------------------------------------------
+
+The word lists bundled under data/ contain definitions and example
+sentences sourced from open community projects. This content keeps its
+own licence, is NOT covered by the PolyForm Noncommercial grant above,
+and the noncommercial restriction is NOT asserted over it. The PolyForm
+licence applies to this project's own code, interface and compilation.
+
+  Wiktionary
+  Wikimedia Foundation
+  Licensed under CC BY-SA 4.0
+  https://www.wiktionary.org
+  https://creativecommons.org/licenses/by-sa/4.0/
+
+  Tatoeba Project
+  Licensed under CC BY 2.0 FR
+  https://tatoeba.org
+  https://creativecommons.org/licenses/by/2.0/fr/
+
+Turkish translations of Tatoeba example sentences are machine-generated.
+
+Exam names and level frameworks referenced in the application (YDS,
+YOKDIL, TOEFL, telc, Goethe-Institut, CEFR and others) are the property
+of their respective owners and are used for descriptive purposes only.
+No affiliation or endorsement is implied.

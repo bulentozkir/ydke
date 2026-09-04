@@ -35,6 +35,30 @@
 // too advanced for genuine A2 difficulty were relocated to a harder level.
 window.WORDS_GODE_A2 = [
   {
+    word: "sein",
+    pos: "pronoun",
+    level: "A2",
+    category: "General",
+    definition: "His (possessive). - Onun (erkek, iyelik).",
+    example: "Er sucht sein Buch. - O, kitabını arıyor.",
+  },
+  {
+    word: "jeder",
+    pos: "pronoun",
+    level: "A2",
+    category: "General",
+    definition: "Every, each. - Her, her biri.",
+    example: "Jeder Schüler braucht ein Heft. - Her öğrencinin bir deftere ihtiyacı var.",
+  },
+  {
+    word: "welcher",
+    pos: "pronoun",
+    level: "A2",
+    category: "General",
+    definition: "Which (interrogative). - Hangi (soru zamiri).",
+    example: "Welcher Bus fährt zum Bahnhof? - Hangi otobüs istasyona gidiyor?",
+  },
+  {
     word: "die Fahrkarte",
     pos: "noun",
     level: "A2",

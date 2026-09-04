@@ -21,7 +21,7 @@
     ProcessorArchitecture="x64" />
 
   <Properties>
-    <DisplayName>Top Words — Trainer</DisplayName>
+    <DisplayName>YDKE - Yabancı Dil Kelime Ezberleme</DisplayName>
     <PublisherDisplayName>REPLACE_PUBLISHER_DISPLAY_NAME</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -33,12 +33,17 @@
   <Resources>
     <Resource Language="tr-TR" />
     <Resource Language="en-US" />
+    <Resource Language="de-DE" />
+    <Resource Language="fr-FR" />
+    <Resource Language="es-ES" />
+    <Resource Language="pt-PT" />
+    <Resource Language="nl-NL" />
   </Resources>
 
   <Applications>
-    <Application Id="TopWords" Executable="TopWords.exe" EntryPoint="Windows.FullTrustApplication">
+    <Application Id="YDKE" Executable="YDKE.exe" EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
-        DisplayName="Top Words — Trainer"
+        DisplayName="YDKE - Yabancı Dil Kelime Ezberleme"
         Description="İngilizce, Almanca, Fransızca, İtalyanca, İspanyolca, Portekizce ve Hollandaca kelime ezberleme uygulaması."
         BackgroundColor="#0F172A"
         Square150x150Logo="Assets\Square150x150Logo.png"
@@ -48,7 +53,7 @@
           Wide310x150Logo="Assets\Wide310x150Logo.png"
           Square71x71Logo="Assets\Square71x71Logo.png"
           Square310x310Logo="Assets\Square310x310Logo.png"
-          ShortName="Top Words">
+          ShortName="YDKE">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />
             <uap:ShowOn Tile="wide310x150Logo" />

@@ -19,7 +19,10 @@ internal sealed class VocabularyRepository
 
     private readonly ConcurrentDictionary<string, IReadOnlyList<VocabularyEntry>> _cache = new();
 
-    public async Task<IReadOnlyList<VocabularyEntry>> LoadAsync(string languageCode, string level)
+    public async Task<IReadOnlyList<VocabularyEntry>> LoadAsync(
+        string languageCode,
+        string level,
+        CancellationToken cancellationToken = default)
     {
         var key = $"{languageCode}:{level}";
         if (_cache.TryGetValue(key, out var cached))
@@ -30,8 +33,11 @@ internal sealed class VocabularyRepository
         var language = Languages.FirstOrDefault(item => item.Code == languageCode) ?? Languages[0];
         var effectiveLevel = language.Files.ContainsKey(level) ? level : language.Levels[0];
         var path = Path.Combine(AppContext.BaseDirectory, "Data", language.Files[effectiveLevel]);
-        var source = await File.ReadAllTextAsync(path, Encoding.UTF8);
-        var entries = JavaScriptVocabularyParser.Parse(source, language.Code);
+        var source = await File.ReadAllTextAsync(path, Encoding.UTF8, cancellationToken).ConfigureAwait(false);
+        var entries = await Task.Run(
+            () => JavaScriptVocabularyParser.Parse(source, language.Code, cancellationToken),
+            cancellationToken).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
 
         if (entries.Count == 0)
         {
@@ -58,7 +64,10 @@ internal static class JavaScriptVocabularyParser
     private static readonly HashSet<string> Fields =
         ["word", "pos", "level", "category", "definition", "example"];
 
-    public static IReadOnlyList<VocabularyEntry> Parse(string source, string languageCode)
+    public static IReadOnlyList<VocabularyEntry> Parse(
+        string source,
+        string languageCode,
+        CancellationToken cancellationToken = default)
     {
         var arrayStart = source.IndexOf('[', StringComparison.Ordinal);
         if (arrayStart < 0)
@@ -67,8 +76,9 @@ internal static class JavaScriptVocabularyParser
         }
 
         var result = new List<VocabularyEntry>();
-        foreach (var objectSource in ReadObjects(source, arrayStart))
+        foreach (var objectSource in ReadObjects(source, arrayStart, cancellationToken))
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var fields = ReadFields(objectSource);
             if (!fields.TryGetValue("word", out var word) || string.IsNullOrWhiteSpace(word))
             {
@@ -88,7 +98,10 @@ internal static class JavaScriptVocabularyParser
         return result;
     }
 
-    private static IEnumerable<string> ReadObjects(string source, int start)
+    private static IEnumerable<string> ReadObjects(
+        string source,
+        int start,
+        CancellationToken cancellationToken)
     {
         var objectStart = -1;
         var depth = 0;
@@ -97,6 +110,7 @@ internal static class JavaScriptVocabularyParser
 
         for (var index = start; index < source.Length; index++)
         {
+            if ((index & 0x3FFF) == 0) cancellationToken.ThrowIfCancellationRequested();
             var current = source[index];
             if (quote != '\0')
             {

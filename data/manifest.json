@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "source": "https://github.com/qlupala9p/udsp",
+  "source": "ydke-local-import",
   "sourcePath": "data/",
-  "generated": "2026-09-02T06:28:39Z",
+  "generated": "2026-09-03T23:29:52Z",
   "fileCount": 53,
-  "totalBytes": 37298761,
+  "totalBytes": 37296874,
   "files": [
     {
       "name": "partikelverbde.js",
@@ -43,8 +43,8 @@
     },
     {
       "name": "synantde.js",
-      "bytes": 2920947,
-      "sha256": "5f167b00e35c068b07cc95365ac6760c0b6b099360746d0bda34e59a8bcf6d6f"
+      "bytes": 2918687,
+      "sha256": "0f0179b156ed4975edf023822e8efdff60509817547896bf94731eda3406d325"
     },
     {
       "name": "synanten.js",
@@ -78,8 +78,8 @@
     },
     {
       "name": "wordsa1gode.js",
-      "bytes": 426876,
-      "sha256": "cfcbd0714671ba5a4cb5b2cbf981691802d3b3b1dfa7697b2140dbe218a94920"
+      "bytes": 428358,
+      "sha256": "126596c3d635b66dacffc25b5f6b53322dacfe4b8ebd6a093e6353cd2debfbcf"
     },
     {
       "name": "wordsa1it.js",
@@ -113,8 +113,8 @@
     },
     {
       "name": "wordsa2gode.js",
-      "bytes": 498818,
-      "sha256": "01560774b244073a5934a023144f170948e6d1514d766a362b8d64309b1bf14d"
+      "bytes": 499503,
+      "sha256": "5262bd383fdd78d2ef093faeb43aee471b83a29effabd86ff2701b6c7a2b37f3"
     },
     {
       "name": "wordsa2it.js",
@@ -148,8 +148,8 @@
     },
     {
       "name": "wordsb1gode.js",
-      "bytes": 718484,
-      "sha256": "4a4767b10687af45d64d390e5ccc16509b6434800e8fb5782693f0655acbc241"
+      "bytes": 718819,
+      "sha256": "dda061ead178740faa376391ef7f11abba052c22c4285451138b1554710e444d"
     },
     {
       "name": "wordsb1it.js",
@@ -253,8 +253,8 @@
     },
     {
       "name": "wordsc2gode.js",
-      "bytes": 1467630,
-      "sha256": "9b94cf01e9732414c1dca88fffd656a896401fbf2cdd3382e313395deae61c82"
+      "bytes": 1465501,
+      "sha256": "fc456475b8a9d58a42995092d242a1738dfbf39309412eba61d0cfbdc223453c"
     },
     {
       "name": "wordsc2it.js",
