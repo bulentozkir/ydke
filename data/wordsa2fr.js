@@ -3218,11 +3218,11 @@ window.WORDS_FR_A2 = [
     example: "Le chat joue avec une souris vivante. - Kedi canlı bir fareyle oynuyor.",
   },
   {
-    word: "le vive",
+    word: "le hareng",
     pos: "noun",
     level: "A2",
     category: "Animals",
-    definition: "any of certain kind of fish, mostly in the family Trachinidae, but especially the sand tilefish (Malacanthus plumieri) or the Guinean weever (Trachinus armatus) From FishBase. - Çoğunlukla Trachinidae familyasında yer alan belirli bir balık türünden herhangi biri, ancak özellikle kum kiremit balığı (Malacanthus plumieri) veya Gine otu (Trachinus armatus)",
+    definition: "herring, a small silvery fish found in large schools in the sea. - ringa balığı, denizde büyük sürüler halinde bulunan küçük gümüşi bir balık.",
     example: "Il n'y avait pas âme qui vive. - Hayatta bir ruh yoktu.",
   },
   {
@@ -8310,7 +8310,7 @@ window.WORDS_FR_A2 = [
     pos: "noun",
     level: "A2",
     category: "Animals",
-    definition: "dragonfly (an insect of the suborder Anisoptera). - yusufçuk (Anisoptera alt takımına ait bir böcek)",
+    definition: "dragonfly (a thin flying insect with two pairs of long wings, often seen near water). - yusufçuk (genellikle su kenarlarında görülen, iki çift uzun kanadı olan ince uçan böcek).",
     example: "Il a une libellule posée au plafond. - Tavanda dinlenen bir yusufçuk var.",
   },
   {
@@ -12526,7 +12526,7 @@ window.WORDS_FR_A2 = [
     pos: "noun",
     level: "A2",
     category: "Family",
-    definition: "pelican (any of various seabirds of the family Pelecanidae). - pelikan (Pelecanidae familyasına ait çeşitli deniz kuşlarından herhangi biri)",
+    definition: "pelican (a large water bird with a big beak and throat pouch for catching fish). - pelikan (balık yakalamak için büyük bir gagası ve boğaz kesesi olan büyük bir su kuşu).",
     example: "Un pélican peut placer beaucoup de poisson dans son bec. - Bir pelikanın gagasına çok sayıda balık sığabilir.",
   },
   {
@@ -14246,7 +14246,7 @@ window.WORDS_FR_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "rhubarb (any plant of the genus Rheum). - ravent (Rheum cinsinin herhangi bir bitkisi)",
+    definition: "rhubarb (a plant with long red stalks, used in desserts, though its leaves are poisonous). - ravent (yaprakları zehirli olsa da sapları tatlılarda kullanılan bir bitki).",
     example: "Sur le plan botanique, la rhubarbe est un légume. - Botanik olarak ravent bir sebzedir.",
   },
   {
@@ -22218,12 +22218,12 @@ window.WORDS_FR_A2 = [
     example: "Aucune phrase d'exemple disponible pour ce mot. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
-    word: "le phlox",
+    word: "le tournesol",
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "Genus of Polemoniaceae, native to northern Asia and America, with purple, purpurine or white flowers, which are cultivated as ornamental plants. - Kuzey Asya ve Amerika'ya özgü, mor, purpurin veya beyaz çiçekli, süs bitkisi olarak yetiştirilen Polemoniaceae cinsi.",
-    example: "La fleur du phlox est blanche, rose saumon, rouge, orange ou violette. - Floksa çiçeği beyaz, somon pembesi, kırmızı, turuncu veya mor renktedir.",
+    definition: "sunflower (a tall plant with a large round yellow flower that follows the sun). - ayçiçeği (güneşi takip eden büyük yuvarlak sarı çiçekli uzun bir bitki).",
+    example: "Le tournesol se tourne vers le soleil. - Ayçiçeği güneşe doğru döner.",
   },
   {
     word: "gigoter",
@@ -22910,7 +22910,7 @@ window.WORDS_FR_A2 = [
     pos: "noun",
     level: "A2",
     category: "Family",
-    definition: "longhorn beetle (of the family Cerambycidae). - Uzun boynuzlu böcek (Cerambycidae familyasından)",
+    definition: "Capricorn (the tenth sign of the zodiac, symbolized by a goat). - Oğlak burcu (bir keçiyle simgelenen burcun onuncu işareti).",
     example: "Je suis né sous le signe du Capricorne. - Oğlak burcunda doğdum.",
   },
   {

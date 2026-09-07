@@ -46,23 +46,35 @@
                     x:Name="QuickSettingsBar"
                     Grid.Row="0"
                     Padding="28,10,28,10">
-                    <Grid x:Name="QuickSettingsGrid" ColumnSpacing="10" RowSpacing="10">
-                        <ComboBox
-                            x:Name="QuickUiLanguage"
-                            HorizontalAlignment="Stretch"
-                            DisplayMemberPath="NativeName"
-                            SelectedValuePath="Code"
-                            SelectionChanged="OnQuickUiLanguageChanged" />
-                        <ComboBox
-                            x:Name="QuickStudyLanguage"
-                            HorizontalAlignment="Stretch"
-                            DisplayMemberPath="NativeName"
-                            SelectedValuePath="Code"
-                            SelectionChanged="OnQuickStudyLanguageChanged" />
-                        <ComboBox
-                            x:Name="QuickLevel"
-                            HorizontalAlignment="Stretch"
-                            SelectionChanged="OnQuickLevelChanged" />
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid x:Name="QuickSettingsGrid" ColumnSpacing="10" RowSpacing="10">
+                            <ComboBox
+                                x:Name="QuickUiLanguage"
+                                HorizontalAlignment="Stretch"
+                                DisplayMemberPath="NativeName"
+                                SelectedValuePath="Code"
+                                SelectionChanged="OnQuickUiLanguageChanged" />
+                            <ComboBox
+                                x:Name="QuickStudyLanguage"
+                                HorizontalAlignment="Stretch"
+                                DisplayMemberPath="NativeName"
+                                SelectedValuePath="Code"
+                                SelectionChanged="OnQuickStudyLanguageChanged" />
+                            <ComboBox
+                                x:Name="QuickLevel"
+                                HorizontalAlignment="Stretch"
+                                SelectionChanged="OnQuickLevelChanged" />
+                        </Grid>
+                        <FontIcon
+                            x:Name="CloudStatusIcon"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Glyph="&#xE753;" />
                     </Grid>
                 </Border>
 
@@ -75,12 +87,12 @@
                     SizeChanged="OnContentScrollSizeChanged"
                     VerticalAlignment="Stretch"
                     VerticalScrollBarVisibility="Auto">
-                    <Grid x:Name="ContentHost" HorizontalAlignment="Stretch" Padding="28,24,28,52">
+                    <Grid x:Name="ContentHost" HorizontalAlignment="Stretch" Padding="20,16,20,28">
                         <StackPanel
                             x:Name="PageContent"
                             MaxWidth="1080"
                             HorizontalAlignment="Left"
-                            Spacing="18" />
+                            Spacing="12" />
                     </Grid>
                 </ScrollViewer>
 

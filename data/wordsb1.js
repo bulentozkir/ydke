@@ -5411,7 +5411,7 @@ window.WORDS_B1 = [
     pos: "noun",
     level: "B1",
     category: "General",
-    definition: "one of two forms that coelenterates take: it is the free-swimming sexual phase in the life cycle of a coelenterate - Koelenteratların aldığı iki biçimden biri: Bir koelenteratın yaşam döngüsündeki serbest yüzme cinsel aşamasıdır",
+    definition: "in Greek mythology, a monster with snakes for hair whose stare could turn people to stone. - Yunan mitolojisinde, saçları yılan olan ve bakışı insanları taşa çevirebilen bir canavar.",
     example: "Christopher Columbus once stared at Medusa, and Medusa turned to stone. - Christopher Columbus bir zamanlar Medusa'ya baktı ve Medusa taşa dönüştü.",
   },
   {
@@ -5763,7 +5763,7 @@ window.WORDS_B1 = [
     pos: "noun",
     level: "B1",
     category: "General",
-    definition: "an alkaloid poison that occurs in tobacco - tütünde oluşan alkaloit bir zehir",
+    definition: "an addictive chemical found in tobacco and cigarettes. - tütün ve sigarada bulunan bağımlılık yapıcı bir kimyasal.",
     example: "He said that his previous dentist told him that he'd remove nicotine stains if he stopped smoking. - Önceki diş hekiminin, sigarayı bırakırsa nikotin lekelerini çıkaracağını söylediğini söyledi.",
   },
   {
@@ -5931,7 +5931,7 @@ window.WORDS_B1 = [
     pos: "noun",
     level: "B1",
     category: "General",
-    definition: "any of numerous shrubs of genus Vaccinium bearing cranberries - kızılcık taşıyan Vaccinium cinsinin sayısız çalılarından herhangi biri",
+    definition: "a small, tart red berry, often made into juice or sauce. - genellikle suya veya sosa dönüştürülen küçük, eksşi kırmızı bir meyve.",
     example: "There is cranberry juice in the fridge. - Buzdolabında kızılcık suyu var.",
   },
   {
@@ -6027,7 +6027,7 @@ window.WORDS_B1 = [
     pos: "noun",
     level: "B1",
     category: "Weather",
-    definition: "any of several trees of the genus Populus having leaves on flattened stalks so that they flutter in the lightest wind - Populus cinsinin, en hafif rüzgarda bile çırpınacak şekilde düzleştirilmiş sapları üzerinde yaprakları olan birkaç ağaçtan herhangi biri",
+    definition: "a tall tree whose leaves shake and rustle in even a light wind - hafif bir rüzgarda bile yaprakları titreyip hışırdayan uzun bir ağaç",
     example: "Mary's parents live in a 8,000 sq ft. mountaintop home in Aspen. - Mary'nin ailesi Aspen'de dağın tepesinde 8.000 metrekarelik bir evde yaşıyor.",
   },
   {
@@ -7427,7 +7427,7 @@ window.WORDS_B1 = [
     pos: "noun",
     level: "B1",
     category: "Animals",
-    definition: "freshwater carnivorous mammal having webbed and clawed feet and dark brown fur - perdeli ve pençeli ayakları ve koyu kahverengi kürkü olan tatlı su etobur memelisi",
+    definition: "a playful animal with brown fur, webbed feet, and a long tail that swims well. - kahverengi kürkü, perdeli ayakları ve iyi yüzen uzun bir kuyruğu olan oyuncu bir hayvan.",
     example: "As a punishment, the disgraced Greenpeace volunteer had to scrub oil from an otter's fur with his own toothbrush. - Ceza olarak, gözden düşmüş Greenpeace gönüllüsü, kendi diş fırçasıyla bir su samuru kürkündeki yağı temizlemek zorunda kaldı.",
   },
   {
@@ -7587,7 +7587,7 @@ window.WORDS_B1 = [
     pos: "noun",
     level: "B1",
     category: "Food",
-    definition: "any of various highly prized edible subterranean fungi of the genus Tuber - Yumru cinsinin çok değerli çeşitli yenilebilir yeraltı mantarlarından herhangi biri",
+    definition: "a rare and expensive fungus that grows underground, prized in cooking - yer altında yetişen, mutfakta değerli sayılan nadir ve pahalı bir mantar",
     example: "Do you like the taste of truffle? - Trüf mantarının tadını sever misiniz?",
   },
   {
@@ -9211,7 +9211,7 @@ window.WORDS_B1 = [
     pos: "noun",
     level: "B1",
     category: "General",
-    definition: "any plant of the genus Helianthus having large flower heads with dark disk florets and showy yellow rays - Helianthus cinsinin, koyu renkli disk çiçekleri ve gösterişli sarı ışınları olan büyük çiçek başları olan herhangi bir bitki",
+    definition: "a tall plant with a large round yellow flower that follows the sun - güneşi takip eden büyük yuvarlak sarı çiçekli uzun bir bitki",
     example: "It's a sunflower. - Bu bir ayçiçeği.",
   },
   {
@@ -9731,7 +9731,7 @@ window.WORDS_B1 = [
     pos: "noun",
     level: "B1",
     category: "General",
-    definition: "any of various plants of the genus Ranunculus - Ranunculus cinsinin çeşitli bitkilerinden herhangi biri",
+    definition: "a small wild flower with shiny yellow petals - parlak sarı yapraklı küçük bir yabani çiçek",
     example: "When Tom was in the first grade, he would pick buttercup flowers and give them to girls. - Tom birinci sınıftayken düğün çiçeği çiçeklerini toplayıp kızlara verirdi.",
   },
   {
@@ -11555,8 +11555,8 @@ window.WORDS_B1 = [
     pos: "noun",
     level: "B1",
     category: "General",
-    definition: "sometimes placed in genus Scilla - bazen Scilla cinsine yerleştirilir",
-    example: "Please hide the blueberry jam where Takako can't see it. - Lütfen yaban mersini reçelini Takako'nun göremeyeceği bir yere saklayın.",
+    definition: "a woodland flower with small, blue, bell-shaped blooms. - küçük, mavi, çan şeklinde çiçekleri olan bir orman çiçeği.",
+    example: "The forest floor was covered with bluebells in spring. - İlkbaharda orman zemini çançiçekleriyle kaplıydı.",
   },
   {
     word: "ultraviolet",
@@ -12915,7 +12915,7 @@ window.WORDS_B1 = [
     pos: "noun",
     level: "B1",
     category: "Animals",
-    definition: "any bird of the family Icteridae whose male is black or predominantly black - Icteridae familyasından erkeği siyah veya ağırlıklı olarak siyah olan herhangi bir kuş",
+    definition: "a common European bird; the male has all-black feathers and a yellow beak - yaygın bir Avrupa kuşu; erkeği tamamen siyah tüylere ve sarı bir gagaya sahiptir",
     example: "The blackbird found a little red worm in the green grass. - Karatavuk yeşil çimenlerin arasında küçük kırmızı bir solucan buldu.",
   },
   {

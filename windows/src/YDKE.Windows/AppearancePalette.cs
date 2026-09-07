@@ -7,7 +7,7 @@ namespace YDKE_Windows;
 internal sealed class AppearancePalette
 {
     public const string DefaultBackground = "#202124";
-    public const string DefaultButton = "#0B5CAD";
+    public const string DefaultButton = "#007AFF";
     public const string DefaultBox = "#2B2D31";
 
     private AppearancePalette(Color background, Color button, Color box, double fontScale)
@@ -17,6 +17,8 @@ internal sealed class AppearancePalette
         Button = button;
         ButtonForeground = BestForeground(button);
         ButtonBorder = ContrastingBorder(button, ButtonForeground);
+        ButtonTint = Mix(background, button, 0.68);
+        ButtonTintForeground = BestForeground(ButtonTint);
         Box = box;
         BoxForeground = BestForeground(box);
         Border = ContrastingBorder(box, BoxForeground);
@@ -35,6 +37,10 @@ internal sealed class AppearancePalette
     public Color ButtonForeground { get; }
 
     public Color ButtonBorder { get; }
+
+    public Color ButtonTint { get; }
+
+    public Color ButtonTintForeground { get; }
 
     public Color Box { get; }
 
@@ -55,6 +61,10 @@ internal sealed class AppearancePalette
     public SolidColorBrush ButtonForegroundBrush => new(ButtonForeground);
 
     public SolidColorBrush ButtonBorderBrush => new(ButtonBorder);
+
+    public SolidColorBrush ButtonTintBrush => new(ButtonTint);
+
+    public SolidColorBrush ButtonTintForegroundBrush => new(ButtonTintForeground);
 
     public SolidColorBrush BoxBrush => new(Box);
 

@@ -1550,7 +1550,7 @@ window.WORDS_FR_B2 = [
     pos: "noun",
     level: "B2",
     category: "Agriculture",
-    definition: "barn owl, owl of genus Tyto. - peçeli baykuş, Tyto cinsinin baykuşu",
+    definition: "barn owl, a pale owl with a heart-shaped face that hunts at night. - peçeli baykuş, geceleri avını avlayan kalp şeklinde yüzü olan soluk renkli bir baykuş",
     example: "Ne m'effraie pas comme ça ! - Beni böyle korkutma!",
   },
   {
@@ -6150,7 +6150,7 @@ window.WORDS_FR_B2 = [
     pos: "noun",
     level: "B2",
     category: "Animals",
-    definition: "lobster (a crustacean of the Nephropidae, or Homaridae, family). - ıstakoz (Nephropidae veya Homaridae familyasından bir kabuklu)",
+    definition: "lobster, a large sea creature with claws, often eaten as a delicacy. - ıstakoz, sık sık lezzet olarak yenen kaşkıllı büyük bir deniz canlısı",
     example: "Nous ne mangeons du homard qu'aux occasions spéciales. - Istakozu sadece özel günlerde yeriz.",
   },
   {
@@ -6286,7 +6286,7 @@ window.WORDS_FR_B2 = [
     pos: "noun",
     level: "B2",
     category: "Forestry",
-    definition: "gorilla (largest of the apes, belonging to the genus Gorilla, native to the forests of central Africa and known for their trait of knuckle-walking). - goril (maymunların en büyüğü, Goril cinsine ait, Orta Afrika ormanlarına özgü ve parmak eklemlerinde yürüme özellikleriyle bilinen)",
+    definition: "gorilla (the largest of the great apes, living in the forests of central Africa). - goril (Orta Afrika ormanlarında yaşayan, büyük maymunların en büyüğü).",
     example: "Un reporter est en train d'interviewer Docteur Patterson à propos de Koko, un gorille parlant. - Bir muhabir, konuşan bir goril olan Koko hakkında Doktor Patterson ile röportaj yapıyor.",
   },
   {
@@ -9566,7 +9566,7 @@ window.WORDS_FR_B2 = [
     pos: "noun",
     level: "B2",
     category: "Animals",
-    definition: "bat (a small flying mammal of the order Chiroptera). - yarasa (Chiroptera takımından küçük uçan bir memeli)",
+    definition: "bat (a small flying mammal that is active at night). - yarasa (geceleri aktif olan küçük uçan bir memeli).",
     example: "Une chauve-souris chasse et mange la nuit, mais dort la journée. - Yarasa geceleri avlanır ve yemek yer, ancak gündüzleri uyur.",
   },
   {
@@ -14070,7 +14070,7 @@ window.WORDS_FR_B2 = [
     pos: "noun",
     level: "B2",
     category: "Animals",
-    definition: "auk, razorbill (Arctic sea bird from the Alcidae family). - auk, jilet (Alcidae familyasından kutup deniz kuşu)",
+    definition: "penguin, a black-and-white seabird that cannot fly but swims well. - penguen, uçamayan ama iyi yüzen siyah beyaz bir deniz kuşu",
     example: "Ce bébé pingouin est trop mignon ! - Bu bebek penguen çok tatlı!",
   },
   {
@@ -15662,7 +15662,7 @@ window.WORDS_FR_B2 = [
     pos: "noun",
     level: "B2",
     category: "General",
-    definition: "bug, stinkbug; true bug (a member of order Heteroptera). - böcek, kokuşmuş böcek; gerçek böcek (Heteroptera takımının bir üyesi)",
+    definition: "thumbtack, a short pin with a flat head, used to fasten paper to a wall or board. - raptiye, kağıdı duvara veya panoya tutturmak için kullanılan düz başlı kısa bir iğne",
     example: "Il a fixé l'affiche au mur avec une punaise. - Posteri raptiyeyle duvara yapıştırdı.",
   },
   {
@@ -20278,7 +20278,7 @@ window.WORDS_FR_B2 = [
     pos: "noun",
     level: "B2",
     category: "General",
-    definition: "Freshwater carnivorous fish of the Characidae family, living in the rivers of South America. - Güney Amerika nehirlerinde yaşayan, Characidae familyasına ait tatlı su etobur balığı.",
+    definition: "a small, sharp-toothed fish from South America known for attacking in groups. - Güney Amerika'dan gelen, gruplar halinde saldırmasıyla bilinen keskin dişli küçük bir balık.",
     example: "Tom, le piranha n'est pas un animal de compagnie. - Tom, piranha evcil bir hayvan değildir.",
   },
   {
@@ -23690,12 +23690,12 @@ window.WORDS_FR_B2 = [
     example: "Un lion mort ne vaut pas un moucheron qui respire. - Ölü bir aslanın nefes alan bir sivrisineğe bile değeri yoktur.",
   },
   {
-    word: "le mandragore",
+    word: "le romarin",
     pos: "noun",
     level: "B2",
     category: "General",
-    definition: "mandrake, mandragora (plant of the genus Mandragora and its root). - mandrake, mandragora (Mandragora cinsinin bitkisi ve kökü)",
-    example: "Aucune phrase d'exemple disponible pour ce mot. - Bu kelime için örnek cümle bulunamadı.",
+    definition: "rosemary (a fragrant herb often used to season meat and potatoes). - biberiye (sıklıkla et ve patatesleri tatlandırmak için kullanılan hoş kokulu bir bitki).",
+    example: "Le romarin donne un bon goût au poulet rôti. - Biberiye kızarmış tavuğa güzel bir tat verir.",
   },
   {
     word: "le bouleau",
@@ -25798,7 +25798,7 @@ window.WORDS_FR_B2 = [
     pos: "noun",
     level: "B2",
     category: "General",
-    definition: "Asian great ape (genera Hylobates, Hoolook or Nomascus, family Hylobatidae). - Asya büyük maymunu (Hylobates, Hoolook veya Nomascus cinsi, Hylobatidae familyası).",
+    definition: "a small ape from Asia known for swinging quickly through trees. - ağaçlar arasında hızla sallanmasıyla bilinen Asya'dan küçük bir maymun.",
     example: "Aucune phrase d'exemple disponible pour ce mot. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
@@ -28362,12 +28362,12 @@ window.WORDS_FR_B2 = [
     example: "Ils le soutinrent, aussi bien matériellement que spirituellement. - Ona maddi ve manevi destek verdiler.",
   },
   {
-    word: "le bruant",
+    word: "le geai",
     pos: "noun",
     level: "B2",
     category: "Animals",
-    definition: "Any of a large number of passerine birds, roughly equivalent to, but not restricted to, the buntings and sparrows. - Kabaca kirazkuşlarına ve serçelere eşdeğer ancak bunlarla sınırlı olmayan çok sayıda ötücü kuştan herhangi biri",
-    example: "Le bruant zizi ressemble au bruant jaune par la taille, la silhouette et le comportement, mais il est plus petit et plus compact. - Küçük Kiraz Kuşu, boyut, şekil ve davranış açısından Sarı Kiraz Kuşuna benzer, ancak daha küçük ve daha kompakttır.",
+    definition: "jay, a colorful bird known for its loud call and bold behavior. - alaka, yüksek sesi ve cesur davranışlarıyla bilinen renkli bir kuş.",
+    example: "Le geai a volé des graines dans la mangeoire. - Alakarga kuş yemliginden tohum çaldı.",
   },
   {
     word: "l'accédant",
@@ -30234,12 +30234,12 @@ window.WORDS_FR_B2 = [
     example: "À trente-sept piges c'est encore un vrai gamin, qui achète des coussins-péteurs et trouve cela poilant, mon dieu ... - Otuz yedi yaşında olmasına rağmen o hâlâ gerçek bir çocuk; osuruk yastıkları satın alıyor ve bunu çok komik buluyor, Tanrım...",
   },
   {
-    word: "le limande",
+    word: "la sardine",
     pos: "noun",
     level: "B2",
-    category: "General",
-    definition: "dab (Pleuronectidae). - dab (Pleuronectidae)",
-    example: "Elle n'était pas la sorte de limande dont on ne distingue pas l'endroit de l'envers : Elle portait des ramures sur le cul. - Sağ tarafı diğer taraftan ayırt edilemeyecek türden bir pisi balığı değildi: Kıçında boynuzlar vardı.",
+    category: "Food",
+    definition: "a small oily fish often sold packed tightly in tins. - genellikle tenekelerde sıkıca paketlenmiş olarak satılan küçük yağlı bir balık.",
+    example: "Nous avons mangé des sardines grillées sur la plage. - Sahilde ızgara sardalya yedik.",
   },
   {
     word: "réinvestir",
@@ -30862,7 +30862,7 @@ window.WORDS_FR_B2 = [
     pos: "noun",
     level: "B2",
     category: "General",
-    definition: "Genus of plants of the Compositae family, with tonic and stimulating properties. - Tonik ve uyarıcı özelliklere sahip Compositae familyasından bitki cinsi.",
+    definition: "arnica (a plant used to make a cream or gel for treating bruises and sore muscles). - arnika (morlukları ve kas ağrılarını tedavi etmek için krem veya jel yapımında kullanılan bir bitki).",
     example: "Le temps mit bientôt sur mon cœur ulcéré l’arnica de l’oubli. Un clou chasse l’autre, une femme aussi. - Zaman çok geçmeden ülserli kalbimin üzerine unutkanlığın arnikasını koydu. Bir çivi diğerini kovalar, kadın da öyle.",
   },
   {
@@ -31390,7 +31390,7 @@ window.WORDS_FR_B2 = [
     pos: "noun",
     level: "B2",
     category: "General",
-    definition: "plantain, any plant of genus Plantago. - muz, Plantago cinsinin herhangi bir bitkisi",
+    definition: "plantain, a starchy fruit similar to a banana, often cooked before eating. - muz, muza benzeyen nişastalı bir meyve, genellikle yenmeden önce pişirilir",
     example: "Le foutou est un plat délicieux à base de manioc, de banane plantain ou d’igname. - Foutou manyok, muz veya tatlı patatesten yapılan lezzetli bir yemektir.",
   },
   {
@@ -31422,7 +31422,7 @@ window.WORDS_FR_B2 = [
     pos: "noun",
     level: "B2",
     category: "General",
-    definition: "spruce (tree from the genus Picea). - ladin (Picea cinsinden ağaç)",
+    definition: "spruce, an evergreen tree with short needles, often used as a Christmas tree. - ladin, kısa iğneleri olan ve sık sık Noel ağacı olarak kullanılan herdem yeşil bir ağaç",
     example: "Le pin, l’épicéa, la cèdre et le sapin n’ont pas de feuilles. Ce sont des conifères. - Çam, ladin, sedir ve köknarın yaprakları yoktur. Onlar kozalaklı ağaçlardır.",
   },
   {
@@ -33498,12 +33498,12 @@ window.WORDS_FR_B2 = [
     example: "Aucune phrase d'exemple disponible pour ce mot. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
-    word: "le choucas",
+    word: "le rossignol",
     pos: "noun",
     level: "B2",
     category: "Animals",
-    definition: "jackdaw (bird of the genus Coloeus). - küçük karga (Coloeus cinsinin kuşu)",
-    example: "C'est la chouchoute du professeur. - Öğretmenin evcil hayvanıdır.",
+    definition: "nightingale (a small bird famous for its beautiful nighttime song). - bülbül (güzel gece şakımasıyla ünlü küçük bir kuş).",
+    example: "Le rossignol chante magnifiquement la nuit. - Bülbül geceleri muhteşem şakır.",
   },
   {
     word: "génois",

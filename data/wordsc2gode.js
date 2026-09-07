@@ -3273,7 +3273,7 @@ window.WORDS_GODE_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "daisy (flowering plant in the genus Bellis, especially Bellis perennis, the English daisy). - Papatya (Bellis cinsindeki çiçekli bitki, özellikle Bellis perennis, İngiliz papatyası).",
+    definition: "daisy, a small white flower with a yellow center. - papatya, sarı merkezli küçük beyaz bir çiçek.",
     example: "Sie hörte auf, Gänseblümchen zu pflücken. - Papatya toplamayı bıraktı.",
   },
   {
@@ -3489,7 +3489,7 @@ window.WORDS_GODE_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "buttercup (a herb of the genus Ranunculus). - düğün çiçeği (Ranunculus cinsine ait bir bitki).",
+    definition: "buttercup (a small wild plant with shiny yellow flowers). - düğün çiçeği (parlak sarı çiçekleri olan küçük bir yabani bitki).",
     example: "Hahnenkämpfe sind in zahlreichen Ländern illegal. - Horoz dövüşü birçok ülkede yasa dışıdır.",
   },
   {
@@ -7041,7 +7041,7 @@ window.WORDS_GODE_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "pine (tree of genus Pinus). - Çam (Pinus cinsinin ağacı).",
+    definition: "pine, an evergreen tree with long needle-like leaves. - çam, uzun iğne yapraklı herdem yeşil bir ağaç.",
     example: "Die Kiefer wächst oft auf Felsen, wo sie sich mit ihren kräftigen Wurzeln mutig festhält und aus ihrer kargen Existenz das Maximum schöpft. - Çam genellikle kayaların üzerinde yetişir, burada güçlü kökleriyle cesurca tutunur ve kıt varlığından en iyi şekilde yararlanır.",
   },
   {
@@ -33942,7 +33942,7 @@ window.WORDS_GODE_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "any plant of the genus Origanum. - Origanum cinsinin herhangi bir bitkisi.",
+    definition: "oregano (a herb with a strong flavor, often used in Italian cooking). - kekik (İtalyan mutfağında sıklıkla kullanılan güçlü tatlı bir bitki).",
     example: "Dost wird in der italienischen Küche häufig verwendet. - Dost, İtalyan mutfağında yaygın olarak kullanılmaktadır.",
   },
   {

@@ -3659,7 +3659,7 @@ window.WORDS_GODE_A1 = [
     pos: "noun",
     level: "A1",
     category: "Food",
-    definition: "pumpkin, gourd, squash (any plant of the genus Cucurbita or its fruit). - kabak, kabak, kabak (Cucurbita cinsinden herhangi bir bitki veya meyvesi).",
+    definition: "pumpkin, gourd, squash (a large round vegetable, usually orange, common in autumn). - kabak (genellikle turuncu, sonbaharda yaygın olan büyük yuvarlak bir sebze).",
     example: "Was für ein großer Kürbis! - Ne kadar büyük bir balkabağı!",
   },
   {

@@ -100,6 +100,8 @@ internal sealed class UserSettings
     public string ButtonColor { get; set; } = AppearancePalette.DefaultButton;
 
     public string BoxColor { get; set; } = AppearancePalette.DefaultBox;
+
+    public bool CloudConnected { get; set; }
 }
 
 internal sealed class ProgressState

@@ -8403,7 +8403,7 @@ window.WORDS_A1 = [
     pos: "noun",
     level: "A1",
     category: "Animals",
-    definition: "flesh of any of various marine or freshwater fish of the family Salmonidae - Salmonidae familyasına ait çeşitli deniz veya tatlı su balıklarından herhangi birinin eti",
+    definition: "a large pink fish that lives in rivers and the sea, often eaten as food - nehirlerde ve denizde yaşayan, sıklıkla yiyecek olarak tüketilen büyük pembe bir balık",
     example: "The rest of us all had the smoked salmon. - Geri kalanımızın hepsinde somon füme vardı.",
   },
   {
@@ -8507,7 +8507,7 @@ window.WORDS_A1 = [
     pos: "noun",
     level: "A1",
     category: "Food",
-    definition: "any of several edible marine crustaceans of the families Homaridae and Nephropsidae and Palinuridae - Homaridae ve Nephropsidae ve Palinuridae familyalarına ait yenilebilir deniz kabuklularından herhangi biri",
+    definition: "a large sea creature with a hard shell and claws, often eaten as a delicacy. - sert kabuklu ve kaşkılı büyük bir deniz canlısı, sık sık lezzet olarak yenir.",
     example: "Have some frozen lobster at any rate. - Ne olursa olsun biraz donmuş ıstakoz yiyin.",
   },
   {
@@ -8931,7 +8931,7 @@ window.WORDS_A1 = [
     pos: "noun",
     level: "A1",
     category: "General",
-    definition: "any of several cruciferous plants of the genus Brassica - Brassica cinsinin birkaç turpgil bitkisinden herhangi biri",
+    definition: "a yellow or brown sauce with a strong, sharp taste, often eaten with meat - etle sıklıkla yenen, keskin tatlı sarı veya kahverengi bir sos",
     example: "I'd like to have mustard on the side. - Yanında hardal da isterim.",
   },
   {

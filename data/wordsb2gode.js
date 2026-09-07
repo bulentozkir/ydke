@@ -549,12 +549,12 @@ window.WORDS_GODE_B2 = [
     example: "Der Adler flog im Sturzflug auf seine Beute nieder. - Kartal avının üzerine atladı.",
   },
   {
-    word: "Beutelratte",
+    word: "Papagei",
     pos: "noun",
     level: "B2",
     category: "Animals",
-    definition: "opossum (New World marsupial of the family Didelphidae). - opossum (Didelphidae familyasından Yeni Dünya keseli hayvanı).",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
+    definition: "parrot (a colorful tropical bird known for imitating speech). - papağan (konuşmayı taklit etmesiyle bilinen renkli tropikal bir kuş).",
+    example: "Der Papagei kann ein paar Wörter sprechen. - Papağan birkaç kelime konuşabiliyor.",
   },
   {
     word: "Bevollmächtigter",
@@ -3177,7 +3177,7 @@ window.WORDS_GODE_B2 = [
     pos: "noun",
     level: "B2",
     category: "Animals",
-    definition: "cod (marine fish of the family Gadidae). - morina (Gadidae familyasından deniz balığı).",
+    definition: "cod (a common food fish that lives in cold seas). - morina (soğuk denizlerde yaşayan, yaygın olarak yenen bir balık).",
     example: "Ohne Dorsch gibt’s keinen Stockfisch. - Morina olmadan morina olmaz.",
   },
   {
@@ -3385,7 +3385,7 @@ window.WORDS_GODE_B2 = [
     pos: "noun",
     level: "B2",
     category: "Family",
-    definition: "thrush (songbird of the family Turdidae). - pamukçuk (Turdidae familyasından ötücü kuş).",
+    definition: "thrush (a small brown songbird known for its beautiful song). - ardıç kuşu (güzel şakımasıyla bilinen küçük kahverengi bir ötücü kuş).",
     example: "Das Nest der Drossel ist auf einer hohen Pappel. - Ardıç kuşunun yuvası uzun bir kavak ağacının üzerindedir.",
   },
   {

@@ -2673,7 +2673,7 @@ window.WORDS_GODE_C1 = [
     pos: "noun",
     level: "C1",
     category: "Animals",
-    definition: "duck (aquatic bird of the family Anatidae). - ördek (Anatidae familyasından su kuşu).",
+    definition: "duck (a common water bird with a flat beak, often seen on ponds and lakes). - ördek (düz gagalı, sıklıkla göletlerde ve göllerde görülen yaygın bir su kuşu).",
     example: "einer Ente aufsitzen - bir ördeğin üstüne oturmak",
   },
   {
@@ -3193,7 +3193,7 @@ window.WORDS_GODE_C1 = [
     pos: "noun",
     level: "C1",
     category: "General",
-    definition: "heath (genus Erica). - fundalık (cins Erica).",
+    definition: "heath, a small evergreen shrub with tiny pink or purple flowers. - fundalık, küçük pembe veya mor çiçekleri olan küçük bir herdem yeşil çalı.",
     example: "Nahe der Steilküste wachsen Ginster, Erika und Stechginster. - Kayalıkların yakınında karaçalı, funda ve karaçalı yetişiyor.",
   },
   {
@@ -4121,7 +4121,7 @@ window.WORDS_GODE_C1 = [
     pos: "noun",
     level: "C1",
     category: "Animals",
-    definition: "A lepidopteran; an insect of the order Lepidoptera (i.e., a butterfly or moth). - Bir lepidopteran; Lepidoptera takımından bir böcek (yani bir kelebek veya güve).",
+    definition: "a butterfly or moth (an insect with large, often colorful wings). - kelebek veya güve (genellikle renkli büyük kanatları olan bir böcek).",
     example: "An den Zweig zurück, so dacht’ ich, wär’ die Blüte, die ein Falter nur. - Dala döndüğümde çiçeğin sadece bir kelebek olacağını düşündüm.",
   },
   {
@@ -7021,11 +7021,11 @@ window.WORDS_GODE_C1 = [
     example: "Wir fanden ein Zimmer in einem Gasthaus. - Bir handa bir oda bulduk.",
   },
   {
-    word: "Gastropode",
+    word: "Distel",
     pos: "noun",
     level: "C1",
     category: "General",
-    definition: "gastropod. - karındanbacaklı.",
+    definition: "thistle, a wild plant with prickly leaves and purple flowers. - devedikeni, dikenli yaprakları ve mor çiçekleri olan yabani bir bitki.",
     example: "Die Käferschnecken gehören nicht zu den Gastropoden. - Böcek salyangozları karındanbacaklı değildir.",
   },
   {

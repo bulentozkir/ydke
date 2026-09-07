@@ -25,6 +25,11 @@ internal sealed class AppStorage
     public Task SaveProgressAsync(ProgressState progress) =>
         SaveAsync("progress.json", progress);
 
+    // No Google OAuth credentials are configured for this app, so "cloud" progress
+    // is a locally-stored snapshot rather than a real network sync.
+    public Task SaveCloudProfileAsync(ProgressState progress) =>
+        SaveAsync("cloudprofile.json", progress);
+
     private async Task<T> LoadAsync<T>(string fileName, T fallback)
     {
         try

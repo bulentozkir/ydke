@@ -5427,7 +5427,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "any of several Old World tropical aromatic annual or perennial herbs of the genus Ocimum - Ocimum cinsinin birkaç Eski Dünya tropik aromatik yıllık veya çok yıllık bitkilerinden herhangi biri",
+    definition: "a green herb with a strong smell, often used in Italian cooking - İtalyan mutfağında sıklıkla kullanılan, güçlü kokulu yeşil bir bitki",
     example: "I like to add basil to season my spaghetti sauce. - Spagetti sosumu baharatlamak için fesleğen eklemeyi seviyorum.",
   },
   {
@@ -5699,7 +5699,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "bottom-living cephalopod having a soft oval body with eight long tentacles - sekiz uzun dokunaçlı, yumuşak oval bir gövdeye sahip, dipte yaşayan kafadanbacaklı",
+    definition: "a sea creature with eight long arms and a soft, round body. - sekiz uzun kolu ve yumuşak, yuvarlak bir vücudu olan bir deniz canlısı.",
     example: "The octopus is in the sea. - Ahtapot denizde.",
   },
   {
@@ -6003,7 +6003,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "Animals",
-    definition: "widely distributed fast-moving ten-armed cephalopod mollusk having a long tapered body with triangular tail fins - üçgen kuyruk yüzgeçleri olan uzun konik bir gövdeye sahip, geniş çapta dağılmış, hızlı hareket eden on kollu kafadan bacaklı yumuşakça",
+    definition: "a sea creature with ten arms and a long body, often eaten as food. - on kolu ve uzun bir vücudu olan, sık sık yiyecek olarak yenen bir deniz canlısı.",
     example: "A squid has ten arms. - Bir kalamarın on kolu vardır.",
   },
   {
@@ -7035,7 +7035,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "Family",
-    definition: "a low evergreen shrub of the family Ericaceae - Ericaceae familyasına ait düşük yaprak dökmeyen bir çalı",
+    definition: "an area of open land covered with wild, low-growing plants - vahşi, alçak boylu bitkilerle kaplı açık bir arazi",
     example: "A heath is often created or expanded by fire, which prevents the growth of trees. - Çoğunlukla yangın nedeniyle bir fundalık oluşur veya genişletilir, bu da ağaçların büyümesini engeller.",
   },
   {
@@ -7131,7 +7131,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "any plant of the genus Lupinus - Lupinus cinsinin herhangi bir bitkisi",
+    definition: "a tall garden plant with spikes of colorful flowers - renkli çiçek başaklarına sahip uzun bir bahçe bitkisi",
     example: "\"Who's that sleeping?\" \"Professor Lupin.\" \"How does she know everything?\" \"It's all written on his luggage\" \"Is he really sleeping?\" \"Seems so. Why?\" - \"Kim bu uyuyan?\" \"Profesör Lupin.\" \"Her şeyi nasıl biliyor?\" \"Hepsi bagajında ​​yazılı.\" \"Gerçekten uyuyor mu?\" \"Öyle görünüyor. Neden?\"",
   },
   {
@@ -8459,7 +8459,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "a melon vine of the genus Cucumis - Cucumis cinsinden bir kavun asması",
+    definition: "a long green vegetable often eaten in salads - sıklıkla salatalarda yenen uzun yeşil bir sebze",
     example: "A cucumber is related to a watermelon. - Salatalık karpuzla akrabadır.",
   },
   {
@@ -8555,8 +8555,8 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "a bitter alkaloid found in coffee and tea that is responsible for their stimulating effects - kahve ve çayda bulunan ve uyarıcı etkilerinden sorumlu olan acı bir alkaloid",
-    example: "Caffeine is a purinergic antagonist that competitively inhibits adenosine at the sites of P1 receptors. - Kafein, P1 reseptör bölgelerindeki adenosini rekabetçi bir şekilde inhibe eden bir purinerjik antagonisttir.",
+    definition: "a substance in coffee and tea that makes you feel more awake and energetic. - kahve ve çayda bulunan ve sizi daha uyanık ve enerjik hissettiren bir madde.",
+    example: "I drink coffee for the caffeine. - Kafein için kahve içerim.",
   },
   {
     word: "knickers",
@@ -8591,12 +8591,12 @@ window.WORDS_A2 = [
     example: "You can give it back whenever you want to as I bought that book for missionary work. - O kitabı misyonerlik işi için aldığım için istediğin zaman geri verebilirsin.",
   },
   {
-    word: "columbo",
+    word: "compass",
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "any of various tall perennial herbs constituting the genus Frasera - Frasera cinsini oluşturan çeşitli uzun ömürlü bitkilerden herhangi biri",
-    example: "Detective Columbo is always in a frayed raincoat. - Dedektif Columbo her zaman yıpranmış bir yağmurluk giyiyor.",
+    definition: "a device with a needle that always points north, used for finding direction. - her zaman kuzeyi gösteren iğneli, yön bulmak için kullanılan bir cihaz.",
+    example: "We used a compass to find our way through the forest. - Ormanda yolumuzu bulmak için bir pusula kullandık.",
   },
   {
     word: "prairie",
@@ -8643,7 +8643,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "a plant of the genus Trifolium - Trifolium cinsine ait bir bitki",
+    definition: "a small plant with three round leaves, sometimes used as a symbol of luck - genellikle şans simgesi olarak kullanılan, üç yuvarlak yapraklı küçük bir bitki",
     example: "Meg found a four leaf clover. - Meg dört yapraklı bir yonca buldu.",
   },
   {
@@ -9395,7 +9395,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "Family",
-    definition: "any succulent plant of the family Cactaceae native chiefly to arid regions of the New World and usually having spines - Esas olarak Yeni Dünya'nın kurak bölgelerine özgü ve genellikle dikenleri olan Cactaceae familyasına ait herhangi bir etli bitki",
+    definition: "a desert plant with thick stems and sharp spines instead of leaves - yaprak yerine dikenleri olan, kalın gövdeli bir çöl bitkisi",
     example: "Your lips are soft like the surface of a cactus. - Dudaklarınız bir kaktüsün yüzeyi gibi yumuşaktır.",
   },
   {
@@ -10139,7 +10139,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "any evergreen shrub or tree of the genus Myrtus - Myrtus cinsine ait herdem yeşil çalı veya ağaç",
+    definition: "an evergreen shrub with small white flowers, often used in gardens - genellikle bahçelerde kullanılan, küçük beyaz çiçekli, her dem yeşil bir çalı",
     example: "Can myrtle be used in cooking? - Mersin yemek pişirmede kullanılabilir mi?",
   },
   {
@@ -10315,7 +10315,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "any of numerous shrubs of the genus Vaccinium bearing blueberries - Yaban mersini taşıyan Vaccinium cinsinin sayısız çalılarından herhangi biri",
+    definition: "a small round dark blue fruit that grows on a bush - bir çalıda yetişen küçük, yuvarlak, koyu mavi bir meyve",
     example: "Please hide the blueberry jam where Takako can't see it. - Lütfen yaban mersini reçelini Takako'nun göremeyeceği bir yere saklayın.",
   },
   {
@@ -11611,7 +11611,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "any betulaceous tree or shrub of the genus Betula having a thin peeling bark - Betula cinsinin ince kabuklu kabuğu olan herhangi bir yapraklı ağaç veya çalı",
+    definition: "a tree with thin white or silver bark that peels easily - kolayca soyulan ince beyaz veya gümüş renkli kabuğa sahip bir ağaç",
     example: "The birch leaves have already turned yellow. - Huş ağacı yaprakları çoktan sarardı.",
   },
   {
@@ -11635,7 +11635,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "any of various deciduous trees of the genus Tilia with heart-shaped leaves and drooping cymose clusters of yellowish often fragrant flowers - Tilia cinsinin kalp şeklinde yaprakları ve sarımsı, çoğunlukla hoş kokulu çiçeklerinden oluşan sarkık simoz kümeleri olan çeşitli yaprak döken ağaçlarından herhangi biri",
+    definition: "a tall shade tree with heart-shaped leaves and fragrant yellow flowers - kalp şeklinde yapraklara ve hoş kokulu sarı çiçeklere sahip uzun bir gölge ağacı",
     example: "Barren trees are the fir, elder, birch, cypress, beech, ivy, sallow, linden and so on, but most of them afford shade. - Çorak ağaçlar köknar, mürver, huş ağacı, selvi, kayın, sarmaşık, solgun, ıhlamur vb.'dir, ancak çoğu gölge sağlar.",
   },
   {
@@ -12019,7 +12019,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "any of various trees of the genus Juglans - Juglans cinsinin çeşitli ağaçlarından herhangi biri",
+    definition: "a large tree that produces edible nuts with a hard, wrinkled shell - sert, kırışık kabuklu yenilebilir fındık üreten büyük bir ağaç",
     example: "Alex names objects, like \"walnut,\" \"paper\" and \"corn\". - Alex nesnelere \"ceviz\", \"kağıt\" ve \"mısır\" gibi isimler veriyor.",
   },
   {
@@ -12339,7 +12339,7 @@ window.WORDS_A2 = [
     pos: "noun",
     level: "A2",
     category: "General",
-    definition: "any cold-blooded vertebrate of the class Reptilia including tortoises, turtles, snakes, lizards, alligators, crocodiles, and extinct forms - Kaplumbağalar, kaplumbağalar, yılanlar, kertenkeleler, timsahlar, timsahlar ve soyu tükenmiş formlar dahil olmak üzere Reptilia sınıfından herhangi bir soğukkanlı omurgalı",
+    definition: "a cold-blooded animal with scaly skin, such as a snake, lizard, or turtle. - yılan, kertenkele veya kaplumbağa gibi pullu derili soğukkanlı bir hayvan.",
     example: "Researchers say they have determined a mystery fossil discovered in Antarctica in 2011 is a large egg, possibly laid by an ancient aquatic reptile. - Araştırmacılar, 2011 yılında Antarktika'da keşfedilen gizemli fosilin, muhtemelen eski bir su sürüngeninin bıraktığı büyük bir yumurta olduğunu belirlediklerini söylüyorlar.",
   },
   {

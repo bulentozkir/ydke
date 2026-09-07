@@ -3934,7 +3934,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "dahlia, plant of the genus Dahlia. - dahlia, Dahlia cinsinin bitkisi",
+    definition: "dahlia (a garden flower with large, colorful, layered petals). - dalya (büyük, renkli, katmanlı yapraklara sahip bir bahçe çiçeği).",
     example: "Il lui offre un bouquet de dahlias. - Ona bir buket dahlia verir.",
   },
   {
@@ -9022,7 +9022,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "nicotine (alkaloid). - nikotin (alkaloit)",
+    definition: "nicotine, an addictive substance found in tobacco and cigarettes. - nikotin, tütün ve sigarada bulunan bağımlılık yapıcı bir madde",
     example: "Je suis accro à la nicotine. - Nikotin bağımlısıyım.",
   },
   {
@@ -11314,12 +11314,12 @@ window.WORDS_FR_C2 = [
     example: "Le tennis est extrêmement divertissant. - Tenis son derece eğlencelidir.",
   },
   {
-    word: "l'atropine",
+    word: "le hérisson",
     pos: "noun",
     level: "C2",
-    category: "General",
-    definition: "Alkaloid with a tropane nucleus, very toxic, derived, among other things, from belladonna. It is a muscarinic cholinergic antagonist that causes pupil dilation. - Tropan çekirdekli alkaloid, çok zehirlidir ve diğer şeylerin yanı sıra belladonnadan türetilir. Pupil dilatasyonuna neden olan muskarinik kolinerjik bir antagonisttir.",
-    example: "L'atropine est un médicament qui provoque la dilatation des pupilles. - Atropin göz bebeklerinin genişlemesine neden olan bir ilaçtır.",
+    category: "Animals",
+    definition: "hedgehog, a small mammal covered in sharp spines that rolls into a ball when scared. - kirpi, korktuğunda topa dönüşen, keskin dikenlerle kaplı küçük bir memeli.",
+    example: "Le hérisson se roule en boule pour se protéger. - Kirpi kendini korumak için topa dönüşür.",
   },
   {
     word: "spontanément",
@@ -13818,12 +13818,12 @@ window.WORDS_FR_C2 = [
     example: "Le secret du tango est cet instant d'improvisation, qui survient entre deux pas. Rendre possible l'impossible : danser le silence. - Tangonun sırrı iki adım arasında gerçekleşen bu doğaçlama anıdır. İmkansızı mümkün kılmak: sessizlikle dans etmek.",
   },
   {
-    word: "l'opossum",
+    word: "le raton laveur",
     pos: "noun",
     level: "C2",
-    category: "General",
-    definition: "American metatherian mammal of the order Didelphimorphia, generally having a long tail. - Didelphimorphia takımından, genellikle uzun bir kuyruğa sahip olan Amerikan metatherian memelisi.",
-    example: "Bien que le hérisson, la taupe, la loutre, le lapin et l'opossum ressemblent aux rongeurs, ils n'en font pas partie. - Kirpi, köstebek, su samuru, tavşan ve opossum kemirgenlere benzese de kemirgen değildirler.",
+    category: "Animals",
+    definition: "raccoon (a small nocturnal animal with a striped tail and a black mask around its eyes). - rakun (çizgili kuyruğu ve gözlerinin etrafında siyah maske olan küçük, gececi bir hayvan).",
+    example: "Le raton laveur fouille dans les poubelles la nuit. - Rakun geceleri çöp kutularını karıştırır.",
   },
   {
     word: "le rafle",
@@ -15390,7 +15390,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "Animals",
-    definition: "marmot (rodent of the genus Marmota). - dağ sıçanı (Marmota cinsinin kemirgeni)",
+    definition: "marmot (a large ground squirrel that hibernates all winter; also used to mean a heavy sleeper). - dağ sıçanı (tüm kışı kış uykusunda geçiren büyük bir yer sıncağı; aynı zamanda ağır uyuyan biri anlamında da kullanılır).",
     example: "Tu as besoin de neuf heures de sommeil ! Tu es une vraie marmotte. - Dokuz saat uykuya ihtiyacın var! Sen gerçek bir dağ sıçanısın.",
   },
   {
@@ -19406,7 +19406,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "Animals",
-    definition: "wasp (any of many types of stinging flying insects resembling a hornet, normally of the suborder Apocrita). - yaban arısı (normalde Apocrita alt takımına ait, eşek arısına benzeyen birçok sokan uçan böcek türünden herhangi biri)",
+    definition: "wasp (a flying insect with a narrow waist and a painful sting). - eşek arısı (ince belli ve acı veren sokması olan uçan bir böcek).",
     example: "Elle a une taille de guêpe. - Eşekarısı gibi bir beli var.",
   },
   {
@@ -20902,7 +20902,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "Radioactive isotope of cobalt, used in particular in radiotherapy, cobalt-60. - Özellikle radyoterapide kullanılan kobaltın radyoaktif izotopu, kobalt-60.",
+    definition: "a hard, silvery-blue metal used to make strong alloys and blue-colored glass. - kuvvetli alaşımlar ve mavi renkli cam yapmak için kullanılan sert, gümüşi-mavi bir metal.",
     example: "Le cobalt est un métal de transition. - Kobalt bir geçiş metalidir.",
   },
   {
@@ -21350,7 +21350,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "Animals",
-    definition: "pheasant (a bird of family Phasianidae). - sülün (Phasianidae familyasından bir kuş)",
+    definition: "pheasant, a large, colorful bird often hunted for food. - sülün, sık sık yiyecek için avlanan büyük, renkli bir kuş",
     example: "C'est un faisan. - Bu bir sülün.",
   },
   {
@@ -22438,7 +22438,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "asparagus (any of various perennial plants of the genus Asparagus having leaflike stems, scalelike leaves, and small flowers). - kuşkonmaz (kuşkonmaz cinsinin yaprağa benzer sapları, pullu yaprakları ve küçük çiçekleri olan çok yıllık çeşitli bitkilerinden herhangi biri)",
+    definition: "asparagus (a green vegetable with long thin stalks). - kuşkonmaz (uzun ince saplı yeşil bir sebze).",
     example: "Combien de minutes faut-il que je fasse bouillir cette asperge congelée ? - Bu dondurulmuş kuşkonmazı kaç dakika kaynatmam gerekiyor?",
   },
   {
@@ -23238,7 +23238,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "Animals",
-    definition: "mantis (any of various large insects of the order Mantodea). - peygamber devesi (Mantodea takımından çeşitli büyük böceklerden herhangi biri)",
+    definition: "mantis (a large green insect that holds its front legs together as if praying). - peygamber devesi (ön bacaklarını dua eder gibi bir araya getiren büyük yeşil bir böcek).",
     example: "Après avoir copulé, la mante religieuse a l'habitude de dévorer le mâle. - Çiftleşmeden sonra peygamber devesi genellikle erkeği yutar.",
   },
   {
@@ -24022,7 +24022,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "A species of wading bird in the threskiornithidae family, with a long, thin and curved bill. - Threskiornithidae familyasına ait, uzun, ince ve kavisli gagalı bir su kuşu türü.",
+    definition: "ibis, a wading bird with a long, thin, curved beak. - ibis, uzun, ince, kavisli gagalı bir su kuşu.",
     example: "L'ibis a un bec courbé. - İbis'in kavisli bir gagası vardır.",
   },
   {
@@ -24310,7 +24310,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "Snake of the genus Dendroaspis, of the Elapid family, found in much of Africa, with the exception of desert areas. - Elapid familyasından Dendroaspis cinsine ait yılan, çöl bölgeleri hariç Afrika'nın büyük bölümünde bulunur.",
+    definition: "mamba (a fast and highly venomous African snake). - mamba (hızlı ve son derece zehirli bir Afrika yılanı).",
     example: "Aucune phrase d'exemple disponible pour ce mot. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
@@ -27494,7 +27494,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "sandalwood (any of various trees in genus Santalum; the aromatic wood of such trees). - sandal ağacı (Santalum cinsindeki çeşitli ağaçlardan herhangi biri; bu tür ağaçların aromatik odunu)",
+    definition: "sandalwood, a tree with sweet-smelling wood used in perfumes and incense. - sandal ağacı, parfüm ve tütsüde kullanılan tatlı kokulu odunu olan bir ağaç",
     example: "Un étui, un coffret de santal. - Bir kutu, bir sandal ağacı kutusu.",
   },
   {
@@ -29298,12 +29298,12 @@ window.WORDS_FR_C2 = [
     example: "Le toki pona nous invite à remodeler notre façon de penser. - Toki pona bizi düşünce tarzımızı yeniden şekillendirmeye davet ediyor.",
   },
   {
-    word: "le mescaline",
+    word: "le hibou",
     pos: "noun",
     level: "C2",
-    category: "General",
-    definition: "Alkaloid extracted, among other things, from a cactus called peyote (). It is a psychodysleptic, hallucinogenic substance. In 1919 Ernst Späth produced the synthesis. - Alkaloid, diğer şeylerin yanı sıra, peyote () adı verilen bir kaktüsten elde edilir. Psikodisleptik, halüsinojenik bir maddedir. 1919'da Ernst Späth bu sentezi üretti.",
-    example: "Aucune phrase d'exemple disponible pour ce mot. - Bu kelime için örnek cümle bulunamadı.",
+    category: "Animals",
+    definition: "owl, a night bird known for its round eyes and quiet flight. - baykuş, yuvarlak gözleri ve sessiz uçuşuyla bilinen bir gece kuşu.",
+    example: "Le hibou chasse la nuit. - Baykuş geceleri av yapar.",
   },
   {
     word: "perpendiculaire",
@@ -29654,7 +29654,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "Stable isotope of hydrogen whose nucleus contains a proton and a neutron. The chemical symbol is D, the isotopic notation H. - Çekirdeğinde bir proton ve bir nötron bulunan hidrojenin kararlı izotopu. Kimyasal sembol D, izotop notasyonu ise H'dir.",
+    definition: "deuterium, a heavier form of hydrogen used in nuclear reactors and scientific research. - döteryum, nükleer reaktörlerde ve bilimsel araştırmalarda kullanılan hidrojenin daha ağır bir formu.",
     example: "L’eau lourde est de l’eau dont les atomes d’hydrogène sont remplacés par du deutérium. - Ağır su, hidrojen atomlarının yerini döteryumun aldığı sudur.",
   },
   {
@@ -30362,12 +30362,12 @@ window.WORDS_FR_C2 = [
     example: "Le cavalier est la seule pièce qui puisse enjamber d'autres pièces. - At diğer taşların üzerinden geçebilen tek taştır.",
   },
   {
-    word: "le scopolamine",
+    word: "le renard",
     pos: "noun",
     level: "C2",
-    category: "General",
-    definition: "Tropane alkaloid from several Solanaceae (notably datura and brugmansia), with anticholinergic (parasympatholytic) action and sedative effect. - Antikolinerjik (parasempatolitik) etkiye ve sedatif etkiye sahip, çeşitli Solanaceae'den (özellikle datura ve brugmansia) tropan alkaloidi.",
-    example: "C’est à partir de la stramoine que le chimiste allemand Albert Ladenburg isole, en 1881, la scopolamine. - Alman kimyager Albert Ladenburg, 1881'de skopolamini Jimson Grass'tan izole etti.",
+    category: "Animals",
+    definition: "fox, a wild animal with reddish fur and a bushy tail, known for its cleverness. - tilki, kurnazlığıyla bilinen, kızılımsı tüylü ve gür kuyruklu vahşi bir hayvan.",
+    example: "Le renard se cache dans la forêt. - Tilki ormanda saklanıyor.",
   },
   {
     word: "virulent",
@@ -30686,7 +30686,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "Animals",
-    definition: "lobster (a crustacean of the Nephropidae, or Homaridae, family). - ıstakoz (Nephropidae veya Homaridae familyasından bir kabuklu)",
+    definition: "lobster, a large sea creature with claws, often eaten as a delicacy. - ıstakoz, sık sık lezzet olarak yenen kaşkıllı büyük bir deniz canlısı",
     example: "Comment dis-tu « lobster » en français ? - Fransızca'da \"ıstakoz\" nasıl denir?",
   },
   {
@@ -30790,7 +30790,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "Large bird of the order of wading birds, which has a very long beak and very high legs, and which lives mainly on fish. - Çok uzun gagası ve çok yüksek bacakları olan ve çoğunlukla balıkla beslenen, yürüyen kuşlar sınıfından büyük kuş.",
+    definition: "heron (a tall wading bird with long legs and a long beak, often seen near water). - balıkçıl (uzun bacaklı ve uzun gagalı, sıklıkla su kenarlarında görülen uzun boylu bir kuş).",
     example: "Au bord d'un étang, un héron cendré guette les poissons. - Bir göletin kenarında gri bir balıkçıl balıkları izliyor.",
   },
   {
@@ -31454,7 +31454,7 @@ window.WORDS_FR_C2 = [
     pos: "noun",
     level: "C2",
     category: "General",
-    definition: "Generic name for small cold-water shrimp, from the Euphausiaceae family. - Euphausiaceae familyasından küçük soğuk su karidesinin genel adı.",
+    definition: "krill, tiny shrimp-like creatures that live in cold ocean water and are eaten by whales. - krill, soğuk okyanus sularında yaşayan ve balinalar tarafından yenen minik karides benzeri canlılar.",
     example: "Le krill aime se reproduire dans les eaux très froides près des banquises. - Krill buz kütlelerinin yakınındaki çok soğuk sularda üremeyi sever.",
   },
   {

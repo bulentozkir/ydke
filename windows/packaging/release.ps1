@@ -54,6 +54,18 @@ $manifestSrc = Join-Path $PSScriptRoot 'AppxManifest.xml'
 
 if (-not $OutputDir) { $OutputDir = Join-Path $repoRoot 'releases' }
 New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
+Get-ChildItem $OutputDir -File -ErrorAction SilentlyContinue |
+    Where-Object { $_.Name -match '\.msi$|\.msix$|\.msixbundle$' } |
+    Remove-Item -Force -ErrorAction SilentlyContinue
+
+$versionStatePath = Join-Path $PSScriptRoot '.last-package-version.txt'
+$lastPackageVersion = $null
+if (Test-Path $versionStatePath) {
+    $lastPackageVersionText = (Get-Content $versionStatePath -Raw).Trim()
+    if ($lastPackageVersionText) {
+        try { $lastPackageVersion = [Version]$lastPackageVersionText } catch { $lastPackageVersion = $null }
+    }
+}
 
 # --- .NET SDK -------------------------------------------------------------
 $userSdk = Join-Path $env:LOCALAPPDATA 'Microsoft\dotnet'
@@ -73,12 +85,33 @@ if (-not $Version) {
     if (-not $Version) { throw "No <Version> in $project and no -Version supplied." }
 }
 
-# The Store rejects any package whose version revision is non-zero: it reserves
-# the fourth part for its own re-signing pipeline.
 $parts = @($Version.Split('.'))
 while ($parts.Count -lt 4) { $parts += '0' }
+
+if (-not $PSBoundParameters.ContainsKey('Version')) {
+    # MSIX/MSI upgrades are only valid when the package version moves forward.
+    # Use a persisted high-water mark so the build always advances, even when the
+    # output directory is cleared and the same time bucket repeats.
+    $epoch = [DateTime]::new(2024, 1, 1, 0, 0, 0, [DateTimeKind]::Utc)
+    $hoursSinceEpoch = [int][Math]::Floor(([DateTime]::UtcNow - $epoch).TotalHours)
+    $proposedBuild = [Math]::Min($hoursSinceEpoch, 65534)
+
+    if ($lastPackageVersion) {
+        $lastBuild = [int]$lastPackageVersion.Build
+        if ($proposedBuild -le $lastBuild) {
+            $proposedBuild = $lastBuild + 1
+        }
+    }
+
+    $parts[2] = [Math]::Min($proposedBuild, 65534).ToString()
+}
+
+# The Store rejects any package whose version revision is non-zero: it reserves
+# the fourth part for its own re-signing pipeline.
 $parts[3] = '0'
 $packageVersion = $parts[0..3] -join '.'
+$Version = $packageVersion
+Set-Content -Path $versionStatePath -Value $packageVersion -Encoding utf8
 
 Write-Host "Version      $packageVersion" -ForegroundColor Cyan
 Write-Host "Identity     $IdentityName" -ForegroundColor Cyan
@@ -136,6 +169,25 @@ function Publish-Stage {
         -o $StageDir | Out-Null
 
     if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed for $Rid ($LASTEXITCODE)." }
+
+    # `dotnet publish` for a self-contained RID does not carry over the app's own
+    # compiled XAML resources (YDKE.pri + *.xbf) — only the framework's own PRI
+    # files (Microsoft.UI.*.pri) come along. Without them the app crashes at
+    # startup on a clean machine (STATUS_DLL_NOT_FOUND-class failure), since the
+    # WinUI XAML loader cannot resolve any page. Force a matching `dotnet build`
+    # for this RID and pull those specific files from its bin/ output.
+    & dotnet build $project -c Release -r $Rid -p:Version=$Version | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw "dotnet build failed for $Rid ($LASTEXITCODE)." }
+
+    $projectDir = Split-Path -Parent $project
+    $csprojXml = [xml](Get-Content $project -Raw)
+    $targetFramework = $csprojXml.Project.PropertyGroup.TargetFramework | Where-Object { $_ } | Select-Object -First 1
+    $buildOutDir = Join-Path $projectDir "bin\Release\$targetFramework\$Rid"
+    $builtPri = Join-Path $buildOutDir 'YDKE.pri'
+    if (-not (Test-Path $builtPri)) { throw "YDKE.pri missing from build output $buildOutDir — cannot stage a working package." }
+
+    Copy-Item $builtPri $StageDir -Force
+    Get-ChildItem $buildOutDir -Filter '*.xbf' | Copy-Item -Destination $StageDir -Force
 
     # Symbols and generated API documentation are not runtime payload.
     Get-ChildItem $StageDir -Include '*.pdb', '*.xml' -Recurse -File | Remove-Item -Force

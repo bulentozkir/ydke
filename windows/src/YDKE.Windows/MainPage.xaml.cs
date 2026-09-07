@@ -22,6 +22,8 @@ public sealed partial class MainPage : Page
     private IReadOnlyList<VocabularyEntry> _words = [];
     private string _currentPage = "home";
     private int _cardIndex;
+    private int _quizIndex;
+    private IReadOnlyList<VocabularyEntry> _quizSequence = [];
     private bool _initialized;
     private GameSession? _activeGame;
     private DispatcherTimer? _gameTimer;
@@ -229,9 +231,18 @@ public sealed partial class MainPage : Page
         QuickStudyLanguage.SelectedValue = _settings.StudyLanguage;
         QuickLevel.ItemsSource = CurrentStudyLanguage().Levels;
         QuickLevel.SelectedItem = _settings.Level;
+        QuickUiLanguage.Header = QuickSettingLabel(T("Profile.UiLanguage"));
+        QuickStudyLanguage.Header = QuickSettingLabel(T("Profile.StudyLanguage"));
+        QuickLevel.Header = QuickSettingLabel(T("Profile.Level"));
         AutomationProperties.SetName(QuickUiLanguage, T("Profile.UiLanguage"));
         AutomationProperties.SetName(QuickStudyLanguage, T("Profile.StudyLanguage"));
         AutomationProperties.SetName(QuickLevel, T("Profile.Level"));
+        var statusText = _settings.CloudConnected ? T("Profile.Connected") : T("Profile.Disconnected");
+        CloudStatusIcon.Foreground = new SolidColorBrush(_settings.CloudConnected
+            ? Color.FromArgb(255, 4, 120, 87)
+            : Color.FromArgb(255, 190, 18, 60));
+        AutomationProperties.SetName(CloudStatusIcon, statusText);
+        ToolTipService.SetToolTip(CloudStatusIcon, statusText);
     }
 
     private async void OnQuickUiLanguageChanged(object sender, SelectionChangedEventArgs e)
@@ -270,24 +281,50 @@ public sealed partial class MainPage : Page
             Severity = InfoBarSeverity.Success,
             Title = T("Home.Offline"),
             Message = $"{CurrentStudyLanguage().NativeName} · {_settings.Level} · {_words.Count:N0}",
+            Margin = new Thickness(0, 0, 0, 6),
         });
 
-        var stats = new Grid { ColumnSpacing = 12, RowSpacing = 12 };
+        var stats = new Grid { ColumnSpacing = 10, RowSpacing = 10 };
         for (var index = 0; index < 4; index++) stats.ColumnDefinitions.Add(new ColumnDefinition());
         AddStat(stats, 0, T("Home.Known"), _progress.KnownWords.Count.ToString("N0"), "");
         AddStat(stats, 1, T("Home.Favorites"), _progress.FavoriteWords.Count.ToString("N0"), "");
         AddStat(stats, 2, T("Home.Games"), GameCatalog.All.Count.ToString(), "");
         AddStat(stats, 3, T("Stats.Success"), SuccessRate(), "");
-        ConfigureResponsiveGrid(stats, 4, 190);
+        ConfigureResponsiveGrid(stats, 4, 170);
         PageContent.Children.Add(stats);
 
-        var continuePanel = new StackPanel { Spacing = 12 };
-        continuePanel.Children.Add(Heading(T("Home.Daily"), 20));
+        var suite = new Grid { ColumnSpacing = 12, RowSpacing = 12 };
+        suite.ColumnDefinitions.Add(new ColumnDefinition());
+        suite.ColumnDefinitions.Add(new ColumnDefinition());
+
+        var continuePanel = new StackPanel { Spacing = 8 };
+        continuePanel.Children.Add(Heading(T("Home.Daily"), 18));
         continuePanel.Children.Add(Body($"{CurrentStudyLanguage().NativeName} · {_settings.Level}"));
         var continueButton = AccentButton(T("Home.Continue"), "");
         continueButton.Click += (_, _) => NavigateTo("cards", CardsItem);
         continuePanel.Children.Add(continueButton);
-        PageContent.Children.Add(Card(continuePanel, 24));
+        suite.Children.Add(Card(continuePanel, 18));
+
+        var cloud = new StackPanel { Spacing = 8 };
+        cloud.Children.Add(SettingHeader("", T("Profile.Cloud"), T("Profile.CloudHint")));
+        cloud.Children.Add(Body(_settings.CloudConnected ? T("Profile.Connected") : T("Profile.Disconnected")));
+        var signInButton = SecondaryButton(_settings.CloudConnected ? T("Profile.SignOut") : T("Profile.SignIn"), "");
+        signInButton.Click += async (_, _) =>
+        {
+            _settings.CloudConnected = !_settings.CloudConnected;
+            await _storage.SaveSettingsAsync(_settings);
+            if (_settings.CloudConnected) await _storage.SaveCloudProfileAsync(_progress);
+            ShowNotice(
+                _settings.CloudConnected ? T("Profile.Connected") : T("Profile.Disconnected"),
+                _settings.CloudConnected ? T("Profile.CloudSynced") : T("Profile.CloudHint"),
+                _settings.CloudConnected ? InfoBarSeverity.Success : InfoBarSeverity.Informational);
+            RenderCurrentPage();
+        };
+        cloud.Children.Add(signInButton);
+        var cloudCard = Card(cloud, 18);
+        Grid.SetColumn(cloudCard, 1);
+        suite.Children.Add(cloudCard);
+        PageContent.Children.Add(suite);
     }
 
     private void RenderCards()
@@ -298,25 +335,23 @@ public sealed partial class MainPage : Page
         if (_words.Count == 0) { PageContent.Children.Add(Body(T("Words.Empty"))); return; }
 
         var entry = _words[_cardIndex % _words.Count];
-        var content = new StackPanel { Spacing = 16, HorizontalAlignment = HorizontalAlignment.Stretch };
+        var content = new StackPanel { Spacing = 10, HorizontalAlignment = HorizontalAlignment.Stretch };
         content.Children.Add(ChipRow(entry));
         content.Children.Add(new TextBlock
         {
             Text = entry.Word,
-            FontSize = Font(42),
+            FontSize = Font(36),
             FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
             TextWrapping = TextWrapping.Wrap,
             HorizontalAlignment = HorizontalAlignment.Center,
-            Margin = new Thickness(0, 24, 0, 20),
+            Margin = new Thickness(0, 12, 0, 12),
         });
 
-        var definition = Body(LocalizedPart(entry.Definition));
-        definition.FontSize = Font(19);
-        definition.TextAlignment = TextAlignment.Center;
+        var definition = RevealCallout(T("Cards.Meaning"), LocalizedPart(entry.Definition), 18, compact: true);
         definition.Visibility = Visibility.Collapsed;
         content.Children.Add(definition);
-        var example = Body(entry.Example);
-        example.TextAlignment = TextAlignment.Center;
+
+        var example = RevealCallout(T("Cards.Example"), entry.Example, 15, compact: true, italic: true);
         example.Visibility = Visibility.Collapsed;
         content.Children.Add(example);
 
@@ -340,29 +375,40 @@ public sealed partial class MainPage : Page
         tools.Children.Add(showExample);
         ConfigureResponsiveGrid(tools, 3, 150);
         content.Children.Add(tools);
-        var studyCard = Card(content, 32);
-        studyCard.MinHeight = 260;
+        var studyCard = Card(content, 24);
+        studyCard.MinHeight = 220;
         studyCard.HorizontalAlignment = HorizontalAlignment.Stretch;
         PageContent.Children.Add(studyCard);
 
-        var actions = new Grid { ColumnSpacing = 10, RowSpacing = 10 };
+        var actions = new Grid { ColumnSpacing = 8, RowSpacing = 8 };
+        var previous = SecondaryButton(T("Cards.Previous"), "");
+        previous.Click += (_, _) => PreviousCard();
         var favorite = SecondaryButton(T("Cards.Favorite"), "");
-        favorite.Click += async (_, _) => { Toggle(_progress.FavoriteWords, entry.Key); await _storage.SaveProgressAsync(_progress); };
+        favorite.Click += async (_, _) => { Toggle(_progress.FavoriteWords, entry.Key); await SaveProgressAsync(); };
         var known = SecondaryButton(T("Cards.Known"), "");
         known.Click += async (_, _) =>
         {
             _progress.KnownWords.Add(entry.Key);
             RegisterStudy();
-            await _storage.SaveProgressAsync(_progress);
+            await SaveProgressAsync();
             NextCard();
         };
         var next = AccentButton(T("Cards.Next"), "");
         next.Click += (_, _) => NextCard();
+        actions.Children.Add(previous);
         actions.Children.Add(favorite);
         actions.Children.Add(known);
         actions.Children.Add(next);
-        ConfigureResponsiveGrid(actions, 3, 165);
+        ConfigureResponsiveGrid(actions, 4, 165);
         PageContent.Children.Add(actions);
+    }
+
+    private void PreviousCard()
+    {
+        StopSpeechPlayback();
+        var count = Math.Max(_words.Count, 1);
+        _cardIndex = (_cardIndex - 1 + count) % count;
+        RenderCards();
     }
 
     private void NextCard()
@@ -480,22 +526,68 @@ public sealed partial class MainPage : Page
 
     private void RenderQuiz()
     {
+        PageContent.Children.Clear();
+        ContentScroll.ChangeView(0, 0, null, disableAnimation: true);
         AddPageHeader(T("Quiz.Title"), $"{CurrentStudyLanguage().NativeName} · {_settings.Level}");
         if (_words.Count < 4) { PageContent.Children.Add(Body(T("Words.Empty"))); return; }
-        var answer = _words[_random.Next(_words.Count)];
-        var prompt = new StackPanel { Spacing = 12 };
+
+        var questionCount = Math.Min(8, _words.Count);
+        if (_quizSequence.Count != questionCount || !_quizSequence.All(item => _words.Any(word => word.Key == item.Key)))
+        {
+            _quizSequence = _words.OrderBy(_ => _random.Next()).Take(questionCount).ToArray();
+            _quizIndex = 0;
+        }
+
+        if (_quizIndex < 0) _quizIndex = 0;
+        if (_quizIndex >= _quizSequence.Count) _quizIndex = _quizSequence.Count - 1;
+        var answer = _quizSequence[_quizIndex];
+
+        var prompt = new StackPanel { Spacing = 10 };
         prompt.Children.Add(Body(T("Quiz.Question")));
-        prompt.Children.Add(Heading(LocalizedPart(answer.Definition), 24));
-        PageContent.Children.Add(Card(prompt, 24));
+        // The definition is the question itself in Quiz mode, so it must stay visible (unlike Cards).
+        var definition = RevealCallout(T("Cards.Meaning"), LocalizedPart(answer.Definition), 18, compact: true);
+        prompt.Children.Add(definition);
+
+        var example = RevealCallout(T("Cards.Example"), answer.Example, 15, compact: true, italic: true);
+        example.Visibility = Visibility.Collapsed;
+        prompt.Children.Add(example);
+
+        var actions = new Grid { ColumnSpacing = 8, RowSpacing = 8 };
+        var previous = SecondaryButton(T("Quiz.Previous"), "");
+        previous.Click += (_, _) =>
+        {
+            _quizIndex = (_quizIndex - 1 + _quizSequence.Count) % _quizSequence.Count;
+            RenderQuiz();
+        };
+        var showExample = SecondaryButton(T("Quiz.Example"), "");
+        showExample.Click += (_, _) =>
+        {
+            example.Visibility = Visibility.Visible;
+            showExample.IsEnabled = false;
+        };
+        var next = AccentButton(T("Quiz.Next"), "");
+        next.Click += (_, _) =>
+        {
+            _quizIndex = (_quizIndex + 1) % _quizSequence.Count;
+            RenderQuiz();
+        };
+        actions.Children.Add(previous);
+        actions.Children.Add(showExample);
+        actions.Children.Add(next);
+        ConfigureResponsiveGrid(actions, 3, 150);
+        PageContent.Children.Add(Card(prompt, 18));
+        PageContent.Children.Add(actions);
+
         var choices = _words.Where(word => word.Key != answer.Key).OrderBy(_ => _random.Next()).Take(3)
             .Append(answer).OrderBy(_ => _random.Next()).ToArray();
-        var answerPanel = new StackPanel { Spacing = 10 };
+        var answerPanel = new StackPanel { Spacing = 8 };
         foreach (var choice in choices)
         {
             var button = ChoiceButton(choice.Word);
             button.Click += async (_, _) =>
             {
                 await RegisterAnswerAsync(choice.Key == answer.Key, answer.Word);
+                _quizIndex = (_quizIndex + 1) % _quizSequence.Count;
                 RenderQuiz();
             };
             answerPanel.Children.Add(button);
@@ -512,7 +604,7 @@ public sealed partial class MainPage : Page
             QueryIcon = new SymbolIcon(Symbol.Find),
             HorizontalAlignment = HorizontalAlignment.Stretch,
         };
-        var list = new StackPanel { Spacing = 8 };
+        var list = new StackPanel { Spacing = 6 };
         void Populate(string query)
         {
             list.Children.Clear();
@@ -524,10 +616,10 @@ public sealed partial class MainPage : Page
             if (matches.Length == 0) { list.Children.Add(Body(T("Words.Empty"))); return; }
             foreach (var entry in matches)
             {
-                var row = new StackPanel { Spacing = 6 };
-                row.Children.Add(Heading(entry.Word, 17));
+                var row = new StackPanel { Spacing = 4 };
+                row.Children.Add(Heading(entry.Word, 16));
                 row.Children.Add(Body(LocalizedPart(entry.Definition)));
-                list.Children.Add(Card(row, 14));
+                list.Children.Add(Card(row, 12));
             }
         }
         search.TextChanged += (_, args) => { if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput) Populate(search.Text); };
@@ -541,7 +633,7 @@ public sealed partial class MainPage : Page
         var games = GameCatalog.Get(group);
         AddPageHeader(T(group == GameGroup.Simple ? "Games.SimpleTitle" : "Games.ComplexTitle"),
             T(group == GameGroup.Simple ? "Games.SimpleSubtitle" : "Games.ComplexSubtitle"));
-        var grid = new Grid { ColumnSpacing = 12, RowSpacing = 12 };
+        var grid = new Grid { ColumnSpacing = 10, RowSpacing = 10 };
         for (var index = 0; index < games.Count; index++)
         {
             var button = GameButton(games[index]);
@@ -586,8 +678,8 @@ public sealed partial class MainPage : Page
             Content = layout,
             HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
-            Padding = new Thickness(18),
-            MinHeight = 112,
+            Padding = new Thickness(14),
+            MinHeight = 96,
             CornerRadius = new CornerRadius(8),
             Background = AppearancePalette.Current.BoxBrush,
             BorderBrush = AppearancePalette.Current.BorderBrush,
@@ -605,21 +697,44 @@ public sealed partial class MainPage : Page
         StopGameTimer();
         _activeGame = null;
         PageContent.Children.Clear();
-        var back = SecondaryButton(T("Games.Back"), "");
-        back.HorizontalAlignment = HorizontalAlignment.Left;
-        back.Click += (_, _) => RenderGames(game.Group);
-        PageContent.Children.Add(back);
+        PageContent.Children.Add(GameToolbar(
+            onBack: () => RenderGames(game.Group),
+            onHint: () => ShowNotice(T("Game.Hint"), T("Game.HintText"), InfoBarSeverity.Informational)));
         var hero = GameHero(game, showBest: true);
         PageContent.Children.Add(hero);
         AnimateEntrance(hero);
-        var details = new StackPanel { Spacing = 10 };
-        details.Children.Add(Heading(GameDescription(game), 19));
+        var details = new StackPanel { Spacing = 8 };
+        details.Children.Add(Heading(GameDescription(game), 18));
         details.Children.Add(Body($"{T("Common.Language")}: {CurrentStudyLanguage().NativeName}  ·  {T("Common.Level")}: {_settings.Level}"));
         var start = AccentButton(T("Games.Start"), "");
         start.HorizontalAlignment = HorizontalAlignment.Left;
         start.Click += (_, _) => StartGame(game);
         details.Children.Add(start);
         PageContent.Children.Add(Card(details, 22));
+    }
+
+    private StackPanel GameToolbar(Action onBack, Action onHint)
+    {
+        var toolbar = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 12,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Margin = new Thickness(0, 0, 0, 12),
+        };
+
+        var back = SecondaryButton(T("Games.Back"), "");
+        back.HorizontalAlignment = HorizontalAlignment.Left;
+        back.Click += (_, _) => onBack();
+        toolbar.Children.Add(back);
+
+        var hint = SecondaryButton(T("Game.Hint"), "💡");
+        hint.HorizontalAlignment = HorizontalAlignment.Left;
+        hint.Click += (_, _) => onHint();
+        ToolTipService.SetToolTip(hint, T("Game.Hint"));
+        toolbar.Children.Add(hint);
+
+        return toolbar;
     }
 
     private void StartGame(GameDefinition game)
@@ -634,10 +749,9 @@ public sealed partial class MainPage : Page
     {
         if (_activeGame != session) return;
         PageContent.Children.Clear();
-        var back = SecondaryButton(T("Games.Back"), "");
-        back.HorizontalAlignment = HorizontalAlignment.Left;
-        back.Click += (_, _) => RenderGameDetail(session.Game);
-        PageContent.Children.Add(back);
+        PageContent.Children.Add(GameToolbar(
+            onBack: () => RenderGameDetail(session.Game),
+            onHint: () => ShowNotice(T("Game.Hint"), T("Game.HintText"), InfoBarSeverity.Informational)));
         PageContent.Children.Add(GameHud(session));
         var progress = new ProgressBar
         {
@@ -666,12 +780,19 @@ public sealed partial class MainPage : Page
                 RenderTrueFalseChallenge(session);
                 break;
             case GameMechanic.LetterTiles:
+                RenderScrambleRound(session);
+                break;
+            case GameMechanic.BossBattle:
+                RenderBossRushRound(session);
+                break;
+            case GameMechanic.ClueWords:
+                RenderCodyCrossRound(session);
+                break;
             case GameMechanic.TimedTyping:
             case GameMechanic.ListeningTyping:
             case GameMechanic.Scrabble:
             case GameMechanic.CategorySprint:
             case GameMechanic.ProgressiveClues:
-            case GameMechanic.ClueWords:
             case GameMechanic.Crossword:
             case GameMechanic.WordSequence:
                 RenderTypingChallenge(session);
@@ -762,8 +883,10 @@ public sealed partial class MainPage : Page
         var target = NormalizeAnswer(entry.Word).ToUpperInvariant();
         var guessed = new HashSet<char>();
         var misses = 0;
+        var revealed = 0;
         var panel = GameSceneContent();
         panel.Children.Add(GameCaption(LocalizedPart(entry.Definition)));
+        var (figure, parts) = BuildHangmanFigure();
         var word = GamePrompt(string.Empty, 36);
         word.CharacterSpacing = 180;
         var missText = GameCaption(string.Empty);
@@ -785,6 +908,7 @@ public sealed partial class MainPage : Page
                 button.IsEnabled = false;
                 guessed.Add(letter);
                 if (!target.Contains(letter)) misses++;
+                while (revealed < misses) PopReveal(parts[revealed++]);
                 Refresh();
                 if (target.All(character => !char.IsLetter(character) || guessed.Contains(character)))
                     await ResolveGameAnswerAsync(session, true, entry.Word, button);
@@ -796,7 +920,102 @@ public sealed partial class MainPage : Page
         ConfigureResponsiveGrid(keyboard, 9, 44);
         Refresh();
         panel.Children.Add(keyboard);
-        AddGameScene(session.Game, panel);
+        AddGameScene(session.Game, panel, figure);
+    }
+
+    // Gallows drawn once (frame) plus 6 body parts revealed one per wrong guess, in
+    // the same head/body/arms/legs order as the original web game's SVG figure.
+    private static (Canvas Canvas, UIElement[] Parts) BuildHangmanFigure()
+    {
+        var canvas = new Canvas { Width = 200, Height = 220, HorizontalAlignment = HorizontalAlignment.Center };
+        var frameBrush = new SolidColorBrush(Color.FromArgb(220, 255, 255, 255));
+        Line Frame(double x1, double y1, double x2, double y2) => new()
+        {
+            X1 = x1, Y1 = y1, X2 = x2, Y2 = y2,
+            Stroke = frameBrush,
+            StrokeThickness = 4,
+            StrokeStartLineCap = PenLineCap.Round,
+            StrokeEndLineCap = PenLineCap.Round,
+        };
+        canvas.Children.Add(Frame(20, 212, 120, 212));
+        canvas.Children.Add(Frame(50, 212, 50, 18));
+        canvas.Children.Add(Frame(50, 18, 132, 18));
+        canvas.Children.Add(Frame(132, 18, 132, 44));
+
+        var dangerBrush = new SolidColorBrush(Color.FromArgb(255, 190, 18, 60));
+        Line Part(double x1, double y1, double x2, double y2) => new()
+        {
+            X1 = x1, Y1 = y1, X2 = x2, Y2 = y2,
+            Stroke = dangerBrush,
+            StrokeThickness = 4,
+            StrokeStartLineCap = PenLineCap.Round,
+            StrokeEndLineCap = PenLineCap.Round,
+            Opacity = 0,
+        };
+        var head = new Ellipse { Width = 32, Height = 32, Stroke = dangerBrush, StrokeThickness = 4, Opacity = 0 };
+        Canvas.SetLeft(head, 116);
+        Canvas.SetTop(head, 44);
+        UIElement[] parts =
+        [
+            head,
+            Part(132, 76, 132, 140),
+            Part(132, 95, 107, 118),
+            Part(132, 95, 157, 118),
+            Part(132, 140, 112, 175),
+            Part(132, 140, 152, 175),
+        ];
+        foreach (var part in parts) canvas.Children.Add(part);
+        return (canvas, parts);
+    }
+
+    // Generic scale+fade pop-in via BackEase; reused by CodyCross's bonus-letter reveal.
+    private static void PopReveal(UIElement part)
+    {
+        var transform = new ScaleTransform { ScaleX = 0.3, ScaleY = 0.3 };
+        part.RenderTransformOrigin = new Windows.Foundation.Point(0.5, 0.5);
+        part.RenderTransform = transform;
+        var easing = new BackEase { EasingMode = EasingMode.EaseOut, Amplitude = 0.6 };
+        var storyboard = new Storyboard();
+        var fade = new DoubleAnimation { To = 1, Duration = TimeSpan.FromMilliseconds(280), EasingFunction = easing };
+        Storyboard.SetTarget(fade, part);
+        Storyboard.SetTargetProperty(fade, "Opacity");
+        storyboard.Children.Add(fade);
+        foreach (var property in new[] { "ScaleX", "ScaleY" })
+        {
+            var scale = new DoubleAnimation { To = 1, Duration = TimeSpan.FromMilliseconds(280), EasingFunction = easing };
+            Storyboard.SetTarget(scale, transform);
+            Storyboard.SetTargetProperty(scale, property);
+            storyboard.Children.Add(scale);
+        }
+        storyboard.Begin();
+    }
+
+    // Faithful port of the web app's `scramble-shake` keyframes (0/20/40/60/80/100% ->
+    // 0/-6/6/-6/6/0 over 400ms); reused by Word Scramble and Boss Rush wrong answers.
+    private static void ShakeElement(FrameworkElement element)
+    {
+        var transform = new TranslateTransform();
+        element.RenderTransform = transform;
+        var storyboard = new Storyboard();
+        var animation = new DoubleAnimationUsingKeyFrames();
+        Storyboard.SetTarget(animation, transform);
+        Storyboard.SetTargetProperty(animation, "X");
+        TimeSpan At(double ms) => TimeSpan.FromMilliseconds(ms);
+        foreach (var (time, value) in new (double, double)[] { (0, 0), (80, -6), (160, 6), (240, -6), (320, 6), (400, 0) })
+            animation.KeyFrames.Add(new LinearDoubleKeyFrame { KeyTime = At(time), Value = value });
+        storyboard.Children.Add(animation);
+        storyboard.Begin();
+    }
+
+    // Shared keyframe builder for multi-stage effects (Boss Rush's damage float/defeat).
+    private static void AddKeyFrames(Storyboard storyboard, DependencyObject target, string property, params (double Time, double Value)[] frames)
+    {
+        var animation = new DoubleAnimationUsingKeyFrames();
+        Storyboard.SetTarget(animation, target);
+        Storyboard.SetTargetProperty(animation, property);
+        foreach (var (time, value) in frames)
+            animation.KeyFrames.Add(new EasingDoubleKeyFrame { KeyTime = TimeSpan.FromMilliseconds(time), Value = value });
+        storyboard.Children.Add(animation);
     }
 
     private void RenderMemoryRound(GameSession session)
@@ -918,6 +1137,493 @@ public sealed partial class MainPage : Page
         return row;
     }
 
+    // Faithful port of webapp/scramble.js: click scrambled tiles to fill answer
+    // slots, click a filled slot to return its tile, auto-check when full, shake
+    // + retry (up to 3 wrong) on a bad attempt.
+    private void RenderScrambleRound(GameSession session)
+    {
+        var entry = _words.Where(word => NormalizeAnswer(word.Word).All(char.IsLetter) && NormalizeAnswer(word.Word).Length is >= 3 and <= 10)
+            .OrderBy(_ => _random.Next()).First();
+        var target = NormalizeAnswer(entry.Word).ToUpperInvariant();
+        var scrambled = target.ToCharArray();
+        var shuffleAttempts = 0;
+        do
+        {
+            scrambled = scrambled.OrderBy(_ => _random.Next()).ToArray();
+        } while (scrambled.Length > 1 && new string(scrambled) == target && ++shuffleAttempts < 8);
+        var used = new bool[scrambled.Length];
+        var slots = new int?[target.Length];
+        var wrong = 0;
+
+        var panel = GameSceneContent();
+        panel.Children.Add(GameCaption(LocalizedPart(entry.Definition)));
+        var wrongCaption = GameCaption($"{target.Length} LETTERS · 3 TRIES");
+        panel.Children.Add(wrongCaption);
+        var answerRow = new Grid { ColumnSpacing = 6, RowSpacing = 6 };
+        var tilesRow = new Grid { ColumnSpacing = 6, RowSpacing = 6 };
+        var slotButtons = new Button[target.Length];
+        var tileButtons = new Button[scrambled.Length];
+
+        void RefreshAnswer()
+        {
+            for (var i = 0; i < slotButtons.Length; i++)
+            {
+                var tileIndex = slots[i];
+                var text = tileIndex is int t ? scrambled[t].ToString() : string.Empty;
+                slotButtons[i].Content = text;
+                slotButtons[i].IsEnabled = tileIndex is not null;
+                AutomationProperties.SetName(slotButtons[i], text.Length > 0 ? text : "empty");
+            }
+        }
+        void RefreshTiles()
+        {
+            for (var i = 0; i < tileButtons.Length; i++)
+                tileButtons[i].Visibility = used[i] ? Visibility.Collapsed : Visibility.Visible;
+        }
+        async void CheckComplete()
+        {
+            if (Array.IndexOf(slots, null) >= 0) return;
+            var attempt = new string(slots.Select(s => scrambled[s!.Value]).ToArray());
+            if (attempt == target)
+            {
+                await ResolveGameAnswerAsync(session, true, entry.Word, slotButtons[0]);
+                return;
+            }
+            wrong++;
+            ShakeElement(answerRow);
+            await Task.Delay(450);
+            if (_activeGame != session) return;
+            if (wrong >= 3)
+            {
+                await ResolveGameAnswerAsync(session, false, entry.Word, slotButtons[0]);
+                return;
+            }
+            wrongCaption.Text = $"{target.Length} LETTERS · {3 - wrong} TRIES";
+            Array.Clear(used);
+            Array.Clear(slots);
+            RefreshTiles();
+            RefreshAnswer();
+        }
+
+        for (var i = 0; i < target.Length; i++)
+        {
+            var index = i;
+            var button = GameChoiceButton(string.Empty, session.Game);
+            button.MinHeight = 46;
+            button.MinWidth = 46;
+            button.HorizontalContentAlignment = HorizontalAlignment.Center;
+            button.Click += (_, _) =>
+            {
+                var tileIndex = slots[index];
+                if (tileIndex is null) return;
+                used[tileIndex.Value] = false;
+                slots[index] = null;
+                RefreshTiles();
+                RefreshAnswer();
+            };
+            slotButtons[i] = button;
+            answerRow.Children.Add(button);
+        }
+        for (var i = 0; i < scrambled.Length; i++)
+        {
+            var index = i;
+            var button = GameChoiceButton(scrambled[i].ToString(), session.Game);
+            button.MinHeight = 46;
+            button.MinWidth = 46;
+            button.HorizontalContentAlignment = HorizontalAlignment.Center;
+            button.Click += (_, _) =>
+            {
+                if (used[index]) return;
+                var emptySlot = Array.IndexOf(slots, null);
+                if (emptySlot < 0) return;
+                used[index] = true;
+                slots[emptySlot] = index;
+                RefreshTiles();
+                RefreshAnswer();
+                CheckComplete();
+            };
+            tileButtons[i] = button;
+            tilesRow.Children.Add(button);
+        }
+        RefreshAnswer();
+        RefreshTiles();
+        ConfigureResponsiveGrid(answerRow, target.Length, 46);
+        ConfigureResponsiveGrid(tilesRow, target.Length, 46);
+        panel.Children.Add(answerRow);
+        panel.Children.Add(tilesRow);
+        AddGameScene(session.Game, panel);
+    }
+
+    // Faithful port of webapp/bossrush.js: 3 sequential bosses at 5 HP each, a
+    // 4-option "pick the definition" question per turn, floating damage numbers,
+    // a hit-pulse/HP-bar-shrink on a correct answer, and a scale+rotate+fade
+    // defeat animation when a boss's HP reaches 0. The whole 3-boss gauntlet is
+    // ONE session round (like Memory's 6-pair board), completing only when all
+    // bosses fall or hearts run out.
+    private void RenderBossRushRound(GameSession session)
+    {
+        const int bossCount = 3;
+        const int bossMaxHp = 5;
+        const int startHearts = 3;
+        string[] bossGlyphs = ["👹", "🐺", "🐉"];
+        var bossIndex = 0;
+        var bossHp = bossMaxHp;
+        var hearts = startHearts;
+        var answered = false;
+        var askedKeys = new HashSet<string>();
+        VocabularyEntry? correctEntry = null;
+
+        const double hpBarWidth = 220;
+        var panel = GameSceneContent();
+        var statusPanel = new StackPanel { Spacing = 10, HorizontalAlignment = HorizontalAlignment.Center };
+        var bossCaption = GameCaption($"BOSS {bossIndex + 1} / {bossCount}");
+        statusPanel.Children.Add(bossCaption);
+
+        var avatar = new TextBlock { Text = bossGlyphs[0], FontSize = Font(64), HorizontalAlignment = HorizontalAlignment.Center };
+        var arenaOverlay = new Grid { HorizontalAlignment = HorizontalAlignment.Center };
+        arenaOverlay.Children.Add(avatar);
+        statusPanel.Children.Add(arenaOverlay);
+
+        var hpFill = new Border
+        {
+            Height = 12,
+            CornerRadius = new CornerRadius(6),
+            Background = new SolidColorBrush(Color.FromArgb(255, 190, 18, 60)),
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Width = hpBarWidth,
+        };
+        var hpTrack = new Border
+        {
+            Width = hpBarWidth,
+            Height = 12,
+            CornerRadius = new CornerRadius(6),
+            Background = new SolidColorBrush(Color.FromArgb(70, 255, 255, 255)),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            Child = hpFill,
+        };
+        statusPanel.Children.Add(hpTrack);
+        var hpText = GameCaption($"{bossHp} / {bossMaxHp}");
+        statusPanel.Children.Add(hpText);
+        var heartsText = GameCaption(new string('♥', hearts) + new string('♡', startHearts - hearts));
+        statusPanel.Children.Add(heartsText);
+
+        var word = GamePrompt(string.Empty, 30);
+        panel.Children.Add(word);
+        var options = new Grid { ColumnSpacing = 12, RowSpacing = 12 };
+        var optionButtons = new Button[4];
+        var currentChoices = new VocabularyEntry[4];
+
+        void UpdateHp()
+        {
+            var clamped = Math.Max(0, bossHp);
+            var storyboard = new Storyboard();
+            var animation = new DoubleAnimation { To = hpBarWidth * clamped / bossMaxHp, Duration = TimeSpan.FromMilliseconds(250), EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut } };
+            Storyboard.SetTarget(animation, hpFill);
+            Storyboard.SetTargetProperty(animation, "Width");
+            storyboard.Children.Add(animation);
+            storyboard.Begin();
+            hpText.Text = $"{clamped} / {bossMaxHp}";
+        }
+        void UpdateHearts() => heartsText.Text = new string('♥', hearts) + new string('♡', startHearts - hearts);
+
+        void SpawnFloatingText(string text, Color color, double size)
+        {
+            var label = new TextBlock
+            {
+                Text = text,
+                FontSize = Font(size),
+                FontWeight = Microsoft.UI.Text.FontWeights.Bold,
+                Foreground = new SolidColorBrush(color),
+                HorizontalAlignment = HorizontalAlignment.Center,
+            };
+            arenaOverlay.Children.Add(label);
+            var transform = new TranslateTransform();
+            label.RenderTransform = transform;
+            var storyboard = new Storyboard();
+            AddKeyFrames(storyboard, transform, "Y", (0, 0), (600, -34));
+            AddKeyFrames(storyboard, label, "Opacity", (0, 1), (600, 0));
+            storyboard.Completed += (_, _) => arenaOverlay.Children.Remove(label);
+            storyboard.Begin();
+        }
+
+        void HitAvatar()
+        {
+            var transform = new ScaleTransform { ScaleX = 1, ScaleY = 1 };
+            avatar.RenderTransformOrigin = new Windows.Foundation.Point(0.5, 0.5);
+            avatar.RenderTransform = transform;
+            var storyboard = new Storyboard();
+            foreach (var property in new[] { "ScaleX", "ScaleY" })
+            {
+                var animation = new DoubleAnimation { To = 0.85, Duration = TimeSpan.FromMilliseconds(110), AutoReverse = true, EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut } };
+                Storyboard.SetTarget(animation, transform);
+                Storyboard.SetTargetProperty(animation, property);
+                storyboard.Children.Add(animation);
+            }
+            storyboard.Begin();
+        }
+
+        async Task PlayDefeatAsync()
+        {
+            var transform = new CompositeTransform();
+            avatar.RenderTransformOrigin = new Windows.Foundation.Point(0.5, 0.5);
+            avatar.RenderTransform = transform;
+            var storyboard = new Storyboard();
+            AddKeyFrames(storyboard, transform, "ScaleX", (0, 1), (300, 1.25), (600, 0));
+            AddKeyFrames(storyboard, transform, "ScaleY", (0, 1), (300, 1.25), (600, 0));
+            AddKeyFrames(storyboard, transform, "Rotation", (0, 0), (300, -4), (600, 8));
+            AddKeyFrames(storyboard, avatar, "Opacity", (0, 1), (300, 1), (600, 0));
+            var tcs = new TaskCompletionSource();
+            storyboard.Completed += (_, _) => tcs.TrySetResult();
+            storyboard.Begin();
+            await tcs.Task;
+        }
+
+        VocabularyEntry PickQuestionWord()
+        {
+            var fresh = _words.Where(candidate => !askedKeys.Contains(candidate.Key)).ToArray();
+            var usable = fresh.Length >= 4 ? fresh : _words.ToArray();
+            var picked = usable[_random.Next(usable.Length)];
+            askedKeys.Add(picked.Key);
+            return picked;
+        }
+
+        void NextQuestion()
+        {
+            if (_activeGame != session) return;
+            answered = false;
+            correctEntry = PickQuestionWord();
+            word.Text = correctEntry.Word;
+            var choices = _words.Where(candidate => candidate.Key != correctEntry.Key).OrderBy(_ => _random.Next()).Take(3)
+                .Append(correctEntry).OrderBy(_ => _random.Next()).ToArray();
+            for (var i = 0; i < optionButtons.Length; i++)
+            {
+                currentChoices[i] = choices[i];
+                var label = LocalizedPart(choices[i].Definition);
+                optionButtons[i].Content = label;
+                optionButtons[i].IsEnabled = true;
+                AutomationProperties.SetName(optionButtons[i], label);
+            }
+        }
+
+        async Task AnswerAsync(int slot, Button button)
+        {
+            if (answered || _activeGame != session) return;
+            answered = true;
+            foreach (var other in optionButtons) other.IsEnabled = false;
+            var correct = currentChoices[slot].Key == correctEntry!.Key;
+            if (correct)
+            {
+                bossHp--;
+                SpawnFloatingText("-1", Color.FromArgb(255, 190, 18, 60), 22);
+                HitAvatar();
+                UpdateHp();
+                await Task.Delay(300);
+                if (_activeGame != session) return;
+                if (bossHp <= 0)
+                {
+                    await PlayDefeatAsync();
+                    if (_activeGame != session) return;
+                    bossIndex++;
+                    if (bossIndex >= bossCount)
+                    {
+                        await ResolveGameAnswerAsync(session, true, correctEntry.Word, button);
+                        return;
+                    }
+                    bossHp = bossMaxHp;
+                    avatar.Opacity = 1;
+                    avatar.RenderTransform = null;
+                    avatar.Text = bossGlyphs[bossIndex % bossGlyphs.Length];
+                    bossCaption.Text = $"BOSS {bossIndex + 1} / {bossCount}";
+                    UpdateHp();
+                }
+            }
+            else
+            {
+                hearts--;
+                SpawnFloatingText(T("Common.Wrong"), Color.FromArgb(220, 148, 163, 184), 16);
+                ShakeElement(options);
+                UpdateHearts();
+                await Task.Delay(300);
+                if (_activeGame != session) return;
+                if (hearts <= 0)
+                {
+                    await ResolveGameAnswerAsync(session, false, correctEntry.Word, button);
+                    return;
+                }
+            }
+            if (_activeGame != session) return;
+            NextQuestion();
+        }
+
+        for (var i = 0; i < optionButtons.Length; i++)
+        {
+            var slot = i;
+            var button = GameChoiceButton(string.Empty, session.Game);
+            button.Click += async (_, _) => await AnswerAsync(slot, button);
+            optionButtons[i] = button;
+            options.Children.Add(button);
+        }
+        ConfigureResponsiveGrid(options, 2, 260);
+        panel.Children.Add(options);
+        NextQuestion();
+        AddGameScene(session.Game, panel, statusPanel);
+    }
+
+    // Faithful port of webapp/codycross.js: 5 themed clues, each revealing one
+    // "bonus" letter into a shared code strip (popped in the same way as
+    // Hangman's figure) once its row is typed correctly.
+    private void RenderCodyCrossRound(GameSession session)
+    {
+        const int groupSize = 5;
+        var pool = _words.Where(word => NormalizeAnswer(word.Word).All(char.IsLetter) && NormalizeAnswer(word.Word).Length is >= 3 and <= 9)
+            .GroupBy(word => NormalizeAnswer(word.Word).ToUpperInvariant()).Select(group => group.First())
+            .OrderBy(_ => _random.Next()).ToArray();
+        var entries = (pool.Length >= groupSize ? pool : _words.ToArray()).Take(groupSize).ToArray();
+        var bare = entries.Select(word => NormalizeAnswer(word.Word).ToUpperInvariant()).ToArray();
+        var bonusIndex = Enumerable.Range(0, entries.Length).Select(i => i % bare[i].Length).ToArray();
+        var solved = new bool[entries.Length];
+        var activeRow = 0;
+
+        var panel = GameSceneContent();
+        panel.Children.Add(GameCaption("SOLVE 5 CLUES · REVEAL THE BONUS CODE"));
+        var rowsPanel = new StackPanel { Spacing = 16 };
+        panel.Children.Add(rowsPanel);
+
+        var bonusPanel = new StackPanel { Spacing = 10, HorizontalAlignment = HorizontalAlignment.Center };
+        bonusPanel.Children.Add(GameCaption("BONUS CODE"));
+        var bonusRow = new Grid { ColumnSpacing = 8, HorizontalAlignment = HorizontalAlignment.Center };
+        var bonusBoxes = new Border[entries.Length];
+        var bonusText = new TextBlock[entries.Length];
+        for (var i = 0; i < entries.Length; i++)
+        {
+            var text = new TextBlock { FontSize = Font(18), FontWeight = Microsoft.UI.Text.FontWeights.Bold, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+            var box = new Border
+            {
+                Width = 38,
+                Height = 38,
+                CornerRadius = new CornerRadius(6),
+                BorderThickness = new Thickness(2),
+                BorderBrush = new SolidColorBrush(Color.FromArgb(140, 255, 255, 255)),
+                Child = text,
+            };
+            Grid.SetColumn(box, i);
+            bonusRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            bonusRow.Children.Add(box);
+            bonusBoxes[i] = box;
+            bonusText[i] = text;
+        }
+
+        void RevealBonus(int row)
+        {
+            bonusText[row].Text = bare[row][bonusIndex[row]].ToString();
+            bonusBoxes[row].BorderBrush = new SolidColorBrush(Color.FromArgb(255, 217, 119, 6));
+            bonusBoxes[row].Background = new SolidColorBrush(Color.FromArgb(40, 217, 119, 6));
+            PopReveal(bonusBoxes[row]);
+        }
+
+        async Task SubmitRowAsync(int row, TextBox input, Grid cellsGrid, Button submit)
+        {
+            if (_activeGame != session || solved[row]) return;
+            var typed = NormalizeAnswer(input.Text).ToUpperInvariant();
+            if (typed == bare[row])
+            {
+                solved[row] = true;
+                RevealBonus(row);
+                activeRow++;
+                if (activeRow >= entries.Length)
+                {
+                    await ResolveGameAnswerAsync(session, true, string.Join(' ', entries.Select(e => e.Word)), submit);
+                    return;
+                }
+                RenderAllRows();
+            }
+            else
+            {
+                ShakeElement(cellsGrid);
+                input.Text = string.Empty;
+            }
+        }
+
+        void RenderAllRows()
+        {
+            rowsPanel.Children.Clear();
+            for (var row = 0; row < entries.Length; row++)
+            {
+                // Rows not yet reached render as a single compact placeholder line --
+                // no letter-cell grid at all -- so the list stays short instead of
+                // growing tall enough to force scrolling. Only the active/solved row
+                // needs its full clue + cell grid visible.
+                if (row > activeRow)
+                {
+                    rowsPanel.Children.Add(GameCaption($"Clue {row + 1}"));
+                    continue;
+                }
+
+                var word = bare[row];
+                var solvedRow = solved[row];
+                var cellsGrid = new Grid { ColumnSpacing = 6, HorizontalAlignment = HorizontalAlignment.Center };
+                var texts = new TextBlock[word.Length];
+                for (var col = 0; col < word.Length; col++)
+                {
+                    var isBonus = col == bonusIndex[row];
+                    var text = new TextBlock { FontSize = Font(16), FontWeight = Microsoft.UI.Text.FontWeights.Bold, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+                    if (solvedRow) text.Text = word[col].ToString();
+                    var box = new Border
+                    {
+                        Width = 32,
+                        Height = 32,
+                        CornerRadius = new CornerRadius(6),
+                        BorderThickness = new Thickness(2),
+                        BorderBrush = new SolidColorBrush(solvedRow
+                            ? Color.FromArgb(255, 4, 120, 87)
+                            : isBonus ? Color.FromArgb(255, 217, 119, 6) : Color.FromArgb(130, 255, 255, 255)),
+                        Background = solvedRow ? new SolidColorBrush(Color.FromArgb(40, 4, 120, 87)) : null,
+                        Child = text,
+                    };
+                    Grid.SetColumn(box, col);
+                    cellsGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                    cellsGrid.Children.Add(box);
+                    texts[col] = text;
+                }
+
+                var rowStack = new StackPanel { Spacing = 8 };
+                rowStack.Children.Add(GameCaption(LocalizedPart(entries[row].Definition)));
+                rowStack.Children.Add(cellsGrid);
+
+                if (row == activeRow && !solvedRow)
+                {
+                    var capturedRow = row;
+                    var input = new TextBox
+                    {
+                        MaxLength = word.Length,
+                        FontSize = Font(18),
+                        MaxWidth = 220,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        PlaceholderText = T("Game.TypeAnswer"),
+                    };
+                    input.TextChanged += (_, _) =>
+                    {
+                        var typed = input.Text.ToUpperInvariant();
+                        for (var col = 0; col < texts.Length; col++)
+                            texts[col].Text = col < typed.Length ? typed[col].ToString() : string.Empty;
+                    };
+                    var submit = GameActionButton(T("Game.Submit"), "", session.Game);
+                    submit.Click += async (_, _) => await SubmitRowAsync(capturedRow, input, cellsGrid, submit);
+                    var inputRow = new StackPanel { Spacing = 10, Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Center };
+                    inputRow.Children.Add(input);
+                    inputRow.Children.Add(submit);
+                    rowStack.Children.Add(inputRow);
+                    input.Focus(FocusState.Programmatic);
+                }
+                rowsPanel.Children.Add(rowStack);
+            }
+        }
+
+        RenderAllRows();
+        bonusPanel.Children.Add(bonusRow);
+        AddGameScene(session.Game, panel, bonusPanel);
+    }
+
     private async Task ResolveGameAnswerAsync(GameSession session, bool correct, string answer, Control source)
     {
         source.IsEnabled = false;
@@ -947,7 +1653,7 @@ public sealed partial class MainPage : Page
         StopGameTimer();
         var oldBest = _progress.GameBestScores.GetValueOrDefault(session.Game.Id);
         if (session.Score > oldBest) _progress.GameBestScores[session.Game.Id] = session.Score;
-        await _storage.SaveProgressAsync(_progress);
+        await SaveProgressAsync();
         PageContent.Children.Clear();
         var summary = GameSceneContent();
         summary.Children.Add(GameCaption("✦  ✦  ✦"));
@@ -1021,8 +1727,23 @@ public sealed partial class MainPage : Page
         return new Border { Child = grid, CornerRadius = new CornerRadius(8), Background = Gradient(palette) };
     }
 
-    private void AddGameScene(GameDefinition game, UIElement content)
+    // Visual (figure/avatar/decoration) sits to the LEFT of the interactive content so
+    // one never pushes the other below the viewport; collapses to stacked only when the
+    // arena is too narrow for both side by side. `visual` defaults to the game's glyph
+    // so every game gets a consistent left-side anchor even without a bespoke one.
+    private void AddGameScene(GameDefinition game, UIElement content, UIElement? visual = null)
     {
+        var layout = new Grid { ColumnSpacing = 24, RowSpacing = 18 };
+        var visualHost = new StackPanel
+        {
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+        visualHost.Children.Add(visual ?? DefaultGameVisual(game));
+        layout.Children.Add(visualHost);
+        layout.Children.Add(content);
+        ConfigureGameLayout(layout, visualHost, (FrameworkElement)content);
+
         var grid = new Grid { MinHeight = 400 };
         grid.Children.Add(new TextBlock
         {
@@ -1033,7 +1754,7 @@ public sealed partial class MainPage : Page
             VerticalAlignment = VerticalAlignment.Top,
             Margin = new Thickness(0, 18, 28, 0),
         });
-        grid.Children.Add(content);
+        grid.Children.Add(layout);
         var arena = new Border
         {
             Child = grid,
@@ -1045,9 +1766,48 @@ public sealed partial class MainPage : Page
         AnimateEntrance(arena);
     }
 
+    private static UIElement DefaultGameVisual(GameDefinition game) => new Border
+    {
+        Width = 140,
+        Height = 140,
+        CornerRadius = new CornerRadius(70),
+        Background = new SolidColorBrush(Color.FromArgb(50, 255, 255, 255)),
+        Child = new FontIcon { Glyph = game.Glyph, FontSize = Font(56), Foreground = new SolidColorBrush(Microsoft.UI.Colors.White) },
+        HorizontalAlignment = HorizontalAlignment.Center,
+        VerticalAlignment = VerticalAlignment.Center,
+    };
+
+    // Visual (figure/avatar/decoration) always sits to the LEFT of the interactive
+    // content -- never above it -- so neither pushes the other below the viewport.
+    // `visual` defaults to the game's glyph so every game gets a consistent left-side
+    // anchor even without a bespoke one.
+    private static void ConfigureGameLayout(Grid grid, FrameworkElement visual, FrameworkElement content)
+    {
+        var lastWidth = -1.0;
+
+        void Reflow()
+        {
+            var width = grid.ActualWidth;
+            var visualWidth = width <= 0 ? 260 : Math.Clamp(width * 0.34, 96, 260);
+            if (Math.Abs(visualWidth - lastWidth) < 0.5) return;
+            lastWidth = visualWidth;
+            grid.ColumnDefinitions.Clear();
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(visualWidth) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            Grid.SetColumn(visual, 0);
+            Grid.SetRow(visual, 0);
+            Grid.SetColumn(content, 1);
+            Grid.SetRow(content, 0);
+        }
+
+        grid.Loaded += (_, _) => Reflow();
+        grid.SizeChanged += (_, _) => Reflow();
+        Reflow();
+    }
+
     private static StackPanel GameSceneContent() => new()
     {
-        Spacing = 18,
+        Spacing = 12,
         MaxWidth = 760,
         HorizontalAlignment = HorizontalAlignment.Stretch,
         VerticalAlignment = VerticalAlignment.Center,
@@ -1084,10 +1844,10 @@ public sealed partial class MainPage : Page
             HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Left,
             Padding = new Thickness(16, 12, 16, 12),
-            CornerRadius = new CornerRadius(8),
+            CornerRadius = new CornerRadius(16),
             Background = AppearancePalette.Current.ButtonBrush,
             BorderBrush = AppearancePalette.Current.ButtonBorderBrush,
-            BorderThickness = new Thickness(1),
+            BorderThickness = new Thickness(0),
             Foreground = AppearancePalette.Current.ButtonForegroundBrush,
             FontSize = Font(16),
             FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
@@ -1212,7 +1972,7 @@ public sealed partial class MainPage : Page
             RegisterStudy();
         }
         else _progress.WrongAnswers++;
-        await _storage.SaveProgressAsync(_progress);
+        await SaveProgressAsync();
         ShowNotice(correct ? T("Common.Correct") : T("Common.Wrong"), answer,
             correct ? InfoBarSeverity.Success : InfoBarSeverity.Error);
     }
@@ -1227,10 +1987,10 @@ public sealed partial class MainPage : Page
         AddStat(grid, 2, T("Stats.Success"), SuccessRate(), "");
         ConfigureResponsiveGrid(grid, 3, 210);
         PageContent.Children.Add(grid);
-        foreach (var (gameId, score) in _progress.GameBestScores.OrderByDescending(pair => pair.Value).Take(10))
+        foreach (var (gameId, score) in _progress.GameBestScores.OrderByDescending(pair => pair.Value).Take(6))
         {
             var game = GameCatalog.All.First(item => item.Id == gameId);
-            PageContent.Children.Add(Card(Body($"{game.Title}  ·  {score:N0}"), 14));
+            PageContent.Children.Add(Card(Body($"{game.Title}  ·  {score:N0}"), 12));
         }
     }
 
@@ -1239,9 +1999,13 @@ public sealed partial class MainPage : Page
         AddPageHeader(T("Profile.Title"), T("Profile.Subtitle"));
         var quickHint = new StackPanel { Spacing = 8 };
         quickHint.Children.Add(SettingHeader("", T("Profile.QuickSettings"), T("Profile.QuickSettingsHint")));
-        PageContent.Children.Add(Card(quickHint, 24));
+        PageContent.Children.Add(Card(quickHint, 18));
 
-        var appearance = new StackPanel { Spacing = 18 };
+        var layout = new Grid { ColumnSpacing = 12, RowSpacing = 12 };
+        layout.ColumnDefinitions.Add(new ColumnDefinition());
+        layout.ColumnDefinitions.Add(new ColumnDefinition());
+
+        var appearance = new StackPanel { Spacing = 10 };
         appearance.Children.Add(SettingHeader(
             "",
             T("Profile.Appearance"),
@@ -1279,7 +2043,7 @@ public sealed partial class MainPage : Page
         appearance.Children.Add(buttonColor.Row);
         appearance.Children.Add(boxColor.Row);
 
-        var appearanceActions = new Grid { ColumnSpacing = 10, RowSpacing = 10 };
+        var appearanceActions = new Grid { ColumnSpacing = 8, RowSpacing = 8 };
         var resetAppearance = SecondaryButton(T("Profile.ResetAppearance"), "");
         resetAppearance.Click += (_, _) =>
         {
@@ -1307,30 +2071,26 @@ public sealed partial class MainPage : Page
         };
         appearanceActions.Children.Add(resetAppearance);
         appearanceActions.Children.Add(applyAppearance);
-        ConfigureResponsiveGrid(appearanceActions, 2, 190);
+        ConfigureResponsiveGrid(appearanceActions, 2, 165);
         appearance.Children.Add(appearanceActions);
-        PageContent.Children.Add(Card(appearance, 24));
+        layout.Children.Add(Card(appearance, 18));
 
-        var local = new StackPanel { Spacing = 8 };
+        var local = new StackPanel { Spacing = 6 };
         local.Children.Add(SettingHeader("", T("Profile.Local"), T("Profile.LocalHint")));
         local.Children.Add(Body($"{_progress.KnownWords.Count:N0} {T("Home.Known")} · {_progress.FavoriteWords.Count:N0} {T("Home.Favorites")}"));
-        PageContent.Children.Add(Card(local, 22));
-
-        var cloud = new StackPanel { Spacing = 12 };
-        cloud.Children.Add(SettingHeader("", T("Profile.Cloud"), T("Profile.CloudHint")));
-        var optional = SecondaryButton(T("Profile.SignIn"), "");
-        optional.Click += (_, _) => ShowNotice(T("Profile.Optional"), T("Profile.CloudHint"), InfoBarSeverity.Informational);
-        cloud.Children.Add(optional);
-        PageContent.Children.Add(Card(cloud, 22));
+        var localCard = Card(local, 16);
+        Grid.SetColumn(localCard, 1);
+        layout.Children.Add(localCard);
+        PageContent.Children.Add(layout);
     }
 
     private void RenderInformation(string title, string body, string glyph)
     {
         AddPageHeader(title, "YDKE - Yabancı Dil Kelime Ezberleme");
-        var content = new StackPanel { Spacing = 18 };
-        content.Children.Add(new FontIcon { Glyph = glyph, FontSize = Font(46), HorizontalAlignment = HorizontalAlignment.Left });
+        var content = new StackPanel { Spacing = 10 };
+        content.Children.Add(new FontIcon { Glyph = glyph, FontSize = Font(40), HorizontalAlignment = HorizontalAlignment.Left });
         var text = Body(body);
-        text.FontSize = Font(18);
+        text.FontSize = Font(16);
         content.Children.Add(text);
         content.Children.Add(Body("Sürüm 1.0.0 · Windows 11 · .NET 10 · WinUI 3"));
         PageContent.Children.Add(Card(content, 28));
@@ -1345,15 +2105,21 @@ public sealed partial class MainPage : Page
 
     private void AddPageHeader(string title, string subtitle)
     {
-        var header = new StackPanel { Spacing = 5, Margin = new Thickness(0, 4, 0, 8) };
+        var header = new StackPanel { Spacing = 2, Margin = new Thickness(0, 2, 0, 8) };
         header.Children.Add(new TextBlock
         {
             Text = title,
-            FontSize = Font(30),
-            FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
+            FontSize = Font(32),
+            FontWeight = Microsoft.UI.Text.FontWeights.Bold,
             TextWrapping = TextWrapping.Wrap,
         });
-        header.Children.Add(Body(subtitle));
+        header.Children.Add(new TextBlock
+        {
+            Text = subtitle,
+            FontSize = Font(15),
+            Foreground = new SolidColorBrush(AppearancePalette.Current.BackgroundForegroundBrush.Color) { Opacity = 0.6 },
+            TextWrapping = TextWrapping.Wrap,
+        });
         PageContent.Children.Add(header);
     }
 
@@ -1364,9 +2130,9 @@ public sealed partial class MainPage : Page
         {
             Child = child,
             Padding = new Thickness(padding),
-            CornerRadius = new CornerRadius(8),
+            CornerRadius = new CornerRadius(20),
             Background = AppearancePalette.Current.BoxBrush,
-            BorderBrush = AppearancePalette.Current.BorderBrush,
+            BorderBrush = new SolidColorBrush(AppearancePalette.Current.BorderBrush.Color) { Opacity = 0.5 },
             BorderThickness = new Thickness(1),
         };
     }
@@ -1388,16 +2154,86 @@ public sealed partial class MainPage : Page
         TextWrapping = TextWrapping.Wrap,
     };
 
+    private static TextBlock SecondaryBody(string text, double size, bool italic = false) => new()
+    {
+        Text = text,
+        FontSize = Font(size),
+        FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
+        FontStyle = italic ? Windows.UI.Text.FontStyle.Italic : Windows.UI.Text.FontStyle.Normal,
+        Foreground = new SolidColorBrush(AppearancePalette.Current.BackgroundForegroundBrush.Color)
+        {
+            Opacity = 0.92,
+        },
+        TextWrapping = TextWrapping.Wrap,
+    };
+
+    private static Border RevealCallout(string title, string text, double size, bool compact = false, bool italic = false)
+    {
+        var body = SecondaryBody(text, size, italic);
+        body.TextAlignment = TextAlignment.Center;
+        body.Margin = new Thickness(0, 1, 0, 0);
+        body.Foreground = new SolidColorBrush(AppearancePalette.Current.BackgroundForegroundBrush.Color)
+        {
+            Opacity = 0.88,
+        };
+
+        var label = new TextBlock
+        {
+            Text = title,
+            FontSize = Font(compact ? 10 : 11),
+            FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
+            Foreground = new SolidColorBrush(AppearancePalette.Current.ButtonTintForegroundBrush.Color)
+            {
+                Opacity = 0.78,
+            },
+            TextAlignment = TextAlignment.Center,
+        };
+
+        var borderBrush = new SolidColorBrush(AppearancePalette.Current.ButtonBorderBrush.Color)
+        {
+            Opacity = 0.35,
+        };
+
+        return new Border
+        {
+            Padding = new Thickness(compact ? 12 : 16, compact ? 10 : 12, compact ? 12 : 16, compact ? 12 : 14),
+            Margin = new Thickness(0, compact ? 2 : 4, 0, 0),
+            CornerRadius = new CornerRadius(14),
+            BorderBrush = borderBrush,
+            BorderThickness = new Thickness(1),
+            Background = new SolidColorBrush(AppearancePalette.Current.ButtonTintBrush.Color)
+            {
+                Opacity = 0.08,
+            },
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            Child = new StackPanel
+            {
+                Spacing = compact ? 3 : 5,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Children = { label, body },
+            },
+        };
+    }
+
+    private static TextBlock QuickSettingLabel(string text) => new()
+    {
+        Text = text,
+        FontSize = Font(12),
+        Foreground = AppearancePalette.Current.BoxForegroundBrush,
+    };
+
     private static Button AccentButton(string text, string glyph)
     {
         var button = new Button
         {
             Content = ButtonContent(text, glyph),
-            Padding = new Thickness(16, 10, 16, 10),
+            Padding = new Thickness(18, 12, 18, 12),
+            CornerRadius = new CornerRadius(20),
             Background = AppearancePalette.Current.ButtonBrush,
-            BorderBrush = AppearancePalette.Current.ButtonBorderBrush,
+            BorderThickness = new Thickness(0),
             Foreground = AppearancePalette.Current.ButtonForegroundBrush,
             FontSize = Font(14),
+            FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
         };
         AutomationProperties.SetName(button, text);
         return button;
@@ -1408,11 +2244,13 @@ public sealed partial class MainPage : Page
         var button = new Button
         {
             Content = ButtonContent(text, glyph),
-            Padding = new Thickness(14, 9, 14, 9),
-            Background = AppearancePalette.Current.ButtonBrush,
-            BorderBrush = AppearancePalette.Current.ButtonBorderBrush,
-            Foreground = AppearancePalette.Current.ButtonForegroundBrush,
+            Padding = new Thickness(16, 12, 16, 12),
+            CornerRadius = new CornerRadius(20),
+            Background = AppearancePalette.Current.ButtonTintBrush,
+            BorderThickness = new Thickness(0),
+            Foreground = AppearancePalette.Current.ButtonTintForegroundBrush,
             FontSize = Font(14),
+            FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
         };
         AutomationProperties.SetName(button, text);
         return button;
@@ -1423,11 +2261,13 @@ public sealed partial class MainPage : Page
         Content = text,
         HorizontalAlignment = HorizontalAlignment.Stretch,
         HorizontalContentAlignment = HorizontalAlignment.Left,
-        Padding = new Thickness(16, 12, 16, 12),
+        Padding = new Thickness(18, 14, 18, 14),
+        CornerRadius = new CornerRadius(20),
         Background = AppearancePalette.Current.ButtonBrush,
-        BorderBrush = AppearancePalette.Current.ButtonBorderBrush,
+        BorderThickness = new Thickness(0),
         Foreground = AppearancePalette.Current.ButtonForegroundBrush,
-        FontSize = Font(14),
+        FontSize = Font(15),
+        FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
     };
 
     private static Grid ButtonContent(string text, string glyph)
@@ -1474,12 +2314,14 @@ public sealed partial class MainPage : Page
                 {
                     Text = value,
                     FontSize = Font(12),
+                    FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
                     TextAlignment = TextAlignment.Center,
                     TextWrapping = TextWrapping.Wrap,
+                    Foreground = AppearancePalette.Current.ButtonTintForegroundBrush,
                 },
-                Padding = new Thickness(9, 4, 9, 4),
-                CornerRadius = new CornerRadius(8),
-                Background = AppearancePalette.Current.BoxBrush,
+                Padding = new Thickness(10, 5, 10, 5),
+                CornerRadius = new CornerRadius(14),
+                Background = AppearancePalette.Current.ButtonTintBrush,
             });
         }
         ConfigureResponsiveGrid(row, 3, 90);
@@ -1502,7 +2344,7 @@ public sealed partial class MainPage : Page
         {
             Width = 52,
             Height = 44,
-            CornerRadius = new CornerRadius(6),
+            CornerRadius = new CornerRadius(12),
             Background = new SolidColorBrush(color),
             BorderBrush = AppearancePalette.Current.BorderBrush,
             BorderThickness = new Thickness(2),
@@ -1564,11 +2406,11 @@ public sealed partial class MainPage : Page
 
     private static void AddStat(Grid grid, int column, string label, string value, string glyph)
     {
-        var content = new StackPanel { Spacing = 7 };
-        content.Children.Add(new FontIcon { Glyph = glyph, FontSize = Font(20), HorizontalAlignment = HorizontalAlignment.Left });
-        content.Children.Add(Heading(value, 27));
+        var content = new StackPanel { Spacing = 5 };
+        content.Children.Add(new FontIcon { Glyph = glyph, FontSize = Font(18), HorizontalAlignment = HorizontalAlignment.Left });
+        content.Children.Add(Heading(value, 24));
         content.Children.Add(Body(label));
-        var card = Card(content, 18);
+        var card = Card(content, 14);
         Grid.SetColumn(card, column);
         grid.Children.Add(card);
     }
@@ -1597,6 +2439,12 @@ public sealed partial class MainPage : Page
         if (_progress.LastStudyDate == today) return;
         _progress.StudyStreak = _progress.LastStudyDate == today.AddDays(-1) ? _progress.StudyStreak + 1 : 1;
         _progress.LastStudyDate = today;
+    }
+
+    private async Task SaveProgressAsync()
+    {
+        await _storage.SaveProgressAsync(_progress);
+        if (_settings.CloudConnected) await _storage.SaveCloudProfileAsync(_progress);
     }
 
     private static string NormalizeAnswer(string value)

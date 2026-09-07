@@ -2918,7 +2918,7 @@ window.WORDS_FR_C1 = [
     pos: "noun",
     level: "C1",
     category: "General",
-    definition: "Carnivorous mammal of the Canidae family (Canis latrans), native to North America, which resembles a small wolf. - Kuzey Amerika'ya özgü, küçük bir kurda benzeyen, Canidae familyasından (Canis latrans) etçil memeli.",
+    definition: "a wild dog-like animal native to North America that resembles a small wolf. - Kuzey Amerika'ya özgü, küçük bir kurda benzeyen yabanı köpek benzeri bir hayvan.",
     example: "Elle est poursuivie par un coyote. - Bir çakal tarafından kovalanıyor.",
   },
   {
@@ -3006,7 +3006,7 @@ window.WORDS_FR_C1 = [
     pos: "noun",
     level: "C1",
     category: "Animals",
-    definition: "cowrie, a mollusk of the family Cypraeidae, or its translucent shell. - Cowrie, Cypraeidae familyasından bir yumuşakça veya onun yarı saydam kabuğu",
+    definition: "porcelain, china (a fine, delicate type of ceramic used to make dishes and decorative objects). - porselen (tabak ve dekoratif eşya yapımında kullanılan ince, narin bir seramik türü).",
     example: "Il a écrit un livre sur la porcelaine. - Porselen üzerine bir kitap yazdı.",
   },
   {
@@ -6114,12 +6114,12 @@ window.WORDS_FR_C1 = [
     example: "Il a commencé sa carrière avec une petite charrette à légumes qu'il conduisait de maison en maison. - Kariyerine evden eve sürdüğü küçük bir sebze arabasıyla başladı.",
   },
   {
-    word: "l'adèle",
+    word: "l'abeille",
     pos: "noun",
     level: "C1",
-    category: "General",
-    definition: "fairy longhorn moth (of the genus Adela). - peri uzun boynuzlu güve (Adela cinsinden)",
-    example: "Mary, voulez-vous répondre à ma question? ajouta Adèle en s'efforçant de maîtriser son agitation. - Mary, soruma cevap vermek ister misin? diye ekledi Adèle, heyecanını kontrol etmeye çalışarak.",
+    category: "Animals",
+    definition: "bee (a flying insect that makes honey and helps pollinate flowers). - arı (bal yapan ve çiçekleri tozlaştırmaya yardımcı olan uçan bir böcek).",
+    example: "L'abeille butine de fleur en fleur. - Arı çiçekten çiçeğe uçar.",
   },
   {
     word: "autoritaire",
@@ -18934,7 +18934,7 @@ window.WORDS_FR_C1 = [
     pos: "noun",
     level: "C1",
     category: "Animals",
-    definition: "halibut (fish of genus Hippoglossus). - pisi balığı (Hippoglossus cinsi balık)",
+    definition: "halibut, a large flatfish often eaten as food. - pisi balığı, sıkça yenen büyük bir yassı balık.",
     example: "Aucune phrase d'exemple disponible pour ce mot. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
@@ -19846,7 +19846,7 @@ window.WORDS_FR_C1 = [
     pos: "noun",
     level: "C1",
     category: "General",
-    definition: "Common name of Chenopodium quinoa, plant of the Amaranthaceae family (Amaranthaceae), native to , cultivated for its edible seeds. - Anavatanı Amaranthaceae familyası (Amaranthaceae) olan, yenilebilir tohumları için yetiştirilen Chenopodium quinoa bitkisinin ortak adı.",
+    definition: "quinoa, a grain-like seed from South America, popular as a healthy food. - kinoa, Güney Amerika'dan gelen, sağlıklı bir besin olarak popüler olan tahıl benzeri bir tohum.",
     example: "Elle aime le quinoa. - Kinoayı seviyor.",
   },
   {
@@ -19878,7 +19878,7 @@ window.WORDS_FR_C1 = [
     pos: "noun",
     level: "C1",
     category: "Animals",
-    definition: "pike (any carnivorous freshwater fish of the genus Esox). - turna balığı (Esox cinsinin herhangi bir etçil tatlı su balığı)",
+    definition: "pike (a long, aggressive freshwater fish popular with anglers). - turna balığı (balıkçılar arasında popüler olan uzun, saldırgan bir tatlı su balığı).",
     example: "Le brochet n'est pas encore ferré. - Turna henüz bağlanmadı.",
   },
   {
@@ -23238,7 +23238,7 @@ window.WORDS_FR_C1 = [
     pos: "noun",
     level: "C1",
     category: "Animals",
-    definition: "cicada (any of several insects of the order Hemiptera). - ağustosböceği (Hemiptera takımından çeşitli böceklerden herhangi biri)",
+    definition: "cicada (a loud buzzing insect commonly heard in summer, famous from Aesop's fable of the cicada and the ant). - ağustosböceği (yazın sıkça duyulan, ağustosböceği ile karınca masalıyla ünlü, gürültülü bir böcek).",
     example: "La cigale chante, la fourmi déchante, La Fontaine enchante. - Ağustos böceği şarkı söyler, karınca hayal kırıklığına uğrar, La Fontaine büyüler.",
   },
   {
