@@ -2,25 +2,61 @@
 
 YDKE is a native Windows 11 vocabulary study application built with **C# 14**,
 **.NET 10**, **WinUI 3**, and **Windows App SDK 2.4**. It is not a website or a
-WebView wrapper. Study content and progress are local, so cards, quizzes, word
-lists, and all 25 games work without an internet connection.
+WebView wrapper. Study content is bundled locally; settings and progress are
+saved **on this device by default**.
+Cards, quizzes, word lists and eligible games use bundled data without an internet
+connection. Game availability depends on the selected dataset and, for audio,
+installed local speech voices.
 
-Internet access is reserved for the optional Google profile and cloud-progress
-workflow. Users who do not opt in keep all progress privately under their local
-Windows profile.
+**Google sign-in and cloud backups are optional.** With a grown-up, sign in from
+Home or the top account button, complete Google's page in a normal browser, then
+return to YDKE. Edge and Chrome can be selected with **Use another browser**.
+No client ID or client secret is required. Signing in does not upload progress
+automatically: **Settings > For grown-ups** offers **Save to cloud**, **Load from
+cloud**, **Make a copy**, and **Open a copy…**. Loading a backup replaces local
+settings and progress after validation, confirmation and a safety copy. Signing
+out does not delete local learning or an existing cloud backup.
 
 ## Current Product
 
-- Native project: `windows/src/YDKE.Windows/`
+- Native project: [windows/src/YDKE.Windows/YDKE.Windows.csproj](windows/src/YDKE.Windows/YDKE.Windows.csproj)
 - Default interface language: **Turkish**
 - Other interface languages: English, German, French, Spanish, Portuguese,
   Dutch
 - Study languages: English, German, French, Italian, Spanish, Portuguese,
   Dutch; CEFR A1-C2
 - Games: 25 total, split into **11 Simple Games** and **14 Complex Games**
-- Local vocabulary source: `data/` (53 JavaScript datasets plus a SHA-256
-  manifest, parsed directly by C#)
+- Local vocabulary source: 53 root JavaScript datasets plus a SHA-256
+  [data/manifest.json](data/manifest.json), parsed directly by C#
+- Due/new study sessions, reveal-and-rate cards with undo and saved position,
+  inline quiz feedback with explicit Continue and missed-word practice
+- Searchable/filterable Word Library, scoped statistics, local backups,
+  reduced-motion preferences and leave-game confirmation
+- Full-screen startup, a fixed **Windowed / Full screen** toolbar button,
+  **F11** to switch and **Esc** to leave full screen
+- Button/tab navigation instead of page scrolling: one word at a time,
+  up to four games per catalog page, Statistics tabs and paged scores;
+  optional details and Help use short popup pages
 - Distribution: self-contained x64/ARM64 MSI and Microsoft Store MSIX bundle
+
+## Help in your language
+
+Open **Help** from the navigation menu. Choose **Screen & keys**, **Cards**,
+**Quiz**, **My words**, **Game instructions**, **Settings**, **Statistics**, or
+**Google & backups**. Read with **Previous page / Next page**, then choose
+**Open this screen** to practise or **Close help** to return. No scrolling is
+needed to read a topic.
+
+All topics and controls follow **App language** in the top bar: Türkçe, English,
+Deutsch, Français, Español, Português and Nederlands. This is separate from
+**Learning language**; Italian vocabulary is supported, but Italian is not an
+interface language. Changing language or level uses the top bar; appearance and
+practice preferences are saved explicitly in Settings.
+
+Help covers reveal-before-rating and Undo, Quiz's saved-answer/Continue step,
+word and game paging, game availability and local speech voices, Settings
+previews, distinct-word statistics, and safe local/cloud backups. It describes
+the current native app, not the archived web version.
 
 Build the app:
 
@@ -33,6 +69,25 @@ Build release installers:
 ```powershell
 ./windows/packaging/release.ps1 -Runtime win-x64,win-arm64
 ```
+
+Run native validation (PowerShell 7, Node.js 22+, and the SDK pinned in
+[global.json](global.json)):
+
+```powershell
+pwsh -NoProfile -File ./windows/verification/Invoke-NativeValidation.ps1
+```
+
+The [CI workflow](.github/workflows/native-validation.yml) runs Release core,
+games and localization console harnesses, a read-only dataset integrity/structure
+audit, and the native build. It does not launch the app or use a real profile.
+SDK/package setup may require downloads; tests do not require network services.
+Hash drift and invalid data are reported, never automatically repaired.
+
+See [windows/IMPROVEMENTS.md](windows/IMPROVEMENTS.md) for commands, exit codes,
+availability limits, the manual accessibility checklist and the optional
+[isolated UI smoke](windows/verification/Test-NativeUi.ps1). UI smoke requires
+confirmed native test-mode isolation and an interactive workstation; it is not
+part of headless CI and is not an all-features or accessibility certification.
 
 The remaining platform-analysis documents are retained as historical research;
 they do not describe the current runtime architecture.

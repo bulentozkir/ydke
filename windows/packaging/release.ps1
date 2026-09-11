@@ -13,7 +13,10 @@
     framework-dependent build simply fails to launch on a clean machine.
 
 .PARAMETER Runtime
-    One or more RIDs. More than one produces a .msixbundle alongside the .msix files.
+    Defaults to x64 and ARM64, producing a .msixbundle alongside the .msix files.
+
+.PARAMETER Version
+    Optional explicit version, strictly newer than previous releases. Omit to auto-increment.
 
 .PARAMETER FrameworkDependent
     Opt out of self-contained. Only safe when every target machine is known to
@@ -25,7 +28,8 @@
 [CmdletBinding()]
 param(
     [ValidateSet('win-x64', 'win-x86', 'win-arm64')]
-    [string[]]$Runtime = @('win-x64'),
+    [ValidateNotNullOrEmpty()]
+    [string[]]$Runtime = @('win-x64', 'win-arm64'),
 
     [string]$Version,
 
@@ -35,7 +39,7 @@ param(
     [string]$PublisherDisplayName = 'Bulent Ozkir',
 
     # Must match a name reserved under "Manage app names", or certification rejects it.
-    [string]$DisplayName = 'YDKE - Yabancı Dil Kelime Ezberleme',
+    [string]$DisplayName = ('YDKE - Yabanc' + [char]0x0131 + ' Dil Kelime Ezberleme'),
 
     [string]$OutputDir,
 
@@ -52,20 +56,24 @@ $project     = Join-Path $windowsRoot 'src\YDKE.Windows\YDKE.Windows.csproj'
 $assetsDir   = Join-Path $windowsRoot 'assets\msix'
 $manifestSrc = Join-Path $PSScriptRoot 'AppxManifest.xml'
 
-if (-not $OutputDir) { $OutputDir = Join-Path $repoRoot 'releases' }
-New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
-Get-ChildItem $OutputDir -File -ErrorAction SilentlyContinue |
-    Where-Object { $_.Name -match '\.msi$|\.msix$|\.msixbundle$' } |
-    Remove-Item -Force -ErrorAction SilentlyContinue
-
-$versionStatePath = Join-Path $PSScriptRoot '.last-package-version.txt'
-$lastPackageVersion = $null
-if (Test-Path $versionStatePath) {
-    $lastPackageVersionText = (Get-Content $versionStatePath -Raw).Trim()
-    if ($lastPackageVersionText) {
-        try { $lastPackageVersion = [Version]$lastPackageVersionText } catch { $lastPackageVersion = $null }
-    }
+. (Join-Path $PSScriptRoot 'PackageVersion.ps1')
+if ($SkipMsi -and $SkipMsix) { throw 'At least one installer format must be enabled.' }
+$Runtime = @($Runtime | Select-Object -Unique)
+if ($SkipMsix -and @($Runtime | Where-Object { $_ -ne 'win-x86' }).Count -eq 0) {
+    throw 'MSI releases require win-x64 or win-arm64.'
 }
+if (-not $OutputDir) { $OutputDir = Join-Path $repoRoot 'releases' }
+$OutputDir = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($OutputDir)
+$versionStatePath = Join-Path $PSScriptRoot '.last-package-version.txt'
+$history = @(Get-YdkeReleaseHistory -StatePath $versionStatePath -ArtifactDirectories @($OutputDir, (Join-Path $repoRoot 'releases')))
+$csproj = [xml](Get-Content $project -Raw -Encoding utf8)
+$versionElement = $csproj.SelectSingleNode('/Project/PropertyGroup/Version')
+$baseVersion = if ($null -ne $versionElement) { $versionElement.InnerText } else { $null }
+$packageVersion = Resolve-YdkeReleaseVersion -BaseVersion $baseVersion -RequestedVersion $Version `
+    -ExplicitVersion:$PSBoundParameters.ContainsKey('Version') -PreviousVersions $history
+$Version = $packageVersion
+$msiVersion = ([Version]$packageVersion).ToString(3)
+New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 
 # --- .NET SDK -------------------------------------------------------------
 $userSdk = Join-Path $env:LOCALAPPDATA 'Microsoft\dotnet'
@@ -77,41 +85,6 @@ if (Test-Path (Join-Path $userSdk 'sdk\10.0.400')) {
 if (-not (Get-Command dotnet -ErrorAction SilentlyContinue)) {
     throw 'No .NET SDK found. Install .NET 10 from https://dot.net.'
 }
-
-# --- Version --------------------------------------------------------------
-if (-not $Version) {
-    $csproj = [xml](Get-Content $project -Raw)
-    $Version = ($csproj.Project.PropertyGroup.Version | Where-Object { $_ } | Select-Object -First 1)
-    if (-not $Version) { throw "No <Version> in $project and no -Version supplied." }
-}
-
-$parts = @($Version.Split('.'))
-while ($parts.Count -lt 4) { $parts += '0' }
-
-if (-not $PSBoundParameters.ContainsKey('Version')) {
-    # MSIX/MSI upgrades are only valid when the package version moves forward.
-    # Use a persisted high-water mark so the build always advances, even when the
-    # output directory is cleared and the same time bucket repeats.
-    $epoch = [DateTime]::new(2024, 1, 1, 0, 0, 0, [DateTimeKind]::Utc)
-    $hoursSinceEpoch = [int][Math]::Floor(([DateTime]::UtcNow - $epoch).TotalHours)
-    $proposedBuild = [Math]::Min($hoursSinceEpoch, 65534)
-
-    if ($lastPackageVersion) {
-        $lastBuild = [int]$lastPackageVersion.Build
-        if ($proposedBuild -le $lastBuild) {
-            $proposedBuild = $lastBuild + 1
-        }
-    }
-
-    $parts[2] = [Math]::Min($proposedBuild, 65534).ToString()
-}
-
-# The Store rejects any package whose version revision is non-zero: it reserves
-# the fourth part for its own re-signing pipeline.
-$parts[3] = '0'
-$packageVersion = $parts[0..3] -join '.'
-$Version = $packageVersion
-Set-Content -Path $versionStatePath -Value $packageVersion -Encoding utf8
 
 Write-Host "Version      $packageVersion" -ForegroundColor Cyan
 Write-Host "Identity     $IdentityName" -ForegroundColor Cyan
@@ -180,11 +153,13 @@ function Publish-Stage {
     if ($LASTEXITCODE -ne 0) { throw "dotnet build failed for $Rid ($LASTEXITCODE)." }
 
     $projectDir = Split-Path -Parent $project
-    $csprojXml = [xml](Get-Content $project -Raw)
-    $targetFramework = $csprojXml.Project.PropertyGroup.TargetFramework | Where-Object { $_ } | Select-Object -First 1
+    $csprojXml = [xml](Get-Content $project -Raw -Encoding utf8)
+    $frameworkElement = $csprojXml.SelectSingleNode('/Project/PropertyGroup/TargetFramework')
+    if ($null -eq $frameworkElement) { throw 'The app project must declare a TargetFramework.' }
+    $targetFramework = $frameworkElement.InnerText
     $buildOutDir = Join-Path $projectDir "bin\Release\$targetFramework\$Rid"
     $builtPri = Join-Path $buildOutDir 'YDKE.pri'
-    if (-not (Test-Path $builtPri)) { throw "YDKE.pri missing from build output $buildOutDir — cannot stage a working package." }
+    if (-not (Test-Path $builtPri)) { throw "YDKE.pri missing from build output $buildOutDir - cannot stage a working package." }
 
     Copy-Item $builtPri $StageDir -Force
     Get-ChildItem $buildOutDir -Filter '*.xbf' | Copy-Item -Destination $StageDir -Force
@@ -223,7 +198,7 @@ if (-not $SkipMsix) {
             Copy-Item $_.FullName (Join-Path $stageAssets ($_.Name -replace '\.scale-100\.png$', '.png')) -Force
         }
 
-        $manifest = Get-Content $manifestSrc -Raw
+        $manifest = Get-Content $manifestSrc -Raw -Encoding utf8
         $manifest = $manifest `
             -replace 'REPLACE_PACKAGE_IDENTITY_NAME', $IdentityName `
             -replace 'CN=REPLACE_PUBLISHER_GUID', $Publisher `
@@ -284,7 +259,8 @@ if (-not $SkipMsix) {
 # --- MSI ------------------------------------------------------------------
 if (-not $SkipMsi) {
     # The dotnet global-tools directory is not on PATH in every shell.
-    $wix = (Get-Command wix -ErrorAction SilentlyContinue).Source
+    $wixCommand = Get-Command wix -ErrorAction SilentlyContinue
+    $wix = if ($null -ne $wixCommand) { $wixCommand.Source } else { $null }
     if (-not $wix) {
         $candidate = Join-Path $env:USERPROFILE '.dotnet\tools\wix.exe'
         if (Test-Path $candidate) { $wix = $candidate }
@@ -300,7 +276,7 @@ if (-not $SkipMsi) {
         Write-Host "`nBuilding MSI ($arch)..." -ForegroundColor Cyan
 
         $stageDir = Join-Path $windowsRoot "build\release-$rid"
-        if (-not (Test-Path (Join-Path $stageDir 'YDKE.exe'))) {
+        if ($SkipMsix -or -not (Test-Path (Join-Path $stageDir 'YDKE.exe'))) {
             Publish-Stage -Rid $rid -StageDir $stageDir
         }
 
@@ -316,7 +292,7 @@ if (-not $SkipMsi) {
         & $wix build $wxs `
             -arch $arch `
             -d "PayloadDir=$stageDir" `
-            -d "ProductVersion=$packageVersion" `
+            -d "ProductVersion=$msiVersion" `
             -d "Manufacturer=$PublisherDisplayName" `
             -d "ProductName=$DisplayName" `
             -pdbtype none `
@@ -327,5 +303,16 @@ if (-not $SkipMsi) {
     }
 }
 
+$versionTemporary = "$versionStatePath.$([Guid]::NewGuid().ToString('N')).tmp"
+try {
+    Set-Content -LiteralPath $versionTemporary -Value $packageVersion -Encoding utf8
+    Move-Item -LiteralPath $versionTemporary -Destination $versionStatePath -Force
+}
+finally {
+    if (Test-Path -LiteralPath $versionTemporary) { Remove-Item -LiteralPath $versionTemporary -Force }
+}
+if (-not $SkipMsix) {
+    Write-Host 'MSIX packages are unsigned Store submissions. Direct installation requires trusted signing with the same publisher.' -ForegroundColor Yellow
+}
 Write-Host "`nArtifacts in $OutputDir" -ForegroundColor Green
 Get-ChildItem $OutputDir -File | Sort-Object Name | Format-Table Name, @{ N = 'MB'; E = { '{0:N1}' -f ($_.Length / 1MB) } }

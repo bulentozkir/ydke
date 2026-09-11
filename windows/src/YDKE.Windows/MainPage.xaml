@@ -7,20 +7,24 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Loaded="OnLoaded"
     Unloaded="OnUnloaded"
+    PreviewKeyDown="OnStudyKeyDown"
     mc:Ignorable="d">
 
     <Grid>
         <NavigationView
             x:Name="Navigation"
+            AutomationProperties.AutomationId="shell.Navigation"
             HorizontalContentAlignment="Stretch"
             IsBackButtonVisible="Collapsed"
             CompactPaneLength="56"
-            IsPaneOpen="True"
+            IsPaneOpen="False"
             IsPaneToggleButtonVisible="True"
             IsSettingsVisible="False"
             SelectionChanged="OnNavigationSelectionChanged"
             OpenPaneLength="238"
-            PaneDisplayMode="LeftCompact">
+            CompactModeThresholdWidth="640"
+            ExpandedModeThresholdWidth="1280"
+            PaneDisplayMode="Auto">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="HomeItem" Tag="home"><NavigationViewItem.Icon><FontIcon Glyph="&#xE80F;" /></NavigationViewItem.Icon></NavigationViewItem>
                 <NavigationViewItem x:Name="CardsItem" Tag="cards"><NavigationViewItem.Icon><FontIcon Glyph="&#xE8C4;" /></NavigationViewItem.Icon></NavigationViewItem>
@@ -40,6 +44,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Border
@@ -50,49 +55,104 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Grid x:Name="QuickSettingsGrid" ColumnSpacing="10" RowSpacing="10">
                             <ComboBox
                                 x:Name="QuickUiLanguage"
+                                AutomationProperties.AutomationId="shell.AppLanguage"
                                 HorizontalAlignment="Stretch"
                                 DisplayMemberPath="NativeName"
                                 SelectedValuePath="Code"
                                 SelectionChanged="OnQuickUiLanguageChanged" />
                             <ComboBox
                                 x:Name="QuickStudyLanguage"
+                                AutomationProperties.AutomationId="shell.StudyLanguage"
                                 HorizontalAlignment="Stretch"
                                 DisplayMemberPath="NativeName"
                                 SelectedValuePath="Code"
                                 SelectionChanged="OnQuickStudyLanguageChanged" />
                             <ComboBox
                                 x:Name="QuickLevel"
+                                AutomationProperties.AutomationId="shell.Level"
                                 HorizontalAlignment="Stretch"
                                 SelectionChanged="OnQuickLevelChanged" />
                         </Grid>
-                        <FontIcon
-                            x:Name="CloudStatusIcon"
+                        <Button
+                            x:Name="WindowModeButton"
+                            AutomationProperties.AutomationId="shell.WindowMode"
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            FontSize="20"
-                            Glyph="&#xE753;" />
+                            MinWidth="96"
+                            MinHeight="64"
+                            MaxWidth="160"
+                            Padding="10,8"
+                            Click="OnWindowModeButtonClick">
+                            <Grid ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon x:Name="WindowModeIcon" FontSize="22"
+                                          HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <TextBlock x:Name="WindowModeText" Grid.Column="1" FontSize="18"
+                                           TextWrapping="Wrap" TextAlignment="Center"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </Button>
+                        <Button
+                            x:Name="LocalStatusButton"
+                            AutomationProperties.AutomationId="cloud.AccountToggle"
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            MinWidth="64"
+                            MinHeight="64"
+                            MaxWidth="144"
+                            Padding="8,6"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            IsEnabled="False"
+                            Click="OnLocalStatusButtonClick">
+                            <StackPanel Spacing="4">
+                                <Border x:Name="LocalStatusBadge" Width="32" Height="32" CornerRadius="16"
+                                        BorderThickness="1" HorizontalAlignment="Center">
+                                    <FontIcon x:Name="LocalStatusIcon" FontSize="18" Glyph="&#xE77B;"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <TextBlock x:Name="LocalStatusText" FontSize="18" TextWrapping="Wrap" TextAlignment="Center"
+                                           AutomationProperties.LiveSetting="Polite" />
+                            </StackPanel>
+                        </Button>
                     </Grid>
                 </Border>
 
                 <ScrollViewer
                     x:Name="ContentScroll"
+                    AutomationProperties.AutomationId="shell.ContentScroll"
                     Grid.Row="1"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
-                    HorizontalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Disabled"
+                    HorizontalScrollMode="Disabled"
                     SizeChanged="OnContentScrollSizeChanged"
                     VerticalAlignment="Stretch"
-                    VerticalScrollBarVisibility="Auto">
+                    VerticalScrollBarVisibility="Disabled"
+                    VerticalScrollMode="Disabled"
+                    ZoomMode="Disabled">
                     <Grid x:Name="ContentHost" HorizontalAlignment="Stretch" Padding="20,16,20,28">
-                        <StackPanel
-                            x:Name="PageContent"
-                            MaxWidth="1080"
+                        <ContentControl
+                            x:Name="PageBounds"
+                            AutomationProperties.AutomationId="shell.PageContent"
                             HorizontalAlignment="Left"
-                            Spacing="12" />
+                            HorizontalContentAlignment="Stretch"
+                            VerticalAlignment="Top">
+                            <StackPanel
+                                x:Name="PageContent"
+                                MaxWidth="1080"
+                                HorizontalAlignment="Left"
+                                SizeChanged="OnPageContentSizeChanged"
+                                Spacing="8" />
+                        </ContentControl>
                     </Grid>
                 </ScrollViewer>
 
@@ -106,13 +166,14 @@
 
                 <InfoBar
                     x:Name="Notice"
-                    Grid.Row="1"
-                    Margin="24"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
+                    AutomationProperties.AutomationId="shell.Notice"
+                    AutomationProperties.LiveSetting="Polite"
+                    Grid.Row="2"
+                    Margin="16,0,16,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
                     IsClosable="True"
-                    IsOpen="False"
-                    MaxWidth="460" />
+                    IsOpen="False" />
             </Grid>
         </NavigationView>
     </Grid>

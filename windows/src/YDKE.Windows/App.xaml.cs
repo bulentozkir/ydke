@@ -24,9 +24,7 @@ public partial class App : Application
     {
         try
         {
-            var folder = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "YDKE");
+            var folder = AppDataPaths.CurrentFolder;
             Directory.CreateDirectory(folder);
             File.WriteAllText(
                 Path.Combine(folder, "crash.log"),

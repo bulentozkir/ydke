@@ -1,0 +1,39 @@
+name: Native validation
+
+on:
+  push:
+    paths: ['windows/**', 'data/**', 'global.json', '.github/workflows/native-validation.yml']
+  pull_request:
+    paths: ['windows/**', 'data/**', 'global.json', '.github/workflows/native-validation.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-validation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  native:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Console harnesses, data validation, and Release native build (no UI)
+        shell: pwsh
+        run: ./windows/verification/Invoke-NativeValidation.ps1
+      - name: Preserve validation reports, including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-validation-${{ github.run_id }}
+          path: windows/build/verification/
+          if-no-files-found: warn
+          retention-days: 14

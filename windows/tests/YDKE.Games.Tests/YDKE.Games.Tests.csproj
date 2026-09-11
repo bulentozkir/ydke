@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/YDKE.Windows/GameEngine.cs" Link="GameEngine.cs" />
+    <Compile Include="../../src/YDKE.Windows/GameCatalog.cs" Link="GameCatalog.cs" />
+    <Compile Include="../../src/YDKE.Windows/Models.cs" Link="Models.cs" />
+    <Compile Include="../../src/YDKE.Windows/LearningEngine.cs" Link="LearningEngine.cs" />
+    <Compile Include="../../src/YDKE.Windows/VocabularyRepository.cs" Link="VocabularyRepository.cs" />
+    <Compile Include="../YDKE.Core.Tests/AppearancePalette.cs" Link="AppearancePalette.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Audit/compile the actual native call sites with the selected SDK's parser.
+         No WinUI host, extra NuGet dependency, AppStorage or profile access. -->
+    <Reference Include="Microsoft.CodeAnalysis" HintPath="$(MSBuildSDKsPath)/../Roslyn/bincore/Microsoft.CodeAnalysis.dll" />
+    <Reference Include="Microsoft.CodeAnalysis.CSharp" HintPath="$(MSBuildSDKsPath)/../Roslyn/bincore/Microsoft.CodeAnalysis.CSharp.dll" />
+  </ItemGroup>
+</Project>
