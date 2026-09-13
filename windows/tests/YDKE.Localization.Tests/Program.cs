@@ -44,6 +44,22 @@ try
     Check(GameCatalog.All.Count == 25, "Expected 25 real catalog games.");
     Check(Localizer.UiLanguages.Select(l => l.Code).Order().SequenceEqual(new[] { "de", "en", "es", "fr", "nl", "pt", "tr" }),
         "UI language set changed; update the seven-language contracts.");
+    var freshSettings = new UserSettings();
+    Check(UserSettings.DefaultUiLanguage == "tr" && freshSettings.UiLanguage == UserSettings.DefaultUiLanguage,
+        "Fresh UserSettings must default the app UI to Turkish.");
+    var englishHelp = HelpContent.Get("en");
+    Check(englishHelp.Sections.Count == 11 && englishHelp.ReadableText.Length > 4000,
+        "Detailed Help catalog is unexpectedly short or incomplete.");
+    foreach (var language in Localizer.UiLanguages)
+    {
+        var help = HelpContent.Get(language.Code);
+        Check(help.Sections.Count == englishHelp.Sections.Count && help.Sections.All(section =>
+            !string.IsNullOrWhiteSpace(section.Title) && !string.IsNullOrWhiteSpace(section.Body)),
+            $"{language.Code}: detailed Help sections are incomplete.");
+        if (language.Code != "en")
+            Check(help.Intro != englishHelp.Intro && help.Sections[0].Body != englishHelp.Sections[0].Body,
+                $"{language.Code}: detailed Help content did not switch language.");
+    }
 
     foreach (var language in Localizer.UiLanguages)
     {
@@ -100,6 +116,7 @@ try
     GameInputUxContracts.Verify(directory, Check);
     ShellUxContracts.Verify(directory, Check);
     HelpUxContracts.Verify(directory, Check);
+    OfflineArchitectureContracts.Verify(root, directory, Check);
 
     // Audit the parser itself, including a missing/new key, conditional branches,
     // interpolated UI content and an unknown dynamic argument that must fail closed.

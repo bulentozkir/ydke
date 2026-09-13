@@ -10,7 +10,9 @@ internal static class LearningEngine
     public const int MaxCounter = 1_000_000_000;
     public const int MaxIntervalDays = 36_500;
     public const int MaxCollectionCount = 100_000;
-    public const int MaxSessionWords = 10_000;
+    // C-level pools can exceed 10k entries in current bundled datasets.
+    // Keep one session per language-level without truncating valid words.
+    public const int MaxSessionWords = 25_000;
 
     /// <summary>Updates only Reviews, not answer totals, KnownWords, or activity.
     /// Again: 1 day/reset repetitions/increment mistakes; Hard: 2 days initially then x1.2;
@@ -59,13 +61,31 @@ internal static class LearningEngine
     }
 
     /// <summary>One explicit card self-rating: schedule + unique daily word + rating count +
-    /// streak. Does NOT write objective answer totals, legacy activity, or KnownWords.
-    /// Call once per accepted rating; UI must persist the entire progress snapshot.</summary>
+    /// streak. Good and Easy share the same persisted known mark used by Words; weaker
+    /// ratings never remove an explicit mark. Does NOT write objective answer totals or
+    /// legacy activity. Call once per accepted rating; UI persists the whole snapshot.</summary>
     public static void RecordCardReview(ProgressState progress, string key, RecallRating rating, DateOnly today)
     {
+        if (rating is RecallRating.Good or RecallRating.Easy)
+        {
+            ValidateProgress(progress);
+            ValidateWordKey(key);
+            Require(progress.KnownWords.Contains(key) || progress.KnownWords.Count < MaxCollectionCount, "Too many known words.");
+        }
         RecordReviews(progress, [key], rating, today);
         var name = rating.ToString();
         progress.RecallRatings[name] = Math.Min(MaxCounter, progress.RecallRatings.GetValueOrDefault(name) + 1);
+        if (rating is RecallRating.Good or RecallRating.Easy) progress.KnownWords.Add(key);
+    }
+
+    /// <summary>Schedules one vocabulary item for a retry on the next review day.
+    /// This is an explicit Words action, not a Cards self-rating: it updates only the
+    /// review schedule and never writes RecallRatings, KnownWords or daily credit.</summary>
+    public static void ScheduleReview(ProgressState progress, string key, DateOnly today)
+    {
+        ValidateProgress(progress);
+        ValidateWordKey(key);
+        progress.Reviews[key] = PrepareReview(progress, key, RecallRating.Again, today);
     }
 
     /// <summary>One scored attempt, not one word: materialize/deduplicate ordinal keys and
@@ -125,8 +145,8 @@ internal static class LearningEngine
         UpdateStreak(progress, today);
     }
 
-    /// <summary>Due reviewed words remain due even when manually marked known. Only
-    /// unreviewed manually known words are excluded from new-word selection.</summary>
+    /// <summary>Due reviewed words remain due even when marked known in Cards or Words.
+    /// Only unreviewed known words are excluded from new-word selection.</summary>
     public static IReadOnlyList<VocabularyEntry> DueAndNew(IEnumerable<VocabularyEntry> words, ProgressState progress, DateOnly today)
     {
         ArgumentNullException.ThrowIfNull(words);
@@ -372,9 +392,32 @@ internal static class LearningEngine
         foreach (var (language, level) in settings.LastStudyLevels) ValidateContext(language + ":" + level);
         Require(double.IsFinite(settings.FontScale) && settings.FontScale is >= 0.85 and <= 1.40, "Invalid font scale.");
         Require(settings.DailyGoal is >= 1 and <= 10_000, "Daily goal must be between 1 and 10000.");
+        Require(settings.TimerSeconds is >= UserSettings.MinTimerSeconds and <= UserSettings.MaxTimerSeconds,
+            $"Timer seconds must be between {UserSettings.MinTimerSeconds} and {UserSettings.MaxTimerSeconds}.");
+        Require(IsValidQuizChoicePalette(settings.QuizChoicePalette),
+            "Invalid quiz choice palette.");
         foreach (var color in new[] { settings.AppBackgroundColor, settings.ButtonColor, settings.BoxColor })
             Require(color is { Length: 7 } && color[0] == '#' && color.Skip(1).All(char.IsAsciiHexDigit), "Color must be #RRGGBB.");
     }
+
+    private static bool IsValidQuizChoicePalette(string? value)
+    {
+        if (value is "classic" or "meadow" or "sunset" or "slate") return true;
+        if (string.IsNullOrWhiteSpace(value) || !value.StartsWith("custom:", StringComparison.OrdinalIgnoreCase)) return false;
+
+        var rows = value["custom:".Length..].Split(';', StringSplitOptions.TrimEntries);
+        if (rows.Length != 4) return false;
+        foreach (var row in rows)
+        {
+            var parts = row.Split(',', StringSplitOptions.TrimEntries);
+            if (parts.Length != 2 || !IsHexColor(parts[0]) || !IsHexColor(parts[1])) return false;
+        }
+
+        return true;
+    }
+
+    private static bool IsHexColor(string value) =>
+        value is { Length: 7 } && value[0] == '#' && value.Skip(1).All(char.IsAsciiHexDigit);
 
     /// <summary>One UI settings mutation (caller saves once and rolls back on failure).
     /// Persist outgoing AND incoming levels together; no session-history heuristics.</summary>

@@ -148,17 +148,6 @@ internal sealed class AppStorage
         return SaveAsync(Path.Combine(_folder, "progress.json"), bytes, DecodeProgress, generation);
     }
 
-    /// <summary>Legacy compatibility only: this was always a LOCAL file, never cloud sync.</summary>
-    [Obsolete("No cloud sync exists. Use SaveProgressAsync or explicit ExportAsync instead.")]
-    public Task SaveCloudProfileAsync(ProgressState progress)
-    {
-        var generation = Volatile.Read(ref _acceptedGeneration);
-        LearningEngine.ValidateProgress(progress);
-        var bytes = Encode(progress);
-        _ = DecodeProgress(bytes);
-        return SaveAsync(Path.Combine(_folder, "cloudprofile.json"), bytes, DecodeProgress, generation);
-    }
-
     /// <summary>Writes a versioned local backup containing both settings and progress.
     /// Existing exports must validate before replacement. Managed storage paths are forbidden.</summary>
     public Task ExportAsync(string path, UserSettings settings, ProgressState progress)
@@ -187,8 +176,8 @@ internal sealed class AppStorage
         return bytes;
     }
 
-    /// <summary>Same validated envelope as ExportAsync, with no file I/O. For a non-file
-    /// transport (e.g. cloud sync) that owns its own transport security/authentication.</summary>
+    /// <summary>Same validated envelope as ExportAsync, with no file I/O. For any non-file
+    /// transport that owns its own transport security/authentication.</summary>
     public static byte[] EncodeBackup(UserSettings settings, ProgressState progress) => EncodeExport(settings, progress);
 
     /// <summary>Same validation as ImportAsync, with no file I/O; never touches local storage.
@@ -341,7 +330,7 @@ internal sealed class AppStorage
         if (!string.Equals(Path.GetDirectoryName(path), Path.TrimEndingDirectorySeparator(_folder), StringComparison.OrdinalIgnoreCase))
             return false;
         var name = Path.GetFileName(path).TrimEnd(' ', '.');
-        return new[] { "settings.json", "progress.json", "cloudprofile.json", ImportJournalFileName }.Any(reserved =>
+        return new[] { "settings.json", "progress.json", ImportJournalFileName }.Any(reserved =>
             name.Equals(reserved, StringComparison.OrdinalIgnoreCase) ||
             name.StartsWith(reserved + ":", StringComparison.OrdinalIgnoreCase) ||
             name.StartsWith(reserved + ".", StringComparison.OrdinalIgnoreCase));
@@ -536,10 +525,8 @@ internal sealed class AppStorage
 
     private static UserSettings DecodeSettings(byte[] bytes)
     {
-        var settings = Decode<UserSettings>(bytes, LearningEngine.ValidateSettings,
+        return Decode<UserSettings>(bytes, LearningEngine.ValidateSettings,
             "UiLanguage", "StudyLanguage", "Level");
-        settings.CloudConnected = false;
-        return settings;
     }
 
     private static ProgressState DecodeProgress(byte[] bytes) => Decode<ProgressState>(bytes,

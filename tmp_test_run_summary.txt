@@ -1,0 +1,210 @@
+=== COMMAND 1: dotnet run --project windows/tests/YDKE.Localization.Tests -- c:/gitrepo/ydke ===
+LANGUAGE tr: expected=531, resources=726, missing=0
+LANGUAGE en: expected=531, resources=726, missing=0
+LANGUAGE de: expected=531, resources=726, missing=0
+LANGUAGE fr: expected=531, resources=726, missing=0
+LANGUAGE es: expected=531, resources=726, missing=0
+LANGUAGE pt: expected=531, resources=726, missing=0
+LANGUAGE nl: expected=531, resources=726, missing=0
+READABILITY checks=557 errors=0 catalog=25 renderers=21 question-sites=24 locales=7 question-contrast=17.06:1
+READABILITY_MAP hangman -> RenderHangmanRound
+READABILITY_MAP scramble -> RenderScrambleRound
+READABILITY_MAP dictation,listeningchoice -> RenderAudioGame
+READABILITY_MAP speedround,survival -> RenderChoiceChallenge
+READABILITY_MAP truefalse -> RenderTrueFalseChallenge
+READABILITY_MAP wordclass -> RenderClassGame
+READABILITY_MAP memory -> RenderMemoryRound
+READABILITY_MAP oddoneout -> RenderOddGame
+READABILITY_MAP wordrace -> RenderTypingChallenge
+READABILITY_MAP clozetest -> RenderClozeGame
+READABILITY_MAP sentencescramble -> RenderSentenceGame
+READABILITY_MAP readingcomprehension,wordmorph -> RenderLocalDataGame
+READABILITY_MAP bingo -> RenderBingoGame
+READABILITY_MAP bossrush -> RenderBossRushRound
+READABILITY_MAP codycross -> RenderCodyCrossRound
+READABILITY_MAP crossword -> RenderCrosswordGame
+READABILITY_MAP dailychallenge,wordguess -> RenderWordGuessRound
+READABILITY_MAP scrabble -> RenderRackGame
+READABILITY_MAP categorysprint -> RenderCategoryGame
+READABILITY_MAP cluedetective -> RenderClueGame
+READABILITY_MAP matrix -> RenderMatrixGame
+STUDY_UX checks=115 errors=0
+SETTINGS_UX checks=284 errors=0 sections=3 profile-io=none
+GAME_INPUT_UX checks=193 errors=0 source-only=true profile-io=none
+SHELL_UX checks=159 profile-io=none
+HELP_UX checks=966 errors=0 topics=8 locales=7 profile-io=none
+AUDIT files=6, call-key-occurrences=654, distinct-call-keys=502, instruction-mappings=25, descriptions=25, dynamic-modes=3
+RESULT passed=20874 errors=0 audit-warnings=0
+--- EXIT CODE 1: 0 ---
+=== COMMAND 2: dotnet run --project windows/tests/YDKE.Games.Tests -- c:/gitrepo/ydke/data ===
+PASS Catalog remains exactly 25 / 11 / 14, unique IDs
+PASS Turn gate closes once before save and ignores stale callbacks
+PASS Scoped scores obey existing validation and isolate practice/timed/level/language
+PASS Cloze masks every whole occurrence without leaking translation
+PASS Cloze rejects substring and inflected-only matches
+PASS Placeholder examples never become sentence puzzles
+PASS Cloze strips language-specific article, preserves accents
+PASS Sentence tokens preserve duplicate tiles and punctuation
+PASS Rack requires real vocabulary and repeated accented letters
+PASS Class metadata rejects ambiguous class
+PASS Categories exclude General and duplicate headwords
+PASS Crossword has an actual shared square
+PASS Word guess consumes duplicate letters only once
+PASS Matrix prohibits row wrap/reuse/bent path
+PASS Bingo validates rows columns diagonals
+PASS Daily target deterministic
+PASS JS parser handles comments concatenation escapes trailing commas
+PASS JS parser never executes expressions
+PASS Semantic evidence is reciprocal and non-conflicting
+  Audited 28 real Resolve calls in 21 renderer methods (25 catalog games share renderers).
+PASS Actual source: every Resolve caller supplies explicit tested keys
+PASS Actual source: no feedback lookup or legacy learning writers
+PASS Actual source: atomic board saves precede state changes; final feedback never rescores
+PASS Actual source: sentence, semantic, reading and open-input key origins
+PASS Actual source: completion shares the best-score transaction; stats/profile handoff
+PASS Actual source: primary timer progress and mode-aware practice UI
+PASS Actual resolver: translated, composite and key-like feedback cannot change attribution
+PASS Actual resolver: reading with vocabulary-like feedback has objective credit only
+PASS Actual source methods: failed answer save rolls back, retries once per accepted attempt
+PASS Actual source methods: abandon failed answer leaves no review or completion
+PASS Actual source methods: duplicate submit and detached controls cannot rescore
+PASS Actual source methods: key snapshot survives editing during pending save
+PASS Actual source methods: old saved sub-answer cannot advance a newer game
+PASS Actual resolver: final board result awards points without an extra objective answer
+PASS Bingo attribution: partial line credits its tested words, never untested board cells
+PASS Memory attribution: mismatched pair is one answer/two keys; six matches are six answers
+PASS Boss attribution: all fifteen hits and two misses survive round-final feedback
+PASS CodyCross attribution: wrong clue tests only that word; all five solved clues are credited
+PASS Crossword attribution: partial Down miss never fails or rescores solved Across
+PASS Full-word attempts: Word Guess and Scramble record tries but never twice on final
+PASS Semantic keys: only exact current headwords; two keys are still one objective answer
+PASS Actual completion: failures roll back count AND best, retry commits once
+PASS Actual completion: concurrent callback or abandoning a failed save cannot inflate totals
+PASS Progress rules: elapsed seconds / 60, daily / 1, finite practice and hidden survival
+PASS Actual reading en:A1
+PASS Actual reading en:A2
+PASS Actual reading en:B1
+PASS Actual reading en:B2
+PASS Actual reading en:C1
+PASS Actual reading en:C2
+PASS Actual reading de:A1
+PASS Actual reading de:A2
+PASS Actual reading de:B1
+PASS Actual reading de:B2
+PASS Actual reading de:C1
+PASS Actual reading de:C2
+PASS Actual reading fr:A1
+PASS Actual reading fr:A2
+PASS Actual reading fr:B1
+PASS Actual reading fr:B2
+PASS Actual reading fr:C1
+PASS Actual reading fr:C2
+  A1: 3282 reciprocal pairs
+  A2: 2541 reciprocal pairs
+  B1: 2091 reciprocal pairs
+  B2: 1900 reciprocal pairs
+  C1: 1479 reciprocal pairs
+  C2: 1061 reciprocal pairs
+PASS Actual reciprocal relationships en
+  A1: 62 reciprocal pairs
+  A2: 28 reciprocal pairs
+  B1: 7 reciprocal pairs
+  B2: 3 reciprocal pairs
+  C1: 0 reciprocal pairs
+  UNAVAILABLE de:C1: no reciprocal evidence
+  C2: 0 reciprocal pairs
+  UNAVAILABLE de:C2: no reciprocal evidence
+PASS Actual reciprocal relationships de
+  A1: 26 reciprocal pairs
+  A2: 41 reciprocal pairs
+  B1: 28 reciprocal pairs
+  B2: 11 reciprocal pairs
+  C1: 8 reciprocal pairs
+  C2: 6 reciprocal pairs
+PASS Actual reciprocal relationships fr
+  words=1446 cloze=1339 categories=24 crossing=True
+PASS Actual word eligibility en:A1
+  words=1785 cloze=1638 categories=27 crossing=True
+PASS Actual word eligibility en:A2
+  words=1949 cloze=1773 categories=27 crossing=True
+PASS Actual word eligibility en:B1
+  words=5224 cloze=4375 categories=26 crossing=True
+PASS Actual word eligibility en:B2
+  words=13558 cloze=6916 categories=27 crossing=True
+PASS Actual word eligibility en:C1
+  words=17975 cloze=8773 categories=27 crossing=True
+PASS Actual word eligibility en:C2
+  words=1581 cloze=1169 categories=25 crossing=True
+PASS Actual word eligibility de:A1
+  words=1794 cloze=1329 categories=23 crossing=True
+PASS Actual word eligibility de:A2
+  words=2548 cloze=2029 categories=25 crossing=True
+PASS Actual word eligibility de:B1
+  words=3777 cloze=3128 categories=27 crossing=True
+PASS Actual word eligibility de:B2
+  words=5435 cloze=3639 categories=26 crossing=True
+PASS Actual word eligibility de:C1
+  words=4790 cloze=2689 categories=26 crossing=True
+PASS Actual word eligibility de:C2
+  words=1013 cloze=911 categories=21 crossing=True
+PASS Actual word eligibility fr:A1
+  words=2980 cloze=2568 categories=26 crossing=True
+PASS Actual word eligibility fr:A2
+  words=5979 cloze=4614 categories=27 crossing=True
+PASS Actual word eligibility fr:B1
+  words=4253 cloze=3338 categories=27 crossing=True
+PASS Actual word eligibility fr:B2
+  words=2978 cloze=2572 categories=26 crossing=True
+PASS Actual word eligibility fr:C1
+  words=3991 cloze=3403 categories=27 crossing=True
+PASS Actual word eligibility fr:C2
+  words=60 cloze=55 categories=2 crossing=True
+PASS Actual word eligibility it:A1
+  words=60 cloze=45 categories=3 crossing=True
+PASS Actual word eligibility it:A2
+  words=60 cloze=42 categories=0 crossing=True
+PASS Actual word eligibility it:B1
+  words=60 cloze=47 categories=1 crossing=True
+PASS Actual word eligibility it:B2
+  words=60 cloze=40 categories=0 crossing=True
+PASS Actual word eligibility it:C1
+  words=60 cloze=45 categories=0 crossing=True
+PASS Actual word eligibility it:C2
+  words=61 cloze=52 categories=2 crossing=True
+PASS Actual word eligibility es:A1
+  words=60 cloze=45 categories=3 crossing=True
+PASS Actual word eligibility es:A2
+  words=60 cloze=45 categories=2 crossing=True
+PASS Actual word eligibility es:B1
+  words=60 cloze=39 categories=1 crossing=True
+PASS Actual word eligibility es:B2
+  words=60 cloze=45 categories=0 crossing=True
+PASS Actual word eligibility es:C1
+  words=60 cloze=42 categories=0 crossing=True
+PASS Actual word eligibility es:C2
+  words=78 cloze=63 categories=2 crossing=True
+PASS Actual word eligibility pt:A1
+  words=69 cloze=52 categories=2 crossing=True
+PASS Actual word eligibility pt:A2
+  words=69 cloze=49 categories=1 crossing=True
+PASS Actual word eligibility pt:B1
+  words=62 cloze=44 categories=1 crossing=True
+PASS Actual word eligibility pt:B2
+  words=61 cloze=44 categories=0 crossing=True
+PASS Actual word eligibility pt:C1
+  words=62 cloze=45 categories=0 crossing=True
+PASS Actual word eligibility pt:C2
+  words=66 cloze=47 categories=2 crossing=True
+PASS Actual word eligibility nl:A1
+  words=69 cloze=61 categories=7 crossing=True
+PASS Actual word eligibility nl:A2
+  words=63 cloze=49 categories=1 crossing=True
+PASS Actual word eligibility nl:B1
+  words=60 cloze=46 categories=4 crossing=True
+PASS Actual word eligibility nl:B2
+  words=58 cloze=47 categories=1 crossing=True
+PASS Actual word eligibility nl:C1
+  words=56 cloze=42 categories=2 crossing=True
+PASS Actual word eligibility nl:C2
+RESULT 106/106
+--- EXIT CODE 2: 0 ---

@@ -2,10 +2,10 @@
 
 This document describes the current WinUI application, not the archived web
 application. Study content is bundled locally, and learning is saved on this
-device by default. Optional browser-based Google sign-in and explicit cloud
-backup actions are implemented. Signing in is not an automatic upload or merge.
-A local backup is not cloud sync, and a successful build is not an accessibility
-or live Google authentication certification.
+device by default. The product now runs local-only: no Google sign-in, browser
+handoff, online account state, or cloud backup/sync path is present. Backup and
+restore are explicit local file actions. A successful build is not an
+accessibility certification.
 
 ## Current study flows
 
@@ -37,13 +37,9 @@ or live Google authentication certification.
 - Settings groups **My practice**, **Colors & text**, and **For grown-ups**.
   Appearance changes are previews until **Save**. **Reset preview** does not
   save. Language and level remain in the persistent top toolbar.
-- Google sign-in opens the normal browser, with Edge/Chrome choices and no
-  developer credential form. A connected account can remain signed in after
-  reopening; the account button signs out. Study works without signing in.
-- **Settings > For grown-ups** contains local **Make a copy / Open a copy…**
-  and online **Save to cloud / Load from cloud**. Loading replaces local
-  settings/progress only after checking the backup, asking for confirmation and
-  saving a safety copy. Sign-out deletes neither learning nor the cloud backup.
+- **Settings > For grown-ups** contains local **Make a copy / Open a copy…**.
+  Opening a copy replaces local settings/progress only after checking the
+  backup, asking for confirmation and saving a safety copy.
 
 These describe implemented paths, not a claim that every combination of data,
 language, game, assistive technology and screen size has passed verification.
@@ -56,19 +52,14 @@ languages: Turkish, English, German, French, Spanish, Portuguese and Dutch.
 Italian is a study language, not an additional UI language.
 
 Help has eight topics: Screen & keys, Cards, Quiz, My words, Game instructions,
-Settings, Statistics, and Google & backups. A topic opens readable, short pages
+Settings, Statistics, and Backups & privacy. A topic opens readable, short pages
 in a native dialog with Previous/Next, an explicit Close button and, where
 applicable, an Open this screen action. Instructions are no longer available
 only on hover, and the dialog does not light-dismiss when focus changes.
 Topic paging preserves the no-scroll learning layout.
 
-[Test-IntegratedUx.ps1](verification/Test-IntegratedUx.ps1) checks the current
-window and screen layouts with an isolated profile. Its focused `-HelpOnly`
-mode checks each topic's full localized text, paging, dismissal and viewport
-bounds; `-UiLanguage` selects one of the seven languages, and `-HelpFontScale`
-checks the supported 0.85–1.4 text-size range. The focused probe checks Help and
-its navigation targets, not every destination's layout or a real Google account
-authentication. Keep the resulting build hashes and receipts with each run.
+Automated UI test scripts were removed from this repository. Use the manual
+accessibility/usability checklist below when validating UI behavior.
 
 ## Non-UI pipeline
 
@@ -154,94 +145,6 @@ change, correct structural problems through the dataset owner, then deliberately
 review and update the manifest to match approved content. A hash mismatch can
 mean the manifest is stale after legitimate editing, not necessarily corruption.
 Do not run old data-sync/import scripts as an automatic repair.
-
-## Legacy basic native UI smoke — interactive workstation only
-
-The basic smoke below predates the paged Help and no-scroll redesign. Use the
-current [integrated UX checks](verification/Test-IntegratedUx.ps1) for those
-features; older semantic selectors are not evidence for the current UI.
-
-[Test-NativeUi.ps1](verification/Test-NativeUi.ps1) is deliberately separate from
-CI. **Do not execute until the exact supplied build's isolation integration is
-confirmed.** It was authored and statically checked without launching the UI.
-Hosted/headless runners are not guaranteed to support WinUI UI Automation.
-
-### Required isolation contract
-
-The current [AppDataPaths](src/YDKE.Windows/AppDataPaths.cs) integration selects
-storage **before the first settings/progress read**. Verify these invariants for
-the exact executable supplied to any interactive probe:
-
-- `--test-mode --data-dir=<absolute directory>` selects that directory for all
-  settings/progress, recovery files, backups and app-generated diagnostic writes.
-- `--data-dir` must only be accepted with `--test-mode`. Invalid, missing or
-  relative paths in test mode must fail closed, not silently use the real profile.
-- Normal launch retains normal storage. A test launch must create its own
-  process/window, not forward activation to an already-running user instance.
-- `--page=home|cards|quiz|words|simple-games|complex-games|stats|profile|help|about`
-  selects the initial screen. `--game=<catalog-id>` starts a game. These are
-  application arguments, not PowerShell parameters. The smoke uses only
-  `--page=home`, then UI navigation in a single process to avoid launch churn.
-
-`-IsolationConfirmed` is a human safety acknowledgement, **not a sandbox** and
-not an automatic check that an old binary honors these switches. Audit every
-storage construction and direct filesystem write, including crash logging, and
-build the reviewed sources first. The existing optional `AppStorage(folder)`
-constructor alone does not wire arguments into the UI.
-
-After integration approval, on an unlocked Windows desktop:
-
-```powershell
-powershell.exe -NoProfile -STA -File ./windows/verification/Test-NativeUi.ps1 -Executable 'C:\absolute\current-build\YDKE.exe' -IsolationConfirmed
-```
-
-The supplied executable must have its build dependencies and bundled Data folder
-alongside it. The script never builds or chooses an old release automatically.
-It hashes the supplied executable for provenance, seeds English/A1 settings with
-a unique daily-goal sentinel, reduced motion and untimed practice, and uses a
-new GUID temp profile per run. It uses **one process for all scenarios**, not
-one process per page or answer. It never enumerates/kills user processes or
-reads the real profile. Cleanup closes only its own child and, if necessary,
-terminates that same process object, then removes its temporary profile.
-
-Scenarios are structured as passed/failed/skipped with timings:
-
-| Scenario | Assertions |
-| --- | --- |
-| Home | English headings, local-only status, seeded settings sentinel, study actions |
-| Cards | Rating disabled before reveal, meaning/example, rating advances and saves once, undo restores counters/index, navigation preserves position |
-| Quiz | Correct and intentionally wrong choices, inline selected/correct answer feedback, disabled answered choices, no index advance before Continue, final summary and missed practice |
-| Library | No-match and matching searches, result counts and practice enabled state |
-| Statistics / Profile | Scope labels, correct/wrong/accuracy, backup affordance, seeded reduced motion |
-| Leave game | Start Hangman, cancel leaving and remain in game, confirm leaving and return Home |
-
-Exit codes: **0** passed, **1** scenario or cleanup failure, **2** blocked/setup
-failure. After a failure, dependent scenarios are marked skipped, never passed.
-JSON lines go to stdout and an aggregate report goes under `-OutputDirectory`
-(default windows/build/ui-smoke). Use a distinct output directory per run to
-avoid retaining older optional screenshots. `-KeepProfile` retains only the
-disposable test profile for investigation. `-TimeoutSeconds` sets bounded state
-waits (2–120 seconds); Stopwatch deadlines and short `WaitOne` calls yield the
-CPU. An unresponsive UI Automation provider can itself stall an individual call;
-do not repeatedly relaunch tests to chase nondeterministic desktop failures.
-
-UI actions use exact semantic English names and supported patterns rooted at the
-owned HWND; ambiguous/missing selectors fail. There is no desktop-wide search,
-SendKeys, mouse-coordinate input, focus stealing or screenshot-based clicking.
-If a native accessibility peer does not expose a required pattern (including
-library search `ValuePattern`), investigate that integration rather than adding
-global keystrokes. Current UI text changes may require updating selectors.
-
-`-CaptureWindow` optionally calls **PrintWindow on the owned HWND only**. There
-is no desktop capture fallback. DirectComposition may produce blank/incomplete
-pixels even when PrintWindow succeeds; review captures manually, and do not
-interpret screenshot creation as a visual pass. Capture failure fails the
-scenario when explicitly requested. No screenshots are taken by default.
-
-This smoke does **not** certify restart recovery, backup picker/import workflows,
-all game mechanics, every language, screen-reader announcements, focus order or
-keyboard shortcuts. Core tests cover storage independently; interactive checks
-below remain required.
 
 ## Manual native accessibility / usability checklist
 

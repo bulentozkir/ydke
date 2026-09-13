@@ -1,34 +1,4 @@
-/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
- * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
- * <https://polyformproject.org/licenses/noncommercial/1.0.0>
- *
- * Any commercial use requires prior written permission from the copyright
- * holders. Written permission from any ONE of bulentozkir@hotmail.com,
- * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
- * is sufficient and binding on all of them.
- *
- * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
- * Ozkir (https://udsp.vercel.app)
- * Full terms: see LICENSE and NOTICE in this repository.
- */
-/*! Compilation notice — read together with the licence above.
- * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
- * translations in this file are the copyright holders' own work and ARE
- * covered by the PolyForm Noncommercial licence above. Copying this list, or
- * any substantial part of it, into a commercial product or service requires
- * prior written permission from one of the addresses above.
- *
- * Some individual definitions and example sentences come from open community
- * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
- * others — see NOTICE). Those items keep THEIR OWN licence and the
- * noncommercial term is not asserted over them.
- */
 
-// Spanish B1 vocabulary (self-authored, CEFR B1).
-// 100% original content -- see wordsa1es.js for the full authorship /
-// level-assignment note (level grounded in the open hermitdave/FrequencyWords
-// Spanish frequency list). Definitions & examples: "English. - Türkçe." and
-// "Español. - Türkçe." Nouns keep their definite article (el/la/los/las).
 window.WORDS_ES_B1 = [
   { word: "el consejo", pos: "noun", level: "B1", category: "General", definition: "Advice, piece of advice. - Tavsiye, öğüt.", example: "Te voy a dar un consejo sincero. - Sana samimi bir tavsiye vereceğim." },
   { word: "la reunión", pos: "noun", level: "B1", category: "General", definition: "Meeting. - Toplantı.", example: "La reunión se ha aplazado hasta el jueves. - Toplantı perşembeye ertelendi." },

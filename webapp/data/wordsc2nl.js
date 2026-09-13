@@ -1,12 +1,3 @@
-// Dutch C2 vocabulary (self-authored, CEFR C2).
-// 100% original content -- see wordsa1nl.js for the full authorship note.
-// These are literary / highly formal words, well beyond everyday frequency,
-// matching the register of wordsc2es.js / wordsc2fr.js etc. Definitions &
-// examples shown as English - Turkish. Nouns store their definite article
-// (de/het) as part of `word`, matching wordsa1nl.js.
-// category is a placeholder "General" here -- run
-// scripts/classify_word_categories.py (with these files in TARGET_FILES) to
-// assign real topical domains, matching every other file.
 window.WORDS_NL_C2 = [
   { word: "de weemoed", pos: "noun", level: "C2", category: "Emotions", definition: "Wistfulness, melancholy. - Hüzün, özlem dolu keder.", example: "Bij het zien van het oude huis overviel haar een lichte weemoed. - Eski evi görünce içini hafif bir hüzün kapladı." },
   { word: "de overdaad", pos: "noun", level: "C2", category: "General", definition: "Excess, abundance. - Aşırılık, bolluk.", example: "De overdaad aan versieringen maakte de kamer smakeloos. - Süslemelerin fazlalığı odayı zevksiz kıldı." },

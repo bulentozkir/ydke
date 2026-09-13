@@ -1,47 +1,4 @@
-/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
- * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
- * <https://polyformproject.org/licenses/noncommercial/1.0.0>
- *
- * Any commercial use requires prior written permission from the copyright
- * holders. Written permission from any ONE of bulentozkir@hotmail.com,
- * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
- * is sufficient and binding on all of them.
- *
- * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
- * Ozkir (https://udsp.vercel.app)
- * Full terms: see LICENSE and NOTICE in this repository.
- */
-/*! Compilation notice — read together with the licence above.
- * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
- * translations in this file are the copyright holders' own work and ARE
- * covered by the PolyForm Noncommercial licence above. Copying this list, or
- * any substantial part of it, into a commercial product or service requires
- * prior written permission from one of the addresses above.
- *
- * Some individual definitions and example sentences come from open community
- * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
- * others — see NOTICE). Those items keep THEIR OWN licence and the
- * noncommercial term is not asserted over them.
- */
 
-// Portuguese A1 vocabulary (self-authored, CEFR A1).
-// 100% original content: every word, definition, and example sentence below
-// was authored directly for this project (no external source scraped or
-// copied) -- same policy already applied to this project's other
-// self-authored language files (see wordsa1es.js / wordsa1it.js etc.).
-// Level assignment is grounded in the open hermitdave/FrequencyWords
-// Portuguese frequency list (pt_50k): the words below sit in the
-// highest-frequency band (roughly the top ~1000 Portuguese words).
-// Definitions & examples shown as English - Turkish (matches every other
-// data/words*.js file's "English. - Türkçe." convention). Nouns store their
-// definite article (o/a/os/as) as part of `word`, mirroring Spanish's
-// el/la/los/las, French's le/la/l', Italian's il/lo/la and German's
-// der/die/das convention.
-// Spelling follows the Acordo Ortográfico (1990), the standard shared by
-// Brazil and Portugal.
-// category is a placeholder "General" here -- run
-// scripts/classify_word_categories.py (with these files in TARGET_FILES) to
-// assign real topical domains, matching every other file.
 window.WORDS_PT_A1 = [
   { word: "a casa", pos: "noun", level: "A1", category: "Household", definition: "House, home. - Ev.", example: "A minha casa é pequena mas bonita. - Evim küçük ama güzel." },
   { word: "a água", pos: "noun", level: "A1", category: "General", definition: "Water. - Su.", example: "Bebo muita água todos os dias. - Her gün çok su içerim." },

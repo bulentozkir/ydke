@@ -1,16 +1,3 @@
-// Dutch A1 vocabulary (self-authored, CEFR A1).
-// 100% original content: every word, definition, and example sentence below
-// was authored directly for this project (no external source scraped or
-// copied) -- same policy already applied to this project's other
-// self-authored language files (see wordsa1es.js / wordsa1it.js /
-// wordsa1pt.js etc.). Definitions & examples shown as English - Turkish
-// (matches every other data/words*.js file's "English. - Türkçe."
-// convention). Nouns store their definite article (de/het) as part of
-// `word`, mirroring Spanish's el/la, French's le/la/l', Italian's il/lo/la
-// and German's der/die/das convention.
-// category is a placeholder "General" here -- run
-// scripts/classify_word_categories.py (with these files in TARGET_FILES) to
-// assign real topical domains, matching every other file.
 window.WORDS_NL_A1 = [
   { word: "het huis", pos: "noun", level: "A1", category: "Household", definition: "House, home. - Ev.", example: "Mijn huis is klein maar gezellig. - Evim küçük ama sıcak." },
   { word: "het water", pos: "noun", level: "A1", category: "General", definition: "Water. - Su.", example: "Ik drink elke dag veel water. - Her gün çok su içerim." },

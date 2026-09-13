@@ -1,56 +1,6 @@
-/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
- * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
- * <https://polyformproject.org/licenses/noncommercial/1.0.0>
- *
- * Any commercial use requires prior written permission from the copyright
- * holders. Written permission from any ONE of bulentozkir@hotmail.com,
- * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
- * is sufficient and binding on all of them.
- *
- * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
- * Ozkir (https://udsp.vercel.app)
- * Full terms: see LICENSE and NOTICE in this repository.
- */
-/*! Compilation notice — read together with the licence above.
- * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
- * translations in this file are the copyright holders' own work and ARE
- * covered by the PolyForm Noncommercial licence above. Copying this list, or
- * any substantial part of it, into a commercial product or service requires
- * prior written permission from one of the addresses above.
- *
- * Some individual definitions and example sentences come from open community
- * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
- * others — see NOTICE). Those items keep THEIR OWN licence and the
- * noncommercial term is not asserted over them.
- */
 
-// Reading Comprehension passages -- French track (CEFR levels A1-C2).
-// NOTE: this file's own CEFR scope is A1-C2 (6 levels) even though this
-// app's separate French VOCABULARY files (data/wordsa1fr.js..wordsc1fr.js)
-// deliberately stop at C1 -- reading comprehension is authored
-// independently of those word lists, so there is no requirement for the
-// two features to share the same level ceiling.
-// All passages and questions below are ORIGINAL content written for this
-// app, not copied or adapted from any third-party site (same policy
-// already applied to the English/German reading-comprehension tracks).
-// Schema matches data/readingcompde.js exactly: { level, title, text,
-// questions: [ { q, options: [4], correct, hint, explain } ] }. `correct`
-// is the 0-based index into `options` of the right answer. `hint`/
-// `explain` are shown via the Hint/Explain buttons in the game UI. All
-// text (passage, questions, hint, explain) is in French, matching the
-// passage's own language -- only the game's UI chrome stays English, same
-// convention as the German/English tracks.
-// Not yet wired into readingcomprehension.js (which currently only reads
-// currentLang "de" vs "en") -- this is a standalone data file for now,
-// same scope as the other 3 new French data files requested alongside it.
-// Pilot scope: 2 passages per level x 6 levels = 12 passages, 5 questions
-// each = 60 questions (matches the original EN/DE pilot scope of 5
-// questions/passage, deliberately NOT the later 10-questions-per-passage
-// expansion those two tracks eventually got -- kept consistent within
-// this file rather than partially upgrading only the new C2 section).
 
 window.READING_PASSAGES_FR = [
-  // ===================== A1 =====================
   {
     level: "A1",
     title: "Ma famille",
@@ -79,7 +29,6 @@ window.READING_PASSAGES_FR = [
       { q: "Que fait-elle le soir ?", options: ["Elle joue au foot", "Elle lit un livre", "Elle mange", "Elle dort"], correct: 1, hint: "Regarde la dernière phrase.", explain: "Le texte dit : \"Le soir, je lis un livre.\"" },
     ],
   },
-  // ===================== A2 =====================
   {
     level: "A2",
     title: "Le week-end dernier",
@@ -110,7 +59,6 @@ window.READING_PASSAGES_FR = [
       { q: "Comment Marc trouve-t-il le travail ?", options: ["Facile", "Ennuyeux", "Parfois stressant", "Impossible"], correct: 2, hint: "Regarde la dernière phrase.", explain: "Le texte dit : \"le travail est parfois stressant.\"" },
     ],
   },
-  // ===================== B1 =====================
   {
     level: "B1",
     title: "Les réseaux sociaux",
@@ -143,7 +91,6 @@ window.READING_PASSAGES_FR = [
       { q: "Que faut-il préparer à l'avance ?", options: ["Son itinéraire", "Son passeport uniquement", "Son argent", "Ses vêtements"], correct: 0, hint: "Regarde la dernière phrase.", explain: "Le texte dit : \"bien préparer son itinéraire à l'avance.\"" },
     ],
   },
-  // ===================== B2 =====================
   {
     level: "B2",
     title: "Le télétravail",
@@ -180,7 +127,6 @@ window.READING_PASSAGES_FR = [
       { q: "Que pensent certains critiques ?", options: ["Que tout va bien", "Que les gestes individuels sont insuffisants", "Qu'il ne faut rien faire", "Que le problème est résolu"], correct: 1, hint: "Regarde la dernière phrase.", explain: "Le texte dit que ces gestes \"restent insuffisants face à l'ampleur du problème.\"" },
     ],
   },
-  // ===================== C1 =====================
   {
     level: "C1",
     title: "L'intelligence artificielle et l'emploi",
@@ -220,7 +166,6 @@ window.READING_PASSAGES_FR = [
       { q: "Que révèle l'étude de la mémoire collective, selon le texte ?", options: ["Seulement des faits historiques", "Le passé et les préoccupations actuelles", "Uniquement l'avenir", "Rien d'utile"], correct: 1, hint: "Regarde la dernière phrase.", explain: "Le texte dit qu'elle \"révèle autant de choses sur le passé que sur les préoccupations actuelles.\"" },
     ],
   },
-  // ===================== C2 =====================
   {
     level: "C2",
     title: "L'économie de l'attention",
@@ -273,7 +218,6 @@ window.READING_PASSAGES_FR = [
       { q: "Quelle stratégie est jugée la plus prometteuse par d'autres observateurs ?", options: ["L'interdiction des réseaux sociaux", "Le renforcement de l'esprit critique et de l'éducation aux médias", "La censure", "La publicité"], correct: 1, hint: "Regarde la dernière phrase.", explain: "Le texte dit que « le renforcement de l'esprit critique et de l'éducation aux médias...demeure la stratégie la plus prometteuse »." },
     ],
   },
-  // ----- extra passages (added to strengthen French coverage) -----
   {
     level: "A1",
     title: "Au marché",

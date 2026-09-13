@@ -9,7 +9,20 @@ windows/build/
 # Generated packaging layout
 windows/packaging/layout/
 *.msix
+*.msixbundle
+*.msixupload
+*.msi
 *.appx
+*.appxbundle
+*.appxupload
+
+# Compiled binaries and debug symbols
+*.dll
+*.exe
+*.pdb
+*.obj
+*.so
+*.dylib
 
 # Shippable artifacts. Attach these to a GitHub release rather than committing
 # ~120 MB of self-contained binaries to history.

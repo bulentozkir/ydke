@@ -13,5 +13,6 @@
     <Compile Include="../../src/YDKE.Windows/Models.cs" Link="Models.cs" />
     <Compile Include="../../src/YDKE.Windows/LearningEngine.cs" Link="LearningEngine.cs" />
     <Compile Include="../../src/YDKE.Windows/GameCatalog.cs" Link="GameCatalog.cs" />
+    <Compile Include="../../src/YDKE.Windows/HelpContent.cs" Link="HelpContent.cs" />
   </ItemGroup>
 </Project>

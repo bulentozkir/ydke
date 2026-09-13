@@ -116,9 +116,52 @@ internal static class SourceAudit
     public static Dictionary<string, string> Instructions(string source)
     {
         var body = Expression(source, "GameInstructions");
-        return Regex.Matches(body, @"(?<id>" + Literal + @"|_)\s*=>\s*U\(\s*(?<key>" + Literal + ")")
-            .ToDictionary(m => m.Groups["id"].Value == "_" ? "_" : Unquote(m.Groups["id"].Value),
-                m => Unquote(m.Groups["key"].Value), StringComparer.Ordinal);
+        var start = body.IndexOf('{');
+        var end = body.LastIndexOf('}');
+        var map = new Dictionary<string, string>(StringComparer.Ordinal);
+        if (start < 0 || end <= start) return map;
+
+        var arms = body[(start + 1)..end];
+        var depth = 0;
+        var quoted = false;
+        var armStart = 0;
+        for (var index = 0; index < arms.Length; index++)
+        {
+            var c = arms[index];
+            if (quoted)
+            {
+                if (c == '\\') index++;
+                else if (c == '"') quoted = false;
+                continue;
+            }
+            if (c == '"') { quoted = true; continue; }
+            if (c is '(' or '[' or '{') depth++;
+            else if (c is ')' or ']' or '}') depth--;
+            else if (c == ',' && depth == 0)
+            {
+                ParseInstructionArm(arms[armStart..index], map);
+                armStart = index + 1;
+            }
+        }
+        ParseInstructionArm(arms[armStart..], map);
+        return map;
+    }
+
+    private static void ParseInstructionArm(string arm, IDictionary<string, string> map)
+    {
+        arm = arm.Trim();
+        if (arm.Length == 0) return;
+        var arrow = arm.IndexOf("=>", StringComparison.Ordinal);
+        if (arrow < 0) return;
+        var idToken = arm[..arrow].Trim();
+        if (idToken != "_" && !IsLiteral(idToken)) return;
+
+        var expression = arm[(arrow + 2)..];
+        var keyMatch = Regex.Match(expression, @"\bU\s*\(\s*(?<key>" + Literal + ")");
+        if (!keyMatch.Success) return;
+
+        var id = idToken == "_" ? "_" : Unquote(idToken);
+        map[id] = Unquote(keyMatch.Groups["key"].Value);
     }
 
     public static string FindRoot(string? specified)

@@ -1,35 +1,4 @@
-/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
- * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
- * <https://polyformproject.org/licenses/noncommercial/1.0.0>
- *
- * Any commercial use requires prior written permission from the copyright
- * holders. Written permission from any ONE of bulentozkir@hotmail.com,
- * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
- * is sufficient and binding on all of them.
- *
- * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
- * Ozkir (https://udsp.vercel.app)
- * Full terms: see LICENSE and NOTICE in this repository.
- */
-/*! Compilation notice — read together with the licence above.
- * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
- * translations in this file are the copyright holders' own work and ARE
- * covered by the PolyForm Noncommercial licence above. Copying this list, or
- * any substantial part of it, into a commercial product or service requires
- * prior written permission from one of the addresses above.
- *
- * Some individual definitions and example sentences come from open community
- * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
- * others — see NOTICE). Those items keep THEIR OWN licence and the
- * noncommercial term is not asserted over them.
- */
 
-// Portuguese A2 vocabulary (self-authored, CEFR A2).
-// 100% original content -- see wordsa1pt.js for the full authoring and
-// levelling policy. Level assignment is grounded in the open
-// hermitdave/FrequencyWords Portuguese frequency list (pt_50k): these words
-// sit just below the A1 band (roughly the top ~1000-3000 Portuguese words)
-// and cover everyday travel, work, health and description topics.
 window.WORDS_PT_A2 = [
   { word: "o emprego", pos: "noun", level: "A2", category: "General", definition: "Job, employment. - İş; istihdam.", example: "Ele procura um novo emprego. - O yeni bir iş arıyor." },
   { word: "a viagem", pos: "noun", level: "A2", category: "Travel", definition: "Trip, journey. - Yolculuk; seyahat.", example: "A viagem durou cinco horas. - Yolculuk beş saat sürdü." },

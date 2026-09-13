@@ -1,51 +1,6 @@
-/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
- * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
- * <https://polyformproject.org/licenses/noncommercial/1.0.0>
- *
- * Any commercial use requires prior written permission from the copyright
- * holders. Written permission from any ONE of bulentozkir@hotmail.com,
- * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
- * is sufficient and binding on all of them.
- *
- * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
- * Ozkir (https://udsp.vercel.app)
- * Full terms: see LICENSE and NOTICE in this repository.
- */
-/*! Compilation notice — read together with the licence above.
- * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
- * translations in this file are the copyright holders' own work and ARE
- * covered by the PolyForm Noncommercial licence above. Copying this list, or
- * any substantial part of it, into a commercial product or service requires
- * prior written permission from one of the addresses above.
- *
- * Some individual definitions and example sentences come from open community
- * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
- * others — see NOTICE). Those items keep THEIR OWN licence and the
- * noncommercial term is not asserted over them.
- */
 
-// Reading Comprehension passages -- English CEFR-level track (A1-C2).
-// All passages and questions below are ORIGINAL content written for this
-// app -- they are NOT copied or adapted from any third-party site.
-// (test-english.com/reading/ was consulted only for structural inspiration
-// -- their Terms of Use explicitly prohibit copying/republishing: "You may
-// not copy, download, print, frame, or republish any material from this
-// website in any form or on any other website... All materials, including
-// test questions..., are protected by international copyright law." --
-// so their actual texts/questions were intentionally NOT used as a
-// source here.)
-// Schema: { level, title, text, questions: [ { q, options: [4], correct,
-// hint, explain } ] }. `correct` is the 0-based index into `options` of
-// the right answer. This is a SEPARATE, parallel English track alongside
-// the original grade-based one (data/readingcomp.js / window.
-// READING_PASSAGES, grades 1-12) -- both stay available; the in-page
-// "By Grade" / "By CEFR Level" toggle (English only) picks which one is
-// active. Used ONLY by the Reading Comprehension game
-// (readingcomprehension.js), selected when currentLang === "en" and the
-// CEFR mode is active.
 
 window.READING_PASSAGES_EN_CEFR = [
-  // ===================== A1 =====================
   {
     level: "A1",
     title: "A Day at the Beach",
@@ -87,7 +42,6 @@ window.READING_PASSAGES_EN_CEFR = [
     ],
   },
 
-  // ===================== A2 =====================
   {
     level: "A2",
     title: "A Letter to a Friend",
@@ -131,7 +85,6 @@ window.READING_PASSAGES_EN_CEFR = [
     ],
   },
 
-  // ===================== B1 =====================
   {
     level: "B1",
     title: "Learning a New Language",
@@ -182,7 +135,6 @@ window.READING_PASSAGES_EN_CEFR = [
     ],
   },
 
-  // ===================== B2 =====================
   {
     level: "B2",
     title: "The Psychology of Procrastination",
@@ -238,7 +190,6 @@ window.READING_PASSAGES_EN_CEFR = [
     ],
   },
 
-  // ===================== C1 =====================
   {
     level: "C1",
     title: "The Ethics of Genetic Engineering",
@@ -302,7 +253,6 @@ window.READING_PASSAGES_EN_CEFR = [
     ],
   },
 
-  // ===================== C2 =====================
   {
     level: "C2",
     title: "Epistemic Humility in an Age of Information Abundance",

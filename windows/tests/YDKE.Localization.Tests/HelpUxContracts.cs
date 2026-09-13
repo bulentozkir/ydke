@@ -21,7 +21,7 @@ internal static class HelpUxContracts
         var start = shell.IndexOf("private void RenderHelpPage()", StringComparison.Ordinal);
         var end = shell.IndexOf("private void RenderAboutPage()", start, StringComparison.Ordinal);
         var help = shell[start..end];
-        string[] topics = ["Screen", "Cards", "Quiz", "Words", "Games", "Settings", "Statistics", "Cloud"];
+        string[] topics = ["Screen", "Cards", "Quiz", "Words", "Games", "Settings", "Statistics", "Backups"];
         var actualTopics = Regex.Matches(help, "\\bTopic\\(\"(?<id>[^\"]+)\"")
             .Select(match => match.Groups["id"].Value).ToArray();
         Test(actualTopics.SequenceEqual(topics), "all eight current topics must be reachable once in the fixed Help grid");
@@ -34,7 +34,12 @@ internal static class HelpUxContracts
             "dialog.Opened +=", "AutomationProperties.SetItemStatus(source", "RestoreDialogFocus(source, page, context)",
             "\"help.\" + id + \".Dialog\"", "await dialog.ShowAsync() == ContentDialogResult.Primary",
             "ConfigureResponsiveGrid(topics, 4, Font(200))", "\"help.Backups\"", "SettingsSection.Account",
+            "AutomationProperties.SetName(button, title)", "Help.SelectTopic", "AutomationProperties.SetHelpText(button",
         }) Test(help.Contains(fragment, StringComparison.Ordinal), "missing accessible, paged Help behavior: " + fragment);
+        foreach (var fragment in new[] { "AutomationProperties.SetName(text, pages[page])",
+            "AutomationProperties.SetName(status, $\"{page + 1} / {pages.Count}\")",
+            "AutomationProperties.SetHelpText(previous, previousHelp)", "AutomationProperties.SetHelpText(next, nextHelp)" })
+            Test(shell.Contains(fragment, StringComparison.Ordinal), "missing accessible Help pager behavior: " + fragment);
         Test(!help.Contains("ToolTipService.SetToolTip", StringComparison.Ordinal), "instructions must be visible on click, not only on hover");
         Test(!Regex.IsMatch(help, @"\b(?:ScrollViewer|Viewbox|ScaleTransform)\b|\bMaxLines\s*="),
             "expanded Help must not add scrolling, shrink text or truncate guidance");
@@ -46,10 +51,10 @@ internal static class HelpUxContracts
 
         string[] keys =
         [
-            "Help.Intro", "Help.ScreenTitle", "Help.Body", "Help.Shortcuts", "Help.Games", "Help.GamesHint", "Help.WordsHint",
-            "Help.Availability", "Help.Settings", "Help.Statistics", "Help.CloudTitle", "Help.Google", "Help.CloudBackup",
-            "Help.OpenPage", "Help.Close", "Help.OpenStatus", "Help.ClosedStatus", "Kids.Help.Intro", "Kids.Help.Cards", "Kids.Help.Quiz", "Kids.Help.Words",
-            "Kids.Help.Games", "Kids.Help.Backups", "Kids.Help.GrownUp", "Cloud.StorageConnected", "Cloud.StorageSignedOut", "About.Body",
+            "Help.Intro", "Help.SelectTopic", "Help.ScreenTitle", "Help.Body", "Help.Shortcuts", "Help.Games", "Help.GamesHint", "Help.WordsHint",
+            "Help.Availability", "Help.Settings", "Help.Statistics", "Help.BackupsTitle", "Help.Backups",
+            "Help.OpenPage", "Help.Close", "Help.OpenStatus", "Help.ClosedStatus", "Kids.Help.Intro", "Kids.Help.Cards", "Kids.Cards.WordListSync", "Kids.Help.Quiz", "Kids.Help.Words",
+            "Kids.Help.Games", "Kids.Help.Backups", "Kids.Help.GrownUp", "About.Body",
         ];
         var references = new Dictionary<string, string[]>
         {
@@ -58,11 +63,7 @@ internal static class HelpUxContracts
             ["Kids.Help.Quiz"] = ["Kids.Quiz.AnswerDetails", "Quiz.Continue"],
             ["Kids.Help.Words"] = ["Library.Previous", "Library.Next", "Library.ClearFilters", "Cards.Listen"],
             ["Kids.Help.Games"] = ["Games.PreviousPage", "Games.NextPage", "Games.HowToPlay", "Kids.Games.Next"],
-            ["Help.Settings"] = ["Kids.Settings.MyPractice", "Kids.Settings.ColorsText", "Kids.Settings.Save", "Kids.Settings.ResetPreview", "Kids.Settings.GrownUps"],
-            ["Help.Statistics"] = ["Stats.Overview", "Stats.Answers", "Stats.History"],
-            ["Help.Google"] = ["Cloud.Connect", "Cloud.UseAnotherBrowser"],
-            ["Help.CloudBackup"] = ["Cloud.Save", "Cloud.Load", "Kids.Settings.GrownUps"],
-            ["Kids.Help.Backups"] = ["Kids.Settings.BackupExport", "Kids.Settings.BackupImport", "Kids.Settings.GrownUps"],
+            ["Help.Statistics"] = ["Stats.Overview", "Stats.AnswersTab", "Stats.CardsTab"],
         };
         Test(Localizer.UiLanguages.Select(language => language.Code).Order().SequenceEqual(new[] { "de", "en", "es", "fr", "nl", "pt", "tr" }),
             "Help must cover exactly the seven supported interface languages");
@@ -85,18 +86,17 @@ internal static class HelpUxContracts
                 Test(Localizer.Get(language.Code, "Help.Body").Contains(shortcut, StringComparison.Ordinal), language.Code + ": missing " + shortcut);
             foreach (var shortcut in new[] { "Tab", "Shift+Tab", "1–4" })
                 Test(Localizer.Get(language.Code, "Help.Shortcuts").Contains(shortcut, StringComparison.Ordinal), language.Code + ": missing study shortcut " + shortcut);
-            foreach (var browser in new[] { "Google", "Edge", "Chrome" })
-                Test(Localizer.Get(language.Code, "Help.Google").Contains(browser, StringComparison.Ordinal), language.Code + ": missing browser guidance " + browser);
             Test(Localizer.Get(language.Code, "Kids.Help.Games").Contains("25", StringComparison.Ordinal), language.Code + ": game count is outdated");
             Test(Localizer.Get(language.Code, "Help.Intro") == Localizer.Get(language.Code, "Kids.Help.Intro"), language.Code + ": Help introductions disagree");
         }
 
-        Test(Localizer.Get("en", "Help.CloudBackup").Contains("does not upload it automatically", StringComparison.Ordinal) &&
-            Localizer.Get("en", "Help.CloudBackup").Contains("confirmation and a safety backup", StringComparison.Ordinal),
-            "Help must distinguish sign-in from upload and explain that loading replaces local data safely");
-        Test(Localizer.Get("en", "Help.Google").Contains("No client ID or client secret is needed", StringComparison.Ordinal) &&
-            Localizer.Get("en", "Kids.Help.Backups").Contains("Signing out does not delete", StringComparison.Ordinal),
-            "Help must describe the no-setup browser flow and non-destructive sign-out");
+        var backupsHelp = Localizer.Get("en", "Help.Backups");
+        Test(backupsHelp.Contains("safety backup", StringComparison.Ordinal) &&
+            !backupsHelp.Contains("sign in", StringComparison.OrdinalIgnoreCase),
+            "Help must explain safe local replacement without sign-in guidance");
+        Test(backupsHelp.Contains("Make a copy", StringComparison.Ordinal) &&
+            backupsHelp.Contains("Open a copy", StringComparison.Ordinal),
+            "Help must route grown-ups to local backup export/import actions");
         Test(Localizer.Get("en", "Help.Statistics").Contains("last seven days", StringComparison.Ordinal),
             "the statistics period is rolling seven days, not the calendar week");
 

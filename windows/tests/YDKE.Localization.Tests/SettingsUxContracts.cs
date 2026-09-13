@@ -32,6 +32,10 @@ internal static class SettingsUxContracts
         var save = Method(source, "SaveSettingsDraftAsync");
         var preview = Method(appearance, "RefreshPreview");
         var goal = Method(source, "TrySettingsGoal");
+        var settingsCheckBox = Method(source, "SettingsCheckBox");
+        var selectorVisuals = Method(source, "ApplySettingsSelectorVisuals");
+        var comboVisuals = Method(source, "ApplySettingsComboBoxVisuals");
+        var sliderVisuals = Method(source, "ApplySettingsSliderVisuals");
 
         Test(Regex.IsMatch(Code(source), @"\bprivate\s+void\s+RenderSettingsPage\s*\(\s*string\s+markedKnownLabel\s*\)"), "keep the private RenderSettingsPage(string markedKnownLabel) hook.");
         var main = File.ReadAllText(Path.Combine(sourceDirectory, "MainPage.xaml.cs"));
@@ -39,7 +43,8 @@ internal static class SettingsUxContracts
         Test(Regex.Matches(Code(render), @"\bAddPageHeader\s*\(").Count == 1, "exactly one page header is allowed.");
         Test(!render.Contains("QuickSettingsLink", StringComparison.Ordinal) && !render.Contains("quickLink", StringComparison.Ordinal),
             "the persistent toolbar must not be repeated as a second settings row.");
-        Test(!Regex.IsMatch(Code(source), @"\bnew\s+ComboBox\b"), "do not duplicate language or level editors.");
+        Test(Regex.Matches(Code(source), @"\bnew\s+ComboBox\b").Count == 1 &&
+            learning.Contains("settings.UiLanguage", StringComparison.Ordinal), "App language must have one editor inside Settings, not a duplicate toolbar editor.");
         Has(source, "private SettingsSection _settingsSection = SettingsSection.Learning;", "default Learning and remember section selection per page instance.");
         Has(source, "private enum SettingsSection { Learning, Appearance, Account }", "keep the parent harness's section enum IDs unchanged.");
         Has(render, "T(\"Profile.Title\")", "retain the existing localized Profile title.");
@@ -57,7 +62,9 @@ internal static class SettingsUxContracts
         Has(select, "_settingsSection = selected", "selection must update only view state.");
         Has(select, "section.Panel.Visibility = section.Section == selected ? Visibility.Visible : Visibility.Collapsed", "only the selected panel may be visible.");
         Test(!Regex.IsMatch(Code(select), @"\b(?:Render\w*|Build\w*|Save\w*)\s*\(|\bnew\b|_settings\."), "tab changes must not rebuild controls or write preferences.");
-        Test(!Regex.IsMatch(Code(source), @"\bRenderCurrentPage\s*\("), "only the existing persistence/cloud workflows should cause a full page rebuild.");
+        Test(Regex.Matches(Code(source), @"\bRenderCurrentPage\s*\(").Count == 1 &&
+            Method(source, "ResetAllLocalDataAsync").Contains("RenderCurrentPage()", StringComparison.Ordinal),
+            "only the existing persistence/cloud/reset workflows should cause a full page rebuild.");
 
         Has(learning, "Minimum = 1, Maximum = 10000", "daily goal must retain the model's 1..10000 range.");
         Has(learning, "Value = _settings.DailyGoal", "do not replace the saved/default daily goal with an age-based value.");
@@ -74,15 +81,34 @@ internal static class SettingsUxContracts
         Has(learning, "goal.Focus(FocusState.Programmatic)", "invalid submission must focus the goal.");
         Has(learning, "draft.GoalValidationShown = true", "a save attempt must expose validation errors.");
         Has(learning, "SaveSettingsDraftAsync(draft, SettingsSection.Learning", "learning must save through the existing guarded preferences path.");
-        foreach (var id in new[] { "settings.DailyGoal", "settings.DailyGoal.Error", "settings.ReduceMotion", "settings.UntimedPractice", "settings.SaveLearning" })
+        foreach (var id in new[] { "settings.DailyGoal", "settings.DailyGoal.Error", "settings.TimerSeconds", "settings.TimerSeconds.Error", "settings.ReduceMotion", "settings.UntimedPractice", "settings.SaveLearning" })
             Has(learning, "\"" + id + "\"", "missing learning AutomationId: " + id);
-        foreach (var key in new[] { "Kids.Settings.LearningSummary", "Kids.Settings.GoalHint", "Kids.Settings.MotionHint", "Kids.Settings.UntimedHint" })
+        foreach (var fragment in new[] { "new ComboBox", "ItemsSource = Localizer.UiLanguages", "SelectedValue = _settings.UiLanguage",
+            "settings.UiLanguage", "Profile.UiLanguageHint", "FocusTarget(appLanguage, \"settings.UiLanguage\")",
+            "ChangeQuickSettingAsync(\"ui\", code)", "ConfigureReadingComboBox(appLanguage)",
+            "ApplySettingsComboBoxVisuals(appLanguage)" })
+            Has(learning, fragment, "moved App language Settings contract: " + fragment);
+        Has(learning, "ApplySettingsSelectorVisuals(goal)", "the daily-goal editor must use the accessible Settings control palette.");
+        Has(learning, "ApplySettingsSelectorVisuals(goalEditor)", "the NumberBox text editor must retain the accessible Settings palette.");
+        Has(settingsCheckBox, "ApplySettingsSelectorVisuals(check)", "binary Settings choices must use the accessible Settings control palette.");
+        Has(appearance, "ApplySettingsSliderVisuals(fontSlider)", "the text-size slider must use a contrast-safe track palette.");
+        foreach (var fragment in new[] { "EnsureFillContrast(palette.Box, palette.Background, 3.5)",
+            "EnsureTextContrast(background, palette.BackgroundForeground)", "EnsureBoundaryContrast(palette.Box, palette.Border)",
+            "EnsureBoundaryContrast(background, preferredBorder)", "HighContrastAdjustment = ElementHighContrastAdjustment.Auto",
+            "UseSystemFocusVisuals = true", "control.BorderThickness = new Thickness(1)" })
+            Has(selectorVisuals, fragment, "Settings selectors must keep readable text, boundaries, high contrast and focus visuals: " + fragment);
+        foreach (var fragment in new[] { "ComboBoxBackground{state}", "ComboBoxForeground{state}", "ComboBoxBorderBrush{state}", "SetSettingsResource" })
+            Has(comboVisuals, fragment, "the App language selector must keep explicit interaction-state resources: " + fragment);
+        Has(sliderVisuals, "EnsureBoundaryContrast(controlBackground, palette.Button)", "the text-size slider track must remain distinguishable from its surface.");
+        foreach (var key in new[] { "Kids.Settings.LearningSummary", "Kids.Settings.GoalHint", "Kids.Settings.TimerSeconds", "Kids.Settings.TimerHint", "Kids.Settings.TimedGamesHover", "Kids.Settings.MotionHint", "Kids.Settings.UntimedHint" })
             Has(learning, "\"" + key + "\"", "missing accurate saved-summary/purpose copy: " + key);
 
         var writes = Regex.Matches(Code(source), @"\b_settings\.(?<name>\w+)\s*=(?!=)")
             .Select(match => match.Groups["name"].Value).Order(StringComparer.Ordinal).ToArray();
-        Test(writes.SequenceEqual(new[] { "AppBackgroundColor", "BoxColor", "ButtonColor", "DailyGoal", "FontScale", "ReduceMotion", "UntimedPractice" }), "only the seven existing learning/appearance fields may be assigned, once each.");
-        Test(!Regex.IsMatch(Code(source), @"\b_storage\s*\.|\bJsonSerializer\b|\b(?:File|Directory)\s*\."), "the new UI must not bypass storage, add serialized fields, or perform profile I/O.");
+        Test(writes.SequenceEqual(new[] { "AppBackgroundColor", "BoxColor", "ButtonColor", "DailyGoal", "FontScale", "ReduceMotion", "TimerSeconds", "UntimedPractice" }), "only the eight existing learning/appearance fields may be assigned, once each.");
+        Test(Method(source, "ResetAllLocalDataAsync").Contains("_storage.ApplyImportAsync(defaults, emptyProgress)", StringComparison.Ordinal) &&
+            Regex.Matches(Code(source), @"\b_storage\.(?:ApplyImportAsync|LoadStateAsync)\s*\(").Count == 2,
+            "only the confirmation-gated reset workflow may use the paired storage operation.");
         Has(save, "await SaveUiSettingsAsync", "delegate persistence, validation and rollback to SaveUiSettingsAsync.");
         Has(save, "if (_storageBlocked || _studyBusy || _dialogOpen || _navigationBusy) return", "respect all existing operation/recovery guards.");
         Has(save, "finally", "clear the apply marker even on failure.");
@@ -132,6 +158,9 @@ internal static class SettingsUxContracts
         Has(Method(source, "SettingsText"), "TextWrapping = TextWrapping.Wrap", "all sample/control copy must wrap.");
         Has(Method(source, "SettingsText"), "TextTrimming = TextTrimming.None", "do not truncate sample fields.");
         Test(ReadableSettingsText(Method(source, "SettingsText")), "settings copy must use the parent's ReadingSize floor and 1.4 line spacing.");
+        var settingsHeading = Method(source, "SettingsHeading");
+        Has(settingsHeading, "AutomationProperties.SetName(heading, text)", "settings headings need an explicit accessible text name.");
+        Has(settingsHeading, "AutomationHeadingLevel.Level2", "settings headings need a semantic heading level.");
         Test(!Regex.IsMatch(Code(appearance), @"\b(?:Viewbox|MaxLines|MaxHeight|Height)\b"), "preview content must not be scaled down or vertically clipped.");
         foreach (var button in new[] { "dark", "light", "reset" })
         {
@@ -160,18 +189,38 @@ internal static class SettingsUxContracts
         Has(fit, "SettingsButton(swatch, \"settings.Color.\" + id)", "keep swatch IDs while enlarging the existing buttons.");
         Has(fit, "swatch.ClearValue(FrameworkElement.HeightProperty)", "the inherited 44px swatch height must not constrain its touch target.");
 
-        Has(account, "AddCloudSection(cloud)", "reuse the existing guarded sign-in/cloud controls.");
-        Has(render, "\"Kids.Settings.GrownUps\", \"For grown-ups\"", "the account tab must clearly mark cloud and backups for grown-ups.");
-        Has(account, "\"Kids.Settings.GrownUpsHint\", \"Help with Google sign-in and copies of learning progress.\"", "give grown-ups a single short section explanation.");
+        Test(!account.Contains("AddCloudSection", StringComparison.Ordinal), "account settings must not render sign-in or cloud controls.");
+        Has(render, "\"Kids.Settings.GrownUps\", \"For grown-ups\"", "the account tab must clearly mark local backup tools for grown-ups.");
+        Has(account, "\"Kids.Settings.GrownUpsHint\", \"Help with local backup copies of learning progress.\"", "give grown-ups a single short local-backup explanation.");
+        Has(account, "SettingsText(T(\"Storage.Notice\"), 18)", "the account section must show the local-only storage notice.");
         Has(account, "export.Click += async (_, _) => await ExportBackupAsync()", "export must use the existing local backup workflow.");
         Has(account, "import.Click += async (_, _) => await ImportBackupAsync()", "import must retain the existing confirmation/recovery workflow.");
+        Has(account, "settings.ResetAll", "grown-up tools must expose a stable reset-all action ID.");
+        Has(account, "resetAll.Click += async (_, _) => await ResetAllLocalDataAsync()", "reset-all must use one guarded destructive workflow.");
+        foreach (var key in new[] { "Kids.Settings.ResetAllIncludes", "Kids.Settings.ResetUserUsage", "Kids.Settings.ResetWordDefaults" })
+            Has(account, "\"" + key + "\"", "the visible reset card must name both reset scopes: " + key);
+        Has(account, "backups.Children.Add(resetAll)", "reset-all must be near the top of the visible backup card so no scrolling is needed.");
+        Has(account, "backups.Children.Add(SettingsText(U(\"Kids.Settings.ResetAllIncludes\"", "reset-all must visibly say that both reset scopes are included.");
+        Has(account, "ApplyStudyChoiceVisual(resetAll, RatingVisual(RecallRating.Again))", "the destructive action needs a distinct warning treatment.");
+        var resetAll = Method(source, "ResetAllLocalDataAsync");
+        Has(resetAll, "ConfirmAsync(", "reset-all must require explicit confirmation.");
+        Has(resetAll, "Kids.Settings.ResetAllConfirm", "reset confirmation must be localized and explicit.");
+        Has(resetAll, "Kids.Settings.ResetAllHint", "reset confirmation must explain local deletion on this device.");
+        Has(resetAll, "Kids.Settings.ResetAllAction", "the confirmation button must say Reset everything rather than generic Continue.");
+        Has(resetAll, "ApplyImportAsync(defaults, emptyProgress)", "reset-all must replace settings and progress as one validated pair.");
+        Has(resetAll, "LoadStateAsync()", "reset-all must reload both models after the committed replacement.");
+        Test(!resetAll.Contains("_cloud", StringComparison.Ordinal), "reset-all must not call cloud credential services.");
+        Has(resetAll, "_settingsDraftState = null", "reset-all must discard stale unsaved settings drafts.");
         Has(account, "SettingsText(T(\"Backup.Hint\"), 18)", "keep the existing backup scope/replacement explanation at a readable size.");
         Has(account, "_progress.KnownWords.Count:N0} {markedKnownLabel}", "known counts must use the caller's manual-bookmark label.");
         Has(account, "_progress.FavoriteWords.Count", "show local favorite counts.");
         foreach (var section in new[] { learning, appearance })
             Test(!Regex.IsMatch(Code(section), @"\b(?:AddCloudSection|ExportBackupAsync|ImportBackupAsync)\s*\("), "keep account and backup controls out of the child-facing sections.");
         Test(!Regex.IsMatch(Code(source), @"\bnew\s+(?:PasswordBox|DatePicker|CalendarDatePicker|HttpClient|TelemetryClient)\b|\b(?:DateOfBirth|ChildAge)\b"), "do not collect age/passwords or introduce network/analytics clients.");
-        Test(!Regex.IsMatch(Code(source), @"\b(?:CloudLoadAsync|CloudDeleteAsync|BeginGoogleSignInAsync|ApplyImportAsync|DeleteCloudProfileAsync|AddProfileLearningControls)\s*\("), "do not duplicate cloud/import/destructive logic or the old combined settings block.");
+        Test(Regex.Matches(Code(source), @"\bApplyImportAsync\s*\(").Count == 1 &&
+            Method(source, "ResetAllLocalDataAsync").Contains("ApplyImportAsync(defaults, emptyProgress)", StringComparison.Ordinal) &&
+            !Regex.IsMatch(Code(source), @"\b(?:CloudLoadAsync|CloudDeleteAsync|BeginGoogleSignInAsync|DeleteCloudProfileAsync|AddProfileLearningControls)\s*\("),
+            "keep backup import logic centralized and allow only the reset-all workflow's paired import.");
 
         Has(save, "if (Notice.IsOpen && Notice.Severity == InfoBarSeverity.Error)", "disclose failures already handled by the shared save path without bypassing rollback.");
         Has(save, "Notice.Content as UIElement ?? SettingsText(Notice.Message ?? \"\", 18)", "preserve the shared save path's original error body, including long structured details.");
@@ -196,6 +245,8 @@ internal static class SettingsUxContracts
         Has(buttonStyle, "button.MinHeight = 48", "settings action and preset heights must be at least 48px.");
         Has(buttonStyle, "button.FontSize = ReadingSize(18)", "settings action and preset text must be at least 18px.");
         Has(buttonStyle, "SettingsReadableContent(button)", "shared button labels must not retain smaller explicit font sizes.");
+        Has(buttonStyle, "AutomationProperties.GetHelpText(button)", "every Settings action must expose help text even when its visible label is the only copy.");
+        Has(buttonStyle, "ToolTipService.SetToolTip(button, name)", "every Settings action must expose the same purpose to pointer users.");
         var readableContent = Method(source, "SettingsReadableContent");
         Has(readableContent, "text.FontSize = Math.Max(ReadingSize(18), text.FontSize)", "locally reused text must retain any larger existing size.");
         Has(readableContent, "text.LineHeight = text.FontSize * 1.4", "shared copy must have readable line spacing.");
@@ -217,7 +268,7 @@ internal static class SettingsUxContracts
         // Negative controls mutate the real helper strings, never production files or copied UI fixtures.
         Test(!WholeGoalGuard(goal.Replace("!double.IsFinite(value)", "false", StringComparison.Ordinal)), "goal contract must reject a missing finite-value guard.");
         Test(!WholeGoalGuard(goal.Replace("value is < 1 or > 10000", "value < 0", StringComparison.Ordinal)), "goal contract must reject weakened model bounds.");
-        Test(!IsolatedPreview(source + "\nAppearancePalette.SetCurrent(_settings);"), "preview isolation contract must reject a global palette write.");
+        Test(!IsolatedPreview(source.Replace("var panel = new StackPanel", "AppearancePalette.SetCurrent(_settings); var panel = new StackPanel", StringComparison.Ordinal)), "preview isolation contract must reject a global palette write.");
         Test(!ReadableSettingsText(Method(source, "SettingsText").Replace("ReadingSize(size)", "Font(size)", StringComparison.Ordinal)), "readability contract must reject bypassing the shared 18px floor.");
         Console.WriteLine($"SETTINGS_UX checks={assertions} errors={failures} sections=3 profile-io=none");
     }
@@ -227,7 +278,7 @@ internal static class SettingsUxContracts
         "parsed is not double value", "!double.IsFinite(value)", "value != Math.Truncate(value)", "value is < 1 or > 10000",
     }.All(fragment => Compact(source).Contains(Compact(fragment), StringComparison.Ordinal));
 
-    private static bool IsolatedPreview(string source) => !Regex.IsMatch(Code(source), @"\b(?:SetCurrent|ApplyAppearance)\s*\(");
+    private static bool IsolatedPreview(string source) => !Regex.IsMatch(Code(Method(source, "BuildAppearanceSettings")), @"\b(?:SetCurrent|ApplyAppearance)\s*\(");
     private static bool ReadableSettingsText(string source) => new[]
     {
         "FontSize = ReadingSize(size)", "LineHeight = ReadingSize(size) * 1.4",

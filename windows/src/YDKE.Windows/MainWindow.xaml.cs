@@ -21,6 +21,7 @@ public sealed partial class MainWindow : Window
     private readonly DispatcherTimer _windowModeTransitionTimer = new();
     private bool _isActivated;
     private bool _isMinimized;
+    private bool _startupFullScreenLocked;
     private bool _windowModeChanging;
 
     internal event EventHandler? WindowModeChanged;
@@ -47,12 +48,16 @@ public sealed partial class MainWindow : Window
         var displayArea = DisplayArea.GetFromWindowId(AppWindow.Id, DisplayAreaFallback.Primary);
         var width = Math.Min((int)Math.Round(1180 * scale), displayArea.WorkArea.Width);
         var height = Math.Min((int)Math.Round(760 * scale), displayArea.WorkArea.Height);
-        AppWindow.Resize(new SizeInt32(width, height));
         if (AppWindow.Presenter is OverlappedPresenter windowed)
         {
+            // Windows can hand a packaged app a remembered Maximized presenter state before
+            // this constructor ever runs; resizing a still-maximized window has no visible
+            // effect, so force Restored FIRST or the intended compact default never appears.
+            if (windowed.State != OverlappedPresenterState.Restored) windowed.Restore();
             windowed.PreferredMinimumWidth = Math.Min((int)Math.Round(800 * scale), displayArea.WorkArea.Width);
             windowed.PreferredMinimumHeight = Math.Min((int)Math.Round(680 * scale), displayArea.WorkArea.Height);
         }
+        AppWindow.Resize(new SizeInt32(width, height));
 
         // Navigate the root frame to the main page on startup.
         RootFrame.Navigate(typeof(MainPage));
@@ -64,12 +69,17 @@ public sealed partial class MainWindow : Window
     private void OnWindowActivated(object sender, WindowActivatedEventArgs args)
     {
         _isActivated = args.WindowActivationState != WindowActivationState.Deactivated;
+        EnforceStartupFullScreenIfNeeded();
         UpdatePageActivity();
     }
 
     private void OnAppWindowChanged(AppWindow sender, AppWindowChangedEventArgs args)
     {
         if (!args.DidPresenterChange) return;
+        if (sender.Presenter.Kind == AppWindowPresenterKind.FullScreen)
+        {
+            _startupFullScreenLocked = true;
+        }
         AppTitleBar.Visibility = sender.Presenter.Kind == AppWindowPresenterKind.FullScreen
             ? Visibility.Collapsed
             : Visibility.Visible;
@@ -135,7 +145,20 @@ public sealed partial class MainWindow : Window
     {
         _windowModeTransitionTimer.Stop();
         _windowModeChanging = false;
+        EnforceStartupFullScreenIfNeeded();
         WindowModeChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void EnforceStartupFullScreenIfNeeded()
+    {
+        if (_startupFullScreenLocked || !_isActivated || _windowModeChanging) return;
+        if (IsFullScreen)
+        {
+            _startupFullScreenLocked = true;
+            return;
+        }
+
+        EnterFullScreen();
     }
 
     private void UpdatePageActivity()

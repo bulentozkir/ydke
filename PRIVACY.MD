@@ -47,7 +47,7 @@ For an optional signed-in account, the cloud service may process or store:
 - Firebase authentication refresh-session information; and
 - the settings and learning-progress backup that the user explicitly saves.
 
-The native app uses a separate Firestore collection named `ydke_users`; it does not use the retired web application's `users` collection. The cloud document contains an opaque backup string and an update timestamp rather than exposing each learning field as a separate Firestore field.
+The native app uses the Firestore collection named `users`; the retired web application no longer writes to it. The cloud document contains an opaque backup string and an update timestamp rather than exposing each learning field as a separate Firestore field.
 
 **Load from cloud** is also explicit. It does not silently merge or replace local learning. YDKE validates the backup, asks for confirmation, and creates a safety copy before applying it locally.
 

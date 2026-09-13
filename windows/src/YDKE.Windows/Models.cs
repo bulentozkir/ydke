@@ -79,18 +79,27 @@ internal sealed class GameSession(GameDefinition game)
 
     public int MaxRounds { get; } = 10;
 
+    public int TimedLimitSeconds { get; set; } = game.Mechanic is
+        GameMechanic.TimedChoice or GameMechanic.TimedTyping or GameMechanic.CategorySprint ? UserSettings.DefaultTimerSeconds : 0;
+
     public int SecondsRemaining { get; set; } = game.Mechanic is
-        GameMechanic.TimedChoice or GameMechanic.TimedTyping or GameMechanic.CategorySprint ? 60 : 0;
+        GameMechanic.TimedChoice or GameMechanic.TimedTyping or GameMechanic.CategorySprint ? UserSettings.DefaultTimerSeconds : 0;
 
     public bool IsTimed => SecondsRemaining > 0;
 }
 
 internal sealed class UserSettings : System.Text.Json.Serialization.IJsonOnDeserialized
 {
+    public const string DefaultUiLanguage = "tr";
+    public const string DefaultQuizChoicePalette = "classic";
+    public const int DefaultTimerSeconds = 60;
+    public const int MinTimerSeconds = 15;
+    public const int MaxTimerSeconds = 300;
+
     // Missing in legacy local files; unknown explicit versions are rejected.
     public int SchemaVersion { get; set; } = 1;
 
-    public string UiLanguage { get; set; } = "tr";
+    public string UiLanguage { get; set; } = DefaultUiLanguage;
 
     public string StudyLanguage { get; set; } = "en";
 
@@ -113,21 +122,33 @@ internal sealed class UserSettings : System.Text.Json.Serialization.IJsonOnDeser
 
     public string BoxColor { get; set; } = AppearancePalette.DefaultBox;
 
+    public string QuizChoicePalette { get; set; } = DefaultQuizChoicePalette;
+
     public int DailyGoal { get; set; } = 20;
+
+    public int TimerSeconds { get; set; } = DefaultTimerSeconds;
 
     public bool ReduceMotion { get; set; }
 
     public bool UntimedPractice { get; set; }
 
-    // Migration only. Storage always reads/writes this as false; no cloud service exists.
-    public bool CloudConnected { get; set; }
+    // Legacy JSON field from retired cloud sync; accepted on read, omitted on write.
+    [System.Text.Json.Serialization.JsonPropertyName("CloudConnected")]
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool LegacyCloudConnected
+    {
+        get => false;
+        set { }
+    }
+
 }
 
 internal sealed class ProgressState
 {
     public int SchemaVersion { get; set; } = 1;
 
-    // Explicit manual bookmarks (U), NOT inferred mastery. Rating never changes these.
+    // Shared Cards/Words mark. Words toggles it explicitly; Good/Easy card ratings add it.
+    // A weaker later rating never silently removes a mark the learner may have set manually.
     public HashSet<string> KnownWords { get; set; } = [];
 
     public HashSet<string> FavoriteWords { get; set; } = [];

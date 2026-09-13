@@ -65,7 +65,7 @@ internal sealed class GameSourceContracts
             ["RenderOddGame"] = ["[odd.Key]"],
             ["RenderBingoGame"] = ["[tested.Key]", "[tested.Key]"],
             ["RenderMatrixGame"] = ["[entry.Key]"],
-            ["RenderCrosswordGame"] = ["[entry.Key]"],
+            ["RenderCrosswordGame"] = ["reviewedKeys"],
             ["RenderLocalDataGame"] = ["[]", "reviewedKeys"],
         };
         var calls = Calls("ResolveGameAnswerAsync").ToArray();
@@ -112,7 +112,6 @@ internal sealed class GameSourceContracts
             ["RenderBossRushRound"] = ["answered=true", "bossHp--", "hearts--", "bossIndex++"],
             ["RenderCodyCrossRound"] = ["solved[row]=true", "activeRow++"],
             ["RenderBingoGame"] = ["found.Add(index)"],
-            ["RenderCrosswordGame"] = ["acrossSolved=true"],
             ["RenderCategoryGame"] = ["_categoryFound.Add(bare)"],
             ["RenderWordGuessRound"] = ["attempts++", "board.Children.Add"],
             ["RenderScrambleRound"] = ["wrong++"],
@@ -135,7 +134,13 @@ internal sealed class GameSourceContracts
         }
         Require(Compact(Method("RenderMemoryRound")).Contains("reviewedKeys=correct?[tile.Entry.Key]:[previousEntry.Key,tile.Entry.Key]", StringComparison.Ordinal), "Memory mismatch may only review the selected pair.");
         Require(Compact(Method("RenderBingoGame")).Contains("vartested=words[target]", StringComparison.Ordinal), "Bingo only tests the current definition.");
-        Require(Compact(Method("RenderCrosswordGame")).Contains("varentry=acrossSolved?crossing.Down:crossing.Across", StringComparison.Ordinal), "Crossword submits one independent entry.");
+        var crossword = Compact(Method("RenderCrosswordGame"));
+        Require(crossword.Contains("reviewedKeys=[crossing.Across.Key]", StringComparison.Ordinal) &&
+            crossword.Contains("reviewedKeys=[crossing.Down.Key]", StringComparison.Ordinal), "Crossword must save Across and Down keys independently.");
+        Require(crossword.Contains("if(!awaitRecordGameSubAnswerAsync(session,correct,button,reviewedKeys)||!IsCurrentGameRound(session,epoch))return;", StringComparison.Ordinal),
+            "Crossword must guard each stage on accepted atomic save.");
+        Require(crossword.Contains("acrossSolved=true", StringComparison.Ordinal), "Crossword must switch to Down only after Across is accepted.");
+        Require(crossword.Contains("answerAlreadyRecorded:true", StringComparison.Ordinal), "Crossword final feedback must not rescore accepted atomic answers.");
         Require(Compact(Method("RenderBossRushRound")).Contains("awaitPlayDefeatAsync();if(!IsCurrentGameRound(session,epoch))return;", StringComparison.Ordinal), "A stale boss animation must not advance the gauntlet.");
     }
 
@@ -147,8 +152,10 @@ internal sealed class GameSourceContracts
         Require(Compact(semantic) == "GameEngine.SemanticWordKeys(pair,_words,language,level)", "Semantic attribution must use current vocabulary evidence.");
         var reading = Calls("ResolveGameAnswerAsync").Single(c => Owner(c) == "RenderLocalDataGame" && Compact(c.ArgumentList.Arguments[4].Expression) == "[]");
         Require(Compact(reading.ArgumentList.Arguments[2].Expression).Contains("question.Explanation", StringComparison.Ordinal), "Reading feedback can contain words without creating vocabulary credit.");
-        foreach (var name in new[] { "RenderCategoryGame", "RenderRackGame" })
-            Require(Compact(Method(name)).Contains("reviewedKeys=testedisnull?[]:[tested.Key]", StringComparison.Ordinal), "Unknown open-ended input must not invent keys: " + name);
+        Require(Compact(Method("RenderCategoryGame")).Contains("IReadOnlyList<string>reviewedKeys=[selected.Key];", StringComparison.Ordinal),
+            "Category Sprint must score the selected option key only.");
+        Require(Compact(Method("RenderRackGame")).Contains("reviewedKeys=testedisnull?[]:[tested.Key]", StringComparison.Ordinal),
+            "Rack must not invent keys for unknown assembled words.");
     }
 
     public void CompletionAndStats()

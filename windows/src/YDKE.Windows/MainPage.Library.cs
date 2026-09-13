@@ -23,7 +23,7 @@ public sealed partial class MainPage
 
     private enum StatsSection { Overview, Answers, History }
 
-    private string MarkedKnownLabel => U("Known.Marked", "Marked known", "Biliniyor olarak işaretli");
+    private string MarkedKnownLabel => U("Known.Marked", "Words marked as known", "Biliniyor olarak işaretlenen kelimeler");
 
     private string FavoriteLabel(string key) => _progress.FavoriteWords.Contains(key)
         ? U("Favorite.Remove", "★ Favorited — remove", "★ Favori — kaldır")
@@ -35,13 +35,20 @@ public sealed partial class MainPage
 
     private Button FavoriteButton(VocabularyEntry entry, Action? refresh = null)
     {
-        var button = SecondaryButton(FavoriteLabel(entry.Key), "");
+        var label = FavoriteLabel(entry.Key);
+        var button = SecondaryButton(label, "");
+        AutomationProperties.SetHelpText(button, label);
+        ToolTipService.SetToolTip(button, label);
         FocusTarget(button, "favorite." + entry.Key);
         button.Click += async (_, _) =>
         {
             if (!await MutateStudyAsync(() => Toggle(_progress.FavoriteWords, entry.Key))) return;
             button.Content = ButtonContent(FavoriteLabel(entry.Key), "");
-            AutomationProperties.SetName(button, FavoriteLabel(entry.Key));
+            if (button.Content is UIElement content) ApplyButtonIconForeground(content, button.Foreground);
+            var updatedLabel = FavoriteLabel(entry.Key);
+            AutomationProperties.SetName(button, updatedLabel);
+            AutomationProperties.SetHelpText(button, updatedLabel);
+            ToolTipService.SetToolTip(button, updatedLabel);
             refresh?.Invoke(); // Cards update in place, preserving reveal, focus and audio.
         };
         return button;
@@ -49,13 +56,20 @@ public sealed partial class MainPage
 
     private Button KnownButton(VocabularyEntry entry, Action? refresh = null)
     {
-        var button = SecondaryButton(KnownLabel(entry.Key), "");
+        var label = KnownLabel(entry.Key);
+        var button = SecondaryButton(label, "");
+        AutomationProperties.SetHelpText(button, label);
+        ToolTipService.SetToolTip(button, label);
         FocusTarget(button, "known." + entry.Key);
         button.Click += async (_, _) =>
         {
             if (!await MutateStudyAsync(() => Toggle(_progress.KnownWords, entry.Key))) return;
             button.Content = ButtonContent(KnownLabel(entry.Key), "");
-            AutomationProperties.SetName(button, KnownLabel(entry.Key));
+            if (button.Content is UIElement content) ApplyButtonIconForeground(content, button.Foreground);
+            var updatedLabel = KnownLabel(entry.Key);
+            AutomationProperties.SetName(button, updatedLabel);
+            AutomationProperties.SetHelpText(button, updatedLabel);
+            ToolTipService.SetToolTip(button, updatedLabel);
             refresh?.Invoke();
         };
         return button;
@@ -72,7 +86,23 @@ public sealed partial class MainPage
         var context = StudyContext;
         var wordBatch = _words;
         var palette = AppearancePalette.Current;
-        AddPageHeader(T("Words.Title"), $"{CurrentStudyLanguage().NativeName} · {_settings.Level}");
+        var wordCardBackground = AppearancePalette.EnsureFillContrast(palette.Background, palette.Box, 5.2);
+        var wordCardForeground = EnsureStrongTextContrast(wordCardBackground, palette.BoxForeground);
+        var wordCardBorder = AppearancePalette.EnsureBoundaryContrast(wordCardBackground, palette.Border);
+        var wordCardBackgroundBrush = new SolidColorBrush(wordCardBackground);
+        var wordCardForegroundBrush = new SolidColorBrush(wordCardForeground);
+        var wordCardBorderBrush = new SolidColorBrush(wordCardBorder);
+        void ApplyWordsActionVisual(Button button)
+        {
+            var background = AppearancePalette.EnsureFillContrast(palette.Background, palette.ButtonTint, 5.2);
+            var foreground = EnsureStrongTextContrast(background, palette.BoxForeground);
+            var border = AppearancePalette.EnsureBoundaryContrast(background, palette.Border);
+            ApplyAccessibleButtonVisuals(button, background, foreground, border);
+            button.BorderThickness = new Thickness(2);
+            button.FontWeight = Microsoft.UI.Text.FontWeights.SemiBold;
+        }
+        AddPageHeader(T("Words.Title"), $"{CurrentStudyLanguage().NativeName} · {_settings.Level} · " +
+            U("Known.SharedWithCards", "known marks are shared with Cards", "biliniyor işaretleri Kartlar ile paylaşılır"));
         var search = new AutoSuggestBox
         {
             PlaceholderText = T("Words.Search"), QueryIcon = new SymbolIcon(Symbol.Find), Text = _libraryQuery,
@@ -80,12 +110,16 @@ public sealed partial class MainPage
             HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Center,
         };
         AutomationProperties.SetName(search, T("Words.Search"));
+        AutomationProperties.SetHelpText(search, U("Words.SearchHelp", "Search by word, meaning or category.", "Kelime, anlam veya kategoriye göre ara."));
         FocusTarget(search, "library.Search");
         var clearLabel = U("Library.ClearFilters", "Clear filters", "Filtreleri temizle");
         var clearFilters = SecondaryButton(clearLabel, "");
         clearFilters.Padding = new Thickness(12, 8, 12, 8);
         clearFilters.HorizontalAlignment = HorizontalAlignment.Left;
         clearFilters.VerticalAlignment = VerticalAlignment.Center;
+        ApplyWordsActionVisual(clearFilters);
+        AutomationProperties.SetHelpText(clearFilters, clearLabel);
+        ToolTipService.SetToolTip(clearFilters, clearLabel);
         FocusTarget(clearFilters, "library.ClearFilters");
         var searchRow = new Grid { ColumnSpacing = 8 };
         searchRow.ColumnDefinitions.Add(new ColumnDefinition());
@@ -104,9 +138,13 @@ public sealed partial class MainPage
             Grid.SetColumnSpan(clearFilters, stacked ? 2 : 1);
             searchRow.RowSpacing = stacked ? 8 : 0;
         };
+        var searchLabel = StudyText(T("Words.Search"), 18, emphasis: true);
+        AutomationProperties.SetAutomationId(searchLabel, "library.Search.Label");
+        AutomationProperties.SetName(searchLabel, T("Words.Search"));
+        PageContent.Children.Add(searchLabel);
         PageContent.Children.Add(searchRow);
 
-        CheckBox Filter(string label, bool selected, string id)
+        CheckBox Filter(string label, string helpText, bool selected, string id)
         {
             var filter = new CheckBox
             {
@@ -115,20 +153,36 @@ public sealed partial class MainPage
                 HorizontalAlignment = HorizontalAlignment.Stretch, HorizontalContentAlignment = HorizontalAlignment.Stretch,
             };
             AutomationProperties.SetName(filter, label);
+            AutomationProperties.SetHelpText(filter, helpText);
+            ToolTipService.SetToolTip(filter, $"{label}: {helpText}");
+            filter.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
+            filter.UseSystemFocusVisuals = true;
             FocusTarget(filter, id);
             return filter;
         }
+        var filtersTitle = StudyText(U("Library.Filters", "Filters", "Filtreler"), 18, emphasis: true);
+        AutomationProperties.SetAutomationId(filtersTitle, "library.Filters.Label");
+        AutomationProperties.SetName(filtersTitle, filtersTitle.Text);
+        PageContent.Children.Add(filtersTitle);
         var filters = new Grid { ColumnSpacing = 10, RowSpacing = 8 };
-        var favorite = Filter(T("Home.Favorites"), _libraryFavorites, "library.Filter.Favorites");
-        var known = Filter(MarkedKnownLabel, _libraryKnown, "library.Filter.Known");
-        var due = Filter(U("Study.Due", "Due", "Tekrar zamanı"), _libraryDue, "library.Filter.Due");
+        var favorite = Filter(T("Home.Favorites"),
+            U("Library.FavoritesFilterHelp", "Show only words marked as favorites.", "Yalnızca favori olarak işaretlenen kelimeleri göster."),
+            _libraryFavorites, "library.Filter.Favorites");
+        var known = Filter(U("Known.Filter", "Words marked as known", "Biliniyor olarak işaretlenen kelimeler"),
+            U("Library.KnownFilterHelp", "Show only words marked as known.", "Yalnızca biliniyor olarak işaretlenen kelimeleri göster."),
+            _libraryKnown, "library.Filter.Known");
+        var due = Filter(U("Study.Due", "Due", "Tekrar zamanı"),
+            U("Library.DueFilterHelp", "Show only words due for review today.", "Yalnızca bugün tekrarı gelen kelimeleri göster."),
+            _libraryDue, "library.Filter.Due");
         filters.Children.Add(favorite);
         filters.Children.Add(known);
         filters.Children.Add(due);
         var categoryLabel = U("Library.Category", "Category", "Kategori");
         var categories = new ComboBox { Header = Body(categoryLabel), HorizontalAlignment = HorizontalAlignment.Stretch };
         ConfigureReadingComboBox(categories);
+        ApplySettingsComboBoxVisuals(categories);
         AutomationProperties.SetName(categories, categoryLabel);
+        AutomationProperties.SetHelpText(categories, U("Library.CategoryHelp", "Choose a topic category.", "Bir konu kategorisi seç."));
         FocusTarget(categories, "library.Category");
         categories.Items.Add(new ComboBoxItem { Content = U("Library.AllCategories", "All categories", "Tüm kategoriler"), Tag = "" });
         foreach (var category in wordBatch.Select(word => word.Category).Where(value => !string.IsNullOrWhiteSpace(value)).Distinct().Order())
@@ -139,11 +193,19 @@ public sealed partial class MainPage
         PageContent.Children.Add(filters);
         var count = Body("");
         StudyLive(count, "library.ResultCount");
-        var practice = AccentButton(U("Library.Practice", "Practice results (up to 8)", "Sonuçları çalış (en fazla 8)"), "");
+        var practiceLabel = U("Library.Practice", "Choose a 20-question test", "20 soruluk test seç");
+        var practiceHelp = U("Library.PracticeHelp", "Open the test islands for this level. Search filters do not change the tests.", "Bu seviyenin test adacıklarını aç. Arama filtreleri testleri değiştirmez.");
+        var practice = AccentButton(practiceLabel, "");
+        AutomationProperties.SetHelpText(practice, practiceHelp);
+        ToolTipService.SetToolTip(practice, practiceHelp);
         FocusTarget(practice, "library.Practice");
         var previous = SecondaryButton(U("Library.Previous", "Previous word", "Önceki kelime"), "");
+        ApplyWordsActionVisual(previous);
+        AutomationProperties.SetHelpText(previous, T("Library.Previous"));
         FocusTarget(previous, "library.Previous");
         var next = SecondaryButton(U("Library.Next", "Next word", "Sonraki kelime"), "");
+        ApplyWordsActionVisual(next);
+        AutomationProperties.SetHelpText(next, T("Library.Next"));
         FocusTarget(next, "library.Next");
         var browserActions = new Grid { ColumnSpacing = 8, RowSpacing = 8, Children = { count, practice, previous, next } };
         ConfigureResponsiveGrid(browserActions, 4, 130);
@@ -154,6 +216,9 @@ public sealed partial class MainPage
         emptyContent.Children.Add(emptyTitle);
         emptyContent.Children.Add(StudyText(U("Library.EmptyHint", "Try a different search, clear the filters, or choose another study language or level.", "Farklı bir arama deneyin, filtreleri temizleyin veya başka bir öğrenme dili ya da seviye seçin."), 14));
         var emptyReset = SecondaryButton(clearLabel, "");
+        ApplyWordsActionVisual(emptyReset);
+        AutomationProperties.SetHelpText(emptyReset, clearLabel);
+        ToolTipService.SetToolTip(emptyReset, clearLabel);
         FocusTarget(emptyReset, "library.Empty.ClearFilters");
         emptyContent.Children.Add(emptyReset);
         var empty = StudySurface(emptyContent, 16);
@@ -200,59 +265,156 @@ public sealed partial class MainPage
             if (focusId is not null) RequestUiFocus(focusId);
             list.Children.Clear();
             Announce(count, string.Format(System.Globalization.CultureInfo.CurrentCulture,
-                U("Library.BrowseCount", "{0:N0} matches · word {1:N0} of {0:N0}", "{0:N0} eşleşme · {0:N0} kelimeden {1:N0}."), matches.Length, matches.Length == 0 ? 0 : _libraryPage + 1));
+                U("Library.BrowseCount", "{0:N0} matches · showing word {1:N0} of {0:N0}", "{0:N0} eşleşme · {0:N0} kelime arasından {1:N0}. kelime gösteriliyor"), matches.Length, matches.Length == 0 ? 0 : _libraryPage + 1));
             empty.Visibility = matches.Length == 0 ? Visibility.Visible : Visibility.Collapsed;
             previous.IsEnabled = _libraryPage > 0;
             next.IsEnabled = _libraryPage + 1 < matches.Length;
-            practice.IsEnabled = matches.Length > 0;
+            practice.IsEnabled = wordBatch.Select(word => word.Word).Distinct(StringComparer.OrdinalIgnoreCase).Take(2).Count() >= 2;
             foreach (var entry in matches.Skip(_libraryPage).Take(1))
             {
                 var definition = LocalizedPart(entry.Definition);
                 var header = new StackPanel { Spacing = 4 };
-                header.Children.Add(StudyText(entry.Word, 18, emphasis: true));
-                header.Children.Add(StudyText(definition, 14));
+                header.Children.Add(StudyText(entry.Word, 24, wordCardForegroundBrush, emphasis: true, selectable: true));
+                header.Children.Add(StudyText(definition, 20, wordCardForegroundBrush, selectable: true));
                 var details = new StackPanel { Spacing = 8 };
-                details.Children.Add(StudyText($"{entry.Category} · {entry.Level} · {entry.PartOfSpeech}", 14));
-                details.Children.Add(StudyText(entry.Example, 15, selectable: true));
+                details.Children.Add(StudyText($"{entry.Category} · {entry.Level} · {entry.PartOfSpeech}", 18, wordCardForegroundBrush));
+                details.Children.Add(StudyText(entry.Example, 19, wordCardForegroundBrush, selectable: true));
                 var actions = new Grid { ColumnSpacing = 8, RowSpacing = 8 };
+                StackPanel ActionGroup(string title, params UIElement[] controls)
+                {
+                    var group = new StackPanel { Spacing = 6 };
+                    var titleText = StudyText(title, 18, wordCardForegroundBrush, emphasis: true);
+                    AutomationProperties.SetName(titleText, title);
+                    group.Children.Add(titleText);
+                    foreach (var control in controls) group.Children.Add(control);
+                    AutomationProperties.SetName(group, title);
+                    return group;
+                }
                 var audio = SecondaryButton(T("Cards.Listen"), "");
+                ApplyWordsActionVisual(audio);
+                var listenHelp = U("Library.ListenHelp", "Play this word's pronunciation.", "Bu kelimenin telaffuzunu dinle.");
                 FocusTarget(audio, "library.Listen." + entry.Key);
                 AutomationProperties.SetName(audio, $"{T("Cards.Listen")}: {entry.Word}");
+                AutomationProperties.SetHelpText(audio, listenHelp);
+                ToolTipService.SetToolTip(audio, listenHelp);
                 audio.Click += async (_, _) => { if (IsCurrentRender()) await PlayWordAsync(entry.Word, audio); };
-                actions.Children.Add(audio);
-                var markFavorite = FavoriteButton(entry, () => Refresh(changedKey: entry.Key, action: "favorite"));
-                AutomationProperties.SetName(markFavorite, $"{FavoriteLabel(entry.Key)}: {entry.Word}");
-                actions.Children.Add(markFavorite);
-                var markKnown = KnownButton(entry, () => Refresh(changedKey: entry.Key, action: "known"));
-                AutomationProperties.SetName(markKnown, $"{KnownLabel(entry.Key)}: {entry.Word}");
-                actions.Children.Add(markKnown);
-                ConfigureResponsiveGrid(actions, 3, 155);
-                details.Children.Add(actions);
-                var expander = new Expander
+                // ActionGroup below is the button's only parent; a second Add aborts word rendering.
+                var repeatLabel = U("Library.Repeat", "Review again", "Tekrar et");
+                var repeatHelp = U("Library.RepeatHelp", "Schedule this word for review tomorrow. It will then appear under Due.", "Bu kelimeyi yarın tekrar etmek için planla. Sonra Tekrar zamanı filtresinde görünür.");
+                var repeat = SecondaryButton(repeatLabel, "\uE72C");
+                ApplyWordsActionVisual(repeat);
+                FocusTarget(repeat, "library.Repeat." + entry.Key);
+                AutomationProperties.SetName(repeat, $"{repeatLabel}: {entry.Word}");
+                AutomationProperties.SetHelpText(repeat, repeatHelp);
+                ToolTipService.SetToolTip(repeat, repeatHelp);
+                repeat.Click += async (_, _) =>
                 {
-                    Header = header, Content = StudySurface(details, 14), IsExpanded = true, Tag = entry.Key,
-                    FontSize = ReadingSize(18), MinHeight = 48, MinWidth = 48,
-                    Background = palette.BoxBrush, Foreground = palette.BoxForegroundBrush,
-                    HorizontalAlignment = HorizontalAlignment.Stretch, HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                    if (!IsCurrentRender()) return;
+                    if (await MutateStudyAsync(() => LearningEngine.ScheduleReview(_progress, entry.Key, Today)))
+                    {
+                        ShowNotice(U("Library.RepeatScheduled", "Review scheduled for tomorrow", "Yarın için tekrar planlandı"), repeatHelp, InfoBarSeverity.Success);
+                        Refresh(changedKey: entry.Key, action: "repeat");
+                    }
                 };
-                foreach (var state in new[] { "", "PointerOver", "Pressed", "Disabled" })
-                {
-                    expander.Resources[$"ExpanderHeaderBackground{state}"] = palette.BoxBrush;
-                    expander.Resources[$"ExpanderHeaderForeground{state}"] = palette.BoxForegroundBrush;
-                }
-                expander.Resources["ExpanderContentBackground"] = palette.BoxBrush;
-                expander.Resources["ExpanderContentBorderBrush"] = palette.BorderBrush;
-                AutomationProperties.SetName(expander, $"{entry.Word} · {definition}");
-                FocusTarget(expander, "library.Word." + entry.Key);
-                expander.KeyDown += async (_, args) =>
+                var markFavorite = FavoriteButton(entry, () => Refresh(changedKey: entry.Key, action: "favorite"));
+                ApplyWordsActionVisual(markFavorite);
+                AutomationProperties.SetName(markFavorite, $"{FavoriteLabel(entry.Key)}: {entry.Word}");
+                var markKnown = KnownButton(entry, () => Refresh(changedKey: entry.Key, action: "known"));
+                ApplyWordsActionVisual(markKnown);
+                AutomationProperties.SetName(markKnown, $"{KnownLabel(entry.Key)}: {entry.Word}");
+                var marks = new Grid { ColumnSpacing = 8, RowSpacing = 8 };
+                marks.Children.Add(markFavorite);
+                marks.Children.Add(markKnown);
+                ConfigureResponsiveGrid(marks, 2, 145);
+                actions.Children.Add(ActionGroup(U("Library.AudioGroup", "Audio", "Ses"), audio));
+                actions.Children.Add(ActionGroup(U("Library.ReviewGroup", "Review", "Tekrar"), repeat));
+                actions.Children.Add(ActionGroup(U("Library.MarksGroup", "Personal marks", "Kişisel işaretler"), marks));
+                AutomationProperties.SetAutomationId(actions, $"library.Actions.{entry.Key}");
+                var actionsLabel = U("Library.WordActions", "Word actions", "Kelime işlemleri");
+                var actionsHelp = U("Library.WordActionsHelp", "Listen, schedule a review, add a favorite mark, or mark this word as known.", "Bu kelimeyi dinle, tekrar planla, favoriye ekle veya biliniyor olarak işaretle.");
+                AutomationProperties.SetName(actions, actionsLabel);
+                AutomationProperties.SetHelpText(actions, actionsHelp);
+                ConfigureResponsiveGrid(actions, 3, Font(220));
+                details.Children.Add(actions);
+                async void OnWordShortcut(object? sender, KeyRoutedEventArgs args)
                 {
                     if (!IsCurrentRender() || args.Key != Windows.System.VirtualKey.U || args.KeyStatus.WasKeyDown || _studyBusy || _dialogOpen || _navigationBusy) return;
                     foreach (var modifier in new[] { Windows.System.VirtualKey.Control, Windows.System.VirtualKey.Menu, Windows.System.VirtualKey.Shift })
                         if (Microsoft.UI.Input.InputKeyboardSource.GetKeyStateForCurrentThread(modifier).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down)) return;
                     args.Handled = true;
                     if (await MutateStudyAsync(() => Toggle(_progress.KnownWords, entry.Key))) Refresh(changedKey: entry.Key, action: "known");
-                };
-                list.Children.Add(expander);
+                }
+
+                // Keep one wrapper for details, including the fallback: detaching an
+                // Expander's Content does not detach the children inside that wrapper.
+                var detailSurface = StudySurface(details, 14);
+                detailSurface.Background = wordCardBackgroundBrush;
+                detailSurface.BorderBrush = wordCardBorderBrush;
+                Control wordCard;
+                Expander? expander = null;
+                try
+                {
+                    expander = new Expander
+                    {
+                        IsExpanded = true, Tag = entry.Key,
+                        FontSize = ReadingSize(18), MinHeight = 48, MinWidth = 48,
+                        Background = wordCardBackgroundBrush, Foreground = wordCardForegroundBrush,
+                        HorizontalAlignment = HorizontalAlignment.Stretch, HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                    };
+                    // Retain the instance before attaching children so the catch can detach them.
+                    expander.Header = header;
+                    expander.Content = detailSurface;
+                    foreach (var state in new[] { "", "PointerOver", "Pressed", "Disabled" })
+                    {
+                        expander.Resources[$"ExpanderHeaderBackground{state}"] = wordCardBackgroundBrush;
+                        expander.Resources[$"ExpanderHeaderForeground{state}"] = wordCardForegroundBrush;
+                    }
+                    expander.Resources["ExpanderContentBackground"] = wordCardBackgroundBrush;
+                    expander.Resources["ExpanderContentBorderBrush"] = wordCardBorderBrush;
+                    AutomationProperties.SetName(expander, $"{entry.Word} · {definition}");
+                    void UpdateWordDetailsAccessibility()
+                    {
+                        var help = string.Format(System.Globalization.CultureInfo.CurrentCulture,
+                            U(expander.IsExpanded ? "Library.WordDetailsExpanded" : "Library.WordDetailsCollapsed",
+                                expander.IsExpanded ? "Details for {0} are expanded. Select to collapse." : "Details for {0} are collapsed. Select to expand.",
+                                expander.IsExpanded ? "{0} kelimesinin ayrıntıları açık. Kapatmak için seç." : "{0} kelimesinin ayrıntıları kapalı. Açmak için seç."), entry.Word);
+                        AutomationProperties.SetHelpText(expander, help);
+                        ToolTipService.SetToolTip(expander, help);
+                    }
+                    UpdateWordDetailsAccessibility();
+                    expander.RegisterPropertyChangedCallback(Expander.IsExpandedProperty, (_, _) => UpdateWordDetailsAccessibility());
+                    wordCard = expander;
+                }
+                catch (Exception)
+                {
+                    if (expander is not null)
+                    {
+                        expander.Header = null;
+                        expander.Content = null;
+                    }
+                    // Expander can fail to activate on incomplete runtimes; keep Words usable with a plain card.
+                    var fallbackStack = new StackPanel { Spacing = 8 };
+                    fallbackStack.Children.Add(header);
+                    fallbackStack.Children.Add(detailSurface);
+                    var fallback = new ContentControl
+                    {
+                        Content = Card(fallbackStack, 14),
+                        FontSize = ReadingSize(18),
+                        MinHeight = 48,
+                        MinWidth = 48,
+                        IsTabStop = true,
+                        UseSystemFocusVisuals = true,
+                        HorizontalAlignment = HorizontalAlignment.Stretch,
+                        HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                    };
+                    AutomationProperties.SetName(fallback, $"{entry.Word} · {definition}");
+                    AutomationProperties.SetHelpText(fallback, actionsHelp);
+                    ToolTipService.SetToolTip(fallback, actionsHelp);
+                    wordCard = fallback;
+                }
+                FocusTarget(wordCard, "library.Word." + entry.Key);
+                wordCard.KeyDown += OnWordShortcut;
+                list.Children.Add(wordCard);
             }
             if (focusId == "library.Search") FocusTarget(search, "library.Search");
         }
@@ -374,9 +536,9 @@ public sealed partial class MainPage
         emptyReset.Click += (_, _) => ResetFilters();
         previous.Click += (_, _) => { if (!searchPending && IsCurrentRender() && _libraryPage > 0) { _libraryPage--; Refresh(); } };
         next.Click += (_, _) => { if (!searchPending && IsCurrentRender() && _libraryPage + 1 < matches.Length) { _libraryPage++; Refresh(); } };
-        practice.Click += async (_, _) =>
+        practice.Click += (_, _) =>
         {
-            if (!searchPending && IsCurrentRender() && matches.Length > 0) await StartStudySessionAsync("quiz", matches);
+            if (!searchPending && IsCurrentRender() && practice.IsEnabled) ShowQuizExamPicker();
         };
         Refresh();
     }
@@ -394,14 +556,24 @@ public sealed partial class MainPage
         foreach (var mode in new[] { "cards", "quiz" })
         {
             var panel = new StackPanel { Spacing = 10 };
-            panel.Children.Add(Heading(mode == "cards" ? T("Nav.Cards") : T("Nav.Quiz"), 22));
-            var session = Session(mode);
-            panel.Children.Add(Body(session is null
+            var modeLabel = mode == "cards" ? T("Nav.Cards") : T("Nav.Quiz");
+            panel.Children.Add(Heading(modeLabel, 22));
+            var session = mode == "cards" ? Session("cards") : null;
+            panel.Children.Add(Body(mode == "quiz" ? T("Kids.Quiz.ExamTitle") : session is null
                 ? U("Kids.Home.Ready", "A few words at a time. Let's try!", "Bir seferde birkaç kelime. Hadi deneyelim!")
                 : $"{U("Session.Progress", "Completed", "Tamamlanan")}: {session.Answers.Count} / {session.WordKeys.Count}"));
-            var button = AccentButton(session is not null && session.Index < session.WordKeys.Count
-                ? U("Home.Resume", "Resume saved session", "Kayıtlı oturuma devam") : T("Home.Continue"), "");
-            button.Click += (_, _) => NavigateTo(mode, mode == "cards" ? CardsItem : QuizItem);
+            var sessionLabel = mode == "quiz" ? T("Kids.Quiz.ChooseExam") : session is not null && session.Index < session.WordKeys.Count
+                ? U("Home.Resume", "Resume saved session", "Kayıtlı oturuma devam") : T("Home.Continue");
+            var button = AccentButton(sessionLabel, "");
+            AutomationProperties.SetAutomationId(button, $"home.{mode}.Session");
+            AutomationProperties.SetHelpText(button, $"{modeLabel}: {sessionLabel}");
+            ToolTipService.SetToolTip(button, $"{modeLabel}: {sessionLabel}");
+            FocusTarget(button, $"home.{mode}.Session");
+            button.Click += (_, _) =>
+            {
+                if (mode == "quiz") ShowQuizExamPicker();
+                else NavigateTo("cards", CardsItem);
+            };
             panel.Children.Add(button);
             suite.Children.Add(Card(panel, 22));
         }
@@ -409,18 +581,40 @@ public sealed partial class MainPage
         PageContent.Children.Add(suite);
         var play = AccentButton(U("Kids.Home.Play", "Play a word game", "Kelime oyunu oyna"), "\uE768");
         AutomationProperties.SetAutomationId(play, "home.Play");
+        AutomationProperties.SetHelpText(play, U("Kids.Home.PlayHelp", "Open the word games.", "Kelime oyunlarını aç."));
+        ToolTipService.SetToolTip(play, U("Kids.Home.PlayHelp", "Open the word games.", "Kelime oyunlarını aç."));
+        FocusTarget(play, "home.Play");
         play.Click += (_, _) => NavigateTo("simple-games", SimpleGamesItem);
-        var myWords = StudyPopupButton(U("Kids.Home.MyWords", "My words", "Kelimelerim"), grid, "home.MyWords");
-        var settings = SecondaryButton(U("Kids.Home.Settings", "My settings", "Ayarlarım"), "");
+        var wordSummary = StudyPopupButton(U("Kids.Home.WordSummary", "Word summary", "Kelime özeti"), grid, "home.WordSummary");
+        AutomationProperties.SetHelpText(wordSummary, U("Kids.Home.WordSummaryHelp", "Open counts for due, known and favorite words.", "Tekrar zamanı, biliniyor ve favori kelime sayılarını aç."));
+        ToolTipService.SetToolTip(wordSummary, U("Kids.Home.WordSummaryHelp", "Open counts for due, known and favorite words.", "Tekrar zamanı, biliniyor ve favori kelime sayılarını aç."));
+        var myWordsLabel = U("Kids.Home.MyWords", "My words", "Kelimelerim");
+        var myWords = SecondaryButton(myWordsLabel, "\uE82D");
+        AutomationProperties.SetAutomationId(myWords, "home.MyWords");
+        AutomationProperties.SetHelpText(myWords, U("Kids.Home.MyWordsHelp", "Open your word list.", "Kelime listenizi aç."));
+        ToolTipService.SetToolTip(myWords, U("Kids.Home.MyWordsHelp", "Open your word list.", "Kelime listenizi aç."));
+        FocusTarget(myWords, "home.MyWords");
+        myWords.Click += (_, _) => NavigateTo("words", WordsItem);
+        var settingsLabel = U("Kids.Home.Settings", "My settings", "Ayarlarım");
+        var settings = SecondaryButton(settingsLabel, "");
+        AutomationProperties.SetAutomationId(settings, "home.Settings");
+        AutomationProperties.SetHelpText(settings, settingsLabel);
+        ToolTipService.SetToolTip(settings, settingsLabel);
+        FocusTarget(settings, "home.Settings");
         settings.Click += (_, _) => NavigateTo("profile", ProfileItem);
-        var actions = new Grid { ColumnSpacing = 10, RowSpacing = 10, Children = { play, myWords, settings } };
+        var actions = new Grid { ColumnSpacing = 10, RowSpacing = 10, Children = { play, myWords, wordSummary, settings } };
         ConfigureResponsiveGrid(actions, 3, 190);
         PageContent.Children.Add(actions);
         var daily = new StackPanel { Spacing = 6 };
-        daily.Children.Add(Heading($"{U("Kids.Home.Today", "Words practiced today", "Bugün çalıştığın kelimeler")}: {today} / {_settings.DailyGoal}", 20));
-        daily.Children.Add(new ProgressBar { Minimum = 0, Maximum = _settings.DailyGoal, Value = Math.Min(today, _settings.DailyGoal) });
+        var dailyLabel = $"{U("Kids.Home.Today", "Words practiced today", "Bugün çalıştığın kelimeler")}: {today} / {_settings.DailyGoal}";
+        daily.Children.Add(Heading(dailyLabel, 20));
+        var dailyProgress = new ProgressBar { Minimum = 0, Maximum = _settings.DailyGoal, Value = Math.Min(today, _settings.DailyGoal) };
+        AutomationProperties.SetAutomationId(dailyProgress, "home.TodayProgress");
+        AutomationProperties.SetName(dailyProgress, dailyLabel);
+        AutomationProperties.SetHelpText(dailyProgress, U("Kids.Home.TodayProgressHelp", "Words practiced today compared with your daily goal.", "Bugün çalıştığınız kelimeleri günlük hedefinizle karşılaştırır."));
+        daily.Children.Add(dailyProgress);
         PageContent.Children.Add(daily);
-        AddHomeAccountCard();
+        AddHomeStorageCard();
     }
 
     private void AddLearningStats()
@@ -458,11 +652,28 @@ public sealed partial class MainPage
             var total = (long)correct + wrong;
             var accuracy = total == 0 ? "—" : $"{100.0 * correct / total:0}%";
             var content = new StackPanel { Spacing = 8 };
-            content.Children.Add(StudyText(label, 18, emphasis: true));
-            content.Children.Add(StudyText($"{T("Stats.Success")}: {accuracy}", 24, emphasis: true));
-            content.Children.Add(StudyText($"{T("Stats.Correct")}: {correct:N0} · {T("Stats.Wrong")}: {wrong:N0}", 15));
-            if (detail is not null) content.Children.Add(StudyText(detail, 14));
-            scored.Children.Add(StudySurface(content));
+            var labelText = StudyText(label, 18, emphasis: true);
+            AutomationProperties.SetName(labelText, label);
+            AutomationProperties.SetHeadingLevel(labelText, Microsoft.UI.Xaml.Automation.Peers.AutomationHeadingLevel.Level3);
+            content.Children.Add(labelText);
+            var accuracyText = $"{T("Stats.Success")}: {accuracy}";
+            var accuracyLabel = StudyText(accuracyText, 24, emphasis: true);
+            AutomationProperties.SetName(accuracyLabel, accuracyText);
+            content.Children.Add(accuracyLabel);
+            var totalsText = $"{T("Stats.Correct")}: {correct:N0} · {T("Stats.Wrong")}: {wrong:N0}";
+            var totalsLabel = StudyText(totalsText, 15);
+            AutomationProperties.SetName(totalsLabel, totalsText);
+            content.Children.Add(totalsLabel);
+            if (detail is not null)
+            {
+                var detailLabel = StudyText(detail, 14);
+                AutomationProperties.SetName(detailLabel, detail);
+                content.Children.Add(detailLabel);
+            }
+            var surface = StudySurface(content);
+            surface.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
+            AutomationProperties.SetName(surface, $"{label}. {accuracyText}. {totalsText}");
+            scored.Children.Add(surface);
         }
         Scored(U("Stats.QuizAnswers", "Quiz answers — first attempts, all languages", "Test yanıtları — ilk denemeler, tüm diller"), _progress.QuizCorrectAnswers, _progress.QuizWrongAnswers);
         Scored(U("Stats.GameAnswers", "Game answers — scored attempts, all languages", "Oyun yanıtları — puanlanan denemeler, tüm diller"), _progress.GameCorrectAnswers, _progress.GameWrongAnswers,
@@ -471,32 +682,97 @@ public sealed partial class MainPage
         answers.Children.Add(scored);
         answers.Children.Add(BuildScopedGameStatistics());
 
-        var recall = new Grid { ColumnSpacing = 10, RowSpacing = 10 };
-        string[] labels = [U("Rating.Again", "Again", "Tekrar"), U("Rating.Hard", "Hard", "Zor"), U("Rating.Good", "Good", "İyi"), U("Rating.Easy", "Easy", "Kolay")];
-        for (var index = 0; index < labels.Length; index++)
-            AddStat(recall, index, labels[index], _progress.RecallRatings.GetValueOrDefault(((RecallRating)index).ToString()).ToString("N0"), "");
-        ConfigureResponsiveGrid(recall, 4, 150);
-        history.Children.Add(StudyPopupButton(U("Stats.Recall", "Card self-ratings — not accuracy", "Kart öz değerlendirmeleri — doğruluk değildir"), recall, "stats.Recall"));
+        var cardsPanel = new StackPanel { Spacing = 10 };
+        var cardsTitleText = U("Stats.CardsTab", "Cards", "Kartlar");
+        var cardsHint = U("Stats.History", "Cards & history", "Kartlar ve geçmiş");
+        AutomationProperties.SetAutomationId(cardsPanel, "stats.Cards.Section");
+        AutomationProperties.SetName(cardsPanel, cardsTitleText);
+        AutomationProperties.SetHelpText(cardsPanel, cardsHint);
+        AutomationProperties.SetAccessibilityView(cardsPanel, Microsoft.UI.Xaml.Automation.Peers.AccessibilityView.Control);
+        var cardsTitle = StudyText(cardsTitleText, 20, emphasis: true);
+        AutomationProperties.SetAutomationId(cardsTitle, "stats.Cards");
+        AutomationProperties.SetName(cardsTitle, cardsTitleText);
+        AutomationProperties.SetHeadingLevel(cardsTitle, Microsoft.UI.Xaml.Automation.Peers.AutomationHeadingLevel.Level2);
+        cardsPanel.Children.Add(cardsTitle);
 
-        var legacy = new StackPanel { Spacing = 8 };
-        legacy.Children.Add(StudyText($"{T("Stats.Correct")}: {_progress.CorrectAnswers:N0} · {T("Stats.Wrong")}: {_progress.WrongAnswers:N0}", 15));
-        legacy.Children.Add(StudyText($"{U("Stats.LegacyActions", "Historical mixed activity actions", "Geçmiş karma etkinlik işlemleri")}: {_progress.DailyActivity.Values.Sum(count => (long)count):N0}", 15));
-        legacy.Children.Add(StudyText(U("Stats.LegacyHint", "Old counters mixed self-ratings and scored answers. They are not converted into quiz accuracy, game accuracy or unique-word goals. New metrics start at zero when absent.", "Eski sayaçlar öz değerlendirmeleri ve puanlanan yanıtları karıştırıyordu. Test doğruluğu, oyun doğruluğu veya farklı kelime hedeflerine dönüştürülmezler. Eksik yeni ölçümler sıfırdan başlar."), 14));
-        history.Children.Add(StudyPopupButton(U("Stats.Legacy", "Legacy counters — retained history only", "Eski sayaçlar — yalnızca saklanan geçmiş"), legacy, "stats.Legacy"));
+        var languagePrefix = _settings.StudyLanguage + ":";
+        var cardReviews = _progress.Reviews
+            .Where(pair => pair.Key.StartsWith(languagePrefix, StringComparison.Ordinal))
+            .Select(pair => pair.Value)
+            .ToArray();
+        var reviewedCards = cardReviews.Where(review => review.LastReviewed is not null).ToArray();
+
+        var cardsSummary = new Grid { ColumnSpacing = 10, RowSpacing = 10 };
+        AddStat(cardsSummary, 0, MarkedKnownLabel,
+            _progress.KnownWords.Count(key => key.StartsWith(languagePrefix, StringComparison.Ordinal)).ToString("N0"), "");
+        AddStat(cardsSummary, 1, T("Home.Favorites"),
+            _progress.FavoriteWords.Count(key => key.StartsWith(languagePrefix, StringComparison.Ordinal)).ToString("N0"), "");
+        AddStat(cardsSummary, 2, U("Study.Due", "Due", "Tekrar zamanı"),
+            cardReviews.Count(review => review.DueDate <= today).ToString("N0"), "");
+        ConfigureResponsiveGrid(cardsSummary, 3, 200);
+        cardsPanel.Children.Add(cardsSummary);
+
+        var cardActivity = new Grid { ColumnSpacing = 10, RowSpacing = 10 };
+        AddStat(cardActivity, 0, U("Stats.TodayWords", "Words last reviewed today", "Son tekrarı bugün olan kelimeler"),
+            reviewedCards.Count(review => review.LastReviewed == today).ToString("N0"), "");
+        AddStat(cardActivity, 1, U("Stats.WeekWords", "Words last reviewed in 7 days", "Son 7 günde tekrarlanan kelimeler"),
+            reviewedCards.Count(review => review.LastReviewed >= today.AddDays(-6) && review.LastReviewed <= today).ToString("N0"), "");
+        AddStat(cardActivity, 2, CurrentStudyLanguage().NativeName + " · " + U("Stats.AllLevels", "all levels", "tüm seviyeler"),
+            reviewedCards.Length.ToString("N0"), "");
+        ConfigureResponsiveGrid(cardActivity, 3, 200);
+        cardsPanel.Children.Add(cardActivity);
+        history.Children.Add(StudySurface(cardsPanel, 14));
 
         var tabs = new Grid { ColumnSpacing = 8, RowSpacing = 8 };
+        AutomationProperties.SetAutomationId(tabs, "stats.Sections");
+        AutomationProperties.SetName(tabs, T("Stats.Title"));
+        AutomationProperties.SetHelpText(tabs, U("Stats.SelectSection", "Open this statistics section.", "Bu istatistik bölümünü aç."));
+        AutomationProperties.SetAccessibilityView(tabs, AccessibilityView.Control);
+        var sectionStatus = Body("");
+        StudyLive(sectionStatus, "stats.Section.Active");
         var content = new Grid();
-        var sections = new (StatsSection Section, string Id, string Label, FrameworkElement Panel)[]
+        var sections = new (StatsSection Section, string Id, string Label, string Hint, FrameworkElement Panel)[]
         {
-            (StatsSection.Overview, "overview", U("Stats.Overview", "Overview", "Genel bakış"), overview),
-            (StatsSection.Answers, "answers", U("Stats.Answers", "Answers & games", "Yanıtlar ve oyunlar"), answers),
-            (StatsSection.History, "history", U("Stats.History", "Cards & history", "Kartlar ve geçmiş"), history),
+            (StatsSection.Overview, "overview", U("Stats.Overview", "Overview", "Genel bakış"),
+                U("Stats.AllActivity", "All-language activity — today / last 7 days", "Tüm dillerde etkinlik — bugün / son 7 gün"), overview),
+            (StatsSection.Answers, "answers", U("Stats.AnswersTab", "Answers", "Yanıtlar"),
+                U("Stats.Answers", "Answers & games", "Yanıtlar ve oyunlar"), answers),
+            (StatsSection.History, "history", U("Stats.CardsTab", "Cards", "Kartlar"),
+                U("Stats.History", "Cards & history", "Kartlar ve geçmiş"), history),
         };
+        var sectionTabs = new Dictionary<StatsSection, RadioButton>();
+
+        void ApplyStatsTabVisuals(RadioButton tab, bool selected)
+        {
+            var palette = AppearancePalette.Current;
+            var selectedBorder = AppearancePalette.EnsureBoundaryContrast(palette.Box, palette.Button);
+            var defaultBorder = AppearancePalette.EnsureBoundaryContrast(palette.Box, palette.Border);
+            var borderColor = selected ? selectedBorder : defaultBorder;
+            var backgroundColor = selected
+                ? Color.FromArgb(44, selectedBorder.R, selectedBorder.G, selectedBorder.B)
+                : palette.Box;
+            var foregroundColor = AppearancePalette.EnsureTextContrast(backgroundColor, palette.BoxForeground);
+            tab.Background = new SolidColorBrush(backgroundColor);
+            tab.Foreground = new SolidColorBrush(foregroundColor);
+            tab.BorderBrush = new SolidColorBrush(borderColor);
+            tab.BorderThickness = new Thickness(selected ? 2 : 1);
+            tab.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
+            tab.UseSystemFocusVisuals = true;
+        }
+
         void Select(StatsSection selected)
         {
             _statsSection = selected;
             foreach (var section in sections)
-                section.Panel.Visibility = section.Section == selected ? Visibility.Visible : Visibility.Collapsed;
+            {
+                var active = section.Section == selected;
+                section.Panel.Visibility = active ? Visibility.Visible : Visibility.Collapsed;
+                if (sectionTabs.TryGetValue(section.Section, out var tab)) ApplyStatsTabVisuals(tab, active);
+                if (!active) continue;
+                var status = $"{section.Label} — {section.Hint}";
+                Announce(sectionStatus, status);
+                AutomationProperties.SetName(sectionStatus, $"{T("Stats.Title")}: {status}");
+            }
         }
         var group = "stats.Sections." + Guid.NewGuid().ToString("N");
         foreach (var section in sections)
@@ -507,21 +783,34 @@ public sealed partial class MainPage
                 IsChecked = section.Section == _statsSection, MinWidth = 48, MinHeight = 48,
                 HorizontalAlignment = HorizontalAlignment.Stretch, HorizontalContentAlignment = HorizontalAlignment.Stretch,
             };
+            ApplySettingsSelectorVisuals(tab);
+            ApplyStatsTabVisuals(tab, section.Section == _statsSection);
+            AutomationProperties.SetName(tab, section.Label);
+            var sectionHelp = U("Stats.SelectSection", "Open this statistics section.", "Bu istatistik bölümünü aç.") + " " + section.Hint;
+            AutomationProperties.SetHelpText(tab, sectionHelp);
+            ToolTipService.SetToolTip(tab, section.Label);
+            tab.Loaded += (_, _) =>
+            {
+                AutomationProperties.SetName(tab, section.Label);
+                AutomationProperties.SetHelpText(tab, sectionHelp);
+            };
             FocusTarget(tab, "stats.Section." + section.Id);
             tab.Checked += (_, _) => Select(section.Section);
+            sectionTabs[section.Section] = tab;
             tabs.Children.Add(tab);
             content.Children.Add(section.Panel);
         }
         ConfigureResponsiveGrid(tabs, 3, 170);
         Select(_statsSection);
         PageContent.Children.Add(tabs);
+        PageContent.Children.Add(sectionStatus);
         PageContent.Children.Add(content);
     }
 
     private void AddProfileLearningControls(StackPanel panel)
     {
-        panel.Children.Add(Body(CloudStorageNotice));
-        panel.Children.Add(Body(U("Known.ManualHint", "Marked known (U) is a manual bookmark, not automatic mastery. It skips unreviewed new words, but never hides a scheduled due review.", "Biliniyor işareti (U) elle konan bir yer imidir, otomatik ustalık değildir. Tekrar edilmemiş yeni kelimeleri atlar, ancak zamanı gelen tekrarı asla gizlemez.")));
+        panel.Children.Add(Body(T("Storage.Notice")));
+        panel.Children.Add(Body(U("Known.ManualHint", "Cards and Words share known marks. Toggle one in Words, or choose I knew it or Easy in Cards. A due review still appears.", "Kartlar ve Kelimeler biliniyor işaretlerini paylaşır. Kelimeler'de değiştir veya Kartlar'da Biliyordum ya da Kolay'ı seç. Zamanı gelen tekrar yine görünür.")));
         var goal = new NumberBox
         {
             Header = U("Goal.UniqueTarget", "Daily unique-word target — all languages (1–10000)", "Günlük farklı kelime hedefi — tüm diller (1–10000)"),
@@ -580,457 +869,25 @@ public sealed partial class MainPage
         WinRT.Interop.InitializeWithWindow.Initialize(picker, WinRT.Interop.WindowNative.GetWindowHandle(window));
     }
 
-    private bool CloudUiUnavailable => !IsLoaded || !_initialized || QuickUiLanguage.ItemsSource is null ||
-        _studyBusy || _dialogOpen || _dialogClosed is not null || _navigationBusy || LoadingRing.IsActive;
-
-    private string CloudConnectLabel => U("Cloud.Connect", "Sign in with Google", "Google ile oturum aç");
-    private string CloudAccountName => !string.IsNullOrWhiteSpace(_cloud.DisplayName) ? _cloud.DisplayName :
-        !string.IsNullOrWhiteSpace(_cloud.Email) ? _cloud.Email : U("Cloud.GoogleAccount", "Google account", "Google hesabı");
-    private string CloudOfflineHint => U("Cloud.OfflineOptional", "Google sign-in is optional. Learning always works offline.", "Google ile oturum açmak isteğe bağlıdır. Öğrenme her zaman çevrimdışı çalışır.");
-    private string CloudFamilyHint => U("Cloud.FamilyHint", "With a grown-up, save your learning on another device.", "Bir büyüğünle birlikte ilerlemeni başka bir cihaza kaydet.");
-    private string CloudStorageNotice => _cloud.IsConnected
-        ? U("Cloud.StorageConnected", "Signed in with Google. Learning stays on this device until you choose Save to cloud in Settings > For grown-ups.", "Google ile oturum açıldı. Ayarlar > Büyükler için'de Buluta kaydet'i seçene kadar çalışmaların bu cihazda kalır.")
-        : U("Cloud.StorageSignedOut", "Learning is saved on this device. Google sign-in is optional. Make a copy in Settings > For grown-ups exports a local backup.", "Çalışmaların bu cihaza kaydedilir. Google ile oturum açmak isteğe bağlıdır. Ayarlar > Büyükler için'de Bir kopya oluştur yerel yedek dışa aktarır.");
-
-    private void SyncAccountStatus()
+    private void AddHomeStorageCard()
     {
-        LocalStatusButton.IsEnabled = !CloudUiUnavailable;
-        if (!IsLoaded) return;
-        var connected = _cloud.IsConnected;
-        var palette = AppearancePalette.Current;
-        var label = connected ? U("Cloud.Connected", "Connected", "Bağlı") : U("Cloud.SignIn", "Sign in", "Oturum aç");
-        var actionHint = connected
-            ? U("Cloud.ClickToSignOut", "Select to sign out", "Çıkış yapmak için seçin")
-            : U("Cloud.ClickToSignIn", "Select to sign in with Google", "Google ile oturum açmak için seçin");
-        var account = connected ? $"{U("Cloud.SignedInAs", "Signed in as", "Oturum açan")}: {CloudAccountName}" : CloudConnectLabel;
-        LocalStatusBadge.Background = connected ? new SolidColorBrush(Color.FromArgb(255, 16, 124, 16)) : palette.BoxBrush;
-        LocalStatusBadge.BorderBrush = connected ? new SolidColorBrush(Microsoft.UI.Colors.White) : palette.BorderBrush;
-        LocalStatusIcon.Glyph = connected ? "\uE73E" : "\uE77B";
-        LocalStatusIcon.Foreground = connected ? new SolidColorBrush(Microsoft.UI.Colors.White) : palette.BoxForegroundBrush;
-        LocalStatusText.Foreground = palette.BoxForegroundBrush;
-        LocalStatusText.FontSize = Math.Max(18, Font(18));
-        LocalStatusButton.Foreground = palette.BoxForegroundBrush;
-        AutomationProperties.SetName(LocalStatusButton, $"{account}. {actionHint}");
-        AutomationProperties.SetHelpText(LocalStatusButton, connected ? CloudStorageNotice : CloudOfflineHint);
-        ToolTipService.SetToolTip(LocalStatusButton, $"{account}\n{(connected ? CloudStorageNotice : CloudOfflineHint)}\n{actionHint}");
-        if (LocalStatusText.Text != label) UpdateCloudLiveText(LocalStatusText, label);
-    }
-
-    private void RefreshCloudUi(Control? previousFocus = null)
-    {
-        try
+        var title = U("Kids.Settings.Backups", "Copies of learning progress", "Öğrenme ilerlemesinin kopyaları");
+        var panel = new StackPanel { Spacing = 8 };
+        panel.Children.Add(Heading(title, 20));
+        panel.Children.Add(Body(T("Storage.Notice")));
+        var manage = CompactStudyAction(SecondaryButton(U("Kids.Help.GrownUp", "Ask a grown-up", "Bir büyüğünden yardım iste"), "\uE950"));
+        AutomationProperties.SetAutomationId(manage, "home.ManageBackups");
+        AutomationProperties.SetHelpText(manage, T("Kids.Help.Backups"));
+        ToolTipService.SetToolTip(manage, T("Kids.Help.Backups"));
+        FocusTarget(manage, "home.ManageBackups");
+        manage.Click += (_, _) =>
         {
-            if (IsLoaded && !_dialogOpen && _dialogClosed is null && !_studyBusy && !_navigationBusy && !LoadingRing.IsActive && _activeGame is null &&
-                _currentPage is "home" or "profile")
-            {
-                var id = previousFocus is not null ? AutomationProperties.GetAutomationId(previousFocus) : "";
-                id = id switch
-                {
-                    "home.OtherBrowser" when _cloud.IsConnected => "home.AccountAction",
-                    "profile.OtherBrowser" when _cloud.IsConnected => "profile.AccountAction",
-                    "cloud.Save" or "cloud.Load" or "cloud.DeleteProfile" or "cloud.GrownUpTools" when !_cloud.IsConnected => "profile.AccountAction",
-                    "cloud.DeleteProfile" => "cloud.GrownUpTools",
-                    _ => id,
-                };
-                if (id is "home.AccountAction" or "profile.AccountAction" or "home.OtherBrowser" or "profile.OtherBrowser" or
-                    "cloud.Save" or "cloud.Load" or "cloud.GrownUpTools") RequestUiFocus(id);
-                RenderCurrentPage();
-            }
-        }
-        finally
-        {
-            SyncAccountStatus();
-            if (ReferenceEquals(previousFocus, LocalStatusButton) && !CloudUiUnavailable && IsLoaded)
-                LocalStatusButton.Focus(FocusState.Programmatic);
-        }
-    }
-
-    // Follow the toolbar's live busy/loading state, including controls built while busy.
-    private void BindCloudAction(Control control) => control.SetBinding(Control.IsEnabledProperty, new Microsoft.UI.Xaml.Data.Binding
-    {
-        Source = LocalStatusButton, Path = new PropertyPath(nameof(Control.IsEnabled)),
-        Mode = Microsoft.UI.Xaml.Data.BindingMode.OneWay,
-    });
-
-    private Button CloudActionButton(string label, string automationId, bool primary = false)
-    {
-        var button = primary ? AccentButton(label, "") : SecondaryButton(label, "");
-        button.Content = CloudDialogText(label);
-        button.FontSize = Math.Max(18, Font(18));
-        FocusTarget(button, automationId);
-        BindCloudAction(button);
-        return button;
-    }
-
-    private Button CloudAccountAction(string automationId)
-    {
-        var connected = _cloud.IsConnected;
-        var label = connected ? U("Cloud.SignOut", "Sign out", "Çıkış") : CloudConnectLabel;
-        var button = CloudActionButton(label, automationId, primary: !connected);
-        if (connected) AutomationProperties.SetName(button, $"{label}: {CloudAccountName}");
-        button.Click += OnLocalStatusButtonClick;
-        return button;
-    }
-
-    private Button CloudBrowserButton(string automationId)
-    {
-        var button = CloudActionButton(U("Cloud.UseAnotherBrowser", "Use another browser", "Başka bir tarayıcı kullan"), automationId);
-        button.Padding = new Thickness(8, 6, 8, 6);
-        button.MinHeight = 48;
-        button.HorizontalAlignment = HorizontalAlignment.Left;
-        var menu = new MenuFlyout();
-        var edge = new MenuFlyoutItem
-        {
-            Text = U("Cloud.OpenInEdge", "Open in Edge", "Edge'de aç"), Tag = button, FontSize = Math.Max(18, Font(18)),
-            MinHeight = 48, MinWidth = 48,
+            if (_studyBusy || _dialogOpen || _navigationBusy || LoadingRing.IsActive) return;
+            _settingsSection = SettingsSection.Account;
+            NavigateTo("profile", ProfileItem);
         };
-        var chrome = new MenuFlyoutItem
-        {
-            Text = U("Cloud.OpenInChrome", "Open in Chrome", "Chrome'da aç"), Tag = button, FontSize = Math.Max(18, Font(18)),
-            MinHeight = 48, MinWidth = 48,
-        };
-        AutomationProperties.SetAutomationId(edge, automationId + ".Edge");
-        AutomationProperties.SetAutomationId(chrome, automationId + ".Chrome");
-        BindCloudAction(edge);
-        BindCloudAction(chrome);
-        edge.Click += async (_, _) => await BeginGoogleSignInAsync(GoogleSignInBrowser.Edge);
-        chrome.Click += async (_, _) => await BeginGoogleSignInAsync(GoogleSignInBrowser.Chrome);
-        menu.Items.Add(edge);
-        menu.Items.Add(chrome);
-        button.Flyout = menu;
-        return button;
-    }
-
-    private void AddHomeAccountCard()
-    {
-        var copy = new StackPanel { Spacing = 4, VerticalAlignment = VerticalAlignment.Center };
-        var title = Heading(_cloud.IsConnected
-            ? $"{U("Cloud.SignedInAs", "Signed in as", "Oturum açan")}: {CloudAccountName}"
-            : U("Cloud.GoogleAccount", "Google account", "Google hesabı"), 20);
-        title.FontSize = Math.Max(18, Font(20));
-        copy.Children.Add(title);
-        copy.Children.Add(CloudDialogText(CloudFamilyHint));
-        var actions = new StackPanel { Spacing = 4, VerticalAlignment = VerticalAlignment.Center };
-        actions.Children.Add(CloudAccountAction("home.AccountAction"));
-        if (_cloud.IsConnected)
-        {
-            var label = U("Cloud.ManageAccount", "Manage account", "Hesabı yönet");
-            var manage = new HyperlinkButton
-            {
-                Content = CloudDialogText(label), Foreground = AppearancePalette.Current.BoxForegroundBrush,
-                HorizontalAlignment = HorizontalAlignment.Left, Padding = new Thickness(6),
-            };
-            AutomationProperties.SetAutomationId(manage, "home.ManageSync");
-            AutomationProperties.SetName(manage, label);
-            BindCloudAction(manage);
-            manage.Click += (_, _) =>
-            {
-                if (CloudUiUnavailable) return;
-                _settingsSection = SettingsSection.Account;
-                NavigateTo("profile", ProfileItem);
-            };
-            actions.Children.Add(manage);
-        }
-        else actions.Children.Add(CloudBrowserButton("home.OtherBrowser"));
-        var layout = new Grid { ColumnSpacing = 16, RowSpacing = 10, Children = { copy, actions } };
-        ConfigureResponsiveGrid(layout, 2, Font(330));
-        PageContent.Children.Add(Card(layout, 18));
-    }
-
-    private void AddCloudSection(StackPanel panel)
-    {
-        panel.Children.Add(SettingHeader("", U("Cloud.GoogleAccount", "Google account", "Google hesabı"), CloudFamilyHint));
-        panel.Children.Add(CloudAccountAction("profile.AccountAction"));
-        if (_cloud.IsConnected)
-        {
-            var name = CloudDialogText($"{U("Cloud.SignedInAs", "Signed in as", "Oturum açan")}: {CloudAccountName}");
-            name.Foreground = AppearancePalette.Current.BoxForegroundBrush;
-            panel.Children.Add(name);
-            var actions = new Grid { ColumnSpacing = 8, RowSpacing = 8 };
-            var save = CloudActionButton(U("Cloud.Save", "Save to cloud", "Buluta kaydet"), "cloud.Save");
-            save.Click += async (_, _) => await CloudSaveAsync();
-            var load = CloudActionButton(U("Cloud.Load", "Load from cloud", "Buluttan al"), "cloud.Load");
-            load.Click += async (_, _) => await CloudLoadAsync();
-            actions.Children.Add(save); actions.Children.Add(load);
-            ConfigureResponsiveGrid(actions, 2, 150);
-            panel.Children.Add(actions);
-            var deleteCloud = CloudActionButton(U("Cloud.DeleteProfile", "Delete cloud profile", "Bulut profilini sil"), "cloud.DeleteProfile");
-            deleteCloud.Click += async (_, _) => await CloudDeleteAsync();
-            var tools = StudyPopupButton(U("Cloud.GrownUpTools", "Grown-up tools", "Büyükler için araçlar"), deleteCloud, "cloud.GrownUpTools");
-            BindCloudAction(tools);
-            panel.Children.Add(tools);
-        }
-        else panel.Children.Add(CloudBrowserButton("profile.OtherBrowser"));
-    }
-
-    private async Task BeginGoogleSignInAsync(GoogleSignInBrowser? preferredBrowser = null)
-    {
-        if (CloudUiUnavailable || _cloud.IsConnected) return;
-        if (_activeGame is not null && (_gameLocalBusy || _gameRoundClosed || _resolvingGame is not null || _completingGame is not null))
-        {
-            ShowNotice(U("Cloud.WaitingForGame", "Finish game feedback first", "Önce oyun geri bildirimini tamamlayın"),
-                U("Cloud.SignInAfterFeedback", "Go to the next question, then try signing in. Your game will stay here.", "Sonraki soruya geç, sonra oturum açmayı dene. Oyunun burada kalacak."), InfoBarSeverity.Informational);
-            return;
-        }
-        var browser = preferredBrowser ?? _cloud.LastGoogleBrowser;
-        if (!Enum.IsDefined(browser)) browser = GoogleSignInBrowser.Default;
-        var focus = FocusManager.GetFocusedElement(XamlRoot) as Control;
-        if (focus is MenuFlyoutItem { Tag: Control owner }) focus = owner;
-        var page = _currentPage;
-        var context = StudyContext;
-        var timer = _gameTimer;
-        var wasRunning = timer?.IsEnabled == true;
-        var game = _activeGame;
-        var closed = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-        _dialogOpen = true;
-        _dialogClosed = closed;
-        try
-        {
-            timer?.Stop();
-            SetStudyBusy(true);
-            var result = await ConnectCloudAsync(browser);
-            if (!IsLoaded) return;
-            if (result.Success && _cloud.IsConnected)
-                ShowNotice(U("Cloud.Connected", "Connected", "Bağlı"), CloudAccountName, InfoBarSeverity.Success);
-            else if (result.ErrorMessage is not null)
-                ShowNotice(T("Common.Error"), CloudSignInFailureMessage(), InfoBarSeverity.Error);
-        }
-        catch (Exception)
-        {
-            if (IsLoaded) ShowNotice(T("Common.Error"), CloudSignInFailureMessage(), InfoBarSeverity.Error);
-        }
-        finally
-        {
-            _dialogOpen = false;
-            _dialogClosed = null;
-            try
-            {
-                SetStudyBusy(false);
-                if (IsLoaded && wasRunning && !_storageBlocked && _activeGame == game && ReferenceEquals(timer, _gameTimer)) timer?.Start();
-                RefreshCloudUi(focus);
-                RestoreDialogFocus(focus, page, context);
-            }
-            finally { closed.TrySetResult(true); }
-        }
-    }
-
-    private static TextBlock CloudDialogText(string text) => new()
-    {
-        Text = text, TextWrapping = TextWrapping.Wrap, FontSize = Math.Max(18, Font(18)),
-    };
-
-    private static void UpdateCloudLiveText(TextBlock text, string message)
-    {
-        text.Text = message;
-        (FrameworkElementAutomationPeer.FromElement(text) ?? FrameworkElementAutomationPeer.CreatePeerForElement(text))
-            ?.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
-    }
-
-    private async Task<CloudResult> ConnectCloudAsync(GoogleSignInBrowser browser)
-    {
-        using var cts = new CancellationTokenSource();
-        var content = new StackPanel { Spacing = 16 };
-        content.Children.Add(new ProgressRing { IsActive = true, Width = 32, Height = 32 });
-        content.Children.Add(CloudDialogText(
-            U("Cloud.BrowserSignInHint", "Google will open in your browser. Sign in there, then come back.", "Google tarayıcında açılacak. Orada oturum aç, sonra buraya dön.") + " " +
-            U("Cloud.BrowserContinueHint", "If the browser shows Continue with Google, choose it.", "Tarayıcıda Google ile devam et görünürse onu seç.")));
-        var title = U("Cloud.FinishInBrowser", "Finish in your browser", "Tarayıcında tamamla");
-        var waitDialog = new ContentDialog
-        {
-            XamlRoot = XamlRoot, RequestedTheme = RequestedTheme, Title = title,
-            Content = content, FontSize = Math.Max(18, Font(18)),
-            CloseButtonText = U("Dialog.Cancel", "Cancel", "İptal"),
-            DefaultButton = ContentDialogButton.Close,
-        };
-        AutomationProperties.SetAutomationId(waitDialog, "cloud.WaitDialog");
-        AutomationProperties.SetName(waitDialog, title);
-        ConfigureReadingDialog(waitDialog);
-        var opened = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-        var abandonedSignal = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-        Task<ContentDialogResult>? dialogTask = null;
-        Task<CloudResult>? signInTask = null;
-        CloudResult? result = null;
-        var abandoned = false;
-        var closingForResult = false;
-        var uiFailed = false;
-        void CancelRequest()
-        {
-            if (cts.IsCancellationRequested) return;
-            try { cts.Cancel(); }
-            catch (AggregateException) { uiFailed = true; abandoned = true; abandonedSignal.TrySetResult(true); }
-        }
-        void Abandon()
-        {
-            abandoned = true;
-            abandonedSignal.TrySetResult(true);
-            CancelRequest();
-        }
-        waitDialog.Opened += (_, _) => opened.TrySetResult(true);
-        waitDialog.CloseButtonClick += (_, _) => Abandon();
-        waitDialog.Closing += (_, _) => { if (!closingForResult) Abandon(); };
-        // Unloading still cancels during the result's close animation.
-        void UnloadSignIn(object sender, RoutedEventArgs args) => Abandon();
-        Unloaded += UnloadSignIn;
-        try
-        {
-            dialogTask = waitDialog.ShowAsync().AsTask();
-            await Task.WhenAny(opened.Task, dialogTask, abandonedSignal.Task);
-            if (opened.Task.IsCompletedSuccessfully && !abandoned && IsLoaded && !dialogTask.IsCompleted)
-            {
-                await opened.Task;
-                signInTask = _cloud.SignInWithBrowserAsync(cts.Token, browser, _settings.UiLanguage);
-                await Task.WhenAny(signInTask, dialogTask, abandonedSignal.Task);
-                if (dialogTask.IsCompleted || !IsLoaded) Abandon();
-                result = await signInTask;
-            }
-        }
-        catch (OperationCanceledException) when (cts.IsCancellationRequested) { Abandon(); }
-        catch (Exception) { uiFailed = true; Abandon(); }
-        finally
-        {
-            closingForResult = true;
-            CancelRequest();
-            try
-            {
-                if (dialogTask is not null)
-                {
-                    if (!dialogTask.IsCompleted) waitDialog.Hide();
-                    await dialogTask;
-                }
-            }
-            catch (Exception) { uiFailed = true; Abandon(); }
-            finally
-            {
-                try
-                {
-                    if (signInTask is not null)
-                    {
-                        try { result = await signInTask; }
-                        catch (OperationCanceledException) when (cts.IsCancellationRequested) { Abandon(); }
-                        catch (Exception) { uiFailed = true; Abandon(); }
-                    }
-                    if (!IsLoaded) Abandon();
-                }
-                finally { Unloaded -= UnloadSignIn; }
-            }
-        }
-        if (abandoned && result?.Success == true)
-        {
-            // A cancel racing the atomic credential commit must not retain a new session.
-            try { await _cloud.SignOutAsync(); }
-            catch (Exception) { ShowCloudSignOutFailure(); return new(false, null); }
-        }
-        if (uiFailed) return new(false, CloudSignInFailureMessage());
-        if (abandoned || result is null) return new(false, null);
-        // Only the coordinator's verified, persisted Firebase session is a success.
-        return result.Success && _cloud.IsConnected ? result : new(false, CloudSignInFailureMessage());
-    }
-
-    // Never interpolate provider errors or browser responses into notices or logs.
-    private string CloudSignInFailureMessage() => U("Cloud.SignInHelp", "We could not sign in. Try again, or ask a grown-up for help.", "Oturum açılamadı. Yeniden dene ya da bir büyüğünden yardım iste.");
-
-    private string CloudSyncFailureMessage() => U("Cloud.SyncTryAgain", "We could not finish that. Try again, or ask a grown-up for help.", "Bu işlem tamamlanamadı. Yeniden dene ya da bir büyüğünden yardım iste.");
-
-    private void ShowCloudSignOutFailure()
-    {
-        if (!IsLoaded) return;
-        ShowNotice(T("Common.Error"), U("Cloud.SignOutNotSaved", "Signed out here, but we could not save that change. Ask a grown-up to close the app and try again.", "Burada çıkış yapıldı, ancak bu değişiklik kaydedilemedi. Bir büyüğünden uygulamayı kapatıp yeniden denemesini iste."), InfoBarSeverity.Error);
-    }
-
-    private async void OnLocalStatusButtonClick(object sender, RoutedEventArgs e)
-    {
-        if (CloudUiUnavailable) return;
-        if (_cloud.IsConnected) await DisconnectCloudAsync();
-        else await BeginGoogleSignInAsync();
-    }
-
-    private async Task DisconnectCloudAsync()
-    {
-        if (CloudUiUnavailable) return;
-        var focus = FocusManager.GetFocusedElement(XamlRoot) as Control;
-        SetStudyBusy(true);
-        try
-        {
-            await _cloud.SignOutAsync();
-            if (IsLoaded) ShowNotice(U("Cloud.SignedOut", "Signed out", "Oturum kapatıldı"), CloudOfflineHint, InfoBarSeverity.Informational);
-        }
-        catch (Exception) { ShowCloudSignOutFailure(); }
-        finally { SetStudyBusy(false); RefreshCloudUi(focus); }
-    }
-
-    private async Task CloudSaveAsync()
-    {
-        if (CloudUiUnavailable || !_cloud.IsConnected) return;
-        var focus = FocusManager.GetFocusedElement(XamlRoot) as Control;
-        SetStudyBusy(true);
-        try
-        {
-            var result = await _cloud.SaveToCloudAsync(_settings, _progress);
-            if (IsLoaded) ShowNotice(result.Success ? U("Cloud.Saved", "Saved to cloud", "Buluta kaydedildi") : T("Common.Error"),
-                result.Success ? "" : CloudSyncFailureMessage(), result.Success ? InfoBarSeverity.Success : InfoBarSeverity.Error);
-        }
-        catch (Exception) { if (IsLoaded) ShowNotice(T("Common.Error"), CloudSyncFailureMessage(), InfoBarSeverity.Error); }
-        finally { SetStudyBusy(false); RefreshCloudUi(focus); }
-    }
-
-    private async Task CloudLoadAsync()
-    {
-        if (CloudUiUnavailable || !_cloud.IsConnected || _activeGame is not null) return;
-        SetStudyBusy(true);
-        var importCommitted = false;
-        try
-        {
-            var (result, settings, progress) = await _cloud.LoadFromCloudAsync();
-            if (!result.Success || settings is null || progress is null)
-            {
-                if (IsLoaded) ShowNotice(T("Common.Error"), CloudSyncFailureMessage(), InfoBarSeverity.Warning);
-                return;
-            }
-            if (!await ConfirmAsync(U("Backup.Replace", "Replace local settings and progress?", "Yerel ayarlar ve ilerleme değiştirilsin mi?"),
-                $"{settings.StudyLanguage} · {settings.Level}\n" +
-                U("Cloud.ReplaceHint", "This replaces all current progress and preferences with the cloud copy. A separate safety backup will be saved before replacement.", "Bu, tüm mevcut ilerleme ve tercihleri bulut kopyasıyla değiştirir. Değiştirmeden önce ayrı bir güvenlik yedeği kaydedilir."))) return;
-            var safety = Path.Combine(_storage.FolderPath, $"before-cloud-load-{Guid.NewGuid():N}.json");
-            await _storage.ExportAsync(safety, _settings, _progress);
-            try
-            {
-                await _storage.ApplyImportAsync(settings, progress);
-                importCommitted = true;
-            }
-            catch (ImportReloadRequiredException) { throw; }
-            catch (Exception failure) { throw new IOException($"{failure.Message}\n{safety}", failure); }
-            var loaded = await _storage.LoadStateAsync();
-            (_settings, _progress) = loaded;
-            _cardUndo = null; _cardUndoContext = null; _revealedCardKey = null; _pendingFocus = null; _cardRevealed = false;
-            _libraryContext = null; _libraryQuery = ""; _libraryFavorites = _libraryKnown = _libraryDue = false; _libraryPage = 0;
-            await ReloadWordsAsync();
-            ApplyAppearance(); ApplyNavigationLanguage();
-            ShowNotice(U("Cloud.Loaded", "Loaded from cloud. Previous data saved at:", "Buluttan yüklendi. Önceki veriler şuraya kaydedildi:"), safety, InfoBarSeverity.Success);
-        }
-        catch (ImportReloadRequiredException ex) { BlockStorageUntilRestart(ex); }
-        catch (Exception ex)
-        {
-            if (importCommitted) BlockStorageUntilRestart(ex);
-            else ShowNotice(T("Common.Error"), ex.Message, InfoBarSeverity.Error);
-        }
-        finally { SetStudyBusy(false); RefreshCloudUi(); }
-    }
-
-    private async Task CloudDeleteAsync()
-    {
-        if (CloudUiUnavailable || !_cloud.IsConnected) return;
-        var focus = FocusManager.GetFocusedElement(XamlRoot) as Control;
-        if (!await ConfirmAsync(U("Cloud.DeleteConfirm", "Delete your cloud profile?", "Bulut profiliniz silinsin mi?"),
-            U("Cloud.DeleteConfirmHint", "This only removes the cloud copy. Local progress on this device and your Google account are unaffected.", "Bu yalnızca bulut kopyasını kaldırır. Bu cihazdaki yerel ilerleme ve Google hesabınız etkilenmez."))) return;
-        if (CloudUiUnavailable || !_cloud.IsConnected) return;
-        SetStudyBusy(true);
-        try
-        {
-            var result = await _cloud.DeleteCloudProfileAsync();
-            if (IsLoaded) ShowNotice(result.Success ? U("Cloud.Deleted", "Cloud profile deleted", "Bulut profili silindi") : T("Common.Error"),
-                result.Success ? "" : CloudSyncFailureMessage(), result.Success ? InfoBarSeverity.Success : InfoBarSeverity.Error);
-        }
-        catch (Exception) { if (IsLoaded) ShowNotice(T("Common.Error"), CloudSyncFailureMessage(), InfoBarSeverity.Error); }
-        finally { SetStudyBusy(false); RefreshCloudUi(focus); }
+        panel.Children.Add(manage);
+        PageContent.Children.Add(Card(panel, 18));
     }
 
     private async Task ExportBackupAsync()

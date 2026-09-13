@@ -2,9 +2,9 @@
   "schema": 1,
   "source": "ydke-local-import",
   "sourcePath": "data/",
-  "generated": "2026-09-03T23:29:52Z",
+  "generated": "2026-09-11T08:02:39Z",
   "fileCount": 53,
-  "totalBytes": 37296874,
+  "totalBytes": 36714800,
   "files": [
     {
       "name": "partikelverbde.js",
@@ -58,13 +58,13 @@
     },
     {
       "name": "toefl.js",
-      "bytes": 5541415,
-      "sha256": "a44296d5018f9d27f242c27b2d735d7e863d5ecb3b410abdb8743e2eefaaa74c"
+      "bytes": 1250832,
+      "sha256": "5d443fc53c4ed06519be479287ed914c578c4a7cd0ac7a1ef9ffac7949cab843"
     },
     {
       "name": "wordsa1.js",
-      "bytes": 408289,
-      "sha256": "753a6e6355402e38845064c648e710c292f1103e8c56082d230cfbca4fd2bc56"
+      "bytes": 408264,
+      "sha256": "17775f5eee52043617086639c872c6db9e29af0dba7a92b7a76e7b9c52f40fec"
     },
     {
       "name": "wordsa1es.js",
@@ -78,8 +78,8 @@
     },
     {
       "name": "wordsa1gode.js",
-      "bytes": 428358,
-      "sha256": "126596c3d635b66dacffc25b5f6b53322dacfe4b8ebd6a093e6353cd2debfbcf"
+      "bytes": 428375,
+      "sha256": "2d1754d6138dfda73ef8e1327d947c7222bb3e306ca5d288c3c94d77b330d5b0"
     },
     {
       "name": "wordsa1it.js",
@@ -98,8 +98,8 @@
     },
     {
       "name": "wordsa2.js",
-      "bytes": 586756,
-      "sha256": "4a25ec113f7e64b32f5f151800bacf27e01e26769a0c68a91d462d1f46a7e930"
+      "bytes": 586133,
+      "sha256": "2fa3990c4c265171fb56d05cc598a288353d34479814ef36dc1bf1386e779192"
     },
     {
       "name": "wordsa2es.js",
@@ -108,8 +108,8 @@
     },
     {
       "name": "wordsa2fr.js",
-      "bytes": 902988,
-      "sha256": "554f7f773d479e1d12c52b7c35715e1003688e6813540ad626f7067278cd70b8"
+      "bytes": 902835,
+      "sha256": "0e052840658965a4ca62d77986a2439bfb9897347c52499fc798362abf6f2a28"
     },
     {
       "name": "wordsa2gode.js",
@@ -133,8 +133,8 @@
     },
     {
       "name": "wordsb1.js",
-      "bytes": 640458,
-      "sha256": "3f623554d4c65cf7e0cb326c8ed2959834a2aa2a54009707e8dfaf1f28a43939"
+      "bytes": 640210,
+      "sha256": "1cdc92b3bcc21a002b80bbf15af27646709a1f4ce224839fd6c798f2a2221b59"
     },
     {
       "name": "wordsb1es.js",
@@ -143,8 +143,8 @@
     },
     {
       "name": "wordsb1fr.js",
-      "bytes": 1842998,
-      "sha256": "b58e01cccd9d6d40b8a6bef28cc89c913860f1879546875d03fc4d06cd12ee77"
+      "bytes": 1841910,
+      "sha256": "5ec24d634927a50bced00db69e3798d3b97974f91488f0eeee8f0817864b9d4c"
     },
     {
       "name": "wordsb1gode.js",
@@ -168,8 +168,8 @@
     },
     {
       "name": "wordsb2.js",
-      "bytes": 994044,
-      "sha256": "92d8aac40aa04cfa9fdda66404728e6be2647e7022af46483ecca64fac656962"
+      "bytes": 1714606,
+      "sha256": "faf32664b8165b710364d525886dae38c71d6edcf24c66f882e0d4b19f1cebe3"
     },
     {
       "name": "wordsb2es.js",
@@ -178,13 +178,13 @@
     },
     {
       "name": "wordsb2fr.js",
-      "bytes": 1315948,
-      "sha256": "f295977fd5b1a8e98560b719fe464e1cbb0c74932e87633dde2a7523a8502dc0"
+      "bytes": 1315943,
+      "sha256": "71ba6ca00b7e0a8282b9bede7f95866733ab9ef45d11e6e74791ac35f41e8d5c"
     },
     {
       "name": "wordsb2gode.js",
-      "bytes": 1138088,
-      "sha256": "14375a90c4722936ddfd094e386decf53ee9bba4146f209e49a8634bbd646327"
+      "bytes": 1138175,
+      "sha256": "f9e491e66da002a46b2d7a1880e00213705363e3fe43d55aac669481ac43f3d5"
     },
     {
       "name": "wordsb2it.js",
@@ -203,8 +203,8 @@
     },
     {
       "name": "wordsc1.js",
-      "bytes": 4082624,
-      "sha256": "4c9b84c5ec51ee35882e5984674b4201501dff325cf01f3caedbdf0803c762d8"
+      "bytes": 4891431,
+      "sha256": "a7f09ae50046602fc8c177a3b07dc53f29639164d3264217a5a991c53e69dd6f"
     },
     {
       "name": "wordsc1es.js",
@@ -213,13 +213,13 @@
     },
     {
       "name": "wordsc1fr.js",
-      "bytes": 928275,
-      "sha256": "3e0757ed8183c7ddff1094ebbe6e4ca3d9d061723ef9973dc2b3ad3041d9d30a"
+      "bytes": 928235,
+      "sha256": "f6096d983f80f4b6833b43b94fd4abaa67e866acc9b8105e38dbf9dc94ebbb55"
     },
     {
       "name": "wordsc1gode.js",
-      "bytes": 1674406,
-      "sha256": "0bb6e5514c2a9fd02edf7ecb5b0c5ee114dac18e7c78ef10f7993b72078db884"
+      "bytes": 1674671,
+      "sha256": "46e09a92d9d8b70413d28a6ddeb87b688c16ef4b05ed132a751df6857e11f30d"
     },
     {
       "name": "wordsc1it.js",
@@ -238,8 +238,8 @@
     },
     {
       "name": "wordsc2.js",
-      "bytes": 4360082,
-      "sha256": "860f44f69c870e3f5a431b2068b79cb2bd2ecac8992babd9f0021d8578e91b39"
+      "bytes": 6541946,
+      "sha256": "5aa0397abb774a93f50287781489be00155f1d76566c34e8b221c24c6f1f55c6"
     },
     {
       "name": "wordsc2es.js",
@@ -248,13 +248,13 @@
     },
     {
       "name": "wordsc2fr.js",
-      "bytes": 1238450,
-      "sha256": "6e17c4f88f80458667e2ab304e5737bfea29e8019133b7377d00fbd114c0d4c7"
+      "bytes": 1237461,
+      "sha256": "19f6573d286af3d3f7358fb636912935e11211cb67ab23247cb3f02b0c17817c"
     },
     {
       "name": "wordsc2gode.js",
-      "bytes": 1465501,
-      "sha256": "fc456475b8a9d58a42995092d242a1738dfbf39309412eba61d0cfbdc223453c"
+      "bytes": 1465579,
+      "sha256": "b1873e303fab8aff283cbeb758f63d80cef1723c595ff561940c84fcba6e364f"
     },
     {
       "name": "wordsc2it.js",

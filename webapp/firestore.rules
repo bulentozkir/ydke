@@ -1,12 +1,13 @@
 rules_version = '2';
 
-// Firestore Security Rules for Top Words user profiles.
+// Firestore Security Rules for YDKE user backups.
 //
-// Data model: one document per user at /users/{uid}, where {uid} is the
-// user's FIREBASE AUTH UID (not an app-chosen id) -- that's what lets these
-// rules compare the path segment directly against request.auth.uid below.
-// The document itself should also store a `uid` field with the same value
-// (see isValidProfile) so writes can be validated against spoofing.
+// One document per user at /users/{uid}, where {uid} is the Firebase Auth
+// UID (path segment compared directly to request.auth.uid below). Written
+// exclusively by the native Windows app (windows/src/YDKE.Windows/
+// FirestoreSyncService): only two fields, an opaque `backup` string and an
+// `updatedAtMs` integer -- see isValidBackup. The retired web app no longer
+// writes to this collection.
 //
 // Deploy with the Firebase CLI from this repo:
 //   firebase login
@@ -24,13 +25,8 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     match /users/{userId} {
-      // Change to `allow read: if true;` if profiles should be publicly
-      // readable (e.g. a leaderboard) while keeping writes owner-only
-      // below. Defaults to private: only the owner can read their own doc.
       allow read: if isOwner(userId);
-
-      allow create: if isOwner(userId) && isValidProfile(userId);
-      allow update: if isOwner(userId) && isValidProfile(userId) && keepsProtectedFields();
+      allow create, update: if isOwner(userId) && isValidBackup();
       allow delete: if isOwner(userId);
     }
 
@@ -43,22 +39,13 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == userId;
     }
 
-    function isValidProfile(userId) {
+    function isValidBackup() {
+      // Only the exact two fields FirestoreSyncService.SaveBackupAsync writes;
+      // rejects any other shape.
       let data = request.resource.data;
-      // The document must self-identify as belonging to this uid -- blocks
-      // writing under your own id but claiming to be someone else's, and
-      // blocks a missing/blank uid field.
-      return data.uid == userId;
-    }
-
-    function keepsProtectedFields() {
-      // List any privileged fields here (admin flags, roles, verification
-      // status, credit balances, etc.) that a user must NEVER be able to
-      // set/change on their own profile document, even though they own it.
-      // Empty today = safe no-op; add real field names once your profile
-      // schema has any such fields.
-      let protectedFields = [];
-      return !request.resource.data.diff(resource.data).affectedKeys().hasAny(protectedFields);
+      return data.keys().hasOnly(['backup', 'updatedAtMs'])
+        && data.backup is string
+        && data.updatedAtMs is int;
     }
   }
 }

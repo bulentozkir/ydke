@@ -2,6 +2,7 @@ using System.Globalization;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Shapes;
@@ -15,7 +16,6 @@ namespace YDKE_Windows;
 public sealed partial class MainPage : Page
 {
     private readonly AppStorage _storage = new(AppDataPaths.CurrentFolder);
-    private readonly CloudSyncCoordinator _cloud = new(credentialStore: new CloudCredentialStore(AppDataPaths.CurrentFolder));
     private readonly VocabularyRepository _repository = new();
     private readonly Random _random = new();
 
@@ -67,20 +67,17 @@ public sealed partial class MainPage : Page
             return; // No default/mixed study UI, no game command-line startup.
         }
         finally { SetStudyBusy(false); }
-        try { await _cloud.LoadCredentialsAsync(); }
-        catch (Exception ex) { ShowNotice(T("Common.Error"), ex.Message, InfoBarSeverity.Warning); }
 
         if (!Localizer.UiLanguages.Any(language => language.Code == _settings.UiLanguage))
-            _settings.UiLanguage = "tr";
+            _settings.UiLanguage = UserSettings.DefaultUiLanguage;
         if (!VocabularyRepository.Languages.Any(language => language.Code == _settings.StudyLanguage))
             _settings.StudyLanguage = "en";
 
         ApplyAppearance();
         _ = GameCatalog.All;
         ApplyNavigationLanguage();
-        QuickUiLanguage.ItemsSource = Localizer.UiLanguages;
         QuickStudyLanguage.ItemsSource = VocabularyRepository.Languages;
-        ConfigureResponsiveGrid(QuickSettingsGrid, 3, 115);
+        ConfigureResponsiveGrid(QuickSettingsGrid, 2, 170);
         await ReloadWordsAsync();
         Navigation.SelectedItem = HomeItem;
         RenderCurrentPage();
@@ -135,6 +132,7 @@ public sealed partial class MainPage : Page
         QuickSettingsBar.Padding = new Thickness(horizontalPadding, 8, horizontalPadding, 8);
         PageContent.Width = Math.Max(0, Math.Min(1080, e.NewSize.Width - (horizontalPadding * 2)));
         UpdatePageFitStatus();
+        RefreshQuizExamLayout();
     }
 
     private void OnPageContentSizeChanged(object sender, SizeChangedEventArgs e) => UpdatePageFitStatus();
@@ -168,20 +166,20 @@ public sealed partial class MainPage : Page
         if (_syncingSettings || args.SelectedItemContainer?.Tag is not string tag || tag == _currentPage) return;
         if (_navigationBusy || _studyBusy || _dialogOpen || LoadingRing.IsActive) { RestoreNavigationSelection(); return; }
         _navigationBusy = true;
-        SyncAccountStatus();
         try
         {
             if (!await ConfirmLeaveGameAsync()) { RestoreNavigationSelection(); return; }
             if (Navigation.DisplayMode != NavigationViewDisplayMode.Expanded) Navigation.IsPaneOpen = false;
             _cardUndo = null;
             _revealedCardKey = null;
+            ResetQuizSelection();
             _currentPage = tag;
             if (!_storageBlocked) Notice.IsOpen = false;
             await EnsureWordsAsync();
             RenderCurrentPage();
         }
         catch (Exception ex) { ShowNotice(T("Common.Error"), ex.Message, InfoBarSeverity.Error); RestoreNavigationSelection(); }
-        finally { _navigationBusy = false; SyncAccountStatus(); }
+        finally { _navigationBusy = false; }
     }
 
     private void ApplyNavigationLanguage()
@@ -215,6 +213,7 @@ public sealed partial class MainPage : Page
         QuickSettingsBar.Background = AppearancePalette.Current.BoxBrush;
         QuickSettingsBar.BorderBrush = AppearancePalette.Current.BorderBrush;
         QuickSettingsBar.BorderThickness = new Thickness(0, 0, 0, 1);
+        ApplyQuickSettingsVisuals();
         if (App.MainWindow is YDKE_Windows.MainWindow window)
             window.ApplyAppearance(AppearancePalette.Current);
     }
@@ -226,6 +225,7 @@ public sealed partial class MainPage : Page
 
     private async Task ReloadWordsAsync()
     {
+        ResetQuizSelection();
         _wordLoadCancellation?.Cancel();
         var cancellation = new CancellationTokenSource();
         _wordLoadCancellation = cancellation;
@@ -264,6 +264,9 @@ public sealed partial class MainPage : Page
     {
         StopGameTimer();
         StopSpeechPlayback();
+        var longAboutPage = _currentPage is "about" or "help";
+        ContentScroll.VerticalScrollMode = longAboutPage ? ScrollMode.Auto : ScrollMode.Disabled;
+        ContentScroll.VerticalScrollBarVisibility = longAboutPage ? ScrollBarVisibility.Auto : ScrollBarVisibility.Disabled;
         ContentScroll.ChangeView(0, 0, null, disableAnimation: _settings.ReduceMotion);
         PageContent.Children.Clear();
         switch (_currentPage)
@@ -285,28 +288,19 @@ public sealed partial class MainPage : Page
     private void SyncQuickSettingsBar()
     {
         _syncingSettings = true;
-        QuickUiLanguage.SelectedValue = _settings.UiLanguage;
         QuickStudyLanguage.SelectedValue = _settings.StudyLanguage;
         QuickLevel.ItemsSource = CurrentStudyLanguage().Levels;
         QuickLevel.SelectedItem = _settings.Level;
-        QuickUiLanguage.Header = QuickSettingLabel(T("Profile.UiLanguage"));
         QuickStudyLanguage.Header = QuickSettingLabel(T("Profile.StudyLanguage"));
         QuickLevel.Header = QuickSettingLabel(T("Profile.Level"));
-        foreach (var control in new[] { QuickUiLanguage, QuickStudyLanguage, QuickLevel })
+        foreach (var control in new[] { QuickStudyLanguage, QuickLevel })
         {
             ConfigureReadingComboBox(control);
         }
-        AutomationProperties.SetName(QuickUiLanguage, T("Profile.UiLanguage"));
         AutomationProperties.SetName(QuickStudyLanguage, T("Profile.StudyLanguage"));
         AutomationProperties.SetName(QuickLevel, T("Profile.Level"));
-        SyncAccountStatus();
+        ApplyQuickSettingsVisuals();
         _syncingSettings = false;
-    }
-
-    private async void OnQuickUiLanguageChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (QuickUiLanguage.SelectedValue is not string code || code == _settings.UiLanguage) return;
-        await ChangeQuickSettingAsync("ui", code);
     }
 
     private async void OnQuickStudyLanguageChanged(object sender, SelectionChangedEventArgs e)
@@ -331,11 +325,14 @@ public sealed partial class MainPage : Page
 
         try
         {
+            var voice = StudyVoiceFor(_settings.StudyLanguage);
+            if (voice is null)
+            {
+                ShowNotice(T("Common.Error"), T("Games.Require.Voice"), InfoBarSeverity.Warning);
+                return;
+            }
             _speechSynthesizer ??= new SpeechSynthesizer();
-            var language = SpeechLanguage(_settings.StudyLanguage);
-            var voice = SpeechSynthesizer.AllVoices.FirstOrDefault(item =>
-                string.Equals(item.Language, language, StringComparison.OrdinalIgnoreCase));
-            if (voice is not null) _speechSynthesizer.Voice = voice;
+            _speechSynthesizer.Voice = voice;
 
             var stream = await _speechSynthesizer.SynthesizeTextToStreamAsync(text).AsTask(cancellation.Token);
             cancellation.Token.ThrowIfCancellationRequested();
@@ -427,33 +424,95 @@ public sealed partial class MainPage : Page
         _ => "en-US",
     };
 
+    private static string[] SpeechLanguagePreferences(string languageCode) => languageCode switch
+    {
+        "de" => ["de-DE", "de-AT", "de-CH"],
+        "fr" => ["fr-FR", "fr-CA", "fr-BE", "fr-CH"],
+        "it" => ["it-IT", "it-CH"],
+        "es" => ["es-ES", "es-MX", "es-US", "es-AR", "es-CO", "es-CL"],
+        "pt" => ["pt-PT", "pt-BR"],
+        "nl" => ["nl-NL", "nl-BE"],
+        _ => ["en-US", "en-GB", "en-AU", "en-CA", "en-IN"],
+    };
+
+    private static VoiceInformation? StudyVoiceFor(string languageCode)
+    {
+        var preferred = SpeechLanguagePreferences(languageCode);
+        var primaryPrefix = SpeechLanguage(languageCode)[..2] + "-";
+        var ranked = SpeechSynthesizer.AllVoices
+            .Select(voice => (Voice: voice, Rank: SpeechVoiceRank(voice, preferred, primaryPrefix)))
+            .Where(item => item.Rank < int.MaxValue)
+            .OrderBy(item => item.Rank)
+            .ThenBy(item => item.Voice.DisplayName, StringComparer.CurrentCultureIgnoreCase)
+            .Select(item => item.Voice)
+            .FirstOrDefault();
+        return ranked;
+    }
+
+    private static int SpeechVoiceRank(VoiceInformation voice, IReadOnlyList<string> preferred, string primaryPrefix)
+    {
+        for (var index = 0; index < preferred.Count; index++)
+            if (voice.Language.Equals(preferred[index], StringComparison.OrdinalIgnoreCase)) return index;
+        return voice.Language.StartsWith(primaryPrefix, StringComparison.OrdinalIgnoreCase)
+            ? preferred.Count + 10
+            : int.MaxValue;
+    }
+
     private void RenderGames(GameGroup group)
     {
         StopGameTimer();
         StopSpeechPlayback();
         _activeGame = null;
-        if (_gameCatalogGroup != group)
-        {
-            _gameCatalogGroup = group;
-            _gameCatalogPage = 0;
-        }
         PageContent.Children.Clear();
         AddPageHeader(T(group == GameGroup.Simple ? "Games.SimpleTitle" : "Games.ComplexTitle"),
             T(group == GameGroup.Simple ? "Games.SimpleSubtitle" : "Games.ComplexSubtitle"));
         var grid = new Grid { ColumnSpacing = 10, RowSpacing = 10 };
-        AddGameFilters(group, grid);
-        ConfigureResponsiveGrid(grid, 2, 300);
+        var reflowCatalog = ConfigureResponsiveGrid(grid, 4, 180);
+        AddGameFilters(group, grid, reflowCatalog);
         PageContent.Children.Add(grid);
+    }
+
+    private int TimedSecondsSetting => Math.Clamp(_settings.TimerSeconds, UserSettings.MinTimerSeconds, UserSettings.MaxTimerSeconds);
+
+    private string TimedSecondsLabel(int seconds) => string.Format(CultureInfo.CurrentCulture,
+        U("Games.Timer.Seconds", "{0}s", "{0} sn"), seconds);
+
+    private Border? GameTimerBadge(GameDefinition game, double size = 14)
+    {
+        if (!GameEngine.HasClock(game)) return null;
+        var background = Color.FromArgb(255, 194, 65, 12);
+        var foreground = AppearancePalette.EnsureTextContrast(background, Microsoft.UI.Colors.White);
+        var border = AppearancePalette.EnsureBoundaryContrast(background, Color.FromArgb(255, 120, 53, 15));
+        var text = new TextBlock
+        {
+            Text = string.Format(CultureInfo.CurrentCulture,
+                U("Games.Timer.Badge", "Timer {0}", "Süre {0}"), TimedSecondsLabel(TimedSecondsSetting)),
+            FontSize = ReadingSize(size),
+            FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
+            TextWrapping = TextWrapping.NoWrap,
+            Foreground = new SolidColorBrush(foreground),
+        };
+        return new Border
+        {
+            Background = new SolidColorBrush(background),
+            BorderBrush = new SolidColorBrush(border),
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(10),
+            Padding = new Thickness(8, 2, 8, 2),
+            VerticalAlignment = VerticalAlignment.Center,
+            Child = text,
+            HighContrastAdjustment = ElementHighContrastAdjustment.Auto,
+        };
     }
 
     private Button GameButton(GameDefinition game)
     {
         var palette = PaletteFor(game);
+        var iconForeground = AppearancePalette.EnsureTextContrast(palette.Accent, Microsoft.UI.Colors.White);
         var layout = new Grid { ColumnSpacing = 16 };
         layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(52) });
         layout.ColumnDefinitions.Add(new ColumnDefinition());
         layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        layout.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
         layout.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
         layout.Children.Add(new Border
         {
@@ -461,38 +520,39 @@ public sealed partial class MainPage : Page
             Height = 46,
             CornerRadius = new CornerRadius(8),
             Background = new SolidColorBrush(palette.Accent),
-            Child = new FontIcon { Glyph = game.Glyph, FontSize = Font(23), Foreground = new SolidColorBrush(Microsoft.UI.Colors.White) },
+            Child = DecorativeIcon(game.Glyph, Font(23), new SolidColorBrush(iconForeground)),
         });
         var title = Heading(game.Title, 18);
-        Grid.SetColumn(title, 1);
-        layout.Children.Add(title);
+        var titleRow = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, VerticalAlignment = VerticalAlignment.Center };
+        titleRow.Children.Add(title);
+        if (GameTimerBadge(game) is { } timedBadge) titleRow.Children.Add(timedBadge);
+        Grid.SetColumn(titleRow, 1);
+        layout.Children.Add(titleRow);
         var best = new StackPanel { Spacing = 2, VerticalAlignment = VerticalAlignment.Center };
         best.Children.Add(new TextBlock { Text = T("Game.Best"), FontSize = ReadingSize(18), TextWrapping = TextWrapping.Wrap, HorizontalAlignment = HorizontalAlignment.Right });
         best.Children.Add(Heading(GameBest(game).ToString("N0"), 18));
         Grid.SetColumn(best, 2);
         layout.Children.Add(best);
-        var description = Body(GameTask(game));
-        description.Margin = new Thickness(0, 10, 0, 0);
-        Grid.SetRow(description, 1);
-        Grid.SetColumnSpan(description, 3);
-        layout.Children.Add(description);
         var button = new Button
         {
             Content = layout,
             HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
-            Padding = new Thickness(14),
-            MinHeight = 96,
-            CornerRadius = new CornerRadius(20),
+            Padding = new Thickness(10),
+            MinHeight = 84,
+            CornerRadius = new CornerRadius(16),
             Background = AppearancePalette.Current.BoxBrush,
             BorderBrush = AppearancePalette.Current.BorderBrush,
             BorderThickness = new Thickness(1),
             Foreground = AppearancePalette.Current.BoxForegroundBrush,
         };
+        ApplyAccessibleButtonVisuals(button, AppearancePalette.Current.Box,
+            AppearancePalette.Current.BoxForeground, AppearancePalette.Current.Border);
         ApplyReadableForeground(layout, AppearancePalette.Current.BoxForegroundBrush);
         AutomationProperties.SetName(button, game.Title);
         AutomationProperties.SetAutomationId(button, "games.Item." + game.Id);
         AutomationProperties.SetHelpText(button, GameTask(game));
+        ToolTipService.SetToolTip(button, GameTask(game));
         button.Click += (_, _) => RenderGameDetail(game);
         return button;
     }
@@ -526,7 +586,10 @@ public sealed partial class MainPage : Page
         toolbar.ColumnDefinitions.Add(new ColumnDefinition());
         toolbar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
         var title = new StackPanel { Spacing = 3, VerticalAlignment = VerticalAlignment.Center };
-        title.Children.Add(Heading(game.Title, 23));
+        var titleRow = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, VerticalAlignment = VerticalAlignment.Center };
+        titleRow.Children.Add(Heading(game.Title, 23));
+        if (GameTimerBadge(game, 13) is { } timedBadge) titleRow.Children.Add(timedBadge);
+        title.Children.Add(titleRow);
         toolbar.Children.Add(title);
         var actions = new Grid { ColumnSpacing = 8, RowSpacing = 6, VerticalAlignment = VerticalAlignment.Center };
         var back = CompactStudyAction(SecondaryButton(T("Games.Back"), ""));
@@ -561,7 +624,6 @@ public sealed partial class MainPage : Page
         var closed = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
         _dialogOpen = true;
         _dialogClosed = closed;
-        SyncAccountStatus();
         timer?.Stop();
         try
         {
@@ -586,7 +648,6 @@ public sealed partial class MainPage : Page
             _dialogOpen = false;
             _dialogClosed = null;
             if (wasRunning && !_storageBlocked && _activeGame == session && ReferenceEquals(timer, _gameTimer)) timer?.Start();
-            SyncAccountStatus();
             RestoreDialogFocus(focus, page, context);
             closed.TrySetResult(true);
         }
@@ -596,26 +657,26 @@ public sealed partial class MainPage : Page
     {
         "hangman" => U("Games.Task.Hangman", "Choose letters to uncover the word.", "Kelimeyi bulmak için harfleri seçin."),
         "scramble" => U("Games.Task.Scramble", "Arrange the letters to match the meaning.", "Anlama uyan kelimeyi oluşturmak için harfleri sıralayın."),
-        "dictation" => U("Games.Task.Dictation", "Listen, then type the word.", "Dinleyin, ardından kelimeyi yazın."),
+        "dictation" => U("Games.Task.Dictation", "Listen, then choose the word you hear.", "Dinleyin, ardından duyduğunuz kelimeyi seçin."),
         "listeningchoice" => U("Games.Task.Listening", "Listen, then choose the meaning.", "Dinleyin, ardından anlamını seçin."),
         "speedround" or "survival" => U("Games.Task.Choice", "Choose the word that matches the meaning.", "Anlama uyan kelimeyi seçin."),
         "truefalse" => U("Games.Task.TrueFalse", "Does this word match the definition?", "Bu kelime tanıma uyuyor mu?"),
         "wordclass" => U("Games.Task.Class", "Choose the word's part of speech.", "Kelimenin sözcük türünü seçin."),
         "memory" => U("Games.Task.Memory", "Match each word with its meaning.", "Her kelimeyi anlamıyla eşleştirin."),
         "oddoneout" => U("Games.Task.Odd", "Choose the word from a different category.", "Farklı kategorideki kelimeyi seçin."),
-        "wordrace" => U("Games.Task.Typing", "Type the word that matches the meaning.", "Anlama uyan kelimeyi yazın."),
-        "clozetest" => U("Games.Task.Cloze", "Complete the missing word.", "Eksik kelimeyi tamamlayın."),
+        "wordrace" => U("Games.Task.Typing", "Choose the word that matches the meaning.", "Anlama uyan kelimeyi seçin."),
+        "clozetest" => U("Games.Task.Cloze", "Choose the missing word from four options.", "Eksik kelimeyi dört seçenekten seçin."),
         "sentencescramble" => U("Games.Task.Sentence", "Put all the tiles in sentence order.", "Tüm parçaları cümle sırasına dizin."),
         "readingcomprehension" => U("Games.Task.Reading", "Read the passage, then answer the question.", "Metni okuyun, ardından soruyu yanıtlayın."),
         "wordmorph" => U("Games.Task.Semantic", "Are these words synonyms or antonyms?", "Bu kelimeler eş anlamlı mı, zıt anlamlı mı?"),
-        "bingo" => U("Games.Task.Bingo", "Find this definition on the board.", "Bu tanıma uyan kelimeyi tahtada bulun."),
+        "bingo" => U("Games.Task.Bingo", "Find this definition on the 4×4 board.", "Bu tanıma uyan kelimeyi 4×4 tahtada bulun."),
         "bossrush" => U("Games.Task.Boss", "Choose the meaning of the displayed word.", "Gösterilen kelimenin anlamını seçin."),
-        "codycross" => U("Games.Task.Cody", "Solve each clue to reveal the bonus code.", "Bonus kodu açmak için ipuçlarını çözün."),
-        "crossword" => U("Games.Task.Crossword", "Solve Across first, then Down.", "Önce yatay, ardından dikey kelimeyi çözün."),
-        "dailychallenge" or "wordguess" => U("Games.Task.Guess", "Guess the word using the letter clues.", "Harf ipuçlarını kullanarak kelimeyi tahmin edin."),
-        "scrabble" => U("Games.Task.Rack", "Build a vocabulary word from these letters.", "Bu harflerden bir kelime oluşturun."),
-        "categorysprint" => U("Games.Task.Category", "Name a new word in this category.", "Bu kategoriden yeni bir kelime yazın."),
-        "cluedetective" => U("Games.Task.Clues", "Reveal a clue, then guess the hidden word.", "Bir ipucu açın, ardından gizli kelimeyi tahmin edin."),
+        "codycross" => U("Games.Task.Cody", "Choose each clue's word to reveal the bonus code.", "Bonus kodu açmak için her ipucunun kelimesini seçin."),
+        "crossword" => U("Games.Task.Crossword", "Choose Across first, then Down.", "Önce yatayı, ardından dikeyi seçin."),
+        "dailychallenge" or "wordguess" => U("Games.Task.Guess", "Choose a guess using the letter clues.", "Harf ipuçlarını kullanarak bir tahmin seçin."),
+        "scrabble" => U("Games.Task.Rack", "Build a vocabulary word by selecting these letters.", "Bu harfleri seçerek bir kelime oluşturun."),
+        "categorysprint" => U("Games.Task.Category", "Choose a new word in this category.", "Bu kategoriden yeni bir kelime seçin."),
+        "cluedetective" => U("Games.Task.Clues", "Reveal clues, then choose the hidden word.", "İpuçlarını açın, ardından gizli kelimeyi seçin."),
         "matrix" => U("Games.Task.Matrix", "Select the hidden word in a straight line.", "Gizli kelimeyi düz bir çizgide seçin."),
         _ => GameDescription(game),
     };
@@ -624,24 +685,25 @@ public sealed partial class MainPage : Page
     {
         "hangman" => U("Kids.How.Hangman", "Read the meaning. Pick a letter. Find the word before six misses.", "Anlamı oku. Bir harf seç. Altı hatadan önce kelimeyi bul."),
         "scramble" => U("Kids.How.Scramble", "Read the meaning. Pick the letters in order. Click a filled box to change it.", "Anlamı oku. Harfleri sırayla seç. Değiştirmek için dolu bir kutuya tıkla."),
-        "dictation" or "listeningchoice" => U("Kids.How.Listen", "Click Listen. Listen again if you need to. Then write the word or choose its meaning.", "Dinle'ye tıkla. Gerekirse bir daha dinle. Sonra kelimeyi yaz veya anlamını seç."),
+        "dictation" or "listeningchoice" => U("Kids.How.Listen", "Click Listen. Listen again if you need to. Then choose the word or its meaning.", "Dinle'ye tıkla. Gerekirse bir daha dinle. Sonra kelimeyi veya anlamını seç."),
         "speedround" or "survival" => U("Kids.How.Choice", "Read the meaning. Click the matching word. Look at the answer, then choose Next.", "Anlamı oku. Uyan kelimeye tıkla. Yanıta bak, sonra Sonraki'ni seç."),
         "truefalse" => U("Kids.How.TrueFalse", "Read the word and meaning. Choose True if they match. Choose False if they do not.", "Kelimeyi ve anlamı oku. Uyuyorsa Doğru'yu, uymuyorsa Yanlış'ı seç."),
         "wordclass" => U("Kids.How.Class", "A noun names something. A verb tells an action. An adjective describes a thing. An adverb tells how.", "İsim bir şeyin adıdır. Fiil bir işi anlatır. Sıfat bir şeyi tanımlar. Zarf nasıl olduğunu anlatır."),
         "memory" => U("Kids.How.Memory", "Open two cards. Find a word and its meaning. Match all six pairs.", "İki kart aç. Bir kelimeyi anlamıyla eşleştir. Altı çifti de bul."),
         "oddoneout" => U("Kids.How.Odd", "Three words belong together. Click the word that does not belong.", "Üç kelime aynı grupta. Bu gruba uymayan kelimeye tıkla."),
-        "wordrace" or "clozetest" => U("Kids.How.Type", "Read the clue. Write the missing word. Click Check answer when you're ready.", "İpucunu oku. Eksik kelimeyi yaz. Hazır olunca Yanıtı kontrol et'e tıkla."),
+        "wordrace" => U("Kids.How.Type", "Read the clue. Tap the matching word. Then choose Next.", "İpucunu oku. Uyan kelimeye dokun. Sonra Sonraki'ni seç."),
+        "clozetest" => U("Kids.How.Cloze", "Read the sentence. Choose the missing word from four options.", "Cümleyi oku. Dört seçenekten eksik kelimeyi seç."),
         "sentencescramble" => U("Kids.How.Sentence", "Click the word tiles to make a sentence. Undo takes the last tile back. Use every tile.", "Cümle kurmak için kelime taşlarına tıkla. Geri al son taşı geri getirir. Her taşı kullan."),
         "readingcomprehension" => U("Kids.How.Reading", "Read the story. Turn the pages with the arrows. Answer the question. You can read the story again.", "Öyküyü oku. Oklarla sayfaları çevir. Soruyu yanıtla. Öyküyü yeniden okuyabilirsin."),
         "wordmorph" => U("Kids.How.Semantic", "Synonyms mean the same or almost the same. Antonyms mean the opposite. Which pair do you see?", "Eş anlamlı kelimeler aynı veya benzer anlamlıdır. Zıt anlamlı kelimeler birbirinin tersidir. Hangi çifti görüyorsun?"),
         "bingo" => U("Kids.How.Bingo", "Read the meaning. Find the word on the board. Make a line across, down, or from corner to corner.", "Anlamı oku. Kelimeyi tahtada bul. Yatay, dikey veya köşeden köşeye bir çizgi yap."),
         "bossrush" => U("Kids.How.Boss", "Choose the meaning of each word. Each right answer takes away one heart from the character. Meet all three!", "Her kelimenin anlamını seç. Doğru yanıt karakterden bir kalp eksiltir. Üçüyle de tanış!"),
-        "codycross" => U("Kids.How.Cody", "Read the clue and write the word. Each word opens a letter in the secret code. Try all five clues.", "İpucunu oku ve kelimeyi yaz. Her kelime gizli kodda bir harf açar. Beş ipucunu da dene."),
-        "crossword" => U("Kids.How.Crossword", "First write the word that goes across. Then write the word that goes down. They share one box.", "Önce yatay kelimeyi yaz. Sonra dikey kelimeyi yaz. Bir kutuyu birlikte kullanırlar."),
-        "wordguess" or "dailychallenge" => U("Kids.How.Guess", "Write a word. ✓ means the letter is in the right place. ~ means try another place. × means that letter is not in the word. You have six tries.", "Bir kelime yaz. ✓ harf doğru yerde demektir. ~ başka bir yeri dene demektir. × harf kelimede yok demektir. Altı deneme hakkın var."),
-        "scrabble" => U("Kids.How.Rack", "Use the letters to make a word. Each tile can be used once. Write your word below.", "Harflerden bir kelime oluştur. Her taşı bir kez kullan. Kelimeni aşağıya yaz."),
-        "categorysprint" => U("Kids.How.Category", "Look at the group name. Write a word from that group. Try a different word each time.", "Grubun adına bak. O gruptan bir kelime yaz. Her seferinde başka bir kelime dene."),
-        "cluedetective" => U("Kids.How.Clues", "Ask for a clue. What word could it be? Write your guess. Each extra clue costs some points.", "İpucu iste. Bu hangi kelime olabilir? Tahminini yaz. Her yeni ipucu biraz puan azaltır."),
+        "codycross" => U("Kids.How.Cody", "Read the clue and tap the right word. Each right word opens one bonus letter. Solve all five clues.", "İpucunu oku ve doğru kelimeye dokun. Her doğru kelime bir bonus harf açar. Beş ipucunu da çöz."),
+        "crossword" => U("Kids.How.Crossword", "First choose the word that goes across. Then choose the word that goes down. They share one box.", "Önce yatay giden kelimeyi seç. Sonra dikey giden kelimeyi seç. Bir kutuyu birlikte kullanırlar."),
+        "wordguess" or "dailychallenge" => U("Kids.How.Guess", "Pick a word each turn. ✓ means right place. ~ means the letter is in another place. × means that letter is not in the word. You have six tries.", "Her tur bir kelime seç. ✓ doğru yer demektir. ~ harf başka bir yerde demektir. × bu harf kelimede yok demektir. Altı denemen var."),
+        "scrabble" => U("Kids.How.Rack", "Tap letters to build a word. Each tile can be used once. Undo or clear, then check your word.", "Bir kelime oluşturmak için harflere dokun. Her taşı bir kez kullanabilirsin. Geri al ya da temizle, sonra kelimeni kontrol et."),
+        "categorysprint" => U("Kids.How.Category", "Look at the group name and clue. Tap the word that belongs to that group.", "Grup adını ve ipucunu incele. O gruba ait kelimeye dokun."),
+        "cluedetective" => U("Kids.How.Clues", "Ask for clues one by one. Then tap the hidden word. Each extra clue costs some points.", "İpuçlarını tek tek aç. Sonra gizli kelimeye dokun. Her ek ipucu biraz puan götürür."),
         "matrix" => U("Kids.How.Matrix", "Read the meaning. Click letters next to each other in a straight line. Click a picked letter to go back.", "Anlamı oku. Yan yana harfleri düz bir çizgide seç. Geri dönmek için seçtiğin bir harfe tıkla."),
         _ => GameTask(game),
     };
@@ -660,6 +722,11 @@ public sealed partial class MainPage : Page
         _activeGame = new GameSession(game);
         if (game.Id == "survival") _activeGame.Lives = 1;
         if (_settings.UntimedPractice) _activeGame.SecondsRemaining = 0;
+        if (_gameMode == "timed")
+        {
+            _activeGame.TimedLimitSeconds = TimedSecondsSetting;
+            _activeGame.SecondsRemaining = _activeGame.TimedLimitSeconds;
+        }
         var session = _activeGame;
         RenderGameRound(session);
         if (_activeGame == session && _gameMode == "timed") StartGameTimer(session);
@@ -751,18 +818,19 @@ public sealed partial class MainPage : Page
     private void RenderTypingChallenge(GameSession session)
     {
         var entry = _words[_random.Next(_words.Count)];
+        var choices = _words.Where(word => GameAnswer(word.Word) != GameAnswer(entry.Word) &&
+                LocalizedPart(word.Definition) != LocalizedPart(entry.Definition))
+            .DistinctBy(GameEngine.Bare).OrderBy(_ => _random.Next()).Take(3)
+            .Append(entry).OrderBy(_ => _random.Next()).ToArray();
+        if (choices.Length < 4) { GameUnavailable(session, EligibleRequirement); return; }
         _gameHintProvider = () => WordHint(entry);
         var panel = GameSceneContent();
-        AddGameQuestion(panel, LocalizedPart(entry.Definition));
+        AddGameQuestion(panel, LocalizedPart(entry.Definition), () => WordExample(entry));
         panel.Children.Add(GameCaption(entry.Category.ToUpperInvariant()));
-        var input = GameInput(panel);
-        SubmitGame(panel, session, async submit =>
-        {
-            var correct = GameAnswer(input.Text) == GameAnswer(entry.Word);
-            await ResolveGameAnswerAsync(session, correct, entry.Word, submit, [entry.Key]);
-        });
+        GameChoices(panel, session, choices.Select(word => word.Word).ToArray(), (index, button) =>
+            ResolveGameAnswerAsync(session, choices[index].Key == entry.Key,
+                FeedbackWithAnswer(entry.Word, choices[index].Word), button, [entry.Key]));
         AddGameScene(session.Game, panel);
-        input.Focus(FocusState.Programmatic);
     }
 
     private void RenderTrueFalseChallenge(GameSession session)
@@ -775,7 +843,7 @@ public sealed partial class MainPage : Page
         // The word being defined (entry) is the real answer, never the possibly-wrong shown definition's word.
         _gameHintProvider = () => WordHint(entry);
         var panel = GameSceneContent();
-        AddGameQuestion(panel, $"{entry.Word}\n{LocalizedPart(shown.Definition)}");
+        AddGameQuestion(panel, $"{entry.Word}\n{LocalizedPart(shown.Definition)}", () => WordExample(entry));
         var actions = new Grid { ColumnSpacing = 12, RowSpacing = 12 };
         foreach (var answer in new[] { true, false })
         {
@@ -785,7 +853,8 @@ public sealed partial class MainPage : Page
             SetGameChoiceMetadata(button, $"game.Choice.{answerIndex + 1}", (answerIndex + 1).ToString(CultureInfo.InvariantCulture));
             button.Click += async (_, _) =>
             {
-                await ResolveGameAnswerAsync(session, answer == isTrue, entry.Word, button, [entry.Key]);
+                await ResolveGameAnswerAsync(session, answer == isTrue,
+                    FeedbackTrueFalse(entry, MeaningWithTurkish(shown.Definition), isTrue, answer), button, [entry.Key]);
             };
             actions.Children.Add(button);
         }
@@ -804,7 +873,7 @@ public sealed partial class MainPage : Page
         // Hint targets the correct-answer entry only; WordHint never names which button/choice it is.
         _gameHintProvider = () => WordHint(entry);
         var panel = GameSceneContent();
-        AddGameQuestion(panel, LocalizedPart(entry.Definition));
+        AddGameQuestion(panel, LocalizedPart(entry.Definition), () => WordExample(entry));
         var choicesGrid = new Grid { ColumnSpacing = 12, RowSpacing = 12 };
         for (var index = 0; index < choices.Length; index++)
         {
@@ -814,7 +883,7 @@ public sealed partial class MainPage : Page
             SetGameChoiceMetadata(button, $"game.Choice.{index + 1}", (index + 1).ToString(CultureInfo.InvariantCulture));
             button.Click += async (_, _) =>
             {
-                await ResolveGameAnswerAsync(session, choice.Key == entry.Key, entry.Word, button, [entry.Key]);
+                await ResolveGameAnswerAsync(session, choice.Key == entry.Key, FeedbackWithAnswer(entry.Word, choice.Word), button, [entry.Key]);
             };
             choicesGrid.Children.Add(button);
         }
@@ -834,7 +903,7 @@ public sealed partial class MainPage : Page
         var misses = 0;
         var revealed = 0;
         var panel = GameSceneContent();
-        AddGameQuestion(panel, LocalizedPart(entry.Definition));
+        AddGameQuestion(panel, LocalizedPart(entry.Definition), () => WordExample(entry));
         var (figure, parts) = BuildHangmanFigure();
         var word = GamePrompt(string.Empty, 36);
         word.CharacterSpacing = 180;
@@ -850,10 +919,13 @@ public sealed partial class MainPage : Page
         foreach (var letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ".Concat(target.Where(char.IsLetter)).Distinct())
         {
             var button = GameChoiceButton(letter.ToString(), session.Game);
+            button.Content = letter.ToString();
             button.Tag = $"game-letter-{letter}";
             AutomationProperties.SetAutomationId(button, $"game.Letter.{letter}");
-            button.MinHeight = 48;
-            button.Padding = new Thickness(4);
+            button.MinHeight = 40;
+            button.MinWidth = 36;
+            button.Padding = new Thickness(0, 6, 0, 6);
+            button.FontSize = ReadingSize(18);
             button.HorizontalContentAlignment = HorizontalAlignment.Center;
             button.CornerRadius = new CornerRadius(10);
             button.Click += async (_, _) =>
@@ -871,7 +943,7 @@ public sealed partial class MainPage : Page
             };
             keyboard.Children.Add(button);
         }
-        ConfigureResponsiveGrid(keyboard, 9, 48);
+        ConfigureResponsiveGrid(keyboard, 13, 32);
         Refresh();
         panel.Children.Add(keyboard);
         AddGameScene(session.Game, panel, figure);
@@ -989,10 +1061,12 @@ public sealed partial class MainPage : Page
             })
             .OrderBy(_ => _random.Next()).ToArray();
         var panel = GameSceneContent();
-        AddGameQuestion(panel, U("Games.Memory.Pairs", "Match 6 pairs", "6 çifti eşleştirin"));
+        var detailEntry = entries[0];
+        AddGameQuestion(panel, U("Games.Memory.Pairs", "Match 6 pairs", "6 çifti eşleştirin"), () => WordExample(detailEntry));
         var grid = new Grid { ColumnSpacing = 8, RowSpacing = 8 };
         Button? firstButton = null;
         VocabularyEntry? firstEntry = null;
+        var pairBusy = false;
         var matches = 0;
         for (var index = 0; index < tiles.Length; index++)
         {
@@ -1005,10 +1079,21 @@ public sealed partial class MainPage : Page
             AutomationProperties.SetHelpText(button, GameInstructions(session.Game));
             button.Click += async (_, _) =>
             {
-                if (!IsCurrentGameRound(session, epoch) || !GameCanAnswer(session) || _gameLocalBusy || !button.IsEnabled || ReferenceEquals(button, firstButton)) return;
+                if (!IsCurrentGameRound(session, epoch) || !GameCanAnswer(session) || _gameLocalBusy || pairBusy || !button.IsEnabled || ReferenceEquals(button, firstButton)) return;
                 void RevealTile()
                 {
-                    button.Content = new TextBlock { Text = tile.Text, TextAlignment = TextAlignment.Center, TextWrapping = TextWrapping.Wrap };
+                    detailEntry = tile.Entry;
+                    button.Content = new TextBlock
+                    {
+                        Text = tile.Text,
+                        FontSize = ReadingSize(18),
+                        FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
+                        Foreground = button.Foreground,
+                        TextAlignment = TextAlignment.Center,
+                        TextWrapping = TextWrapping.Wrap,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                    };
                     AutomationProperties.SetName(button, tile.Text);
                     AutomationProperties.SetItemStatus(button, U("Games.Memory.Open", "Open card", "Açık kart"));
                 }
@@ -1039,14 +1124,20 @@ public sealed partial class MainPage : Page
                 }
                 else
                 {
-                    if (!await PauseGameFeedbackAsync(session, U("Games.Memory.Mismatch", "Not a pair", "Eşleşmedi") + "\n" + tile.Text + "\n" + AutomationProperties.GetName(previous)) || !IsCurrentGameRound(session, epoch)) return;
-                    previous.Content = "✦";
-                    button.Content = "✦";
-                    var previousCardNumber = previous.Tag is int number ? number : 0;
-                    AutomationProperties.SetName(previous, $"{U("Games.Memory.Hidden", "Hidden card", "Gizli kart")} {previousCardNumber}");
-                    AutomationProperties.SetName(button, $"{U("Games.Memory.Hidden", "Hidden card", "Gizli kart")} {cardNumber}");
-                    AutomationProperties.SetItemStatus(previous, "");
-                    AutomationProperties.SetItemStatus(button, "");
+                    pairBusy = true;
+                    try
+                    {
+                        await Task.Delay(GameMotionOff ? 160 : 900);
+                        if (!IsCurrentGameRound(session, epoch) || !GameCanAnswer(session)) return;
+                        previous.Content = "✦";
+                        button.Content = "✦";
+                        var previousCardNumber = previous.Tag is int number ? number : 0;
+                        AutomationProperties.SetName(previous, $"{U("Games.Memory.Hidden", "Hidden card", "Gizli kart")} {previousCardNumber}");
+                        AutomationProperties.SetName(button, $"{U("Games.Memory.Hidden", "Hidden card", "Gizli kart")} {cardNumber}");
+                        AutomationProperties.SetItemStatus(previous, "");
+                        AutomationProperties.SetItemStatus(button, "");
+                    }
+                    finally { pairBusy = false; }
                 }
             };
             grid.Children.Add(button);
@@ -1066,30 +1157,88 @@ public sealed partial class MainPage : Page
         _gameHintProvider = () => WordHint(entry);
         var attempts = 0;
         var epoch = _gameEpoch;
+        var guessed = new HashSet<string>(StringComparer.Ordinal);
         var panel = GameSceneContent();
-        AddGameQuestion(panel, U("Games.Guess.Prompt", "Guess the hidden word", "Gizli kelimeyi tahmin edin"));
-        panel.Children.Add(GameCaption($"{target.Length} · " + U("Games.Guess.Legend", "6 tries · ✓ exact · ~ elsewhere · × absent", "6 deneme · ✓ doğru yerde · ~ başka yerde · × yok")));
+        panel.Spacing = 5;
+        AddGameQuestion(panel, U("Games.Guess.Prompt", "Guess the hidden word", "Gizli kelimeyi tahmin edin"), () => WordExample(entry));
+        panel.Children.Add(new TextBlock
+        {
+            Text = $"{target.Length} · " + U("Games.Guess.Legend", "6 tries · ✓ exact · ~ elsewhere · × absent", "6 deneme · ✓ doğru yerde · ~ başka yerde · × yok"),
+            FontSize = ReadingSize(18),
+            FontWeight = Microsoft.UI.Text.FontWeights.Normal,
+            Foreground = new SolidColorBrush(Color.FromArgb(255, 241, 245, 249)),
+            TextAlignment = TextAlignment.Center,
+            TextWrapping = TextWrapping.Wrap,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            LineHeight = ReadingSize(18) * 1.3,
+        });
         var board = new StackPanel { Spacing = 7, Width = 308, HorizontalAlignment = HorizontalAlignment.Stretch };
-        var input = GameInput(panel);
-        input.MaxLength = target.Length;
         var attemptCount = GameCaption($"{U("Games.Tries", "Tries", "Deneme")}: 0 / 6");
         panel.Children.Add(attemptCount);
-        SubmitGame(panel, session, async submit =>
+        var choicesHost = new ContentControl { HorizontalContentAlignment = HorizontalAlignment.Stretch };
+        panel.Children.Add(choicesHost);
+
+        void CompactChoiceHost(StackPanel host)
         {
-            if (!GameCanAnswer(session) || _gameLocalBusy) return;
-            var guess = GameAnswer(input.Text).ToUpperInvariant();
-            if (guess.Length != target.Length) return;
-            var correct = guess == target;
-            if (!await RecordGameSubAnswerAsync(session, correct, submit, [entry.Key]) || !IsCurrentGameRound(session, epoch)) return;
-            attempts++;
-            attemptCount.Text = $"{U("Games.Tries", "Tries", "Deneme")}: {attempts} / 6";
-            board.Children.Add(WordGuessRow(guess, target));
-            input.Text = string.Empty;
-            if (correct) await ResolveGameAnswerAsync(session, true, entry.Word, submit, [entry.Key], answerAlreadyRecorded: true);
-            else if (attempts >= 6) await ResolveGameAnswerAsync(session, false, entry.Word, submit, [entry.Key], answerAlreadyRecorded: true);
-        }, canSubmit: () => GameAnswer(input.Text).Length == target.Length && GameAnswer(input.Text).All(char.IsLetter));
+            if (host.Children.OfType<Grid>().FirstOrDefault() is not Grid grid) return;
+            grid.ColumnSpacing = 6;
+            grid.RowSpacing = 6;
+            foreach (var button in grid.Children.OfType<Button>())
+            {
+                button.MinHeight = 44;
+                button.Padding = new Thickness(10, 6, 10, 6);
+                button.FontSize = ReadingSize(18);
+            }
+        }
+
+        VocabularyEntry[] BuildChoices()
+        {
+            var sameLength = pool.Where(word => GameAnswer(word.Word).Length == target.Length).ToArray();
+            if (sameLength.Length < 4) return [];
+            var distractors = sameLength.Where(word => word.Key != entry.Key &&
+                    !guessed.Contains(GameAnswer(word.Word).ToUpperInvariant()))
+                .OrderBy(_ => _random.Next()).Take(3).ToArray();
+            if (distractors.Length < 3)
+                distractors = sameLength.Where(word => word.Key != entry.Key)
+                    .OrderBy(_ => _random.Next()).Take(3).ToArray();
+            if (distractors.Length < 3) return [];
+            return distractors.Append(entry).OrderBy(_ => _random.Next()).ToArray();
+        }
+
+        void RenderChoices()
+        {
+            if (!IsCurrentGameRound(session, epoch)) return;
+            var roundChoices = BuildChoices();
+            if (roundChoices.Length < 4) { GameUnavailable(session, EligibleRequirement); return; }
+            var answers = GameSceneContent();
+            GameChoices(answers, session, roundChoices.Select(word => word.Word).ToArray(), async (index, button) =>
+            {
+                if (!IsCurrentGameRound(session, epoch) || !GameCanAnswer(session) || _gameLocalBusy) return;
+                var guess = GameAnswer(roundChoices[index].Word).ToUpperInvariant();
+                var correct = guess == target;
+                if (!await RecordGameSubAnswerAsync(session, correct, button, [entry.Key]) || !IsCurrentGameRound(session, epoch)) return;
+                guessed.Add(guess);
+                attempts++;
+                attemptCount.Text = $"{U("Games.Tries", "Tries", "Deneme")}: {attempts} / 6";
+                board.Children.Add(WordGuessRow(guess, target));
+                if (correct)
+                {
+                    await ResolveGameAnswerAsync(session, true, entry.Word, button, [entry.Key], answerAlreadyRecorded: true);
+                    return;
+                }
+                if (attempts >= 6)
+                {
+                    await ResolveGameAnswerAsync(session, false, entry.Word, button, [entry.Key], answerAlreadyRecorded: true);
+                    return;
+                }
+                RenderChoices();
+            });
+            CompactChoiceHost(answers);
+            choicesHost.Content = answers;
+        }
+
+        RenderChoices();
         AddGameScene(session.Game, panel, board);
-        input.Focus(FocusState.Programmatic);
     }
 
     private UIElement WordGuessRow(string guess, string target)
@@ -1103,6 +1252,7 @@ public sealed partial class MainPage : Page
             var color = feedback[index] == 2
                 ? Color.FromArgb(255, 4, 120, 87)
                 : feedback[index] == 1 ? Color.FromArgb(255, 161, 98, 7) : Color.FromArgb(255, 71, 85, 105);
+            var foreground = AppearancePalette.EnsureTextContrast(color, Microsoft.UI.Colors.White);
             var tile = new Border
             {
                 MinHeight = ReadingSize(18) * 2.8,
@@ -1113,7 +1263,7 @@ public sealed partial class MainPage : Page
                     Text = guess[index] + "\n" + (feedback[index] == 2 ? "✓" : feedback[index] == 1 ? "~" : "×"),
                     FontSize = ReadingSize(18),
                     FontWeight = Microsoft.UI.Text.FontWeights.Bold,
-                    Foreground = new SolidColorBrush(Microsoft.UI.Colors.White),
+                    Foreground = new SolidColorBrush(foreground),
                     TextAlignment = TextAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
@@ -1150,7 +1300,7 @@ public sealed partial class MainPage : Page
         var epoch = _gameEpoch;
 
         var panel = GameSceneContent();
-        AddGameQuestion(panel, LocalizedPart(entry.Definition));
+        AddGameQuestion(panel, LocalizedPart(entry.Definition), () => WordExample(entry));
         var wrongCaption = GameCaption($"{target.Length} · {U("Games.Tries", "Tries", "Deneme")}: 3");
         panel.Children.Add(wrongCaption);
         var answerRow = new Grid { ColumnSpacing = 6, RowSpacing = 6 };
@@ -1274,6 +1424,11 @@ public sealed partial class MainPage : Page
         var epoch = _gameEpoch;
         var askedKeys = new HashSet<string>();
         VocabularyEntry? correctEntry = null;
+        var questionPool = _words.Where(candidate =>
+                !string.IsNullOrWhiteSpace(LocalizedPart(candidate.Definition)))
+            .DistinctBy(candidate => candidate.Key)
+            .ToArray();
+        if (questionPool.Length < 4) { GameUnavailable(session, EligibleRequirement); return; }
 
         const double hpBarWidth = 120;
         var panel = GameSceneContent();
@@ -1309,7 +1464,7 @@ public sealed partial class MainPage : Page
         var heartsText = GameCaption(new string('♥', hearts) + new string('♡', startHearts - hearts));
         statusPanel.Children.Add(heartsText);
 
-        var word = AddGameQuestion(panel, string.Empty);
+        var word = AddGameQuestion(panel, string.Empty, () => correctEntry is { } current ? WordExample(current) : null);
         var options = new Grid { ColumnSpacing = 12, RowSpacing = 12 };
         var optionButtons = new Button[4];
         var currentChoices = new VocabularyEntry[4];
@@ -1388,30 +1543,64 @@ public sealed partial class MainPage : Page
             await tcs.Task;
         }
 
-        VocabularyEntry PickQuestionWord()
+        VocabularyEntry[] CandidateOrder()
         {
-            var fresh = _words.Where(candidate => !askedKeys.Contains(candidate.Key)).ToArray();
-            var usable = fresh.Length >= 4 ? fresh : _words.ToArray();
-            var picked = usable[_random.Next(usable.Length)];
-            askedKeys.Add(picked.Key);
-            return picked;
+            var fresh = questionPool.Where(candidate => !askedKeys.Contains(candidate.Key))
+                .OrderBy(_ => _random.Next())
+                .ToArray();
+            return fresh.Length >= 4 ? fresh : questionPool.OrderBy(_ => _random.Next()).ToArray();
+        }
+
+        VocabularyEntry[] BuildChoices(VocabularyEntry answer)
+        {
+            var answerDefinition = LocalizedPart(answer.Definition);
+            var distractors = questionPool
+                .Where(candidate => candidate.Key != answer.Key &&
+                    !string.Equals(LocalizedPart(candidate.Definition), answerDefinition, StringComparison.OrdinalIgnoreCase))
+                .DistinctBy(candidate => LocalizedPart(candidate.Definition), StringComparer.OrdinalIgnoreCase)
+                .OrderBy(_ => _random.Next())
+                .Take(3)
+                .ToArray();
+            if (distractors.Length < 3) return [];
+            return distractors.Append(answer).OrderBy(_ => _random.Next()).ToArray();
+        }
+
+        bool TryPrepareQuestion(out VocabularyEntry answer, out VocabularyEntry[] choices)
+        {
+            foreach (var candidate in CandidateOrder())
+            {
+                var prepared = BuildChoices(candidate);
+                if (prepared.Length == 4)
+                {
+                    askedKeys.Add(candidate.Key);
+                    answer = candidate;
+                    choices = prepared;
+                    return true;
+                }
+            }
+            answer = questionPool[0];
+            choices = [];
+            return false;
         }
 
         void NextQuestion()
         {
             if (!IsCurrentGameRound(session, epoch)) return;
+            if (!TryPrepareQuestion(out var picked, out var choices))
+            {
+                GameUnavailable(session, EligibleRequirement);
+                return;
+            }
             answered = false;
-            correctEntry = PickQuestionWord();
+            correctEntry = picked;
             // Re-set every time a new sub-question is presented so the Hint button never goes stale mid-gauntlet.
             _gameHintProvider = () => WordHint(correctEntry!);
             word.Text = correctEntry.Word;
-            var choices = _words.Where(candidate => candidate.Key != correctEntry.Key).OrderBy(_ => _random.Next()).Take(3)
-                .Append(correctEntry).OrderBy(_ => _random.Next()).ToArray();
             for (var i = 0; i < optionButtons.Length; i++)
             {
                 currentChoices[i] = choices[i];
                 var label = LocalizedPart(choices[i].Definition);
-                optionButtons[i].Content = label;
+                optionButtons[i].Content = ButtonContent(label, "\uE72A");
                 optionButtons[i].IsEnabled = true;
                 AutomationProperties.SetName(optionButtons[i], label);
             }
@@ -1463,7 +1652,7 @@ public sealed partial class MainPage : Page
                 }
             }
             if (!IsCurrentGameRound(session, epoch)) return;
-            if (!await PauseGameFeedbackAsync(session, $"{(correct ? T("Common.Correct") : T("Common.Wrong"))}\n{tested.Word} — {LocalizedPart(tested.Definition)}") || !IsCurrentGameRound(session, epoch)) return;
+            if (!await PauseGameFeedbackAsync(session, $"{(correct ? T("Common.Correct") : T("Common.Wrong"))}\n{tested.Word} — {MeaningWithTurkish(tested.Definition)}") || !IsCurrentGameRound(session, epoch)) return;
             NextQuestion();
         }
 
@@ -1484,7 +1673,7 @@ public sealed partial class MainPage : Page
 
     // Faithful port of webapp/codycross.js: 5 themed clues, each revealing one
     // "bonus" letter into a shared code strip (popped in the same way as
-    // Hangman's figure) once its row is typed correctly.
+    // Hangman's figure) once its row is solved correctly.
     private void RenderCodyCrossRound(GameSession session)
     {
         const int groupSize = 5;
@@ -1508,18 +1697,29 @@ public sealed partial class MainPage : Page
         var bonusPanel = new StackPanel { Spacing = 10, HorizontalAlignment = HorizontalAlignment.Stretch };
         bonusPanel.Children.Add(GameCaption(U("Games.Cody.Bonus", "Bonus code", "Bonus kod")));
         var bonusRow = new Grid { ColumnSpacing = 4, RowSpacing = 4, HorizontalAlignment = HorizontalAlignment.Stretch };
+        var bonusBackground = Color.FromArgb(255, 30, 41, 59);
+        var bonusForeground = AppearancePalette.EnsureTextContrast(bonusBackground, Microsoft.UI.Colors.White);
+        var bonusBorder = AppearancePalette.EnsureBoundaryContrast(bonusBackground, Color.FromArgb(255, 148, 163, 184));
         var bonusBoxes = new Border[entries.Length];
         var bonusText = new TextBlock[entries.Length];
         for (var i = 0; i < entries.Length; i++)
         {
-            var text = new TextBlock { FontSize = ReadingSize(18), FontWeight = Microsoft.UI.Text.FontWeights.Bold, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+            var text = new TextBlock
+            {
+                FontSize = ReadingSize(18),
+                FontWeight = Microsoft.UI.Text.FontWeights.Bold,
+                Foreground = new SolidColorBrush(bonusForeground),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+            };
             var box = new Border
             {
                 Width = 38,
                 Height = 38,
                 CornerRadius = new CornerRadius(6),
                 BorderThickness = new Thickness(2),
-                BorderBrush = new SolidColorBrush(Color.FromArgb(140, 255, 255, 255)),
+                BorderBrush = new SolidColorBrush(bonusBorder),
+                Background = new SolidColorBrush(bonusBackground),
                 Child = text,
             };
             Grid.SetColumn(box, i);
@@ -1538,12 +1738,34 @@ public sealed partial class MainPage : Page
             PopReveal(bonusBoxes[row]);
         }
 
-        async Task SubmitRowAsync(int row, TextBox input, Grid cellsGrid, Button submit)
+        string[] BuildRowChoices(int row)
+        {
+            var targetWord = bare[row];
+            var distractors = pool.Where(candidate =>
+                    !string.Equals(GameAnswer(candidate.Word).ToUpperInvariant(), targetWord, StringComparison.Ordinal) &&
+                    GameAnswer(candidate.Word).Length == targetWord.Length)
+                .Select(candidate => candidate.Word)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .OrderBy(_ => _random.Next())
+                .Take(3)
+                .ToArray();
+            if (distractors.Length < 3)
+                distractors = pool.Where(candidate =>
+                        !string.Equals(GameAnswer(candidate.Word).ToUpperInvariant(), targetWord, StringComparison.Ordinal))
+                    .Select(candidate => candidate.Word)
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .OrderBy(_ => _random.Next())
+                    .Take(3)
+                    .ToArray();
+            if (distractors.Length < 3) return [];
+            return distractors.Append(entries[row].Word).OrderBy(_ => _random.Next()).ToArray();
+        }
+
+        async Task SubmitRowAsync(int row, string selectedWord, Grid cellsGrid, Button submit)
         {
             if (!IsCurrentGameRound(session, epoch) || !GameCanAnswer(session) || _gameLocalBusy || solved[row] || row != activeRow) return;
-            var typed = GameAnswer(input.Text).ToUpperInvariant();
-            if (typed.Length == 0) return;
-            var correct = typed == bare[row];
+            var selected = GameAnswer(selectedWord).ToUpperInvariant();
+            var correct = selected == bare[row];
             if (!await RecordGameSubAnswerAsync(session, correct, submit, [entries[row].Key]) || !IsCurrentGameRound(session, epoch)) return;
             if (correct)
             {
@@ -1563,8 +1785,7 @@ public sealed partial class MainPage : Page
             else
             {
                 ShakeElement(cellsGrid);
-                if (!await PauseGameFeedbackAsync(session, U("Games.TryAgain", "Not yet — try again", "Henüz değil — tekrar deneyin") + "\n" + typed) || !IsCurrentGameRound(session, epoch)) return;
-                input.Text = string.Empty;
+                if (!await PauseGameFeedbackAsync(session, U("Games.TryAgain", "Not yet — try again", "Henüz değil — tekrar deneyin") + "\n" + selectedWord) || !IsCurrentGameRound(session, epoch)) return;
             }
         }
 
@@ -1582,11 +1803,18 @@ public sealed partial class MainPage : Page
                 var word = bare[row];
                 var solvedRow = solved[row];
                 var cellsGrid = new Grid { ColumnSpacing = 6, MaxWidth = word.Length * 38, HorizontalAlignment = HorizontalAlignment.Stretch };
-                var texts = new TextBlock[word.Length];
                 for (var col = 0; col < word.Length; col++)
                 {
                     var isBonus = col == bonusIndex[row];
-                    var text = new TextBlock { FontSize = ReadingSize(18), FontWeight = Microsoft.UI.Text.FontWeights.Bold, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+                    var cellBackground = solvedRow ? Color.FromArgb(255, 4, 120, 87) : Color.FromArgb(255, 30, 41, 59);
+                    var text = new TextBlock
+                    {
+                        FontSize = ReadingSize(18),
+                        FontWeight = Microsoft.UI.Text.FontWeights.Bold,
+                        Foreground = new SolidColorBrush(AppearancePalette.EnsureTextContrast(cellBackground, Microsoft.UI.Colors.White)),
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                    };
                     if (solvedRow) text.Text = word[col].ToString();
                     var box = new Border
                     {
@@ -1594,44 +1822,28 @@ public sealed partial class MainPage : Page
                         CornerRadius = new CornerRadius(6),
                         BorderThickness = new Thickness(2),
                         BorderBrush = new SolidColorBrush(solvedRow
-                            ? Color.FromArgb(255, 4, 120, 87)
-                            : isBonus ? Color.FromArgb(255, 217, 119, 6) : Color.FromArgb(130, 255, 255, 255)),
-                        Background = solvedRow ? new SolidColorBrush(Color.FromArgb(40, 4, 120, 87)) : null,
+                            ? AppearancePalette.EnsureBoundaryContrast(cellBackground, Color.FromArgb(255, 167, 243, 208))
+                            : isBonus
+                                ? AppearancePalette.EnsureBoundaryContrast(cellBackground, Color.FromArgb(255, 217, 119, 6))
+                                : AppearancePalette.EnsureBoundaryContrast(cellBackground, Color.FromArgb(255, 148, 163, 184))),
+                        Background = new SolidColorBrush(cellBackground),
                         Child = text,
                     };
                     Grid.SetColumn(box, col);
                     cellsGrid.ColumnDefinitions.Add(new ColumnDefinition());
                     cellsGrid.Children.Add(box);
-                    texts[col] = text;
                 }
 
+                var capturedRow = row;
                 var rowStack = new StackPanel { Spacing = 8 };
-                AddGameQuestion(rowStack, LocalizedPart(entries[row].Definition));
+                AddGameQuestion(rowStack, LocalizedPart(entries[capturedRow].Definition), () => WordExample(entries[capturedRow]));
                 rowStack.Children.Add(cellsGrid);
 
                 if (row == activeRow && !solvedRow)
                 {
-                    var capturedRow = row;
-                    var input = new TextBox
-                    {
-                        MaxLength = word.Length,
-                        FontSize = ReadingSize(20),
-                        MinHeight = 48, MinWidth = 48,
-                        Header = GameCaption(T("Game.TypeAnswer")),
-                        HorizontalAlignment = HorizontalAlignment.Stretch,
-                        PlaceholderText = T("Game.TypeAnswer"),
-                    };
-                    AutomationProperties.SetName(input, T("Game.TypeAnswer"));
-                    AutomationProperties.SetAutomationId(input, "game.Answer");
-                    input.TextChanged += (_, _) =>
-                    {
-                        var typed = input.Text.ToUpperInvariant();
-                        for (var col = 0; col < texts.Length; col++)
-                            texts[col].Text = col < typed.Length ? typed[col].ToString() : string.Empty;
-                    };
-                    rowStack.Children.Add(input);
-                    SubmitGame(rowStack, session, submit => SubmitRowAsync(capturedRow, input, cellsGrid, submit));
-                    input.Focus(FocusState.Programmatic);
+                    var rowChoices = BuildRowChoices(capturedRow);
+                    if (rowChoices.Length < 4) { GameUnavailable(session, EligibleRequirement); return; }
+                    GameChoices(rowStack, session, rowChoices, async (index, submit) => await SubmitRowAsync(capturedRow, rowChoices[index], cellsGrid, submit));
                 }
                 rowsPanel.Children.Add(rowStack);
             }
@@ -1662,9 +1874,16 @@ public sealed partial class MainPage : Page
                 session.Score = Math.Min(LearningEngine.MaxCounter, session.Score + _gameRoundPoints +
                     (session.Game.Id is "cluedetective" or "scrabble" ? 0 : Math.Min(session.Streak, 10) * 15));
             }
-            else { session.Streak = 0; session.Lives--; }
+            else
+            {
+                session.Streak = 0;
+                // Timed modes are defined as 60-second runs; wrong answers should
+                // not end them early via hidden lives.
+                if (_gameMode != "timed") session.Lives--;
+            }
             AnimatePulse(source, correct);
-            var message = $"{(correct ? T("Common.Correct") : T("Common.Wrong"))}\n{feedback}\n{T("Game.Score")}: {session.Score:N0}";
+            var keyLine = reviewedKeys.Count > 0 ? $"\n@gameKey:{reviewedKeys[0]}" : "";
+            var message = $"{(correct ? T("Common.Correct") : T("Common.Wrong"))}\n{feedback}{keyLine}\n{T("Game.Score")}: {session.Score:N0}";
             if (!await PauseGameFeedbackAsync(session, message)) return;
             if (!IsCurrentGameRound(session, epoch)) return;
             session.Round++;
@@ -1722,8 +1941,15 @@ public sealed partial class MainPage : Page
         AddHudCell(grid, 2, T("Game.Round"), _gameRoundText, null, "");
         if (_gameMode == "timed")
         {
+            var timedMaximum = session.TimedLimitSeconds > 0 ? session.TimedLimitSeconds : GameEngine.TimedSeconds;
             _gameTimerText = Heading(session.SecondsRemaining.ToString(), 20);
-            _gameTimerProgress = new ProgressBar { Minimum = 0, Maximum = GameEngine.TimedSeconds, Value = session.SecondsRemaining, Height = 3 };
+            _gameTimerProgress = new ProgressBar
+            {
+                Minimum = 0,
+                Maximum = timedMaximum,
+                Value = Math.Clamp(session.SecondsRemaining, 0, timedMaximum),
+                Height = 3,
+            };
             AddHudCell(grid, 3, T("Game.Time"), _gameTimerText, _gameTimerProgress, "");
         }
         else
@@ -1770,25 +1996,95 @@ public sealed partial class MainPage : Page
 
     private TextBlock GameFeedbackText(StackPanel feedback, string message)
     {
-        var firstLine = message.Split('\n', 2)[0].Trim();
+        var parsed = ParseGameFeedbackMessage(message);
+        var firstLine = parsed.Status;
         var correct = firstLine == U("Kids.Games.GotIt", "You got it!", "Bildin!");
         var incorrect = firstLine == U("Kids.Games.TryAgain", "Good try! Let's learn this one.", "Güzel deneme! Bunu birlikte öğrenelim.");
-        var accent = new SolidColorBrush(correct ? Color.FromArgb(255, 134, 239, 172) : incorrect
-            ? Color.FromArgb(255, 253, 164, 175) : Color.FromArgb(255, 147, 197, 253));
+
+        var brushes = StudyResultBrushes(correct);
+        var background = (brushes.Background as SolidColorBrush)?.Color ?? Color.FromArgb(255, 15, 23, 42);
+        var bodyColor = EnsureStrongTextContrast(background,
+            (brushes.Foreground as SolidColorBrush)?.Color ?? Microsoft.UI.Colors.White);
+        var preferredAccent = correct ? Color.FromArgb(255, 134, 239, 172)
+            : incorrect ? Color.FromArgb(255, 253, 186, 116)
+            : Color.FromArgb(255, 125, 211, 252);
+        var accentColor = AppearancePalette.EnsureTextContrast(background, preferredAccent);
+        var labelColor = EnsureStrongTextContrast(background, preferredAccent);
+        var borderColor = AppearancePalette.EnsureBoundaryContrast(background, accentColor);
+        var accent = new SolidColorBrush(accentColor);
+        var bodyBrush = new SolidColorBrush(bodyColor);
+        var labelBrush = new SolidColorBrush(labelColor);
+
         var heading = GamePrompt((correct ? "✓ " : incorrect ? "↻ " : "ⓘ ") + U("Kids.Games.LookAnswer", "Look at the answer", "Yanıta bak"), 24);
         heading.TextAlignment = TextAlignment.Left;
         heading.Foreground = accent;
         AutomationProperties.SetHeadingLevel(heading, Microsoft.UI.Xaml.Automation.Peers.AutomationHeadingLevel.Level2);
-        var text = GamePrompt(message, 20);
-        text.FontWeight = Microsoft.UI.Text.FontWeights.Normal;
+
+        var text = GamePrompt(firstLine, 22);
+        text.FontWeight = Microsoft.UI.Text.FontWeights.SemiBold;
+        text.Foreground = bodyBrush;
         text.TextAlignment = TextAlignment.Left;
         AutomationProperties.SetAutomationId(text, "game.Feedback");
-        AutomationProperties.SetName(text, message);
-        var copy = new StackPanel { Spacing = 12, Children = { heading, text } };
+        var readableMessage = string.Join('\n', new[] { parsed.Status }
+            .Concat(parsed.DetailLines)
+            .Concat(parsed.HasScoreLine ? [$"{T("Game.Score")}: {parsed.Score}"] : []));
+        AutomationProperties.SetName(text, readableMessage);
+
+        var summary = new StackPanel { Spacing = 8 };
+        void AddSummaryRow(string label, string value)
+        {
+            if (string.IsNullOrWhiteSpace(value)) return;
+            var row = new Grid { ColumnSpacing = 10, RowSpacing = 4 };
+            row.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            row.ColumnDefinitions.Add(new ColumnDefinition());
+            var key = StudyText(label + ":", 20, labelBrush, emphasis: true);
+            key.FontWeight = Microsoft.UI.Text.FontWeights.Bold;
+            key.VerticalAlignment = VerticalAlignment.Top;
+            var content = StudyText(value.Trim(), 20, bodyBrush, selectable: true);
+            Grid.SetColumn(content, 1);
+            row.Children.Add(key);
+            row.Children.Add(content);
+            summary.Children.Add(row);
+        }
+
+        if (parsed.HasScoreLine)
+        {
+            var entry = ResolveFeedbackEntry(parsed);
+            var meaning = entry is null ? parsed.Meaning : MeaningWithTurkish(entry.Definition);
+            var example = entry is null ? parsed.Example : ExampleWithTurkish(entry.Example);
+
+            AddSummaryRow(U("Games.Feedback.CorrectAnswer", "Correct answer", "Doğru yanıt"), parsed.CorrectAnswer);
+            AddSummaryRow(U("Games.Feedback.YourAnswer", "Your answer", "Yanıtın"), parsed.YourAnswer);
+            AddSummaryRow(U("Games.Feedback.Statement", "Shown statement", "Gösterilen ifade"), parsed.Statement);
+            AddSummaryRow(T("Cards.Meaning"), !string.IsNullOrWhiteSpace(meaning)
+                ? meaning
+                : U("Games.Example.DefinitionUnavailable", "No definition is available for this round.", "Bu tur için tanım yok."));
+            AddSummaryRow(T("Cards.Example"), !string.IsNullOrWhiteSpace(example)
+                ? example
+                : U("Games.Example.Unavailable", "No example is available for this round.", "Bu tur için örnek yok."));
+            AddSummaryRow(T("Game.Score"), parsed.Score);
+
+            foreach (var extra in parsed.Extras)
+                AddSummaryRow(U("Games.Feedback.Statement", "Shown statement", "Gösterilen ifade"), extra);
+        }
+        else
+        {
+            foreach (var line in parsed.DetailLines)
+            {
+                var detail = StudyText(line, 20, bodyBrush, selectable: true);
+                detail.TextAlignment = TextAlignment.Left;
+                summary.Children.Add(detail);
+            }
+        }
+
+        var copy = new StackPanel { Spacing = 12, Children = { heading, text, summary } };
         var card = new Border
         {
-            Child = copy, BorderBrush = accent, BorderThickness = new Thickness(4, 0, 0, 0),
-            Padding = new Thickness(14, 8, 8, 8), Background = new SolidColorBrush(Color.FromArgb(255, 15, 23, 42)),
+            Child = copy,
+            BorderBrush = new SolidColorBrush(borderColor),
+            BorderThickness = new Thickness(2),
+            Padding = new Thickness(14, 8, 8, 8),
+            Background = new SolidColorBrush(background),
         };
         feedback.Children.Add(card);
         feedback.Children.Add(GameCaption(U("Kids.Games.NextHint", "Ready? Choose Next.", "Hazır mısın? Sonraki'ni seç.")));
@@ -1804,6 +2100,161 @@ public sealed partial class MainPage : Page
         return string.Join('\n', parts);
     }
 
+    private sealed record GameFeedbackParse(
+        string Status,
+        string CorrectAnswer,
+        string YourAnswer,
+        string Statement,
+        string Meaning,
+        string Example,
+        string Score,
+        string FeedbackKey,
+        string[] DetailLines,
+        string[] Extras,
+        bool HasScoreLine);
+
+    private GameFeedbackParse ParseGameFeedbackMessage(string message)
+    {
+        var allLines = message.Split('\n').Select(line => line.Trim()).Where(line => line.Length > 0).ToArray();
+        if (allLines.Length == 0)
+            return new GameFeedbackParse("", "", "", "", "", "", "", "", [], [], false);
+
+        var status = allLines[0];
+        var scoreLabel = T("Game.Score");
+        var score = "";
+        var feedbackKey = "";
+        var details = new List<string>();
+        foreach (var line in allLines.Skip(1))
+        {
+            if (line.StartsWith("@gameKey:", StringComparison.Ordinal))
+            {
+                feedbackKey = line["@gameKey:".Length..].Trim();
+                continue;
+            }
+            if (TryFeedbackLabelValue(line, scoreLabel, out var scoreValue))
+            {
+                score = scoreValue;
+                continue;
+            }
+            details.Add(line);
+        }
+
+        var correctLabel = U("Games.Feedback.CorrectAnswer", "Correct answer", "Doğru yanıt");
+        var yourLabel = U("Games.Feedback.YourAnswer", "Your answer", "Yanıtın");
+        var statementLabel = U("Games.Feedback.Statement", "Shown statement", "Gösterilen ifade");
+        var meaningLabel = T("Cards.Meaning");
+        var exampleLabel = T("Cards.Example");
+
+        var correct = "";
+        var your = "";
+        var statement = "";
+        var meaning = "";
+        var example = "";
+        var extras = new List<string>();
+        foreach (var line in details)
+        {
+            if (TryFeedbackLabelValue(line, correctLabel, out var correctValue))
+            {
+                if (correct.Length == 0) correct = correctValue;
+                continue;
+            }
+            if (TryFeedbackLabelValue(line, yourLabel, out var yourValue) ||
+                TryFeedbackLabelValue(line, U("Quiz.Selected", "Your answer", "Yanıtınız"), out yourValue))
+            {
+                if (your.Length == 0) your = yourValue;
+                continue;
+            }
+            if (TryFeedbackLabelValue(line, statementLabel, out var statementValue))
+            {
+                if (statement.Length == 0) statement = statementValue;
+                continue;
+            }
+            if (TryFeedbackLabelValue(line, meaningLabel, out var meaningValue))
+            {
+                if (meaning.Length == 0) meaning = meaningValue;
+                continue;
+            }
+            if (TryFeedbackLabelValue(line, exampleLabel, out var exampleValue))
+            {
+                if (example.Length == 0) example = exampleValue;
+                continue;
+            }
+            extras.Add(line);
+        }
+
+        if (correct.Length == 0 && extras.Count > 0)
+        {
+            correct = extras[0];
+            extras.RemoveAt(0);
+        }
+        if (meaning.Length == 0 && extras.Count > 0)
+        {
+            meaning = extras[0];
+            extras.RemoveAt(0);
+        }
+        if (example.Length == 0 && extras.Count > 0)
+        {
+            example = extras[0];
+            extras.RemoveAt(0);
+        }
+
+        return new GameFeedbackParse(status, correct, your, statement, meaning, example, score, feedbackKey,
+            details.ToArray(), extras.ToArray(), score.Length > 0);
+    }
+
+    private static bool TryFeedbackLabelValue(string line, string label, out string value)
+    {
+        var prefix = label + ":";
+        if (line.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+        {
+            value = line[prefix.Length..].Trim();
+            return true;
+        }
+        value = "";
+        return false;
+    }
+
+    private VocabularyEntry? ResolveFeedbackEntry(GameFeedbackParse parsed)
+    {
+        if (!string.IsNullOrWhiteSpace(parsed.FeedbackKey))
+        {
+            var byKey = _words.FirstOrDefault(word =>
+                string.Equals(word.Key, parsed.FeedbackKey, StringComparison.Ordinal));
+            if (byKey is not null) return byKey;
+        }
+
+        var probes = new[] { parsed.CorrectAnswer, parsed.YourAnswer, parsed.Statement }
+            .Concat(parsed.DetailLines)
+            .Concat(parsed.Extras)
+            .Where(value => !string.IsNullOrWhiteSpace(value));
+        foreach (var probe in probes)
+        {
+            var token = FeedbackLookupToken(probe);
+            if (token.Length == 0) continue;
+            var exact = _words.FirstOrDefault(word =>
+                string.Equals(word.Word, token, StringComparison.OrdinalIgnoreCase));
+            if (exact is not null) return exact;
+            var normalized = GameAnswer(token);
+            if (normalized.Length == 0) continue;
+            var normalizedMatch = _words.FirstOrDefault(word =>
+                string.Equals(GameAnswer(word.Word), normalized, StringComparison.Ordinal));
+            if (normalizedMatch is not null) return normalizedMatch;
+        }
+        return null;
+    }
+
+    private static string FeedbackLookupToken(string value)
+    {
+        var token = value.Trim();
+        foreach (var separator in new[] { " — ", " ↔ ", " · " })
+        {
+            var index = token.IndexOf(separator, StringComparison.Ordinal);
+            if (index > 0) token = token[..index].Trim();
+        }
+        token = token.Trim('✓', '✕', '↻', 'ⓘ', ' ');
+        return token;
+    }
+
     private static void AddHudCell(Grid grid, int column, string label, string value, string glyph) =>
         AddHudCell(grid, column, label, Heading(value, 20), null, glyph);
 
@@ -1813,8 +2264,9 @@ public sealed partial class MainPage : Page
         var labelRow = new Grid { ColumnSpacing = 6 };
         labelRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
         labelRow.ColumnDefinitions.Add(new ColumnDefinition());
-        labelRow.Children.Add(new FontIcon { Glyph = glyph, FontSize = Font(13) });
+        labelRow.Children.Add(DecorativeIcon(glyph, Font(13)));
         var labelText = new TextBlock { Text = label, FontSize = ReadingSize(18), TextWrapping = TextWrapping.Wrap };
+        AutomationProperties.SetName(labelText, label);
         Grid.SetColumn(labelText, 1);
         labelRow.Children.Add(labelText);
         copy.Children.Add(labelRow);
@@ -1830,7 +2282,9 @@ public sealed partial class MainPage : Page
         var palette = PaletteFor(game);
         var grid = new Grid { MinHeight = 170 };
         var content = new StackPanel { Spacing = 8, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(28) };
-        content.Children.Add(new FontIcon { Glyph = game.Glyph, FontSize = Font(44), Foreground = new SolidColorBrush(Microsoft.UI.Colors.White), HorizontalAlignment = HorizontalAlignment.Left });
+        var icon = DecorativeIcon(game.Glyph, Font(44), new SolidColorBrush(Microsoft.UI.Colors.White));
+        icon.HorizontalAlignment = HorizontalAlignment.Left;
+        content.Children.Add(icon);
         content.Children.Add(new TextBlock { Text = game.Title, FontSize = Font(32), FontWeight = Microsoft.UI.Text.FontWeights.Bold, Foreground = new SolidColorBrush(Microsoft.UI.Colors.White), TextWrapping = TextWrapping.Wrap });
         if (showBest) content.Children.Add(new TextBlock
         {
@@ -1886,7 +2340,7 @@ public sealed partial class MainPage : Page
         layout.Children.Add(contentCard);
         ConfigureGameLayout(layout, visualHost, contentCard);
 
-        var grid = new Grid { MinHeight = 280 };
+        var grid = new Grid { MinHeight = 240 };
         grid.Children.Add(layout);
         var arena = new Border
         {
@@ -1905,7 +2359,7 @@ public sealed partial class MainPage : Page
         Height = 140,
         CornerRadius = new CornerRadius(70),
         Background = new SolidColorBrush(Color.FromArgb(50, 255, 255, 255)),
-        Child = new FontIcon { Glyph = game.Glyph, FontSize = Font(56), Foreground = new SolidColorBrush(Microsoft.UI.Colors.White) },
+        Child = DecorativeIcon(game.Glyph, Font(56), new SolidColorBrush(Microsoft.UI.Colors.White)),
         HorizontalAlignment = HorizontalAlignment.Center,
         VerticalAlignment = VerticalAlignment.Center,
     };
@@ -1947,8 +2401,23 @@ public sealed partial class MainPage : Page
         VerticalAlignment = VerticalAlignment.Center,
     };
 
-    private TextBlock AddGameQuestion(Panel panel, string text)
+    private sealed record GameQuestionExample(string Definition, string Example);
+
+    // Game help content should keep the source + Turkish pair whenever present.
+    private static string MeaningWithTurkish(string value) => value.Trim();
+
+    // Bulb help must preserve the Turkish translation part even when UI language is not Turkish.
+    private static string ExampleWithTurkish(string value) => value.Trim();
+
+    private GameQuestionExample WordExample(VocabularyEntry entry) => new(
+        $"{U("Games.Example.Word", "Word", "Kelime")}: {entry.Word}\n{LocalizedPart(entry.Definition)}",
+        LocalizedPart(entry.Example));
+
+    private TextBlock AddGameQuestion(Panel panel, string text, Func<GameQuestionExample?>? exampleProvider = null, string? automationSuffix = null)
     {
+        var questionId = automationSuffix is null ? "game.Question" : $"game.Question.{automationSuffix}";
+        var exampleId = automationSuffix is null ? "game.QuestionExample" : $"game.QuestionExample.{automationSuffix}";
+        var cardId = automationSuffix is null ? "game.QuestionCard" : $"game.QuestionCard.{automationSuffix}";
         var prompt = new TextBlock
         {
             Text = text,
@@ -1963,31 +2432,189 @@ public sealed partial class MainPage : Page
             HorizontalAlignment = HorizontalAlignment.Stretch,
             IsTextSelectionEnabled = true,
         };
-        AutomationProperties.SetAutomationId(prompt, "game.Question");
+        AutomationProperties.SetAutomationId(prompt, questionId);
         AutomationProperties.SetName(prompt, text);
         AutomationProperties.SetHelpText(prompt, U("Kids.Accessibility.ReadQuestion", "Read the question, then use the control below.", "Soruyu oku, sonra aşağıdaki kontrolü kullan."));
         AutomationProperties.SetHeadingLevel(prompt, Microsoft.UI.Xaml.Automation.Peers.AutomationHeadingLevel.Level2);
         Live(prompt);
-        var copy = new StackPanel { Spacing = 5 };
-        copy.Children.Add(new TextBlock
+        var copy = new StackPanel { Spacing = 3 };
+        copy.Children.Add(StudyLabel(U("Games.Question", "Question", "Soru")));
+        var questionRow = new Grid { ColumnSpacing = 8 };
+        questionRow.ColumnDefinitions.Add(new ColumnDefinition());
+        if (exampleProvider is not null) questionRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        if (exampleProvider is not null)
         {
-            Text = U("Games.Question", "Question", "Soru"),
-            FontSize = ReadingSize(18),
-            FontWeight = Microsoft.UI.Text.FontWeights.Bold,
-            Foreground = new SolidColorBrush(Color.FromArgb(255, 51, 65, 85)),
-        });
-        copy.Children.Add(prompt);
+            var exampleButton = new Button
+            {
+                Content = DecorativeIcon("\uE82F", Font(22), AppearancePalette.Current.ButtonTintForegroundBrush),
+                MinWidth = 48,
+                MinHeight = 48,
+                Padding = new Thickness(10, 8, 10, 8),
+                CornerRadius = new CornerRadius(12),
+                Background = AppearancePalette.Current.ButtonTintBrush,
+                Foreground = AppearancePalette.Current.ButtonTintForegroundBrush,
+                BorderBrush = AppearancePalette.Current.ButtonBorderBrush,
+                BorderThickness = new Thickness(1),
+                IsTabStop = true,
+                UseSystemFocusVisuals = true,
+                HighContrastAdjustment = ElementHighContrastAdjustment.Auto,
+            };
+            ApplyAccessibleButtonVisuals(exampleButton, AppearancePalette.Current.ButtonTint,
+                AppearancePalette.Current.ButtonTintForeground, AppearancePalette.Current.ButtonBorder);
+            AutomationProperties.SetAutomationId(exampleButton, exampleId);
+            var helpDetails = U("Games.Example.Help", "Help me with word definition and example", "Kelime tanımı ve örneği için yardım et");
+            AutomationProperties.SetName(exampleButton, helpDetails);
+            AutomationProperties.SetHelpText(exampleButton, helpDetails);
+            ToolTipService.SetToolTip(exampleButton, helpDetails);
+            exampleButton.Click += async (_, _) => await ShowGameQuestionExampleAsync(exampleButton, exampleProvider, exampleId);
+            Grid.SetColumn(exampleButton, 1);
+            questionRow.Children.Add(exampleButton);
+        }
+        Grid.SetColumn(prompt, 0);
+        questionRow.Children.Add(prompt);
+        copy.Children.Add(questionRow);
         var card = new Border
         {
             Child = copy,
             Background = new SolidColorBrush(Color.FromArgb(255, 248, 250, 252)),
             CornerRadius = new CornerRadius(12),
-            Padding = new Thickness(16, 12, 16, 14),
+            Padding = new Thickness(14, 5, 14, 5),
             HorizontalAlignment = HorizontalAlignment.Stretch,
         };
-        AutomationProperties.SetAutomationId(card, "game.QuestionCard");
+        AutomationProperties.SetAutomationId(card, cardId);
         panel.Children.Add(card);
         return prompt;
+    }
+
+    private async Task ShowGameQuestionExampleAsync(Button source, Func<GameQuestionExample?> exampleProvider, string exampleId)
+    {
+        if (!IsLoaded || _studyBusy || !source.IsLoaded || !IsWithin(source, PageContent)) return;
+        // A native dialog leaves the visual tree just before its awaited ShowAsync
+        // continuation clears _dialogOpen. Honor a bulb click in that short close
+        // transition instead of silently dropping it.
+        if (_dialogClosed is { } pending) await pending.Task;
+        for (var retry = 0; retry < 8 && _navigationBusy; retry++) await Task.Delay(25);
+        if (!IsLoaded || _studyBusy || _dialogOpen || _navigationBusy || !source.IsLoaded || !source.IsEnabled || !IsWithin(source, PageContent)) return;
+        var page = _currentPage;
+        var context = StudyContext;
+        var timer = _gameTimer;
+        var wasRunning = timer?.IsEnabled == true;
+        var game = _activeGame;
+        var closed = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        _dialogOpen = true;
+        _dialogClosed = closed;
+        source.IsEnabled = false;
+        timer?.Stop();
+        try
+        {
+            var details = exampleProvider();
+            var definition = details?.Definition?.Trim() ?? "";
+            var example = details?.Example?.Trim() ?? "";
+            if (definition.Length == 0) definition = U("Games.Example.DefinitionUnavailable", "No definition is available for this round.", "Bu tur için tanım yok.");
+            if (example.Length == 0) example = U("Games.Example.Unavailable", "No example is available for this round.", "Bu tur için örnek yok.");
+            var title = U("Games.Example.DialogTitle", "Definition and example", "Tanım ve örnek");
+            var dialog = new ContentDialog
+            {
+                XamlRoot = XamlRoot,
+                RequestedTheme = RequestedTheme,
+                Title = title,
+                Content = GameQuestionExampleContent(definition, example, exampleId),
+                CloseButtonText = U("Games.Example.Close", "Close definition and example", "Tanımı ve örneği kapat"),
+                DefaultButton = ContentDialogButton.Close,
+            };
+            AutomationProperties.SetAutomationId(dialog, exampleId + ".Dialog");
+            AutomationProperties.SetName(dialog, title);
+            ConfigureReadingDialog(dialog);
+            await dialog.ShowAsync();
+        }
+        catch (Exception ex) { ShowNotice(T("Common.Error"), ex.Message, InfoBarSeverity.Error); }
+        finally
+        {
+            _dialogOpen = false;
+            _dialogClosed = null;
+            if (wasRunning && !_storageBlocked && _activeGame == game && ReferenceEquals(timer, _gameTimer)) timer?.Start();
+            if (source.IsLoaded && IsWithin(source, PageContent)) source.IsEnabled = true;
+            RestoreDialogFocus(source, page, context);
+            closed.TrySetResult(true);
+        }
+    }
+
+    private UIElement GameQuestionExampleContent(string definition, string example, string exampleId)
+    {
+        const int pageLength = 96;
+        var definitionPages = GameQuestionExamplePages(definition, pageLength);
+        var examplePages = GameQuestionExamplePages(example, pageLength);
+        var pageCount = Math.Max(definitionPages.Count, examplePages.Count);
+        var page = 0;
+        var definitionLabel = U("Games.Example.Definition", "Definition", "Tanım");
+        var exampleLabel = U("Games.Example.Title", "Example", "Örnek");
+        var definitionText = StudyText("", 18, selectable: true);
+        var exampleText = StudyText("", 18, selectable: true);
+        AutomationProperties.SetAutomationId(definitionText, exampleId + ".Definition");
+        AutomationProperties.SetAutomationId(exampleText, exampleId + ".Example");
+        var definitionPanel = new StackPanel { Spacing = 8, Children = { StudyLabel(definitionLabel), definitionText } };
+        var examplePanel = new StackPanel { Spacing = 8, Children = { StudyLabel(exampleLabel), exampleText } };
+        var dividerBrush = new SolidColorBrush(AppearancePalette.EnsureBoundaryContrast(AppearancePalette.Current.Box, AppearancePalette.Current.Border));
+        var divider = new Border
+        {
+            Width = 2,
+            MinWidth = 2,
+            VerticalAlignment = VerticalAlignment.Stretch,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            Margin = new Thickness(0, 2, 0, 2),
+            Background = dividerBrush,
+            HighContrastAdjustment = ElementHighContrastAdjustment.Auto,
+        };
+        AutomationProperties.SetAccessibilityView(divider, Microsoft.UI.Xaml.Automation.Peers.AccessibilityView.Raw);
+        var details = new Grid { ColumnSpacing = 16, Children = { definitionPanel, divider, examplePanel } };
+        details.ColumnDefinitions.Add(new ColumnDefinition());
+        details.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        details.ColumnDefinitions.Add(new ColumnDefinition());
+        Grid.SetColumn(divider, 1);
+        Grid.SetColumn(examplePanel, 2);
+        var status = StudyText("", 18, emphasis: true);
+        AutomationProperties.SetAutomationId(status, exampleId + ".Page");
+        Live(status);
+        var previous = CompactStudyAction(SecondaryButton(U("Shell.PreviousPage", "Previous page", "Önceki sayfa"), ""));
+        var next = CompactStudyAction(SecondaryButton(U("Shell.NextPage", "Next page", "Sonraki sayfa"), ""));
+        AutomationProperties.SetAutomationId(previous, exampleId + ".Previous");
+        AutomationProperties.SetAutomationId(next, exampleId + ".Next");
+        void Refresh()
+        {
+            definitionText.Text = definitionPages[Math.Min(page, definitionPages.Count - 1)];
+            exampleText.Text = examplePages[Math.Min(page, examplePages.Count - 1)];
+            AutomationProperties.SetName(definitionText, $"{definitionLabel}: {definitionText.Text}");
+            AutomationProperties.SetName(exampleText, $"{exampleLabel}: {exampleText.Text}");
+            status.Text = $"{page + 1} / {pageCount}";
+            previous.IsEnabled = page > 0;
+            next.IsEnabled = page + 1 < pageCount;
+        }
+        previous.Click += (_, _) => { if (page > 0) { page--; Refresh(); Announce(status, status.Text); } };
+        next.Click += (_, _) => { if (page + 1 < pageCount) { page++; Refresh(); Announce(status, status.Text); } };
+        var navigation = new Grid { ColumnSpacing = 8, RowSpacing = 8, Children = { previous, next } };
+        ConfigureResponsiveGrid(navigation, 2, 150);
+        if (pageCount == 1)
+        {
+            status.Visibility = Visibility.Collapsed;
+            navigation.Visibility = Visibility.Collapsed;
+        }
+        Refresh();
+        return new StackPanel { Spacing = 12, Children = { status, details, navigation } };
+    }
+
+    private static IReadOnlyList<string> GameQuestionExamplePages(string text, int pageLength)
+    {
+        var pages = new List<string>();
+        var remaining = text.Trim();
+        while (remaining.Length > pageLength)
+        {
+            var split = remaining.LastIndexOfAny([' ', '\n'], pageLength);
+            if (split < pageLength / 2) split = pageLength;
+            pages.Add(remaining[..split].Trim());
+            remaining = remaining[split..].TrimStart();
+        }
+        if (remaining.Length > 0 || pages.Count == 0) pages.Add(remaining);
+        return pages;
     }
 
     private static TextBlock GamePrompt(string text, double size) => new()
@@ -2019,11 +2646,12 @@ public sealed partial class MainPage : Page
     {
         var button = new Button
         {
-            Content = new TextBlock { Text = text, TextWrapping = TextWrapping.Wrap },
+            Content = ButtonContent(text, "\uE72A"),
             MinHeight = 56,
             MinWidth = 48,
             HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Left,
+            VerticalContentAlignment = VerticalAlignment.Stretch,
             Padding = new Thickness(16, 12, 16, 12),
             CornerRadius = new CornerRadius(12),
             Background = new SolidColorBrush(Color.FromArgb(255, 30, 41, 59)),
@@ -2035,12 +2663,8 @@ public sealed partial class MainPage : Page
             IsTabStop = true,
             UseSystemFocusVisuals = true,
         };
-        button.Resources["ButtonBackgroundPointerOver"] = new SolidColorBrush(Color.FromArgb(255, 51, 65, 85));
-        button.Resources["ButtonBackgroundPressed"] = new SolidColorBrush(Color.FromArgb(255, 71, 85, 105));
-        button.Resources["ButtonForegroundPointerOver"] = button.Foreground;
-        button.Resources["ButtonForegroundPressed"] = button.Foreground;
-        button.Resources["ButtonBorderBrushPointerOver"] = new SolidColorBrush(Microsoft.UI.Colors.White);
-        button.Resources["ButtonBorderBrushPressed"] = new SolidColorBrush(Microsoft.UI.Colors.White);
+        ApplyAccessibleButtonVisuals(button, Color.FromArgb(255, 30, 41, 59), Microsoft.UI.Colors.White,
+            Color.FromArgb(255, 100, 116, 139));
         AutomationProperties.SetName(button, text);
         if (!isAction) AutomationProperties.SetHelpText(button, GameTask(game));
         return button;
@@ -2060,13 +2684,8 @@ public sealed partial class MainPage : Page
     {
         var button = GameChoiceButton(text, game, isAction: true);
         button.Content = ButtonContent(text, glyph);
-        button.Background = AppearancePalette.Current.ButtonBrush;
-        button.Foreground = AppearancePalette.Current.ButtonForegroundBrush;
-        button.BorderBrush = AppearancePalette.Current.ButtonBorderBrush;
-        button.Resources["ButtonBackgroundPointerOver"] = button.Background;
-        button.Resources["ButtonBackgroundPressed"] = button.Background;
-        button.Resources["ButtonForegroundPointerOver"] = button.Foreground;
-        button.Resources["ButtonForegroundPressed"] = button.Foreground;
+        var palette = AppearancePalette.Current;
+        ApplyAccessibleButtonVisuals(button, palette.Button, palette.ButtonForeground, palette.ButtonBorder);
         button.HorizontalAlignment = HorizontalAlignment.Center;
         button.HorizontalContentAlignment = HorizontalAlignment.Center;
         button.MaxWidth = 320;
@@ -2128,10 +2747,11 @@ public sealed partial class MainPage : Page
         element.RenderTransform = transform;
         if (element is Control control)
         {
-            control.Background = new SolidColorBrush(correct
+            var background = correct
                 ? Color.FromArgb(255, 4, 120, 87)
-                : Color.FromArgb(255, 190, 18, 60));
-            control.Foreground = new SolidColorBrush(Microsoft.UI.Colors.White);
+                : Color.FromArgb(255, 190, 18, 60);
+            control.Background = new SolidColorBrush(background);
+            control.Foreground = new SolidColorBrush(AppearancePalette.EnsureTextContrast(background, Microsoft.UI.Colors.White));
         }
         var storyboard = new Storyboard();
         foreach (var property in new[] { "ScaleX", "ScaleY" })
@@ -2204,6 +2824,7 @@ public sealed partial class MainPage : Page
         };
         AutomationProperties.SetHeadingLevel(heading, Microsoft.UI.Xaml.Automation.Peers.AutomationHeadingLevel.Level1);
         AutomationProperties.SetAutomationId(heading, "page.Title");
+        AutomationProperties.SetName(heading, title);
         header.Children.Add(heading);
         var hint = new TextBlock
         {
@@ -2214,6 +2835,7 @@ public sealed partial class MainPage : Page
             VerticalAlignment = VerticalAlignment.Center,
         };
         AutomationProperties.SetAutomationId(hint, "page.Subtitle");
+        AutomationProperties.SetName(hint, subtitle);
         header.Children.Add(hint);
         ConfigureResponsiveGrid(header, 2, 340);
         PageContent.Children.Add(header);
@@ -2228,7 +2850,7 @@ public sealed partial class MainPage : Page
             Padding = new Thickness(padding),
             CornerRadius = new CornerRadius(20),
             Background = AppearancePalette.Current.BoxBrush,
-            BorderBrush = new SolidColorBrush(AppearancePalette.Current.BorderBrush.Color) { Opacity = 0.5 },
+            BorderBrush = AppearancePalette.Current.BorderBrush,
             BorderThickness = new Thickness(1),
         };
     }
@@ -2252,76 +2874,61 @@ public sealed partial class MainPage : Page
         TextTrimming = TextTrimming.None,
     };
 
-    private static TextBlock SecondaryBody(string text, double size, bool italic = false) => new()
+    private static TextBlock QuickSettingLabel(string text)
     {
-        Text = text,
-        FontSize = Font(size),
-        FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
-        FontStyle = italic ? Windows.UI.Text.FontStyle.Italic : Windows.UI.Text.FontStyle.Normal,
-        Foreground = new SolidColorBrush(AppearancePalette.Current.BackgroundForegroundBrush.Color)
-        {
-            Opacity = 0.92,
-        },
-        TextWrapping = TextWrapping.Wrap,
-    };
-
-    private static Border RevealCallout(string title, string text, double size, bool compact = false, bool italic = false)
-    {
-        var body = SecondaryBody(text, size, italic);
-        body.TextAlignment = TextAlignment.Center;
-        body.Margin = new Thickness(0, 1, 0, 0);
-        body.Foreground = new SolidColorBrush(AppearancePalette.Current.BackgroundForegroundBrush.Color)
-        {
-            Opacity = 0.88,
-        };
-
+        var palette = AppearancePalette.Current;
         var label = new TextBlock
         {
-            Text = title,
-            FontSize = Font(compact ? 10 : 11),
-            FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
-            Foreground = new SolidColorBrush(AppearancePalette.Current.ButtonTintForegroundBrush.Color)
-            {
-                Opacity = 0.78,
-            },
-            TextAlignment = TextAlignment.Center,
+            Text = text,
+            FontSize = ReadingSize(18),
+            Foreground = new SolidColorBrush(AppearancePalette.EnsureTextContrast(palette.Box, palette.BoxForeground)),
+            TextWrapping = TextWrapping.Wrap,
+            TextTrimming = TextTrimming.None,
         };
-
-        var borderBrush = new SolidColorBrush(AppearancePalette.Current.ButtonBorderBrush.Color)
-        {
-            Opacity = 0.35,
-        };
-
-        return new Border
-        {
-            Padding = new Thickness(compact ? 12 : 16, compact ? 10 : 12, compact ? 12 : 16, compact ? 12 : 14),
-            Margin = new Thickness(0, compact ? 2 : 4, 0, 0),
-            CornerRadius = new CornerRadius(14),
-            BorderBrush = borderBrush,
-            BorderThickness = new Thickness(1),
-            Background = new SolidColorBrush(AppearancePalette.Current.ButtonTintBrush.Color)
-            {
-                Opacity = 0.08,
-            },
-            HorizontalAlignment = HorizontalAlignment.Stretch,
-            Child = new StackPanel
-            {
-                Spacing = compact ? 3 : 5,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Children = { label, body },
-            },
-        };
+        AutomationProperties.SetName(label, text);
+        return label;
     }
 
-    private static TextBlock QuickSettingLabel(string text) => new()
+    private void ApplyQuickSettingsVisuals()
     {
-        Text = text,
-        FontSize = ReadingSize(18),
-        Foreground = AppearancePalette.Current.BoxForegroundBrush,
-    };
+        var palette = AppearancePalette.Current;
+        var toolbarBackground = palette.Box;
+        var toolbarForeground = AppearancePalette.EnsureTextContrast(toolbarBackground, palette.BoxForeground);
+        var toolbarBorder = AppearancePalette.EnsureBoundaryContrast(toolbarBackground, palette.Border);
+        foreach (var control in new[] { QuickStudyLanguage, QuickLevel })
+        {
+            control.Background = new SolidColorBrush(toolbarBackground);
+            control.Foreground = new SolidColorBrush(toolbarForeground);
+            control.BorderBrush = new SolidColorBrush(toolbarBorder);
+            control.BorderThickness = new Thickness(1);
+            control.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
+            var itemStyle = new Style(typeof(ComboBoxItem));
+            itemStyle.Setters.Add(new Setter(Control.FontSizeProperty, ReadingSize(18)));
+            itemStyle.Setters.Add(new Setter(FrameworkElement.MinHeightProperty, 48d));
+            itemStyle.Setters.Add(new Setter(FrameworkElement.MinWidthProperty, 48d));
+            itemStyle.Setters.Add(new Setter(Control.ForegroundProperty, new SolidColorBrush(toolbarForeground)));
+            itemStyle.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush(toolbarBackground)));
+            control.ItemContainerStyle = itemStyle;
+            foreach (var state in new[] { "", "PointerOver", "Pressed", "Focused", "Disabled" })
+            {
+                control.Resources[$"ComboBoxBackground{state}"] = control.Background;
+                control.Resources[$"ComboBoxForeground{state}"] = control.Foreground;
+                control.Resources[$"ComboBoxBorderBrush{state}"] = control.BorderBrush;
+            }
+        }
+
+        var buttonBackground = palette.Button;
+        ApplyAccessibleButtonVisuals(WindowModeButton, buttonBackground, palette.ButtonForeground, palette.ButtonBorder);
+        WindowModeText.Foreground = WindowModeButton.Foreground;
+        WindowModeIcon.Foreground = WindowModeButton.Foreground;
+    }
 
     private static Button AccentButton(string text, string glyph)
     {
+        var palette = AppearancePalette.Current;
+        var background = AppearancePalette.EnsureFillContrast(Microsoft.UI.Colors.White, palette.Button, 4.5);
+        var foreground = AppearancePalette.EnsureTextContrast(background, Microsoft.UI.Colors.White);
+        var border = AppearancePalette.EnsureBoundaryContrast(background, palette.ButtonBorder);
         var button = new Button
         {
             Content = ButtonContent(text, glyph),
@@ -2329,20 +2936,25 @@ public sealed partial class MainPage : Page
             MinWidth = 48,
             Padding = new Thickness(18, 12, 18, 12),
             CornerRadius = new CornerRadius(20),
-            Background = AppearancePalette.Current.ButtonBrush,
-            BorderThickness = new Thickness(0),
-            Foreground = AppearancePalette.Current.ButtonForegroundBrush,
+            Background = new SolidColorBrush(background),
+            BorderThickness = new Thickness(1),
+            Foreground = new SolidColorBrush(foreground),
             FontSize = ReadingSize(18),
             FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
             IsTabStop = true,
             UseSystemFocusVisuals = true,
         };
+        ApplyAccessibleButtonVisuals(button, background, foreground, border);
         AutomationProperties.SetName(button, text);
         return button;
     }
 
     private static Button SecondaryButton(string text, string glyph)
     {
+        var palette = AppearancePalette.Current;
+        var background = AppearancePalette.EnsureFillContrast(palette.Background, palette.Box, 3.5);
+        var foreground = AppearancePalette.EnsureTextContrast(background, palette.BoxForeground);
+        var border = AppearancePalette.EnsureBoundaryContrast(background, palette.Border);
         var button = new Button
         {
             Content = ButtonContent(text, glyph),
@@ -2350,45 +2962,73 @@ public sealed partial class MainPage : Page
             MinWidth = 48,
             Padding = new Thickness(16, 12, 16, 12),
             CornerRadius = new CornerRadius(20),
-            Background = AppearancePalette.Current.ButtonTintBrush,
-            BorderThickness = new Thickness(0),
-            Foreground = AppearancePalette.Current.ButtonTintForegroundBrush,
+            Background = new SolidColorBrush(background),
+            BorderThickness = new Thickness(1),
+            Foreground = new SolidColorBrush(foreground),
             FontSize = ReadingSize(18),
             FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
             IsTabStop = true,
             UseSystemFocusVisuals = true,
         };
+        ApplyAccessibleButtonVisuals(button, background, foreground, border);
         AutomationProperties.SetName(button, text);
         return button;
     }
 
-    private static Button ChoiceButton(string text) => new()
+    private static void ApplyAccessibleButtonVisuals(Button button, Color background, Color preferredForeground, Color preferredBorder)
     {
-        Content = text,
-        HorizontalAlignment = HorizontalAlignment.Stretch,
-        HorizontalContentAlignment = HorizontalAlignment.Left,
-        Padding = new Thickness(18, 14, 18, 14),
-        CornerRadius = new CornerRadius(20),
-        Background = AppearancePalette.Current.ButtonBrush,
-        BorderThickness = new Thickness(0),
-        Foreground = AppearancePalette.Current.ButtonForegroundBrush,
-        FontSize = Font(15),
-        FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
-        IsTabStop = true,
-        UseSystemFocusVisuals = true,
-    };
+        var foreground = AppearancePalette.EnsureTextContrast(background, preferredForeground);
+        var border = AppearancePalette.EnsureBoundaryContrast(background, preferredBorder);
+        var backgroundBrush = new SolidColorBrush(background);
+        var foregroundBrush = new SolidColorBrush(foreground);
+        var borderBrush = new SolidColorBrush(border);
+        button.Background = backgroundBrush;
+        button.Foreground = foregroundBrush;
+        button.BorderBrush = borderBrush;
+        button.BorderThickness = new Thickness(1);
+        button.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
+        button.UseSystemFocusVisuals = true;
+        if (button.Content is UIElement content) ApplyButtonIconForeground(content, foregroundBrush);
+        foreach (var state in new[] { "PointerOver", "Pressed", "Focused", "Disabled" })
+        {
+            SetButtonResource(button, $"ButtonBackground{state}", backgroundBrush);
+            SetButtonResource(button, $"ButtonForeground{state}", foregroundBrush);
+            SetButtonResource(button, $"ButtonBorderBrush{state}", borderBrush);
+        }
+    }
+
+    private static void SetButtonResource(Button button, string key, object value)
+    {
+        button.Resources.Remove(key);
+        button.Resources[key] = value;
+    }
+
+    private static void ApplyButtonIconForeground(UIElement element, Brush foreground)
+    {
+        if (element is FontIcon icon) icon.Foreground = foreground;
+        if (element is Panel panel)
+            foreach (var child in panel.Children) ApplyButtonIconForeground(child, foreground);
+        else if (element is Border { Child: UIElement child }) ApplyButtonIconForeground(child, foreground);
+        else if (element is ContentControl { Content: UIElement content }) ApplyButtonIconForeground(content, foreground);
+    }
 
     private static Grid ButtonContent(string text, string glyph)
     {
+        glyph = string.IsNullOrWhiteSpace(glyph) ? ButtonGlyphForText(text) : glyph;
         var grid = new Grid { ColumnSpacing = 8 };
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
         grid.ColumnDefinitions.Add(new ColumnDefinition());
-        grid.Children.Add(new FontIcon { Glyph = glyph, FontSize = Font(16), VerticalAlignment = VerticalAlignment.Center });
+        var icon = DecorativeIcon(glyph, Font(16));
+        icon.VerticalAlignment = VerticalAlignment.Center;
+        grid.Children.Add(icon);
         var label = new TextBlock
         {
             Text = text,
             FontSize = ReadingSize(18),
             TextWrapping = TextWrapping.Wrap,
+            TextTrimming = TextTrimming.None,
+            LineHeight = ReadingSize(18) * 1.35,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
             VerticalAlignment = VerticalAlignment.Center,
         };
         Grid.SetColumn(label, 1);
@@ -2396,12 +3036,104 @@ public sealed partial class MainPage : Page
         return grid;
     }
 
+    private static string ButtonGlyphForText(string text)
+    {
+        var value = text.Trim().ToLowerInvariant();
+        if (value.Contains("listen", StringComparison.Ordinal) || value.Contains("dinle", StringComparison.Ordinal) ||
+            value.Contains("anhör", StringComparison.Ordinal) || value.Contains("écout", StringComparison.Ordinal) ||
+            value.Contains("escuch", StringComparison.Ordinal) || value.Contains("ouvir", StringComparison.Ordinal) ||
+            value.Contains("luister", StringComparison.Ordinal)) return "";
+        if (value.Contains("previous", StringComparison.Ordinal) || value.Contains("önceki", StringComparison.Ordinal) ||
+            value.Contains("zurück", StringComparison.Ordinal) || value.Contains("précéd", StringComparison.Ordinal) ||
+            value.Contains("anterior", StringComparison.Ordinal) || value.Contains("vorige", StringComparison.Ordinal)) return "";
+        if (value.Contains("next", StringComparison.Ordinal) || value.Contains("sonraki", StringComparison.Ordinal) ||
+            value.Contains("weiter", StringComparison.Ordinal) || value.Contains("suivant", StringComparison.Ordinal) ||
+            value.Contains("siguiente", StringComparison.Ordinal) || value.Contains("seguinte", StringComparison.Ordinal) ||
+            value.Contains("volgende", StringComparison.Ordinal)) return "";
+        if (value.Contains("undo", StringComparison.Ordinal) || value.Contains("geri al", StringComparison.Ordinal) ||
+            value.Contains("rückgängig", StringComparison.Ordinal) || value.Contains("annuler", StringComparison.Ordinal) ||
+            value.Contains("deshacer", StringComparison.Ordinal) || value.Contains("anular", StringComparison.Ordinal) ||
+            value.Contains("ongedaan", StringComparison.Ordinal)) return "";
+        if (value.Contains("repeat", StringComparison.Ordinal) || value.Contains("tekrar", StringComparison.Ordinal) ||
+            value.Contains("wiederholen", StringComparison.Ordinal) || value.Contains("réessayer", StringComparison.Ordinal) ||
+            value.Contains("repetir", StringComparison.Ordinal) || value.Contains("opnieuw", StringComparison.Ordinal)) return "\uE72C";
+        if (value.Contains("how to play", StringComparison.Ordinal) || value.Contains("nasıl oyn", StringComparison.Ordinal) ||
+            value.Contains("spielanleitung", StringComparison.Ordinal) || value.Contains("comment jouer", StringComparison.Ordinal) ||
+            value.Contains("cómo jugar", StringComparison.Ordinal) || value.Contains("como jogar", StringComparison.Ordinal) ||
+            value.Contains("hoe te spelen", StringComparison.Ordinal)) return "\uE897";
+        if (value.Contains("help", StringComparison.Ordinal) || value.Contains("yardım", StringComparison.Ordinal) ||
+            value.Contains("hilfe", StringComparison.Ordinal) || value.Contains("aide", StringComparison.Ordinal) ||
+            value.Contains("ayuda", StringComparison.Ordinal) || value.Contains("ajuda", StringComparison.Ordinal)) return "\uE897";
+        if (value.Contains("setting", StringComparison.Ordinal) || value.Contains("ayar", StringComparison.Ordinal) ||
+            value.Contains("einstellung", StringComparison.Ordinal) || value.Contains("régl", StringComparison.Ordinal) ||
+            value.Contains("ajust", StringComparison.Ordinal) || value.Contains("defini", StringComparison.Ordinal) ||
+            value.Contains("instelling", StringComparison.Ordinal)) return "";
+        if (value.Contains("save", StringComparison.Ordinal) || value.Contains("kaydet", StringComparison.Ordinal) ||
+            value.Contains("speicher", StringComparison.Ordinal) || value.Contains("enregistr", StringComparison.Ordinal) ||
+            value.Contains("guardar", StringComparison.Ordinal) || value.Contains("guardar", StringComparison.Ordinal) ||
+            value.Contains("opslaan", StringComparison.Ordinal)) return "\uE73E";
+        if (value.Contains("export", StringComparison.Ordinal) || value.Contains("dışa", StringComparison.Ordinal) ||
+            value.Contains("exporter", StringComparison.Ordinal) || value.Contains("exportar", StringComparison.Ordinal)) return "\uE950";
+        if (value.Contains("import", StringComparison.Ordinal) || value.Contains("içe", StringComparison.Ordinal) ||
+            value.Contains("öffnen", StringComparison.Ordinal) || value.Contains("ouvrir", StringComparison.Ordinal) ||
+            value.Contains("abrir", StringComparison.Ordinal) || value.Contains("open", StringComparison.Ordinal)) return "\uE8B5";
+        if (value.Contains("clear", StringComparison.Ordinal) || value.Contains("temizle", StringComparison.Ordinal) ||
+            value.Contains("reset", StringComparison.Ordinal) || value.Contains("sıfır", StringComparison.Ordinal) ||
+            value.Contains("zurücksetzen", StringComparison.Ordinal) || value.Contains("effacer", StringComparison.Ordinal) ||
+            value.Contains("borrar", StringComparison.Ordinal) || value.Contains("limpar", StringComparison.Ordinal) ||
+            value.Contains("wissen", StringComparison.Ordinal)) return "\uE894";
+        if (value.Contains("play", StringComparison.Ordinal) || value.Contains("oyna", StringComparison.Ordinal) ||
+            value.Contains("spielen", StringComparison.Ordinal) || value.Contains("jouer", StringComparison.Ordinal) ||
+            value.Contains("jugar", StringComparison.Ordinal) || value.Contains("jogar", StringComparison.Ordinal) ||
+            value.Contains("spelen", StringComparison.Ordinal)) return "\uE768";
+        if (value.Contains("back", StringComparison.Ordinal) || value.Contains("geri", StringComparison.Ordinal) ||
+            value.Contains("retour", StringComparison.Ordinal) || value.Contains("voltar", StringComparison.Ordinal) ||
+            value.Contains("terug", StringComparison.Ordinal)) return "";
+        if (value.Contains("word", StringComparison.Ordinal) || value.Contains("kelime", StringComparison.Ordinal) ||
+            value.Contains("wörter", StringComparison.Ordinal) || value.Contains("mots", StringComparison.Ordinal) ||
+            value.Contains("palabra", StringComparison.Ordinal) || value.Contains("palavras", StringComparison.Ordinal) ||
+            value.Contains("woorden", StringComparison.Ordinal)) return "\uE82D";
+        if (value.Contains("favorite", StringComparison.Ordinal) || value.Contains("favori", StringComparison.Ordinal) ||
+            value.Contains("favorit", StringComparison.Ordinal)) return "★";
+        if (value.Contains("known", StringComparison.Ordinal) || value.Contains("bili", StringComparison.Ordinal) ||
+            value.Contains("bekannt", StringComparison.Ordinal) || value.Contains("connu", StringComparison.Ordinal) ||
+            value.Contains("conoc", StringComparison.Ordinal) || value.Contains("conhec", StringComparison.Ordinal) ||
+            value.Contains("bekend", StringComparison.Ordinal)) return "\uE73E";
+        if (value.Contains("delete", StringComparison.Ordinal) || value.Contains("sil", StringComparison.Ordinal) ||
+            value.Contains("löschen", StringComparison.Ordinal) || value.Contains("supprimer", StringComparison.Ordinal) ||
+            value.Contains("eliminar", StringComparison.Ordinal) || value.Contains("apagar", StringComparison.Ordinal) ||
+            value.Contains("verwijder", StringComparison.Ordinal)) return "\uE74D";
+        if (value.Contains("use saved", StringComparison.Ordinal) || value.Contains("kayıtlı", StringComparison.Ordinal) ||
+            value.Contains("gespeichert", StringComparison.Ordinal) || value.Contains("enregistr", StringComparison.Ordinal) ||
+            value.Contains("guardad", StringComparison.Ordinal) || value.Contains("opgeslagen", StringComparison.Ordinal)) return "\uE73E";
+        if (value.Contains("keep", StringComparison.Ordinal) || value.Contains("koru", StringComparison.Ordinal) ||
+            value.Contains("behalten", StringComparison.Ordinal) || value.Contains("garder", StringComparison.Ordinal) ||
+            value.Contains("conservar", StringComparison.Ordinal) || value.Contains("manter", StringComparison.Ordinal) ||
+            value.Contains("behoud", StringComparison.Ordinal)) return "\uE73E";
+        if (value.Contains("dark", StringComparison.Ordinal) || value.Contains("koyu", StringComparison.Ordinal) ||
+            value.Contains("dunkel", StringComparison.Ordinal) || value.Contains("sombre", StringComparison.Ordinal) ||
+            value.Contains("oscuro", StringComparison.Ordinal) || value.Contains("escuro", StringComparison.Ordinal) ||
+            value.Contains("donker", StringComparison.Ordinal)) return "\uE708";
+        if (value.Contains("light", StringComparison.Ordinal) || value.Contains("açık", StringComparison.Ordinal) ||
+            value.Contains("hell", StringComparison.Ordinal) || value.Contains("clair", StringComparison.Ordinal) ||
+            value.Contains("claro", StringComparison.Ordinal) || value.Contains("licht", StringComparison.Ordinal)) return "\uE706";
+        if (value.Contains("read", StringComparison.Ordinal) || value.Contains("oku", StringComparison.Ordinal) ||
+            value.Contains("lesen", StringComparison.Ordinal) || value.Contains("lire", StringComparison.Ordinal) ||
+            value.Contains("leer", StringComparison.Ordinal)) return "";
+        return "\uE72A";
+    }
+
     private static UIElement SettingHeader(string glyph, string title, string hint)
     {
         var grid = new Grid { ColumnSpacing = 14 };
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = string.IsNullOrEmpty(glyph) ? new GridLength(0) : new GridLength(36) });
         grid.ColumnDefinitions.Add(new ColumnDefinition());
-        if (!string.IsNullOrEmpty(glyph)) grid.Children.Add(new FontIcon { Glyph = glyph, FontSize = Font(20), VerticalAlignment = VerticalAlignment.Top });
+        if (!string.IsNullOrEmpty(glyph))
+        {
+            var icon = DecorativeIcon(glyph, Font(20));
+            icon.VerticalAlignment = VerticalAlignment.Top;
+            grid.Children.Add(icon);
+        }
         else grid.ColumnSpacing = 0;
         var copy = new StackPanel { Spacing = 3 };
         copy.Children.Add(Heading(title, 17));
@@ -2409,32 +3141,6 @@ public sealed partial class MainPage : Page
         Grid.SetColumn(copy, 1);
         grid.Children.Add(copy);
         return grid;
-    }
-
-    private static UIElement ChipRow(VocabularyEntry entry)
-    {
-        var row = new Grid { ColumnSpacing = 8, RowSpacing = 8, HorizontalAlignment = HorizontalAlignment.Stretch };
-        foreach (var value in new[] { entry.LanguageCode.ToUpperInvariant(), entry.Level, entry.PartOfSpeech })
-        {
-            if (string.IsNullOrWhiteSpace(value)) continue;
-            row.Children.Add(new Border
-            {
-                Child = new TextBlock
-                {
-                    Text = value,
-                    FontSize = Font(12),
-                    FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
-                    TextAlignment = TextAlignment.Center,
-                    TextWrapping = TextWrapping.Wrap,
-                    Foreground = AppearancePalette.Current.ButtonTintForegroundBrush,
-                },
-                Padding = new Thickness(10, 5, 10, 5),
-                CornerRadius = new CornerRadius(14),
-                Background = AppearancePalette.Current.ButtonTintBrush,
-            });
-        }
-        ConfigureResponsiveGrid(row, 3, 90);
-        return row;
     }
 
     private static (UIElement Row, ColorPicker Picker) AppearanceColorSetting(
@@ -2455,13 +3161,22 @@ public sealed partial class MainPage : Page
             Height = 48,
             CornerRadius = new CornerRadius(12),
             Background = new SolidColorBrush(color),
-            BorderBrush = AppearancePalette.Current.BorderBrush,
             BorderThickness = new Thickness(2),
             Flyout = new Flyout { Content = picker },
         };
+        var palette = AppearancePalette.Current;
+        ApplyAccessibleButtonVisuals(swatch, color,
+            AppearancePalette.EnsureTextContrast(color, palette.BoxForeground), palette.Border);
+        swatch.BorderThickness = new Thickness(2);
         AutomationProperties.SetName(swatch, title);
-        ToolTipService.SetToolTip(swatch, title);
-        picker.ColorChanged += (_, args) => swatch.Background = new SolidColorBrush(args.NewColor);
+        AutomationProperties.SetHelpText(swatch, hint);
+        ToolTipService.SetToolTip(swatch, $"{title}. {hint}");
+        picker.ColorChanged += (_, args) =>
+        {
+            ApplyAccessibleButtonVisuals(swatch, args.NewColor,
+                AppearancePalette.EnsureTextContrast(args.NewColor, palette.BoxForeground), palette.Border);
+            swatch.BorderThickness = new Thickness(2);
+        };
 
         var row = new Grid { ColumnSpacing = 16 };
         row.ColumnDefinitions.Add(new ColumnDefinition());
@@ -2472,7 +3187,7 @@ public sealed partial class MainPage : Page
         return (row, picker);
     }
 
-    private static void ConfigureResponsiveGrid(
+    private static Action ConfigureResponsiveGrid(
         Grid grid,
         int maximumColumns,
         double minimumColumnWidth,
@@ -2511,17 +3226,34 @@ public sealed partial class MainPage : Page
         grid.Loaded += (_, _) => Reflow();
         grid.SizeChanged += (_, _) => Reflow();
         Reflow();
+        return Reflow;
     }
 
     private static void AddStat(Grid grid, int column, string label, string value, string glyph)
     {
         var content = new StackPanel { Spacing = 5 };
-        content.Children.Add(new FontIcon { Glyph = glyph, FontSize = Font(18), HorizontalAlignment = HorizontalAlignment.Left });
-        content.Children.Add(Heading(value, 24));
-        content.Children.Add(Body(label));
+        var icon = DecorativeIcon(glyph, Font(18));
+        icon.HorizontalAlignment = HorizontalAlignment.Left;
+        content.Children.Add(icon);
+        var labelText = Body(label);
+        AutomationProperties.SetName(labelText, label);
+        AutomationProperties.SetHeadingLevel(labelText, Microsoft.UI.Xaml.Automation.Peers.AutomationHeadingLevel.Level3);
+        content.Children.Add(labelText);
+        var valueText = Heading(value, 24);
+        AutomationProperties.SetName(valueText, $"{label}: {value}");
+        content.Children.Add(valueText);
         var card = Card(content, 14);
+        card.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
+        AutomationProperties.SetName(card, $"{label}: {value}");
         Grid.SetColumn(card, column);
         grid.Children.Add(card);
+    }
+
+    private static FontIcon DecorativeIcon(string glyph, double size, Brush? foreground = null)
+    {
+        var icon = new FontIcon { Glyph = glyph, FontSize = size, Foreground = foreground };
+        AutomationProperties.SetAccessibilityView(icon, Microsoft.UI.Xaml.Automation.Peers.AccessibilityView.Raw);
+        return icon;
     }
 
     private string GameDescription(GameDefinition game) => ExperienceStrings.GameDescription(_settings.UiLanguage, game);
@@ -2561,8 +3293,7 @@ public sealed partial class MainPage : Page
         LoadingRing.Visibility = loading ? Visibility.Visible : Visibility.Collapsed;
         ContentScroll.IsEnabled = !loading && !_studyBusy;
         PageContent.IsHitTestVisible = !loading && !_studyBusy;
-        QuickUiLanguage.IsEnabled = QuickStudyLanguage.IsEnabled = QuickLevel.IsEnabled = !loading && !_studyBusy;
-        SyncAccountStatus();
+        QuickStudyLanguage.IsEnabled = QuickLevel.IsEnabled = !loading && !_studyBusy;
     }
 
     private void ShowNotice(string title, string message, InfoBarSeverity severity)

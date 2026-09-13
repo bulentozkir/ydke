@@ -1,21 +1,21 @@
 # YDKE - Yabancı Dil Kelime Ezberleme
 
-YDKE is a native Windows 11 vocabulary study application built with **C# 14**,
-**.NET 10**, **WinUI 3**, and **Windows App SDK 2.4**. It is not a website or a
-WebView wrapper. Study content is bundled locally; settings and progress are
-saved **on this device by default**.
+YDKE is a native Windows desktop vocabulary study application built with **C# 14**,
+**.NET 10**, **WinUI 3**, and **Windows App SDK 2.4**. It supports **Windows 10
+version 1809 (build 17763) and later, including Windows 11**. Windows 11 is the
+primary tested environment, while the packaged app keeps the Windows 10 minimum
+for users on supported Windows 10 installations. It is not a website or a WebView
+wrapper. Study content is bundled locally; settings and progress are saved **on
+this device by default**.
 Cards, quizzes, word lists and eligible games use bundled data without an internet
 connection. Game availability depends on the selected dataset and, for audio,
 installed local speech voices.
 
-**Google sign-in and cloud backups are optional.** With a grown-up, sign in from
-Home or the top account button, complete Google's page in a normal browser, then
-return to YDKE. Edge and Chrome can be selected with **Use another browser**.
-No client ID or client secret is required. Signing in does not upload progress
-automatically: **Settings > For grown-ups** offers **Save to cloud**, **Load from
-cloud**, **Make a copy**, and **Open a copy…**. Loading a backup replaces local
-settings and progress after validation, confirmation and a safety copy. Signing
-out does not delete local learning or an existing cloud backup.
+YDKE is now a **local-only** learning app. No account, sign-in, browser handoff,
+or cloud sync is required or available. In **Settings > For grown-ups**, use
+**Make a copy** to export a local backup and **Open a copy…** to restore. Restore
+validates the file, asks for confirmation, and saves a safety copy before
+replacing local settings and progress.
 
 ## Current Product
 
@@ -43,19 +43,19 @@ out does not delete local learning or an existing cloud backup.
 
 Open **Help** from the navigation menu. Choose **Screen & keys**, **Cards**,
 **Quiz**, **My words**, **Game instructions**, **Settings**, **Statistics**, or
-**Google & backups**. Read with **Previous page / Next page**, then choose
+**Backups & privacy**. Read with **Previous page / Next page**, then choose
 **Open this screen** to practise or **Close help** to return. No scrolling is
 needed to read a topic.
 
-All topics and controls follow **App language** in the top bar: Türkçe, English,
-Deutsch, Français, Español, Português and Nederlands. This is separate from
-**Learning language**; Italian vocabulary is supported, but Italian is not an
-interface language. Changing language or level uses the top bar; appearance and
-practice preferences are saved explicitly in Settings.
+All topics and controls follow **App language** in **Settings > My practice**:
+Türkçe, English, Deutsch, Français, Español, Português and Nederlands. This is
+separate from **Learning language**; Italian vocabulary is supported, but
+Italian is not an interface language. The top bar changes only learning language
+and level; appearance and practice preferences are saved explicitly in Settings.
 
 Help covers reveal-before-rating and Undo, Quiz's saved-answer/Continue step,
 word and game paging, game availability and local speech voices, Settings
-previews, distinct-word statistics, and safe local/cloud backups. It describes
+previews, distinct-word statistics, and safe local backups. It describes
 the current native app, not the archived web version.
 
 Build the app:
@@ -84,10 +84,8 @@ SDK/package setup may require downloads; tests do not require network services.
 Hash drift and invalid data are reported, never automatically repaired.
 
 See [windows/IMPROVEMENTS.md](windows/IMPROVEMENTS.md) for commands, exit codes,
-availability limits, the manual accessibility checklist and the optional
-[isolated UI smoke](windows/verification/Test-NativeUi.ps1). UI smoke requires
-confirmed native test-mode isolation and an interactive workstation; it is not
-part of headless CI and is not an all-features or accessibility certification.
+availability limits, and the manual accessibility checklist. Automated UI test
+scripts were removed from this repository and are not part of CI.
 
 The remaining platform-analysis documents are retained as historical research;
 they do not describe the current runtime architecture.

@@ -1,43 +1,4 @@
-/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
- * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
- * <https://polyformproject.org/licenses/noncommercial/1.0.0>
- *
- * Any commercial use requires prior written permission from the copyright
- * holders. Written permission from any ONE of bulentozkir@hotmail.com,
- * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
- * is sufficient and binding on all of them.
- *
- * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
- * Ozkir (https://udsp.vercel.app)
- * Full terms: see LICENSE and NOTICE in this repository.
- */
-/*! Compilation notice — read together with the licence above.
- * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
- * translations in this file are the copyright holders' own work and ARE
- * covered by the PolyForm Noncommercial licence above. Copying this list, or
- * any substantial part of it, into a commercial product or service requires
- * prior written permission from one of the addresses above.
- *
- * Some individual definitions and example sentences come from open community
- * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
- * others — see NOTICE). Those items keep THEIR OWN licence and the
- * noncommercial term is not asserted over them.
- */
 
-// French A1 vocabulary (self-authored, CEFR A1).
-// NOTE ON SOURCING: the user pointed at lawlessfrench.com's "Lessons by
-// Level" pages as a structural reference. That site's actual vocabulary
-// pages could not be scraped (their ad-consent redirect chain blocks
-// automated fetches, and the site displays "© Lawless French. All rights
-// reserved." with no explicit permission to copy/redistribute its curated
-// lists). Per this project's established policy for such cases, the
-// general idea of "CEFR-leveled themed French vocabulary" (a generic,
-// non-copyrightable pedagogical format) was used only as inspiration; every
-// word, definition, and example sentence below is 100% original content.
-// Definitions & examples shown as English - Turkish (matches every other
-// data/words*.js file's "English. - Türkçe." convention).
-// Re-balanced by scripts/rebalance_cefr_level.py (NO-EXEMPT+GENEROUS mode) -- 5310 word(s)
-// too advanced for genuine A1 difficulty were relocated to a harder level.
 window.WORDS_FR_A1 = [
   {
     word: "Bonjour",

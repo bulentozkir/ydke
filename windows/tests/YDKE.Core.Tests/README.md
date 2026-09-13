@@ -97,9 +97,8 @@ Before replacing any invalid local source during an explicit save, an exact copy
 is preserved under a unique `.corrupt-<guid>` suffix. Failure to preserve aborts
 the save. There is no automatic deletion of preserved corruption evidence.
 
-Storage clears `CloudConnected` on deserialized/cloned settings, without mutating
-the caller's object. The old local-only `SaveCloudProfileAsync` remains obsolete
-for source compatibility; remove UI calls (the app treats warnings as errors).
+Storage accepts legacy settings files that may contain extra fields and keeps
+caller-owned settings objects unchanged.
 
 ### Deliberate limits
 

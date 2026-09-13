@@ -113,24 +113,48 @@ internal static class GameInputUxContracts
             Has(choices, fragment, "neutral choice shortcut affordance: " + fragment);
         Test(!Regex.IsMatch(Code(choices), @"\b(?:Background|Foreground|BorderBrush)\s*=|\b(?:correct|target)\b"), "choice appearance must not identify the answer before submission.");
 
-        foreach (var renderer in new[] { "RenderAudioGame", "RenderClozeGame", "RenderCategoryGame", "RenderClueGame", "RenderRackGame", "RenderCrosswordGame" })
+        Test(Regex.Matches(Code(source), @"\bGameInput\s*\(").Count == 3,
+            "typing inputs must remain helper-only; no game renderer should call GameInput.");
+        foreach (var renderer in new[] { "RenderAudioGame", "RenderCategoryGame", "RenderClueGame", "RenderCrosswordGame", "RenderClozeGame" })
         {
             var body = Member(source, renderer);
-            Has(body, "GameInput(", renderer + " must use persistent labeled inputs.");
-            Has(body, "SubmitGame(", renderer + " must use shared pre-scoring validation.");
+            Test(!Regex.IsMatch(Code(body), @"\bGameInput\s*\("), renderer + " must not require free typing.");
+            Test(!Regex.IsMatch(Code(body), @"\bSubmitGame\s*\("), renderer + " must resolve from direct choices.");
             Test(!Regex.IsMatch(Code(body), @"\bnew\s+TextBox\b"), renderer + " must not bypass the shared input helper.");
         }
+        foreach (var renderer in new[] { "RenderSentenceGame", "RenderRackGame", "RenderMatrixGame" })
+        {
+            var body = Member(source, renderer);
+            Test(!Regex.IsMatch(Code(body), @"\bGameInput\s*\("), renderer + " must not require free typing.");
+            Has(body, "SubmitGame(", renderer + " must use shared submit validation for selection-based answers.");
+            Test(!Regex.IsMatch(Code(body), @"\bnew\s+TextBox\b"), renderer + " must not bypass the shared input helper.");
+        }
+        var cloze = Member(source, "RenderClozeGame");
+        Test(!Regex.IsMatch(Code(cloze), @"\bGameInput\s*\("), "RenderClozeGame must be direct choice flow, not typed entry.");
+        Test(!Regex.IsMatch(Code(cloze), @"\bSubmitGame\s*\("), "RenderClozeGame must resolve from option taps, not a submit button.");
+        foreach (var fragment in new[]
+        {
+            "var pool = BuildClozePool()", "pool.Length < 4", "BuildClozeOptions(picked, pool)",
+            "AddGameQuestion(panel, picked.MaskedSentence, () => WordExample(picked.Word))",
+            "var letters = new[] { \"A\", \"B\", \"C\", \"D\" }",
+            "GameChoiceButton($\"{letters[index]}   {option.BaseWord}\", session.Game)",
+            "button.Tag = $\"game-choice-{index}\"", "SetGameChoiceMetadata(button, $\"game.Choice.{index + 1}\"",
+            "ResolveGameAnswerAsync(session, option.IsCorrect", "FeedbackWithAnswer(picked.BaseWord, option.BaseWord, picked.Sentence)",
+            "ConfigureResponsiveGrid(choicesGrid, 2, 220)",
+        }) Has(cloze, fragment, "cloze 4-choice parity contract: " + fragment);
         foreach (var renderer in new[] { "RenderAudioGame", "RenderSentenceGame", "RenderRackGame", "RenderClueGame" })
         {
             var body = Member(source, renderer);
-            Has(body, "AddGameQuestion(panel, GameTask(session.Game))", renderer + " must show a short task, not a 26-point rules wall.");
+            Has(body, "AddGameQuestion(panel, GameTask(session.Game),", renderer + " must show a short task, not a 26-point rules wall.");
             Test(!Compact(body).Contains("AddGameQuestion(panel,GameInstructions(", StringComparison.Ordinal), renderer + " still uses full instructions as a question.");
         }
         var audio = Member(source, "RenderAudioGame");
         Has(audio, "Content = answers, IsEnabled = false", "audio answers must start locked.");
+        Has(audio, "LocalizedPart(w.Definition).Length <= 96", "listening choices must use short definitions that fit the compact no-scroll viewport.");
         Has(audio, "Games.Audio.PlayFirst", "explain how to unlock audio answers.");
-        Has(audio, "}, () => played)", "dictation submit must also require successful playback.");
-        Has(audio, "answersHost.IsEnabled = played; _gameLocalBusy = false; if (audioSubmit is not null) UpdateGameSubmitState(audioSubmit)", "refresh after playback unlocks the ancestor host.");
+        Has(audio, "if (played) await ResolveGameAnswerAsync(session", "dictation scoring must stay gated behind successful playback.");
+        Has(audio, "answersHost.IsEnabled = played", "playback must unlock the answer host only after audio succeeds.");
+        Has(audio, "_gameLocalBusy = false", "audio replay must always release local busy state.");
 
         var sentence = Member(source, "RenderSentenceGame");
         Has(sentence, "() => selected.Count == tokens.Length", "sentence Submit must require every tile, not a silently ignored partial selection.");
@@ -159,21 +183,21 @@ internal static class GameInputUxContracts
         Test(extend.Length > 0 && !Regex.IsMatch(extend, @"\b(?:target|letters|entry)\b"), "clickable Matrix paths may inspect target length only, never hidden answer characters.");
 
         var crossword = Member(source, "RenderCrosswordGame");
-        foreach (var fragment in new[] { "Games.Crossword.EntryOrder", "{acrossLabel} · {a.Length}", "{downLabel} · {d.Length}", "down.IsEnabled = false",
-            "var entry = acrossSolved ? crossing.Down : crossing.Across", "var input = acrossSolved ? down : across",
-            "_gameHintProvider = () => WordHint(acrossSolved ? crossing.Down : crossing.Across)",
-            "if (!await RecordGameSubAnswerAsync(session, correct, b, [entry.Key]) || !IsCurrentGameRound(session, epoch)) return;",
-            "acrossSolved = true; across.IsEnabled = false; down.IsEnabled = true", "UpdateGameSubmitState(b)",
-            "down.Focus(FocusState.Programmatic)", "input.Focus(FocusState.Programmatic)", "answerAlreadyRecorded: true" })
-            Has(crossword, fragment, "independent active-entry crossword contract: " + fragment);
+        foreach (var fragment in new[] { "Games.Crossword.EntryOrder", "AddGameQuestion(panel, acrossLabel + \": \" + LocalizedPart(crossing.Across.Definition)",
+            "AddGameQuestion(panel, downLabel + \": \" + LocalizedPart(crossing.Down.Definition)", "var acrossChoicesHost = new ContentControl",
+            "var downChoicesHost = new ContentControl", "reviewedKeys = [crossing.Across.Key]", "reviewedKeys = [crossing.Down.Key]",
+            "acrossSolved = true", "acrossCard.Visibility = Visibility.Collapsed", "downCard.Visibility = Visibility.Visible",
+            "acrossChoicesHost.Visibility = Visibility.Collapsed", "downChoicesHost.Visibility = Visibility.Visible",
+            "RenderAcrossChoices()", "RenderDownChoices()", "answerAlreadyRecorded: true" })
+            Has(crossword, fragment, "independent staged crossword contract: " + fragment);
         Before(crossword, "if (!await RecordGameSubAnswerAsync", "acrossSolved = true", "do not switch entries before the atomic save accepts Across.");
         Before(crossword, "if (!await RecordGameSubAnswerAsync", "acrossCard.Visibility = Visibility.Collapsed", "compact Across only after its accepted score.");
-        Has(crossword, "UpdateGameSubmitState(b); down.Focus(FocusState.Programmatic)", "refresh once the round is visible again, before focusing Down.");
+        Test(!Regex.IsMatch(Code(crossword), @"\bGameInput\s*\(|\bSubmitGame\s*\("), "crossword must remain a staged choice flow without typing controls.");
         Test(!Regex.IsMatch(Code(Block(crossword, "void Update()")), @"\b(?:Foreground|Background|Brush|GameEngine|correct)\b"), "typed crossword patterns must not disclose correctness through color before scoring.");
 
         var reading = Member(source, "RenderLocalDataGame");
         foreach (var fragment in new[] { "AutomationProperties.SetAutomationId(pageStatus, \"game.Reading.Page\")", "Announce(pageStatus,", "Announce(text, pages[page])",
-            "AddGameQuestion(questionPanel, question.Prompt)", "questionPanel.Visibility = Visibility.Visible", "questionPanel.Children.Add(reread)",
+            "var noTargetWord = U(\"Games.Example.NoTargetWord\"", "AddGameQuestion(questionPanel, question.Prompt, () => new GameQuestionExample(question.Prompt, question.Explanation), \"Answer\")", "questionPanel.Visibility = Visibility.Visible", "questionPanel.Children.Add(reread)",
             "question.Explanation, b, []", "content.Children.Add(questionPanel)" })
             Has(reading, fragment, "full reading text, separate page status, question/reread and unchanged explanation: " + fragment);
         Has(reading, "current.Length + token.Length > 120", "reading passages must use short no-scroll text pages at compact widths.");
@@ -183,6 +207,7 @@ internal static class GameInputUxContracts
         var feedback = Member(source, "PauseGameFeedbackAsync");
         Has(feedback, "PauseGameFeedbackAsync(GameSession session, string message)", "keep the string-only feedback signature used by the source probe.");
         foreach (var fragment in new[] { "var text = GameFeedbackText(feedback, message); Live(text)", "AutomationProperties.SetAutomationId(next, \"game.Continue\")",
+            "var continueHelp = U(\"Games.ContinueHelp\"", "AutomationProperties.SetHelpText(next, continueHelp)", "ToolTipService.SetToolTip(next, continueHelp)",
             "next.Focus(FocusState.Programmatic)", "Announce(text, message)", "new TaskCompletionSource<bool>()", "var continued = await completion.Task",
             "feedback.Unloaded += OnUnloadedFeedback", "feedback.Unloaded -= OnUnloadedFeedback", "completion.TrySetResult(false)", "_gameLocalBusy = false" })
             Has(feedback, fragment, "preserve accessible explicit Continue and feedback lifecycle: " + fragment);

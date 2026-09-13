@@ -5,6 +5,9 @@ using Microsoft.UI.Xaml.Automation.Provider;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using System.Globalization;
+using System.Text;
+using System.Text.RegularExpressions;
 using Windows.System;
 
 namespace YDKE_Windows;
@@ -31,8 +34,6 @@ public sealed partial class MainPage
     private readonly Dictionary<string, SemanticPair[]> _semanticCache = [];
     private string _gameSkillFilter = "all";
     private string _gameDurationFilter = "all";
-    private GameGroup? _gameCatalogGroup;
-    private int _gameCatalogPage;
 
     private bool GameCanAnswer(GameSession session) => _activeGame == session && !_gameRoundClosed &&
         !_dialogOpen && !_studyBusy && !_navigationBusy && _resolvingGame != session && _completingGame != session;
@@ -49,6 +50,30 @@ public sealed partial class MainPage
             : $"{U("Games.Hint.StartsWith", "Starts with", "İle başlar")} ‘{char.ToUpperInvariant(bare[0])}’ · {bare.Length} {U("Games.Hint.Letters", "letters", "harf")}";
         return string.IsNullOrWhiteSpace(extra) ? head : (head.Length == 0 ? extra : $"{head} · {extra}");
     }
+    private string FeedbackWithAnswer(string correctAnswer, string? yourAnswer = null, string? extra = null)
+    {
+        var lines = new List<string>();
+        var correct = correctAnswer.Trim();
+        if (correct.Length > 0)
+            lines.Add($"{U("Games.Feedback.CorrectAnswer", "Correct answer", "Doğru yanıt")}: {correct}");
+        var chosen = yourAnswer?.Trim();
+        if (!string.IsNullOrWhiteSpace(chosen))
+            lines.Add($"{U("Games.Feedback.YourAnswer", "Your answer", "Yanıtın")}: {chosen}");
+        var detail = extra?.Trim();
+        if (!string.IsNullOrWhiteSpace(detail)) lines.Add(detail);
+        return lines.Count == 0 ? correctAnswer : string.Join('\n', lines);
+    }
+
+    private string FeedbackTrueFalse(VocabularyEntry entry, string shownDefinition, bool actual, bool selected)
+    {
+        var trueLabel = U("Games.True", "True", "Doğru");
+        var falseLabel = U("Games.False", "False", "Yanlış");
+        return string.Join('\n',
+            $"{U("Games.Feedback.Statement", "Shown statement", "Gösterilen ifade")}: {entry.Word} — {shownDefinition}",
+            $"{U("Games.Feedback.CorrectAnswer", "Correct answer", "Doğru yanıt")}: {(actual ? trueLabel : falseLabel)}",
+            $"{U("Games.Feedback.YourAnswer", "Your answer", "Yanıtın")}: {(selected ? trueLabel : falseLabel)}");
+    }
+
     private string ScoreMode(GameDefinition game) => _settings.UntimedPractice ? "practice" :
         game.Mechanic is GameMechanic.TimedChoice or GameMechanic.TimedTyping or GameMechanic.CategorySprint ? "timed" : "standard";
     private string GameModeLabel(string mode) => mode switch
@@ -132,14 +157,15 @@ public sealed partial class MainPage
     private string DurationLabel(string duration) => duration switch
     {
         "practice" => U("Games.Duration.Practice", "Unlimited time (practice)", "Sınırsız süre (alıştırma)"),
-        "minute" => U("Games.Duration.Minute", "60 active seconds", "60 etkin saniye"),
+        "minute" => string.Format(CultureInfo.CurrentCulture,
+            U("Games.Duration.Minute", "{0} active seconds", "{0} etkin saniye"), TimedSecondsSetting),
         "long" => U("Games.Duration.Long", "Extended puzzle (5+ min estimate)", "Uzun bulmaca (tahmini 5+ dk)"),
         "short" => U("Games.Duration.Short", "Short rounds (2–5 min estimate)", "Kısa turlar (tahmini 2–5 dk)"),
         _ => U("Games.Filter.All", "All", "Tümü"),
     };
     private string GameDuration(GameDefinition game) => GameEngine.Duration(game, _settings.UntimedPractice);
 
-    private void AddGameFilters(GameGroup group, Grid results)
+    private void AddGameFilters(GameGroup group, Grid results, Action? reflow = null)
     {
         var filters = new Grid { ColumnSpacing = 10 };
         var skill = new ComboBox { Header = U("Games.Filter.Skill", "Skill", "Beceri"), HorizontalAlignment = HorizontalAlignment.Stretch };
@@ -153,71 +179,63 @@ public sealed partial class MainPage
         filters.Children.Add(skill); filters.Children.Add(duration); ConfigureResponsiveGrid(filters, 2, 230);
         PageContent.Children.Add(filters);
         var count = Body("");
-        StudyLive(count, "games.CatalogPage");
-        var previous = SecondaryButton(U("Games.PreviousPage", "Previous games", "Önceki oyunlar"), "");
-        FocusTarget(previous, "games.PreviousPage");
-        var next = SecondaryButton(U("Games.NextPage", "Next games", "Sonraki oyunlar"), "");
-        FocusTarget(next, "games.NextPage");
-        var pager = new Grid { ColumnSpacing = 8, RowSpacing = 8, Children = { count, previous, next } };
-        ConfigureResponsiveGrid(pager, 3, 150);
-        PageContent.Children.Add(pager);
+        StudyLive(count, "games.CatalogCount");
+        PageContent.Children.Add(count);
         GameDefinition[] filtered = [];
         void Refresh()
         {
             results.Children.Clear();
             filtered = GameCatalog.Get(group).Where(g => (_gameSkillFilter == "all" || GameSkill(g) == _gameSkillFilter) &&
                 (_gameDurationFilter == "all" || GameDuration(g) == _gameDurationFilter)).ToArray();
-            var pages = Math.Max(1, (filtered.Length + 3) / 4);
-            _gameCatalogPage = Math.Clamp(_gameCatalogPage, 0, pages - 1);
-            foreach (var game in filtered.Skip(_gameCatalogPage * 4).Take(4)) results.Children.Add(GameButton(game));
+            foreach (var game in filtered) results.Children.Add(GameButton(game));
+            reflow?.Invoke();
             Announce(count, string.Format(System.Globalization.CultureInfo.CurrentCulture,
-                U("Games.CatalogPage", "Page {0:N0} of {1:N0} · {2:N0} games", "Sayfa {0:N0} / {1:N0} · {2:N0} oyun"),
-                _gameCatalogPage + 1, pages, filtered.Length));
-            previous.IsEnabled = _gameCatalogPage > 0;
-            next.IsEnabled = _gameCatalogPage + 1 < pages;
+                U("Games.CatalogCount", "{0:N0} games", "{0:N0} oyun"), filtered.Length));
         }
-        skill.SelectionChanged += (_, _) => { _gameSkillFilter = (string)((ComboBoxItem)skill.SelectedItem).Tag; _gameCatalogPage = 0; Refresh(); };
-        duration.SelectionChanged += (_, _) => { _gameDurationFilter = (string)((ComboBoxItem)duration.SelectedItem).Tag; _gameCatalogPage = 0; Refresh(); };
-        previous.Click += (_, _) => { if (_gameCatalogPage > 0) { _gameCatalogPage--; Refresh(); } };
-        next.Click += (_, _) => { if ((_gameCatalogPage + 1) * 4 < filtered.Length) { _gameCatalogPage++; Refresh(); } };
+        skill.SelectionChanged += (_, _) => { _gameSkillFilter = (string)((ComboBoxItem)skill.SelectedItem).Tag; Refresh(); };
+        duration.SelectionChanged += (_, _) => { _gameDurationFilter = (string)((ComboBoxItem)duration.SelectedItem).Tag; Refresh(); };
         Refresh();
     }
 
     private string GamePracticeInstructions(GameDefinition game) => game.Id switch
     {
-        "wordrace" => U("Games.Instructions.PracticeRace", "Untimed practice: type the word matching each definition. Unlimited time; round and life limits still apply.", "Süresiz alıştırma: her tanıma uyan kelimeyi yazın. Süre sınırsızdır; tur ve can sınırları geçerlidir."),
-        "categorysprint" => U("Games.Instructions.PracticeCategory", "Untimed practice: recall different words from one fixed category in this language and level. Unlimited time; each word scores once, and round and life limits still apply.", "Süresiz alıştırma: bu dil ve seviyede sabit bir kategoriden farklı kelimeler hatırlayın. Süre sınırsızdır; her kelime bir kez puanlanır, tur ve can sınırları geçerlidir."),
+        "wordrace" => U("Games.Instructions.PracticeRace", "Untimed practice: choose the word matching each definition. Unlimited time; round and life limits still apply.", "Süresiz alıştırma: her tanıma uyan kelimeyi seçin. Süre sınırsızdır; tur ve can sınırları geçerlidir."),
+        "categorysprint" => U("Games.Instructions.PracticeCategory", "Untimed practice: choose different words from one fixed category in this language and level. Unlimited time; each word scores once, and round and life limits still apply.", "Süresiz alıştırma: bu dil ve seviyede sabit bir kategoriden farklı kelimeleri seçin. Süre sınırsızdır; her kelime bir kez puanlanır, tur ve can sınırları geçerlidir."),
         _ => U("Games.Instructions.PracticeSpeed", "Untimed practice: choose the word matching each meaning. Unlimited time; round and life limits still apply.", "Süresiz alıştırma: her anlama uyan kelimeyi seçin. Süre sınırsızdır; tur ve can sınırları geçerlidir."),
     };
 
     private string GameInstructions(GameDefinition game) => _settings.UntimedPractice && GameEngine.HasClock(game)
         ? GamePracticeInstructions(game) : game.Id switch
     {
-        "dictation" => U("Games.Instructions.Dictation", "Play the local voice, then type the word. Replay as needed; the answer is hidden until feedback.", "Yerel sesi oynatıp kelimeyi yazın. Gerektikçe tekrar dinleyin; yanıt geri bildirime kadar gizlidir."),
+        "dictation" => U("Games.Instructions.Dictation", "Play the local voice, then choose the matching word. Replay as needed; the answer is hidden until feedback.", "Yerel sesi oynatıp eşleşen kelimeyi seçin. Gerektikçe tekrar dinleyin; yanıt geri bildirime kadar gizlidir."),
         "listeningchoice" => U("Games.Instructions.ListeningChoice", "Play the word and select its meaning. Replay is available; a matching installed voice is required.", "Kelimeyi dinleyip anlamını seçin. Tekrar dinlenebilir; uygun dilde yüklü ses gerekir."),
         "sentencescramble" => U("Games.Instructions.Sentence", "Select every token in the original example's order, including punctuation. Undo returns the last tile; submit when complete.", "Noktalama dahil tüm parçaları özgün örnekteki sıraya dizin. Geri al son taşı döndürür; bitince gönderin."),
-        "clozetest" => U("Games.Instructions.Cloze", "Type the missing word in the local example. Every exact occurrence is masked; inflected-only examples are excluded.", "Yerel örnekteki eksik kelimeyi yazın. Tüm tam eşleşmeler gizlidir; yalnızca çekimli biçim içeren örnekler kullanılmaz."),
-        "categorysprint" => U("Games.Instructions.Category", "Recall different words from one fixed dataset category. Each word counts once; only words in this language and level are accepted.", "Sabit bir veri kategorisinden farklı kelimeler hatırlayın. Her kelime bir kez sayılır; yalnızca bu dil ve seviyenin kelimeleri kabul edilir."),
-        "cluedetective" => U("Games.Instructions.Clues", "Reveal category, class, length, initial and meaning one at a time. Fewer clues earn more points.", "Kategori, tür, uzunluk, ilk harf ve anlam ipuçlarını sırayla açın. Daha az ipucu daha çok puan kazandırır."),
+        "clozetest" => U("Games.Instructions.Cloze", "Read the sentence and choose the missing word from four options. The blank can match an inflected form in the local example.", "Cümleyi okuyup dört seçenekten eksik kelimeyi seçin. Boşluk, yerel örnekte çekimli bir biçime de karşılık gelebilir."),
+        "categorysprint" => U("Games.Instructions.Category", "Choose different words from one fixed dataset category. Each word counts once; only words in this language and level are accepted.", "Sabit bir veri kategorisinden farklı kelimeleri seçin. Her kelime bir kez sayılır; yalnızca bu dil ve seviyenin kelimeleri kabul edilir."),
+        "cluedetective" => U("Games.Instructions.Clues", "Reveal category, class, length, initial and meaning one at a time, then choose the hidden word. Fewer clues earn more points.", "Kategori, tür, uzunluk, ilk harf ve anlam ipuçlarını sırayla açın, sonra gizli kelimeyi seçin. Daha az ipucu daha çok puan kazandırır."),
         "scrabble" => U("Games.Instructions.Rack", "Build one real local vocabulary word from the rack per round. Repeated letters require repeated tiles. This is a rack challenge, not a full Scrabble board.", "Her tur raftan bir gerçek yerel kelime üretin. Tekrarlanan harfler için birden fazla taş gerekir. Bu tam Scrabble tahtası değil, harf rafı alıştırmasıdır."),
-        "crossword" => U("Games.Instructions.Crossword", "A compact two-entry crossword. Solve Across and Down; the shared square must match both answers.", "İki kelimelik küçük çapraz bulmaca. Yatay ve dikey ipuçlarını çözün; ortak kare iki yanıtta da aynı olmalıdır."),
+        "crossword" => U("Games.Instructions.Crossword", "A compact two-entry crossword. Choose Across and Down; the shared square must match both answers.", "İki kelimelik küçük çapraz bulmaca. Yatay ve dikey yanıtı seçin; ortak kare iki yanıtta da aynı olmalıdır."),
         "wordclass" => U("Games.Instructions.Class", "Choose the part of speech recorded for this word and example. Ambiguous or missing metadata is excluded.", "Kelime ve örnek için kaydedilmiş sözcük türünü seçin. Belirsiz veya eksik tür verileri kullanılmaz."),
         "oddoneout" => U("Games.Instructions.Odd", "Three words share the displayed dataset category. Select the one recorded in another category; General is excluded.", "Üç kelime gösterilen veri kategorisindedir. Başka kategoride kaydedilmiş kelimeyi seçin; Genel kullanılmaz."),
         "bingo" => U("Games.Instructions.Bingo", "Match each definition on the 4×4 board. Complete a row, column or diagonal. Wrong selections end the board.", "Her tanımı 4×4 tahtada eşleştirin. Satır, sütun veya köşegeni tamamlayın. Yanlış seçim tahtayı bitirir."),
         "matrix" => U("Games.Instructions.Matrix", "Select the hidden word's letters in a straight line, then submit. Horizontal, vertical and diagonal lines are supported; no square can be reused.", "Gizli kelimenin harflerini düz bir çizgide seçip gönderin. Yatay, dikey ve çapraz çizgiler desteklenir; aynı kare tekrar kullanılamaz."),
         "wordmorph" => U("Games.Instructions.Semantic", "Classify the pair as synonyms or antonyms using reciprocal, non-conflicting relationships in the bundled dataset. Available for English, German and French only.", "Yerel veri kümesindeki karşılıklı ve çelişmeyen ilişkiye göre çifti eş veya zıt anlamlı olarak sınıflandırın. Yalnızca İngilizce, Almanca ve Fransızca kullanılabilir."),
         "readingcomprehension" => U("Games.Instructions.Reading", "Read the complete local passage using Previous/Next text pages, then answer. Feedback includes the source explanation. English, German and French only.", "Önceki/Sonraki metin sayfalarıyla yerel metni okuyup yanıtlayın. Geri bildirim kaynak açıklamasını içerir. Yalnızca İngilizce, Almanca ve Fransızca."),
-        "dailychallenge" => U("Games.Instructions.Daily", "Today's language/level word is fixed. Guess in six tries. ✓ correct place, ~ present elsewhere, × absent. Repeated letters are counted individually.", "Günün kelimesi dil/seviye için sabittir. Altı denemede bulun. ✓ doğru yerde, ~ başka yerde, × yok. Tekrarlanan harfler ayrı sayılır."),
-        "wordguess" => U("Games.Instructions.Guess", "Guess in six tries. ✓ correct place, ~ present elsewhere, × absent. Repeated letters are counted individually.", "Altı denemede bulun. ✓ doğru yerde, ~ başka yerde, × yok. Tekrarlanan harfler ayrı sayılır."),
+        "dailychallenge" => U("Games.Instructions.Daily", "Today's language/level word is fixed. Choose one guess per turn for six tries. ✓ correct place, ~ present elsewhere, × absent. Repeated letters are counted individually.", "Günün kelimesi dil/seviye için sabittir. Altı deneme boyunca her tur bir tahmin seçin. ✓ doğru yerde, ~ başka yerde, × yok. Tekrarlanan harfler ayrı sayılır."),
+        "wordguess" => U("Games.Instructions.Guess", "Choose one guess per turn for six tries. ✓ correct place, ~ present elsewhere, × absent. Repeated letters are counted individually.", "Altı deneme boyunca her tur bir tahmin seçin. ✓ doğru yerde, ~ başka yerde, × yok. Tekrarlanan harfler ayrı sayılır."),
         "survival" => U("Games.Instructions.Survival", "Choose the word matching the meaning. The first wrong answer ends the session.", "Anlama uyan kelimeyi seçin. İlk yanlış yanıt oturumu bitirir."),
         "hangman" => U("Games.Instructions.Hangman", "Select letters to uncover the word before six misses. Accented letters in the target are available on the keyboard.", "Altı hatadan önce harfleri seçerek kelimeyi açın. Hedefteki aksanlı harfler klavyede bulunur."),
-        "memory" => U("Games.Instructions.Memory", "Turn over two cards at a time to match each word with its meaning. Mismatches remain visible until Continue.", "Kelimeyi anlamıyla eşleştirmek için iki kart açın. Eşleşmeyenler Devam'a kadar görünür kalır."),
+        "memory" => U("Games.Instructions.Memory", "Turn over two cards at a time to match each word with its meaning. If they do not match, both cards flip back automatically.", "Kelimeyi anlamıyla eşleştirmek için iki kart açın. Eşleşmezse iki kart da kısa süre sonra otomatik kapanır."),
         "scramble" => U("Games.Instructions.Scramble", "Select letter tiles in order; select a filled slot to return its tile. A full word is checked automatically, with three attempts.", "Harf taşlarını sırayla seçin; dolu yuvayı seçerek taşı geri alın. Tam kelime otomatik kontrol edilir; üç deneme vardır."),
         "bossrush" => U("Games.Instructions.Boss", "Answer meanings to remove five hit points from each of three bosses. Three mistakes end the gauntlet; Continue follows each answer.", "Üç rakibin her birinden beş can azaltmak için anlamları yanıtlayın. Üç hata oyunu bitirir; her yanıttan sonra Devam gelir."),
         "codycross" => U("Games.Instructions.Cody", "Solve five vocabulary clues to reveal a bonus-letter code. Each correct answer opens one letter; incorrect attempts can be retried.", "Bonus harf kodunu açmak için beş kelime ipucunu çözün. Her doğru yanıt bir harf açar; yanlış yanıt tekrar denenebilir."),
         "truefalse" => U("Games.Instructions.TrueFalse", "Decide whether the displayed definition belongs to the word.", "Gösterilen tanımın kelimeye ait olup olmadığına karar verin."),
-        "wordrace" => U("Games.Instructions.Race", "Type the word matching each definition within 60 active seconds. Feedback pauses the clock.", "60 etkin saniyede her tanıma uyan kelimeyi yazın. Geri bildirimde saat durur."),
-        _ => U("Games.Instructions.Speed", "Choose the word matching each meaning within 60 active seconds. Feedback pauses the clock.", "60 etkin saniyede her anlama uyan kelimeyi seçin. Geri bildirimde saat durur."),
+        "wordrace" => string.Format(CultureInfo.CurrentCulture,
+            U("Games.Instructions.Race", "Choose the word matching each definition within {0} active seconds. Feedback pauses the clock.", "{0} etkin saniyede her tanıma uyan kelimeyi seçin. Geri bildirimde saat durur."),
+            TimedSecondsSetting),
+        _ => string.Format(CultureInfo.CurrentCulture,
+            U("Games.Instructions.Speed", "Choose the word matching each meaning within {0} active seconds. Feedback pauses the clock.", "{0} etkin saniyede her anlama uyan kelimeyi seçin. Geri bildirimde saat durur."),
+            TimedSecondsSetting),
     };
 
     private void GameUnavailable(GameSession session, string requirement)
@@ -284,16 +302,39 @@ public sealed partial class MainPage
         message = FriendlyGameFeedback(message);
         feedback.Children.Clear();
         var text = GameFeedbackText(feedback, message); Live(text);
+        message = string.Join('\n', message.Split('\n')
+            .Where(line => !line.StartsWith("@gameKey:", StringComparison.Ordinal)));
         var next = GameActionButton(U("Kids.Games.Next", "Next", "Sonraki"), "\uE72A", session.Game);
+        next.HorizontalAlignment = HorizontalAlignment.Stretch;
+        next.HorizontalContentAlignment = HorizontalAlignment.Stretch;
         AutomationProperties.SetAutomationId(next, "game.Continue");
         AutomationProperties.SetAcceleratorKey(next, "Enter");
+        var continueHelp = U("Games.ContinueHelp", "Continue to the next round.", "Sonraki tura devam et.");
+        AutomationProperties.SetHelpText(next, continueHelp);
+        ToolTipService.SetToolTip(next, continueHelp);
         var completion = new TaskCompletionSource<bool>();
+        var announced = false;
+        void AnnounceOnce()
+        {
+            if (announced) return;
+            announced = true;
+            Announce(text, message);
+        }
         next.Click += (_, _) => { if (!IsCurrentGameRound(session, epoch)) return; next.IsEnabled = false; completion.TrySetResult(true); };
-        next.Loaded += (_, _) => { if (!IsCurrentGameRound(session, epoch) || !next.IsLoaded) return; next.Focus(FocusState.Programmatic); Announce(text, message); };
+        next.Loaded += (_, _) =>
+        {
+            if (!IsCurrentGameRound(session, epoch) || !next.IsLoaded) return;
+            next.Focus(FocusState.Programmatic);
+            AnnounceOnce();
+        };
         feedback.Unloaded += OnUnloadedFeedback;
         void OnUnloadedFeedback(object sender, RoutedEventArgs e) => completion.TrySetResult(false);
         feedback.Children.Add(next);
-        next.Focus(FocusState.Programmatic); Announce(text, message);
+        if (next.IsLoaded)
+        {
+            next.Focus(FocusState.Programmatic);
+            AnnounceOnce();
+        }
         var continued = await completion.Task;
         feedback.Unloaded -= OnUnloadedFeedback;
         if (_activeGame != session || epoch != _gameEpoch) return false;
@@ -362,7 +403,7 @@ public sealed partial class MainPage
 
     private TextBox GameInput(StackPanel panel, string label, string? help = null)
     {
-        help ??= U("Kids.Input.Help", "Write a word. Click Check answer.", "Bir kelime yaz. Yanıtı kontrol et'e tıkla.");
+        help ??= U("Kids.Input.Help", "Choose an answer. Click Check answer.", "Bir yanıt seç. Yanıtı kontrol et'e tıkla.");
         var header = GameCaption(label); header.TextAlignment = TextAlignment.Left;
         var guidance = GameCaption(help); guidance.TextAlignment = TextAlignment.Left;
         var input = new TextBox
@@ -425,7 +466,7 @@ public sealed partial class MainPage
         AutomationProperties.SetAcceleratorKey(button, "Enter");
         AutomationProperties.SetHelpText(button, inputs.Length == 0
             ? U("Games.Input.SelectionRequired", "Complete the selection shown above before submitting.", "Göndermeden önce yukarıdaki seçimi tamamlayın.")
-            : U("Kids.Input.Help", "Write a word. Click Check answer.", "Bir kelime yaz. Yanıtı kontrol et'e tıkla."));
+            : U("Kids.Input.Help", "Choose an answer. Click Check answer.", "Bir yanıt seç. Yanıtı kontrol et'e tıkla."));
 
         TextBox[] ActiveInputs() => inputs.Where(input => !input.IsReadOnly && GameElementAvailable(input)).ToArray();
         bool CanSubmit()
@@ -447,7 +488,7 @@ public sealed partial class MainPage
             validation.Visibility = Visibility.Visible;
             Announce(validation, inputs.Length == 0
                 ? U("Games.Input.SelectionRequired", "Complete the selection shown above before submitting.", "Göndermeden önce yukarıdaki seçimi tamamlayın.")
-                : U("Kids.Input.Required", "Write your answer here first.", "Önce yanıtını buraya yaz."));
+                : U("Kids.Input.Required", "Choose your answer first.", "Önce yanıtını seç."));
             ActiveInputs().FirstOrDefault(input => !HasGameAnswer(input))?.Focus(FocusState.Programmatic);
             return false;
         }
@@ -491,14 +532,15 @@ public sealed partial class MainPage
 
     private void RenderAudioGame(GameSession session)
     {
-        var voice = Windows.Media.SpeechSynthesis.SpeechSynthesizer.AllVoices.FirstOrDefault(v =>
-            v.Language.Equals(SpeechLanguage(_settings.StudyLanguage), StringComparison.OrdinalIgnoreCase));
-        if (voice is null) { GameUnavailable(session, U("Games.Require.Voice", "Install a Windows speech voice matching the selected language/region. This game never substitutes another language.", "Seçili dil/bölgeye uygun Windows konuşma sesi yükleyin. Bu oyunda başka dilde ses kullanılmaz.")); return; }
-        var pool = _words.DistinctBy(w => LocalizedPart(w.Definition)).Where(w => !string.IsNullOrWhiteSpace(w.Definition)).OrderBy(_ => _random.Next()).Take(4).ToArray();
+        var voice = StudyVoiceFor(_settings.StudyLanguage);
+        if (voice is null) { GameUnavailable(session, U("Games.Require.Voice", "Install a Windows 11 speech voice matching the selected language/region. Then open Help > Backups & privacy > Listen and troubleshooting and follow the setup steps.", "Seçili dil/bölgeye uygun bir Windows 11 konuşma sesi yükleyin. Ardından Yardım > Yedekler ve gizlilik > Dinle düğmesi ve sorun giderme bölümünü açıp kurulum adımlarını izleyin.")); return; }
+        var pool = _words.DistinctBy(w => LocalizedPart(w.Definition))
+            .Where(w => !string.IsNullOrWhiteSpace(w.Definition) && LocalizedPart(w.Definition).Length <= 96)
+            .OrderBy(_ => _random.Next()).Take(4).ToArray();
         if (pool.Length < 4) { GameUnavailable(session, EligibleRequirement); return; }
         var entry = pool[0]; var panel = GameSceneContent();
         _gameHintProvider = () => WordHint(entry);
-        AddGameQuestion(panel, GameTask(session.Game));
+        AddGameQuestion(panel, GameTask(session.Game), () => WordExample(entry));
         var replay = GameActionButton(U("Games.Audio.Replay", "Play / replay audio", "Sesi oynat / tekrar dinle"), "", session.Game);
         var played = false; var epoch = _gameEpoch;
         var status = GameCaption(U("Games.Audio.PlayFirst", "Play the audio to unlock the answer.", "Yanıtlamak için önce sesi oynatın.")); Live(status);
@@ -507,13 +549,11 @@ public sealed partial class MainPage
         panel.Children.Add(audioControls);
         var answers = GameSceneContent();
         var answersHost = new ContentControl { Content = answers, IsEnabled = false, HorizontalContentAlignment = HorizontalAlignment.Stretch };
-        Button? audioSubmit = null;
         replay.Click += async (_, _) =>
         {
             if (!GameCanAnswer(session) || _gameLocalBusy) return;
             _gameLocalBusy = true;
             answersHost.IsEnabled = false;
-            if (audioSubmit is not null) UpdateGameSubmitState(audioSubmit);
             // Dedicated player: never shares the study player's fallback or async state.
             replay.IsEnabled = false;
             try
@@ -543,21 +583,29 @@ public sealed partial class MainPage
             {
                 if (_activeGame == session && epoch == _gameEpoch)
                 {
-                    replay.IsEnabled = true; answersHost.IsEnabled = played; _gameLocalBusy = false;
-                    if (audioSubmit is not null) UpdateGameSubmitState(audioSubmit);
+                    replay.IsEnabled = true;
+                    answersHost.IsEnabled = played;
+                    _gameLocalBusy = false;
                 }
             }
         };
         if (session.Game.Id == "dictation")
         {
-            var input = GameInput(answers);
-            audioSubmit = SubmitGame(answers, session, async button => { if (played) await ResolveGameAnswerAsync(session, GameAnswer(input.Text) == GameAnswer(entry.Word), entry.Word, button, [entry.Key]); }, () => played);
+            var heardWords = pool.OrderBy(_ => _random.Next()).ToArray();
+            GameChoices(answers, session, heardWords.Select(word => word.Word).ToArray(), async (index, button) =>
+            {
+                if (played) await ResolveGameAnswerAsync(session, heardWords[index] == entry,
+                    FeedbackWithAnswer(entry.Word, heardWords[index].Word), button, [entry.Key]);
+            });
         }
         else
         {
             var choices = pool.OrderBy(_ => _random.Next()).ToArray();
             GameChoices(answers, session, choices.Select(w => LocalizedPart(w.Definition)).ToArray(), async (i, button) =>
-            { if (played) await ResolveGameAnswerAsync(session, choices[i] == entry, entry.Word + " — " + LocalizedPart(entry.Definition), button, [entry.Key]); });
+            {
+                if (played) await ResolveGameAnswerAsync(session, choices[i] == entry,
+                    FeedbackWithAnswer(entry.Word + " — " + MeaningWithTurkish(entry.Definition), MeaningWithTurkish(choices[i].Definition)), button, [entry.Key]);
+            });
         }
         panel.Children.Add(answersHost);
         AddGameScene(session.Game, panel);
@@ -579,7 +627,7 @@ public sealed partial class MainPage
         // No single "word" to hint on an order puzzle -- a non-revealing token count instead.
         _gameHintProvider = () => $"{tokens.Length} {U("Games.Hint.Words", "words", "kelime")}";
         var selected = new List<int>(); var panel = GameSceneContent();
-        AddGameQuestion(panel, GameTask(session.Game));
+        AddGameQuestion(panel, GameTask(session.Game), () => WordExample(picked.Word));
         var assembled = GamePrompt("…", 22); Live(assembled); panel.Children.Add(assembled);
         var count = GameCaption(""); Live(count); panel.Children.Add(count);
         AutomationProperties.SetAutomationId(count, "game.SelectionCount");
@@ -615,7 +663,8 @@ public sealed partial class MainPage
             buttons[selected[^1]].IsEnabled = true; selected.RemoveAt(selected.Count - 1); RefreshSelection();
         };
         panel.Children.Add(undo);
-        submit = SubmitGame(panel, session, b => ResolveGameAnswerAsync(session, GameEngine.SentenceKey(assembled.Text) == GameEngine.SentenceKey(sentence), sentence, b, [picked.Word.Key]),
+        submit = SubmitGame(panel, session, b => ResolveGameAnswerAsync(session, GameEngine.SentenceKey(assembled.Text) == GameEngine.SentenceKey(sentence),
+            FeedbackWithAnswer(sentence, assembled.Text), b, [picked.Word.Key]),
             () => selected.Count == tokens.Length);
         panel.Children.Remove(undo);
         panel.Children.Remove(submit);
@@ -626,14 +675,125 @@ public sealed partial class MainPage
         AddGameScene(session.Game, panel);
     }
 
+    private sealed record ClozeCandidate(VocabularyEntry Word, string BaseWord, string Sentence, int Start, int End)
+    {
+        public string MaskedSentence => Sentence[..Start] + "_______" + Sentence[End..];
+    }
+
+    private sealed record ClozeOption(string BaseWord, bool IsCorrect);
+
+    private static string ClozeBaseWord(VocabularyEntry entry)
+    {
+        var raw = entry.Word.Trim();
+        if (raw.StartsWith("sich ", StringComparison.OrdinalIgnoreCase)) raw = raw[5..].TrimStart();
+        return LearningEngine.NormalizeAnswer(raw, entry.LanguageCode);
+    }
+
+    private static string ClozeFold(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return "";
+        var text = value.Replace("ß", "ss", StringComparison.Ordinal).Normalize(NormalizationForm.FormD);
+        var builder = new StringBuilder(text.Length);
+        foreach (var character in text)
+            if (CharUnicodeInfo.GetUnicodeCategory(character) != UnicodeCategory.NonSpacingMark)
+                builder.Append(char.ToLowerInvariant(character));
+        return builder.ToString().Normalize(NormalizationForm.FormC);
+    }
+
+    private static int ClozeCommonPrefixLength(string left, string right)
+    {
+        var size = Math.Min(left.Length, right.Length);
+        var index = 0;
+        while (index < size && left[index] == right[index]) index++;
+        return index;
+    }
+
+    private static (int Start, int End)? ClozeSpan(string sentence, string baseWord)
+    {
+        if (string.IsNullOrWhiteSpace(sentence) || string.IsNullOrWhiteSpace(baseWord) || baseWord.Contains(' ')) return null;
+        var target = ClozeFold(baseWord);
+        if (target.Length < 2) return null;
+        (int Start, int End)? best = null;
+        var bestScore = 0d;
+        foreach (Match token in Regex.Matches(sentence, @"[\p{L}\p{M}]+"))
+        {
+            if (token.Length == 0) continue;
+            var folded = ClozeFold(token.Value);
+            if (folded == target) return (token.Index, token.Index + token.Length);
+            if (target.Length < 5) continue;
+            var common = ClozeCommonPrefixLength(folded, target);
+            var need = Math.Max(5, (int)Math.Ceiling(target.Length * 0.65));
+            var lengthGap = Math.Abs(folded.Length - target.Length);
+            if (common < need || lengthGap > 5) continue;
+            var score = (double)common / target.Length;
+            if (score <= bestScore) continue;
+            bestScore = score;
+            best = (token.Index, token.Index + token.Length);
+        }
+        return bestScore >= 0.6 ? best : null;
+    }
+
+    private ClozeCandidate[] BuildClozePool()
+    {
+        var pool = new List<ClozeCandidate>();
+        foreach (var entry in _words)
+        {
+            var sentence = GameEngine.NativeText(entry.Example).Trim();
+            if (!GameEngine.UsableExample(sentence)) continue;
+            var baseWord = ClozeBaseWord(entry);
+            if (baseWord.Length < 2 || baseWord.Contains(' ')) continue;
+            var span = ClozeSpan(sentence, baseWord);
+            if (span is null) continue;
+            pool.Add(new ClozeCandidate(entry, baseWord, sentence, span.Value.Start, span.Value.End));
+        }
+        return pool.ToArray();
+    }
+
+    private ClozeOption[]? BuildClozeOptions(ClozeCandidate picked, IReadOnlyList<ClozeCandidate> pool)
+    {
+        var seen = new HashSet<string>(StringComparer.Ordinal) { ClozeFold(picked.BaseWord) };
+        var candidates = pool.Where(candidate => candidate.Word.Key != picked.Word.Key)
+            .Where(candidate => seen.Add(ClozeFold(candidate.BaseWord))).ToArray();
+        var samePartOfSpeech = candidates.Where(candidate =>
+            string.Equals(candidate.Word.PartOfSpeech, picked.Word.PartOfSpeech, StringComparison.OrdinalIgnoreCase)).ToArray();
+        var source = samePartOfSpeech.Length >= 3 ? samePartOfSpeech : candidates;
+        var distractors = source.OrderBy(_ => _random.Next()).Take(3).Select(candidate =>
+            new ClozeOption(candidate.BaseWord, false)).ToArray();
+        if (distractors.Length < 3) return null;
+        return distractors.Append(new ClozeOption(picked.BaseWord, true)).OrderBy(_ => _random.Next()).ToArray();
+    }
+
     private void RenderClozeGame(GameSession session)
     {
-        var eligible = _words.Select(w => (Word: w, Mask: GameEngine.Cloze(w))).Where(p => p.Mask is not null).ToArray();
-        if (eligible.Length == 0) { GameUnavailable(session, EligibleRequirement); return; }
-        var picked = eligible[_random.Next(eligible.Length)]; var panel = GameSceneContent();
-        _gameHintProvider = () => WordHint(picked.Word);
-        AddGameQuestion(panel, picked.Mask!); var input = GameInput(panel, U("Games.Input.MissingWord", "Missing word", "Eksik kelime"));
-        SubmitGame(panel, session, b => ResolveGameAnswerAsync(session, GameAnswer(input.Text) == GameEngine.Bare(picked.Word), GameEngine.NativeText(picked.Word.Example), b, [picked.Word.Key]));
+        var pool = BuildClozePool();
+        if (pool.Length < 4) { GameUnavailable(session, EligibleRequirement); return; }
+        var picked = pool[_random.Next(pool.Length)];
+        var options = BuildClozeOptions(picked, pool);
+        if (options is null) { GameUnavailable(session, EligibleRequirement); return; }
+
+        var panel = GameSceneContent();
+        _gameHintProvider = () => LocalizedPart(picked.Word.Definition);
+        AddGameQuestion(panel, picked.MaskedSentence, () => WordExample(picked.Word));
+        if (!string.IsNullOrWhiteSpace(picked.Word.PartOfSpeech))
+            panel.Children.Add(GameCaption(picked.Word.PartOfSpeech.ToUpperInvariant()));
+
+        var choicesGrid = new Grid { ColumnSpacing = 12, RowSpacing = 12 };
+        var letters = new[] { "A", "B", "C", "D" };
+        for (var index = 0; index < options.Length; index++)
+        {
+            var option = options[index];
+            var button = GameChoiceButton($"{letters[index]}   {option.BaseWord}", session.Game);
+            button.Tag = $"game-choice-{index}";
+            SetGameChoiceMetadata(button, $"game.Choice.{index + 1}", (index + 1).ToString(CultureInfo.InvariantCulture));
+            button.Click += async (_, _) =>
+            {
+                await ResolveGameAnswerAsync(session, option.IsCorrect,
+                    FeedbackWithAnswer(picked.BaseWord, option.BaseWord, picked.Sentence), button, [picked.Word.Key]);
+            };
+            choicesGrid.Children.Add(button);
+        }
+        ConfigureResponsiveGrid(choicesGrid, 2, 220);
+        panel.Children.Add(choicesGrid);
         AddGameScene(session.Game, panel);
     }
 
@@ -646,23 +806,38 @@ public sealed partial class MainPage
             if (groups.Length == 0) { GameUnavailable(session, EligibleRequirement); return; }
             _categoryWords = groups[_random.Next(groups.Length)].ToArray();
         }
-        // Open recall of ANY word in the category -- no single target to hint; falls back to GameInstructions.
-        var panel = GameSceneContent(); AddGameQuestion(panel, _categoryWords[0].Category);
-        var count = GameCaption($"{_categoryFound.Count} / {_categoryWords.Length}"); Live(count); panel.Children.Add(count);
-        panel.Children.Add(GameCaption(U("Games.Category.Unique", "Recall a new word in this category. No definitions are shown.", "Bu kategoride yeni bir kelime hatırlayın. Tanım gösterilmez.")));
-        var input = GameInput(panel, U("Games.Input.CategoryWord", "A new word in this category", "Bu kategoriden yeni bir kelime"));
-        SubmitGame(panel, session, async b =>
+        var remaining = _categoryWords.Where(word => !_categoryFound.Contains(GameEngine.Bare(word))).ToArray();
+        if (remaining.Length == 0) { GameUnavailable(session, EligibleRequirement); return; }
+        var entry = remaining[_random.Next(remaining.Length)];
+        var bare = GameEngine.Bare(entry);
+        var distractors = _words.Where(word =>
+                !string.Equals(word.Category, entry.Category, StringComparison.OrdinalIgnoreCase) &&
+                GameEngine.Bare(word) != bare)
+            .DistinctBy(GameEngine.Bare)
+            .OrderBy(_ => _random.Next())
+            .Take(3)
+            .ToArray();
+        if (distractors.Length < 3) { GameUnavailable(session, EligibleRequirement); return; }
+        var choices = distractors.Append(entry).OrderBy(_ => _random.Next()).ToArray();
+        _gameHintProvider = () => WordHint(entry, entry.Category);
+        var panel = GameSceneContent();
+        AddGameQuestion(panel, $"{entry.Category}\n{LocalizedPart(entry.Definition)}", () => WordExample(entry));
+        var count = GameCaption($"{_categoryFound.Count} / {_categoryWords.Length}");
+        Live(count);
+        panel.Children.Add(count);
+        panel.Children.Add(GameCaption(U("Games.Category.Unique", "Choose a new word in this category. The bulb shows one example word.", "Bu kategoriden yeni bir kelime seçin. Ampul bir örnek kelime gösterir.")));
+        GameChoices(panel, session, choices.Select(word => word.Word).ToArray(), async (index, button) =>
         {
-            var bare = GameAnswer(input.Text);
-            if (_categoryFound.Contains(bare)) { Announce(count, U("Games.Category.Duplicate", "Already counted. Try a different word.", "Zaten sayıldı. Başka kelime deneyin.")); return; }
-            var entry = _categoryWords.FirstOrDefault(w => GameEngine.Bare(w) == bare);
-            // A recognized wrong-category submission tests that word, not every
-            // unseen member of the category. Unknown input has objective credit only.
-            var tested = entry ?? _words.FirstOrDefault(w => GameEngine.Bare(w) == bare);
-            IReadOnlyList<string> reviewedKeys = tested is null ? [] : [tested.Key];
-            if (!await RecordGameSubAnswerAsync(session, entry is not null, b, reviewedKeys) || !IsCurrentGameRound(session, epoch)) return;
-            if (entry is not null) _categoryFound.Add(bare);
-            await ResolveGameAnswerAsync(session, entry is not null, entry?.Word ?? U("Games.Category.NotMember", "Not in this local category/level.", "Bu yerel kategori/seviyede yok."), b, reviewedKeys, answerAlreadyRecorded: true);
+            var selected = choices[index];
+            var correct = selected.Key == entry.Key;
+            IReadOnlyList<string> reviewedKeys = [selected.Key];
+            if (!await RecordGameSubAnswerAsync(session, correct, button, reviewedKeys) || !IsCurrentGameRound(session, epoch)) return;
+            if (correct)
+            {
+                _categoryFound.Add(bare);
+                Announce(count, $"{_categoryFound.Count} / {_categoryWords.Length}");
+            }
+            await ResolveGameAnswerAsync(session, correct, FeedbackWithAnswer(entry.Word, selected.Word), button, reviewedKeys, answerAlreadyRecorded: true);
         });
         AddGameScene(session.Game, panel);
     }
@@ -673,10 +848,18 @@ public sealed partial class MainPage
         var entry = _words.Where(w => GameEngine.Bare(w).Length >= 2 && !string.IsNullOrWhiteSpace(w.Definition)).OrderBy(_ => _random.Next()).FirstOrDefault();
         if (entry is null) { GameUnavailable(session, EligibleRequirement); return; }
         var bare = GameEngine.Bare(entry); var panel = GameSceneContent();
+        var choices = _words.Where(word => word.Key != entry.Key && GameEngine.Bare(word) != bare)
+            .DistinctBy(GameEngine.Bare)
+            .OrderBy(_ => _random.Next())
+            .Take(3)
+            .Append(entry)
+            .OrderBy(_ => _random.Next())
+            .ToArray();
+        if (choices.Length < 4) { GameUnavailable(session, EligibleRequirement); return; }
         _gameHintProvider = () => WordHint(entry);
         _gameRoundPoints = 120;
         string[] clues = [entry.Category, entry.PartOfSpeech, $"{bare.Length}", bare[..1], LocalizedPart(entry.Definition)];
-        var revealed = 0; var caption = AddGameQuestion(panel, GameTask(session.Game));
+        var revealed = 0; var caption = AddGameQuestion(panel, GameTask(session.Game), () => WordExample(entry));
         var reveal = GameActionButton(U("Games.Clue.Reveal", "Reveal next clue (costs points)", "Sonraki ipucu (puan azaltır)"), "", session.Game);
         reveal.Click += (_, _) =>
         {
@@ -684,8 +867,10 @@ public sealed partial class MainPage
             revealed++; _gameRoundPoints = Math.Max(20, 120 - revealed * 20);
             Announce(caption, string.Join(" · ", clues.Take(revealed))); reveal.IsEnabled = revealed < clues.Length;
         };
-        panel.Children.Add(reveal); var input = GameInput(panel, U("Games.Input.ClueWord", "Word matching the clues", "İpuçlarına uyan kelime"));
-        SubmitGame(panel, session, b => ResolveGameAnswerAsync(session, GameAnswer(input.Text) == bare, entry.Word, b, [entry.Key]));
+        panel.Children.Add(reveal);
+        GameChoices(panel, session, choices.Select(word => word.Word).ToArray(), (index, button) =>
+            ResolveGameAnswerAsync(session, choices[index].Key == entry.Key,
+                FeedbackWithAnswer(entry.Word, choices[index].Word), button, [entry.Key]));
         AddGameScene(session.Game, panel);
     }
 
@@ -695,19 +880,104 @@ public sealed partial class MainPage
         if (pool.Length == 0) { GameUnavailable(session, EligibleRequirement); return; }
         var seed = pool[_random.Next(pool.Length)]; var rack = new string(GameEngine.Bare(seed).OrderBy(_ => _random.Next()).ToArray());
         _gameHintProvider = () => WordHint(seed);
-        var panel = GameSceneContent(); AddGameQuestion(panel, GameTask(session.Game));
+        var panel = GameSceneContent();
+        panel.Spacing = 6;
+        AddGameQuestion(panel, GameTask(session.Game), () => WordExample(seed));
         panel.Children.Add(GamePrompt(string.Join(' ', rack.ToUpperInvariant().ToCharArray()), 30));
-        var input = GameInput(panel, U("Games.Input.RackWord", "Word built from these tiles", "Bu harflerden oluşturulan kelime"));
-        SubmitGame(panel, session, b =>
+        var selected = new List<int>();
+        var assembled = GamePrompt("", 24);
+        Live(assembled);
+        panel.Children.Add(assembled);
+        var count = GameCaption("");
+        Live(count);
+        panel.Children.Add(count);
+        var tiles = new Grid { ColumnSpacing = 5, RowSpacing = 4 };
+        var tileButtons = new List<Button>();
+        var undo = GameActionButton(U("Games.UndoTile", "Undo last tile", "Son taşı geri al"), "", session.Game);
+        var clear = GameActionButton(U("Games.ClearSelection", "Clear selection", "Seçimi temizle"), "", session.Game);
+        undo.IsEnabled = false;
+        clear.IsEnabled = false;
+        Button? submit = null;
+
+        void RefreshSelection()
         {
-            var word = GameEngine.RackWord(pool, input.Text, rack, new HashSet<string>(), _settings.StudyLanguage);
-            var tested = word ?? _words.FirstOrDefault(w => GameEngine.Bare(w) == GameAnswer(input.Text));
+            var attempt = new string(selected.Select(index => char.ToUpperInvariant(rack[index])).ToArray());
+            Announce(assembled, selected.Count == 0
+                ? U("Games.Input.RackWord", "Word built from these tiles", "Bu harflerden oluşturulan kelime")
+                : attempt);
+            Announce(count, $"{U("Games.Sentence.Selected", "Tiles selected", "Seçilen parçalar")}: {selected.Count} / {rack.Length}");
+            for (var i = 0; i < tileButtons.Count; i++) tileButtons[i].IsEnabled = !selected.Contains(i);
+            undo.IsEnabled = selected.Count > 0;
+            clear.IsEnabled = selected.Count > 0;
+            if (submit is not null) UpdateGameSubmitState(submit);
+        }
+
+        for (var i = 0; i < rack.Length; i++)
+        {
+            var index = i;
+            var button = GameChoiceButton(char.ToUpperInvariant(rack[index]).ToString(), session.Game);
+            button.MinHeight = 44;
+            button.MinWidth = 44;
+            button.Padding = new Thickness(6);
+            button.FontSize = ReadingSize(18);
+            button.HorizontalContentAlignment = HorizontalAlignment.Center;
+            SetGameChoiceMetadata(button, $"game.Tile.{index + 1}");
+            button.Click += (_, _) =>
+            {
+                if (!GameCanAnswer(session) || _gameLocalBusy || selected.Contains(index)) return;
+                selected.Add(index);
+                RefreshSelection();
+            };
+            tileButtons.Add(button);
+            tiles.Children.Add(button);
+        }
+        ConfigureResponsiveGrid(tiles, Math.Min(6, rack.Length), 48);
+        panel.Children.Add(tiles);
+
+        undo.Click += (_, _) =>
+        {
+            if (!GameCanAnswer(session) || _gameLocalBusy || selected.Count == 0) return;
+            selected.RemoveAt(selected.Count - 1);
+            RefreshSelection();
+        };
+        clear.Click += (_, _) =>
+        {
+            if (!GameCanAnswer(session) || _gameLocalBusy || selected.Count == 0) return;
+            selected.Clear();
+            RefreshSelection();
+        };
+
+        panel.Children.Add(undo);
+        panel.Children.Add(clear);
+        submit = SubmitGame(panel, session, button =>
+        {
+            var attempt = new string(selected.Select(index => rack[index]).ToArray());
+            var word = GameEngine.RackWord(pool, attempt, rack, new HashSet<string>(), _settings.StudyLanguage);
+            var tested = word ?? _words.FirstOrDefault(w => GameEngine.Bare(w) == GameAnswer(attempt));
             IReadOnlyList<string> reviewedKeys = tested is null ? [] : [tested.Key];
             _gameRoundPoints = word is null ? 0 : GameEngine.Bare(word).Length * 20;
-            // The seed is one possible feedback solution, not a failed review of a
-            // word the player was never asked to recall.
-            return ResolveGameAnswerAsync(session, word is not null, word?.Word ?? seed.Word, b, reviewedKeys);
-        });
+            return ResolveGameAnswerAsync(session, word is not null,
+                FeedbackWithAnswer(word?.Word ?? seed.Word, attempt), button, reviewedKeys);
+        }, () => selected.Count >= 3);
+
+        void CompactAction(Button button)
+        {
+            button.MinHeight = 48;
+            button.Padding = new Thickness(12, 8, 12, 8);
+            button.FontSize = ReadingSize(18);
+        }
+
+        CompactAction(undo);
+        CompactAction(clear);
+        CompactAction(submit);
+
+        panel.Children.Remove(undo);
+        panel.Children.Remove(clear);
+        panel.Children.Remove(submit);
+        var actions = new Grid { ColumnSpacing = 8, RowSpacing = 2, Children = { undo, clear, submit } };
+        ConfigureResponsiveGrid(actions, 3, 140);
+        panel.Children.Add(actions);
+        RefreshSelection();
         AddGameScene(session.Game, panel);
     }
 
@@ -718,11 +988,12 @@ public sealed partial class MainPage
         var word = pool[_random.Next(pool.Length)]; var panel = GameSceneContent();
         // The word is already fully visible and the answer IS its class -- a hint would either be
         // redundant (letters/length) or leak the answer (the class itself). Left unset.
-        AddGameQuestion(panel, $"{word.Word}\n{GameEngine.NativeText(word.Example)}");
+        AddGameQuestion(panel, $"{word.Word}\n{GameEngine.NativeText(word.Example)}", () => WordExample(word));
         string[] ids = ["noun", "verb", "adjective", "adverb"];
         string[] labels = [U("Games.Class.Noun", "Noun", "İsim"), U("Games.Class.Verb", "Verb", "Fiil"), U("Games.Class.Adjective", "Adjective", "Sıfat"), U("Games.Class.Adverb", "Adverb", "Zarf")];
         var correct = Array.IndexOf(ids, GameEngine.WordClass(word.PartOfSpeech));
-        GameChoices(panel, session, labels, (i, b) => ResolveGameAnswerAsync(session, i == correct, word.Word + " — " + labels[correct], b, [word.Key]));
+        GameChoices(panel, session, labels, (i, b) => ResolveGameAnswerAsync(session, i == correct,
+            FeedbackWithAnswer(word.Word + " — " + labels[correct], labels[i]), b, [word.Key]));
         AddGameScene(session.Game, panel);
     }
 
@@ -733,8 +1004,9 @@ public sealed partial class MainPage
         var category = groups[0]; var odd = groups[1].OrderBy(_ => _random.Next()).First();
         var choices = category.OrderBy(_ => _random.Next()).Take(3).Append(odd).OrderBy(_ => _random.Next()).ToArray();
         // The answer is WHICH choice doesn't belong -- hinting the category or the odd word leaks it. Left unset.
-        var panel = GameSceneContent(); AddGameQuestion(panel, category.Key); panel.Children.Add(GameCaption(GameInstructions(session.Game)));
-        GameChoices(panel, session, choices.Select(w => w.Word).ToArray(), (i, b) => ResolveGameAnswerAsync(session, choices[i] == odd, odd.Word + " — " + odd.Category, b, [odd.Key]));
+        var panel = GameSceneContent(); AddGameQuestion(panel, category.Key, () => category.FirstOrDefault() is { } first ? WordExample(first) : null); panel.Children.Add(GameCaption(GameInstructions(session.Game)));
+        GameChoices(panel, session, choices.Select(w => w.Word).ToArray(), (i, b) => ResolveGameAnswerAsync(session, choices[i] == odd,
+            FeedbackWithAnswer(odd.Word + " — " + odd.Category, choices[i].Word), b, [odd.Key]));
         AddGameScene(session.Game, panel);
     }
 
@@ -744,7 +1016,7 @@ public sealed partial class MainPage
         if (words.Length < 16) { GameUnavailable(session, EligibleRequirement); return; }
         var epoch = _gameEpoch;
         var found = new HashSet<int>(); var target = _random.Next(16); var panel = GameSceneContent();
-        var clue = AddGameQuestion(panel, LocalizedPart(words[target].Definition));
+        var clue = AddGameQuestion(panel, LocalizedPart(words[target].Definition), () => WordExample(words[target]));
         _gameHintProvider = () => WordHint(words[target]);
         var board = new Grid { ColumnSpacing = 5, RowSpacing = 5 };
         for (var i = 0; i < 16; i++)
@@ -758,8 +1030,12 @@ public sealed partial class MainPage
                 var tested = words[target];
                 var correct = index == target;
                 if (!await RecordGameSubAnswerAsync(session, correct, button, [tested.Key]) || !IsCurrentGameRound(session, epoch)) return;
-                if (!correct) { await ResolveGameAnswerAsync(session, false, tested.Word, button, [tested.Key], answerAlreadyRecorded: true); return; }
-                found.Add(index); button.Content = "✓ " + words[index].Word; button.IsEnabled = false;
+                if (!correct)
+                {
+                    await ResolveGameAnswerAsync(session, false, FeedbackWithAnswer(tested.Word, words[index].Word), button, [tested.Key], answerAlreadyRecorded: true);
+                    return;
+                }
+                found.Add(index); button.Content = ButtonContent("✓ " + words[index].Word, "\uE73E"); button.IsEnabled = false;
                 if (GameEngine.BingoLine(found)) { await ResolveGameAnswerAsync(session, true, U("Games.Bingo.Line", "Completed a line", "Bir çizgi tamamlandı"), button, [tested.Key], answerAlreadyRecorded: true); return; }
                 var remaining = Enumerable.Range(0, 16).Where(n => !found.Contains(n)).ToArray(); target = remaining[_random.Next(remaining.Length)];
                 Announce(clue, LocalizedPart(words[target].Definition));
@@ -788,7 +1064,7 @@ public sealed partial class MainPage
         var start = starts[_random.Next(starts.Length)];
         var x = start % width; var y = start / width;
         for (var i = 0; i < target.Length; i++) letters[(y + dy * i) * width + x + dx * i] = target[i];
-        var selected = new List<int>(); var panel = GameSceneContent(); AddGameQuestion(panel, LocalizedPart(entry.Definition));
+        var selected = new List<int>(); var panel = GameSceneContent(); AddGameQuestion(panel, LocalizedPart(entry.Definition), () => WordExample(entry));
         var selection = GameCaption(""); Live(selection);
         var count = GameCaption(""); Live(count);
         AutomationProperties.SetAutomationId(count, "game.SelectionCount");
@@ -843,7 +1119,8 @@ public sealed partial class MainPage
         var clear = GameActionButton(U("Games.ClearSelection", "Clear selection", "Seçimi temizle"), "", session.Game);
         clear.Click += (_, _) => { if (!GameCanAnswer(session) || _gameLocalBusy) return; selected.Clear(); RefreshSelection(); };
         panel.Children.Add(clear);
-        submit = SubmitGame(panel, session, b => ResolveGameAnswerAsync(session, GameEngine.StraightSelection(selected, width) && selection.Text == target, entry.Word, b, [entry.Key]),
+        submit = SubmitGame(panel, session, b => ResolveGameAnswerAsync(session, GameEngine.StraightSelection(selected, width) && selection.Text == target,
+            FeedbackWithAnswer(entry.Word, selection.Text), b, [entry.Key]),
             () => selected.Count == target.Length && GameEngine.StraightSelection(selected, width));
         RefreshSelection();
         AddGameScene(session.Game, panel, visual);
@@ -851,10 +1128,25 @@ public sealed partial class MainPage
 
     private void RenderCrosswordGame(GameSession session)
     {
-        var crossing = GameEngine.FindCrossing(_words.OrderBy(_ => _random.Next()));
+        VocabularyEntry[] CompactCrosswordPool(int maxWordLength, int maxDefinitionLength) => _words.Where(word =>
+            {
+                var bare = GameEngine.Bare(word);
+                var definition = LocalizedPart(word.Definition).Trim();
+                return bare.Length >= 3 && bare.Length <= maxWordLength &&
+                    definition.Length > 0 && definition.Length <= maxDefinitionLength;
+            })
+            .DistinctBy(word => GameEngine.Bare(word))
+            .DistinctBy(word => LocalizedPart(word.Definition))
+            .ToArray();
+
+        var crossing =
+            GameEngine.FindCrossing(CompactCrosswordPool(8, 90).OrderBy(_ => _random.Next())) ??
+            GameEngine.FindCrossing(CompactCrosswordPool(10, 120).OrderBy(_ => _random.Next())) ??
+            GameEngine.FindCrossing(_words.OrderBy(_ => _random.Next()));
         if (crossing is null) { GameUnavailable(session, EligibleRequirement); return; }
         var epoch = _gameEpoch;
         var a = GameEngine.Bare(crossing.Across); var d = GameEngine.Bare(crossing.Down); var panel = GameSceneContent();
+        panel.Spacing = 8;
         var board = new Grid { ColumnSpacing = 2, RowSpacing = 2 }; var cells = new Dictionary<(int X, int Y), TextBlock>();
         var cellSize = Math.Max(34, ReadingSize(18) * 1.4 + 4);
         board.MinWidth = a.Length * cellSize + (a.Length - 1) * board.ColumnSpacing;
@@ -863,8 +1155,18 @@ public sealed partial class MainPage
         void Cell(int x, int y)
         {
             if (cells.ContainsKey((x, y))) return;
-            var text = GamePrompt("·", 16); cells[(x, y)] = text;
-            var box = new Border { BorderThickness = new Thickness(1), BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.White), Child = text };
+            var cellBackground = Windows.UI.Color.FromArgb(255, 30, 41, 59);
+            var cellForeground = AppearancePalette.EnsureTextContrast(cellBackground, Microsoft.UI.Colors.White);
+            var text = GamePrompt("·", 16);
+            text.Foreground = new SolidColorBrush(cellForeground);
+            cells[(x, y)] = text;
+            var box = new Border
+            {
+                BorderThickness = new Thickness(1),
+                BorderBrush = new SolidColorBrush(AppearancePalette.EnsureBoundaryContrast(cellBackground, Windows.UI.Color.FromArgb(255, 148, 163, 184))),
+                Background = new SolidColorBrush(cellBackground),
+                Child = text,
+            };
             Grid.SetColumn(box, x); Grid.SetRow(box, y); board.Children.Add(box);
         }
         for (var i = 0; i < a.Length; i++) Cell(i, crossing.DownIndex);
@@ -873,22 +1175,28 @@ public sealed partial class MainPage
         var entryOrder = U("Games.Crossword.EntryOrder", "Across first, then Down. Each answer is scored separately.", "Önce yatay, sonra dikey. Her yanıt ayrı puanlanır.");
         AutomationProperties.SetHelpText(board, entryOrder);
         var acrossSummary = GameCaption(""); Live(acrossSummary); acrossSummary.Visibility = Visibility.Collapsed; panel.Children.Add(acrossSummary);
-        AddGameQuestion(panel, acrossLabel + ": " + LocalizedPart(crossing.Across.Definition));
+        AddGameQuestion(panel, acrossLabel + ": " + LocalizedPart(crossing.Across.Definition), () => WordExample(crossing.Across));
         var acrossCard = panel.Children[panel.Children.Count - 1];
-        var across = GameInput(panel, $"{acrossLabel} · {a.Length} {U("Games.Hint.Letters", "letters", "harf")}"); across.MaxLength = 32;
-        AutomationProperties.SetAutomationId(across, "game.Crossword.Across");
-        AddGameQuestion(panel, downLabel + ": " + LocalizedPart(crossing.Down.Definition));
+        AddGameQuestion(panel, downLabel + ": " + LocalizedPart(crossing.Down.Definition), () => WordExample(crossing.Down), "Down");
         var downCard = panel.Children[panel.Children.Count - 1];
         downCard.Visibility = Visibility.Collapsed;
-        var down = GameInput(panel, $"{downLabel} · {d.Length} {U("Games.Hint.Letters", "letters", "harf")}"); down.MaxLength = 32;
-        down.Visibility = Visibility.Collapsed;
-        AutomationProperties.SetAutomationId(down, "game.Crossword.Down");
+        var acrossChoicesHost = new ContentControl { HorizontalContentAlignment = HorizontalAlignment.Stretch };
+        var downChoicesHost = new ContentControl
+        {
+            HorizontalContentAlignment = HorizontalAlignment.Stretch,
+            Visibility = Visibility.Collapsed,
+        };
+        panel.Children.Add(acrossChoicesHost);
+        panel.Children.Add(downChoicesHost);
         var acrossSolved = false;
-        _gameHintProvider = () => WordHint(acrossSolved ? crossing.Down : crossing.Across);
-        down.IsEnabled = false;
+        var acrossAnswer = "";
+        var downAnswer = "";
+        _gameHintProvider = () => WordHint(crossing.Across);
+
         void Update()
         {
-            var av = GameAnswer(across.Text); var dv = GameAnswer(down.Text);
+            var av = acrossAnswer;
+            var dv = downAnswer;
             foreach (var ((x, y), text) in cells)
             {
                 var ac = y == crossing.DownIndex && x < av.Length ? av[x].ToString() : "";
@@ -896,36 +1204,95 @@ public sealed partial class MainPage
                 text.Text = ac.Length > 0 && dc.Length > 0 && ac != dc ? "≠" : ac.Length > 0 ? ac : dc.Length > 0 ? dc : "·";
             }
         }
-        across.TextChanged += (_, _) => Update(); down.TextChanged += (_, _) => Update();
-        SubmitGame(panel, session, async b =>
+
+        VocabularyEntry[] BuildChoices(VocabularyEntry answer, int length)
         {
-            // One explicit entry per submit. A partial/wrong Down answer cannot mark
-            // the already-solved Across word wrong, nor rescore it on a retry.
-            var entry = acrossSolved ? crossing.Down : crossing.Across;
-            var input = acrossSolved ? down : across;
-            var correct = GameAnswer(input.Text) == GameEngine.Bare(entry);
-            if (!await RecordGameSubAnswerAsync(session, correct, b, [entry.Key]) || !IsCurrentGameRound(session, epoch)) return;
-            if (!correct)
+            var distractors = _words.Where(word => word.Key != answer.Key && GameEngine.Bare(word).Length == length)
+                .DistinctBy(GameEngine.Bare)
+                .OrderBy(_ => _random.Next())
+                .Take(3)
+                .ToArray();
+            if (distractors.Length < 3) return [];
+            return distractors.Append(answer).OrderBy(_ => _random.Next()).ToArray();
+        }
+
+        void CompactChoiceHost(StackPanel host)
+        {
+            if (host.Children.OfType<Grid>().FirstOrDefault() is not Grid grid) return;
+            grid.ColumnSpacing = 6;
+            grid.RowSpacing = 6;
+            foreach (var button in grid.Children.OfType<Button>())
             {
-                ShakeElement(input);
-                if (!await PauseGameFeedbackAsync(session, U("Games.TryAgain", "Not yet — try again", "Henüz değil — tekrar deneyin") + "\n" + input.Text) || !IsCurrentGameRound(session, epoch)) return;
-                input.Focus(FocusState.Programmatic);
-                return;
+                button.MinHeight = 44;
+                button.Padding = new Thickness(10, 6, 10, 6);
+                button.FontSize = ReadingSize(18);
             }
-            if (!acrossSolved)
+        }
+
+        void RenderAcrossChoices()
+        {
+            var options = BuildChoices(crossing.Across, a.Length);
+            if (options.Length < 4) { GameUnavailable(session, EligibleRequirement); return; }
+            var answers = GameSceneContent();
+            GameChoices(answers, session, options.Select(option => option.Word).ToArray(), async (index, button) =>
             {
-                acrossSolved = true; across.IsEnabled = false; down.IsEnabled = true;
-                acrossCard.Visibility = Visibility.Collapsed; across.Visibility = Visibility.Collapsed;
-                downCard.Visibility = Visibility.Visible; down.Visibility = Visibility.Visible;
-                acrossSummary.Visibility = Visibility.Visible; Announce(acrossSummary, $"✓ {acrossLabel}: {entry.Word}");
-                UpdateGameSubmitState(b);
-                if (!await PauseGameFeedbackAsync(session, T("Common.Correct") + "\n" + entry.Word) || !IsCurrentGameRound(session, epoch)) return;
-                UpdateGameSubmitState(b);
-                down.Focus(FocusState.Programmatic);
-                return;
-            }
-            await ResolveGameAnswerAsync(session, true, acrossLabel + ": " + crossing.Across.Word + " · " + downLabel + ": " + crossing.Down.Word, b, [entry.Key], answerAlreadyRecorded: true);
-        });
+                var selected = options[index];
+                var correct = selected.Key == crossing.Across.Key;
+                IReadOnlyList<string> reviewedKeys = [crossing.Across.Key];
+                if (!await RecordGameSubAnswerAsync(session, correct, button, reviewedKeys) || !IsCurrentGameRound(session, epoch)) return;
+                if (!correct)
+                {
+                    ShakeElement(button);
+                    if (!await PauseGameFeedbackAsync(session, U("Games.TryAgain", "Not yet — try again", "Henüz değil — tekrar deneyin") + "\n" + selected.Word) || !IsCurrentGameRound(session, epoch)) return;
+                    return;
+                }
+                acrossSolved = true;
+                acrossAnswer = a.ToUpperInvariant();
+                Update();
+                acrossCard.Visibility = Visibility.Collapsed;
+                acrossChoicesHost.Visibility = Visibility.Collapsed;
+                downCard.Visibility = Visibility.Visible;
+                downChoicesHost.Visibility = Visibility.Visible;
+                acrossSummary.Visibility = Visibility.Visible;
+                Announce(acrossSummary, $"✓ {acrossLabel}: {crossing.Across.Word}");
+                _gameHintProvider = () => WordHint(crossing.Down);
+                if (!await PauseGameFeedbackAsync(session, T("Common.Correct") + "\n" + crossing.Across.Word) || !IsCurrentGameRound(session, epoch)) return;
+            });
+            CompactChoiceHost(answers);
+            acrossChoicesHost.Content = answers;
+        }
+
+        void RenderDownChoices()
+        {
+            var options = BuildChoices(crossing.Down, d.Length);
+            if (options.Length < 4) { GameUnavailable(session, EligibleRequirement); return; }
+            var answers = GameSceneContent();
+            GameChoices(answers, session, options.Select(option => option.Word).ToArray(), async (index, button) =>
+            {
+                if (!acrossSolved) return;
+                var selected = options[index];
+                var correct = selected.Key == crossing.Down.Key;
+                IReadOnlyList<string> reviewedKeys = [crossing.Down.Key];
+                if (!await RecordGameSubAnswerAsync(session, correct, button, reviewedKeys) || !IsCurrentGameRound(session, epoch)) return;
+                if (!correct)
+                {
+                    ShakeElement(button);
+                    if (!await PauseGameFeedbackAsync(session, U("Games.TryAgain", "Not yet — try again", "Henüz değil — tekrar deneyin") + "\n" + selected.Word) || !IsCurrentGameRound(session, epoch)) return;
+                    return;
+                }
+                downAnswer = d.ToUpperInvariant();
+                Update();
+                await ResolveGameAnswerAsync(session, true,
+                    acrossLabel + ": " + crossing.Across.Word + " · " + downLabel + ": " + crossing.Down.Word,
+                    button, reviewedKeys, answerAlreadyRecorded: true);
+            });
+            CompactChoiceHost(answers);
+            downChoicesHost.Content = answers;
+        }
+
+        Update();
+        RenderAcrossChoices();
+        RenderDownChoices();
         AddGameScene(session.Game, panel, board);
     }
 
@@ -971,7 +1338,8 @@ public sealed partial class MainPage
                 var titleRow = new Grid { ColumnSpacing = 8, RowSpacing = 8, Children = { GameCaption(passage.Title), pageStatus } };
                 ConfigureResponsiveGrid(titleRow, 2, 180);
                 panel.Children.Add(titleRow);
-                var page = 0; var text = AddGameQuestion(panel, pages[0]);
+                var noTargetWord = U("Games.Example.NoTargetWord", "This reading round does not test one vocabulary word.", "Bu okuma turunda tek bir kelime sorulmaz.");
+                var page = 0; var text = AddGameQuestion(panel, pages[0], () => new GameQuestionExample(noTargetWord, passage.Text));
                 var navigation = new Grid { ColumnSpacing = 6 };
                 var previous = GameActionButton(U("Games.Reading.Previous", "Previous text page", "Önceki metin sayfası"), "", session.Game);
                 var next = GameActionButton(U("Games.Reading.Next", "Next text page", "Sonraki metin sayfası"), "", session.Game);
@@ -984,7 +1352,7 @@ public sealed partial class MainPage
                 next.Click += (_, _) => { if (!GameCanAnswer(session) || page + 1 == pages.Count) return; page++; Refresh(); };
                 navigation.Children.Add(previous); navigation.Children.Add(next); ConfigureResponsiveGrid(navigation, 2, 150); panel.Children.Add(navigation); Refresh();
                 var questionPanel = GameSceneContent(); questionPanel.Visibility = Visibility.Collapsed;
-                AddGameQuestion(questionPanel, question.Prompt);
+                AddGameQuestion(questionPanel, question.Prompt, () => new GameQuestionExample(question.Prompt, question.Explanation), "Answer");
                 GameChoices(questionPanel, session, question.Options, (i, b) => ResolveGameAnswerAsync(session, i == question.Correct, question.Options[question.Correct] + "\n" + question.Explanation, b, []));
                 var answerQuestion = GameActionButton(U("Games.Reading.Answer", "Answer question", "Soruyu yanıtla"), "", session.Game);
                 answerQuestion.Click += (_, _) => { if (!GameCanAnswer(session) || _gameLocalBusy) return; panel.Visibility = Visibility.Collapsed; questionPanel.Visibility = Visibility.Visible; };
@@ -1002,7 +1370,25 @@ public sealed partial class MainPage
                 // Both words already visible; the hidden part is the relationship classification itself -- hint left unset.
                 var pair = pairs[_random.Next(pairs.Length)]; var panel = GameSceneContent();
                 var reviewedKeys = GameEngine.SemanticWordKeys(pair, _words, language, level);
-                AddGameQuestion(panel, pair.Word + " ↔ " + pair.Related);
+                VocabularyEntry? SemanticWord(string term) => _words.FirstOrDefault(word =>
+                    string.Equals(word.Word, term, StringComparison.Ordinal) ||
+                    string.Equals(GameEngine.Bare(word), term, StringComparison.OrdinalIgnoreCase));
+                string DefinitionFor(string term)
+                {
+                    var entry = SemanticWord(term);
+                    return entry is null ? $"{term}: {U("Games.Example.DefinitionUnavailable", "No definition is available for this round.", "Bu tur için tanım yok.")}"
+                        : $"{entry.Word}: {MeaningWithTurkish(entry.Definition)}";
+                }
+                string ExampleFor(string term)
+                {
+                    var entry = SemanticWord(term);
+                    return entry is null ? $"{term}: {U("Games.Example.Unavailable", "No example is available for this round.", "Bu tur için örnek yok.")}"
+                        : $"{entry.Word}: {ExampleWithTurkish(entry.Example)}";
+                }
+                AddGameQuestion(panel, pair.Word + " ↔ " + pair.Related,
+                    () => new GameQuestionExample(
+                        $"{DefinitionFor(pair.Word)}\n{DefinitionFor(pair.Related)}",
+                        $"{ExampleFor(pair.Word)}\n{ExampleFor(pair.Related)}"));
                 string[] labels = [U("Games.Semantic.Synonym", "Synonyms", "Eş anlamlı"), U("Games.Semantic.Antonym", "Antonyms", "Zıt anlamlı")];
                 GameChoices(panel, session, labels, (i, b) => ResolveGameAnswerAsync(session, (i == 1) == pair.Antonym, pair.Word + " ↔ " + pair.Related + " — " + labels[pair.Antonym ? 1 : 0], b, reviewedKeys));
                 AddGameScene(session.Game, panel);

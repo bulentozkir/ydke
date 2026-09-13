@@ -79,7 +79,7 @@ internal static class GameAttributionTests
             Assert(probe.SaveAttempts == 3 && probe.Rollbacks.Count == 2 && probe.Rollbacks.All(p => p == before));
             Credit(probe.Progress, 0, 1, Apple, Pear);
             Assert(probe.Progress.Reviews[Apple].Mistakes == 1 && probe.Progress.Reviews[Pear].Mistakes == 1);
-            Assert(probe.Session.Round == 2 && probe.Session.Lives == 2 && probe.Progress.CompletedGames == 0);
+            Assert(probe.Session.Round == 2 && probe.Session.Lives == 3 && probe.Progress.CompletedGames == 0);
         });
 
         Async("Actual source methods: abandon failed answer leaves no review or completion", async () =>

@@ -29,14 +29,15 @@ internal static class MechanicsContracts
             ("six-wide matrix", @"const int width\s*=\s*6;"),
             ("4 by 4 bingo", @"Grid\.SetColumn\(button,\s*i\s*%\s*4\);\s*Grid\.SetRow\(button,\s*i\s*/\s*4\)"),
             ("bingo wrong choice ends board", @"var correct\s*=\s*index\s*==\s*target;[\s\S]*?if\s*\(!correct\)\s*\{\s*await ResolveGameAnswerAsync\(session,\s*false"),
-            ("unique category words", @"_categoryFound\.Contains\(bare\)"),
-            ("category answers limited to chosen pool", @"_categoryWords\.FirstOrDefault\(w\s*=>\s*GameEngine\.Bare\(w\)\s*==\s*bare\)"),
-            ("crossword two answers", @"var entry\s*=\s*acrossSolved\s*\?\s*crossing\.Down\s*:\s*crossing\.Across;[\s\S]*?var correct\s*=\s*GameAnswer\(input\.Text\)\s*==\s*GameEngine\.Bare\(entry\);"),
-            ("rack checks actual local words", @"GameEngine\.RackWord\(pool,\s*input\.Text,\s*rack"),
+            ("unique category words", @"_categoryFound\.Contains\(GameEngine\.Bare\(word\)\)[\s\S]*?_categoryFound\.Add\(bare\)"),
+            ("category answers limited to one chosen group", @"var remaining\s*=\s*_categoryWords\.Where\(word\s*=>\s*!_categoryFound\.Contains\(GameEngine\.Bare\(word\)\)\)\.ToArray\(\);"),
+            ("crossword scores across and down independently", @"reviewedKeys\s*=\s*\[crossing\.Across\.Key\][\s\S]*?reviewedKeys\s*=\s*\[crossing\.Down\.Key\]"),
+            ("rack checks actual local words", @"var attempt\s*=\s*new string\(selected\.Select\(index\s*=>\s*rack\[index\]\)\.ToArray\(\)\);[\s\S]*?GameEngine\.RackWord\(pool,\s*attempt,\s*rack"),
             ("clues cost points", @"Math\.Max\(20,\s*120\s*-\s*revealed\s*\*\s*20\)"),
-            ("semantic and reading language restriction", "language is not \\(" + "\"en\" or \"de\" or \"fr\"" + "\\)"),
+            ("semantic and reading language restriction", @"language is not \(""en"" or ""de"" or ""fr""\)"),
             ("daily language/level context", @"GameEngine\.DailyIndex\(pool\.Length,\s*StudyContext,\s*Today\)"),
-            ("typing cloze rather than substitute quiz", @"GameAnswer\(input\.Text\)\s*==\s*GameEngine\.Bare\(picked\.Word\)"),
+            ("cloze uses four-option substitute quiz", @"private\s+void\s+RenderClozeGame\s*\(GameSession\s+session\)[\s\S]*?BuildClozePool\(\)[\s\S]*?var\s+letters\s*=\s*new\[\]\s*\{\s*""A""\s*,\s*""B""\s*,\s*""C""\s*,\s*""D""\s*\}[\s\S]*?ResolveGameAnswerAsync\(session\s*,\s*option\.IsCorrect"),
+            ("memory mismatch auto flip", @"pairBusy\s*=\s*true;[\s\S]*?await\s+Task\.Delay\(GameMotionOff\s*\?\s*160\s*:\s*900\)[\s\S]*?previous\.Content\s*=\s*""✦"";[\s\S]*?button\.Content\s*=\s*""✦"""),
             ("reading feedback includes explanation", @"question\.Options\[question\.Correct\]\s*\+\s*""\\n""\s*\+\s*question\.Explanation"),
         ];
         foreach (var rule in sourceRules)
@@ -72,8 +73,8 @@ internal static class MechanicsContracts
         foreach (var language in languages)
         {
             foreach (var key in new[] { "Games.Duration.Minute", "Games.Instructions.Speed", "Games.Instructions.Race" })
-                check(Regex.Matches(Localizer.Get(language, key), @"\d+").Select(m => m.Value).SequenceEqual(new[] { "60" }),
-                    $"{language}/{key}: must say 60 seconds, not an old duration");
+                check(Localizer.Get(language, key).Contains("{0}", StringComparison.Ordinal),
+                    $"{language}/{key}: must keep the configurable timer placeholder");
             foreach (var key in new[] { "Games.Instructions.Guess", "Games.Instructions.Daily", "Games.Guess.Legend" })
                 check(new[] { "✓", "~", "×" }.All(marker => Localizer.Get(language, key).Contains(marker, StringComparison.Ordinal)),
                     $"{language}/{key}: positional/absent letter markers changed");
@@ -86,11 +87,11 @@ internal static class MechanicsContracts
 
     // Columns: key | en | tr | de | fr | es | pt | nl. ^ joins required fragments.
     private const string Contracts = """
-        Games.Duration.Minute|active|etkin|aktive|actives|activos|ativos|actieve
+        Games.Duration.Minute|{0}^active|{0}^etkin|{0}^aktive|{0}^actives|{0}^activos|{0}^ativos|{0}^actieve
         Games.Duration.Long|estimate^5+|tahmini^5+|geschätzt^5+|environ^5^plus|unos^5^más|cerca de^5^mais|schatting^5+
         Games.Duration.Short|estimate|tahmini|geschätzt|environ|unos|cerca de|schatting
-        Games.Instructions.Speed|Choose^60^pauses|seçin^60^durur|Wählen^60^pausieren|Choisissez^60^suspend|Elige^60^pausan|Escolha^60^pausa|Kies^60^pauzeert
-        Games.Instructions.Race|Type^60^pauses|yazın^60^durur|Tippen^60^pausieren|Saisissez^60^suspend|Escribe^60^pausan|Escreva^60^pausa|Typ^60^pauzeert
+        Games.Instructions.Speed|Choose^{0}^pauses|seçin^{0}^durur|Wählen^{0}^pausieren|Choisissez^{0}^suspend|Elige^{0}^pausan|Escolha^{0}^pausa|Kies^{0}^pauzeert
+        Games.Instructions.Race|Choose^{0}^pauses|seçin^{0}^durur|Wählen^{0}^pausieren|Choisissez^{0}^suspend|Elige^{0}^pausan|Escolha^{0}^pausa|Kies^{0}^pauzeert
         Games.ScopedScores|language^level^mode|dil^seviye^mod|Sprache^Niveau^Modus|langue^niveau^mode|idioma^nivel^modo|idioma^nível^modo|taal^niveau^modus
         Games.LegacyBest|Legacy^unscoped|Eski^kapsamsız|Altwert^ohne Zuordnung|Ancien^sans périmètre|anterior^sin ámbito|antigo^sem âmbito|Oude^zonder afbakening
         Games.FeedbackPolicy|Continue^pauses^separate|Devam^duraklatır^ayrıdır|Weiter^pausiert^getrennt|Continuer^suspend^séparés|Continuar^pausan^separadas|Continuar^pausa^separadas|Doorgaan^pauzeert^apart
@@ -106,7 +107,7 @@ internal static class MechanicsContracts
         Games.Instructions.Reading|complete^explanation^English, German and French only|metni^açıklamasını^Yalnızca İngilizce, Almanca ve Fransızca|ganzen^Quellerklärung^Nur Englisch, Deutsch und Französisch|tout^explication^Anglais, allemand et français uniquement|todo^explicación^Solo inglés, alemán y francés|todo^explicação^Apenas inglês, alemão e francês|hele^uitleg^Alleen Engels, Duits en Frans
         Games.Instructions.Category|fixed^once^language and level|Sabit^bir kez^dil ve seviye|festen^einmal^Sprache^Niveaus|même catégorie^une fois^langue^niveau|fija^una vez^idioma y nivel|fixa^uma vez^idioma e nível|vaste^één keer^taal^niveau
         Games.Instructions.Clues|one at a time^Fewer^more points|sırayla^Daha az^çok puan|einzeln^Weniger^mehr Punkte|un à un^Moins^plus de points|uno en uno^Menos^más puntos|um a um^Menos^mais pontos|één voor één^Minder^meer punten
-        Games.Instructions.Memory|two cards^Mismatches^until Continue|iki kart^Eşleşmeyenler^Devam|zwei Karten^Fehlpaare^bis Weiter|deux cartes^mauvaises paires^jusqu’à Continuer|dos tarjetas^incorrectos^hasta Continuar|dois cartões^incorretos^até Continuar|twee kaarten^Foute paren^tot Doorgaan
+        Games.Instructions.Memory|two cards^do not match^flip back automatically|iki kart^Eşleşmezse^otomatik kapanır|zwei Karten^nicht passen^automatisch zurück|deux cartes^ne correspondent pas^automatiquement|dos tarjetas^no coinciden^automáticamente|dois cartões^não coincidirem^automaticamente|twee kaarten^niet passen^automatisch terug
         Games.Instructions.Survival|first wrong^ends|İlk yanlış^bitirir|erste falsche^beendet|première erreur^termine|primer error^termina|primeiro erro^termina|eerste foute^beëindigt
         Games.Instructions.Guess|six^Repeated letters^individually|Altı^Tekrarlanan harfler^ayrı|sechs^Doppelte Buchstaben^einzeln|six^lettres répétées^séparément|seis^letras repetidas^por separado|seis^Letras repetidas^separadamente|zes^Herhaalde letters^afzonderlijk
         Games.Instructions.Daily|language/level^fixed^six^Repeated letters|dil/seviye^sabittir^Altı^Tekrarlanan harfler|Sprache und Niveau^festgelegt^Sechs^Doppelte Buchstaben|langue et le niveau^fixe^Six^lettres répétées|idioma y nivel^fija^Seis^letras repetidas|idioma e nível^fixa^Seis^Letras repetidas|taal en niveau^vast^Zes^Herhaalde letters
@@ -114,9 +115,9 @@ internal static class MechanicsContracts
         Games.Instructions.Cody|five^Each correct^retried|beş^Her doğru^tekrar denenebilir|fünf^Jede richtige^wiederholt|cinq^Chaque bonne^retentées|cinco^Cada acierto^reintentar|cinco^Cada acerto^novamente|vijf^Elk goed^opnieuw
         Games.Instructions.Scramble|automatically^three attempts|otomatik^üç deneme|automatisch^drei Versuchen|automatiquement^trois essais|automáticamente^tres intentos|automaticamente^três tentativas|automatisch^drie pogingen
         Games.Instructions.Hangman|six misses^Accented|Altı hata^aksanlı|sechsten Fehler^Akzentbuchstaben|six erreurs^accentuées|seis fallos^acentuadas|seis erros^acentuadas|zes missers^accenten
-        Games.Instructions.Cloze|Type^exact occurrence^inflected-only|yazın^tam eşleşmeler^yalnızca çekimli|Tippen^exakten Vorkommen^gebeugten|Saisissez^occurrence exacte^formes fléchies|Escribe^coincidencias exactas^formas flexionadas|Escreva^ocorrências exatas^formas flexionadas|Typ^exacte voorkomens^verbogen vormen
+        Games.Instructions.Cloze|choose the missing word^four options^inflected form|dört seçenekten^eksik kelimeyi seçin^çekimli bir biçime|fehlende Wort^vier Optionen^gebeugten Form|mot manquant^quatre options^forme fléchie|palabra que falta^cuatro opciones^forma flexionada|palavra em falta^quatro opções^forma flexionada|ontbrekende woord^vier opties^verbogen vorm
         Games.Instructions.Matrix|straight line^no square can be reused|düz bir çizgi^aynı kare tekrar kullanılamaz|geraden Linie^kein Feld darf erneut|ligne droite^aucune case ne peut être réutilisée|línea recta^no puedes repetir casillas|linha reta^não pode repetir casas|rechte lijn^elk vak mag maar één keer
-        Games.Require.Voice|matching^never substitutes|uygun^başka dilde ses kullanılmaz|gewählte Sprache/Region^keine andere Sprache|correspondant^Aucune autre langue|idioma y región^No se usa otro idioma|idioma e região^Não se usa outro idioma|gekozen taal en regio^nooit een andere taal
+        Games.Require.Voice|Windows 11 speech voice^open Help|Windows 11 konuşma sesi^kurulum adımlarını izleyin|Windows-11-Sprachstimme^Hilfe > Sicherungen und Datenschutz|Windows 11^Aide > Sauvegardes et confidentialité|Windows 11^Ayuda > Copias y privacidad|Windows 11^Ajuda > Cópias e privacidade|Windows 11-stem^Help > Back-ups en privacy
         Games.SaveRetry|not saved^retries^discards|kaydedilmedi^tekrar dener^atar|nicht gespeichert^erneut^verworfen|non enregistrée^retente^abandonne|no guardada^reintenta^descarta|não guardada^repete^descarta|niet opgeslagen^opnieuw^wist
         """;
 }

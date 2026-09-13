@@ -21,7 +21,8 @@ var tests = new (string Name, Func<Task> Run)[]
     ("Oversized import is rejected without modifying storage", OversizedImport),
     ("Rejected saves/exports protect existing files", RejectedWrites),
     ("Concurrent saves/loads/exports across storage instances", Concurrency),
-    ("Manual known excludes only unreviewed new vocabulary", Sync(ReviewContractTests.KnownSelection)),
+    ("Cards and Words share known marks without hiding due reviews", Sync(ReviewContractTests.KnownSelection)),
+    ("Words Repeat schedules a due review without self-rating side effects", Sync(ReviewContractTests.ExplicitRepeat)),
     ("Finite missed-card queues survive restart and undo", Sync(ReviewContractTests.FiniteRetries)),
     ("Quiz first responses and explicit retries keep objective accuracy stable", Sync(ReviewContractTests.QuizRetries)),
     ("Recall, quiz, game and unique-word metrics stay separate", Sync(ReviewContractTests.Metrics)),
@@ -29,6 +30,13 @@ var tests = new (string Name, Func<Task> Run)[]
     ("New metric and settings shapes reject invalid bounds", Sync(ReviewContractTests.Validation)),
     ("Persisted language levels migrate and switch transactionally", Sync(ReviewContractTests.LanguageLevels)),
     ("New fields serialize and survive storage restart", ReviewContractTests.StorageRoundtrip),
+    ("Quiz islands cover all 1446 words with stable context-isolated twenty-question boundaries", Sync(QuizExamTests.PoolAndIslands)),
+    ("Quiz resume rejects legacy eight-word prefixes and every incomplete or misaligned island", Sync(QuizExamTests.ExactResumeBoundaries)),
+    ("Quiz islands persist independent four-choice answers and exact cursors across storage reload", QuizExamTests.IndependentIslandsRoundtrip),
+    ("Legacy twenty-word quizzes migrate only on selection without aliases; old eight stays inert", Sync(QuizExamTests.LegacyMigrationOnSelection)),
+    ("Whole-island retries preserve first-attempt accuracy and credit unique reviews", Sync(QuizExamTests.WholeIslandRestart)),
+    ("Corrupt or missing quiz options cannot resume a named or legacy island", Sync(QuizExamTests.CorruptOptionsCannotResume)),
+    ("Invalid quiz indices and cross-context selections reject before mutation", Sync(QuizExamTests.InvalidSelectionIsAtomic)),
 };
 var failures = 0;
 foreach (var (name, run) in tests)
@@ -208,8 +216,18 @@ static void Validation()
     Throws<InvalidDataException>(() => LearningEngine.ValidateProgress(new ProgressState { KnownWords = ["en:A1:\uD800"] }));
     Throws<InvalidDataException>(() => LearningEngine.ValidateProgress(new ProgressState { StudyStreak = 1 }));
     Throws<InvalidDataException>(() => LearningEngine.ValidateSettings(new UserSettings { DailyGoal = 0 }));
+    Throws<InvalidDataException>(() => LearningEngine.ValidateSettings(new UserSettings { TimerSeconds = UserSettings.MinTimerSeconds - 1 }));
+    Throws<InvalidDataException>(() => LearningEngine.ValidateSettings(new UserSettings { TimerSeconds = UserSettings.MaxTimerSeconds + 1 }));
     Throws<InvalidDataException>(() => LearningEngine.ValidateSettings(new UserSettings { FontScale = double.NaN }));
     Throws<InvalidDataException>(() => LearningEngine.ValidateSettings(new UserSettings { BoxColor = "red" }));
+    LearningEngine.ValidateSettings(new UserSettings
+    {
+        QuizChoicePalette = "custom:#1F2937,#F9FAFB;#0F766E,#ECFEFF;#7C2D12,#FFEDD5;#4C1D95,#F3E8FF"
+    });
+    Throws<InvalidDataException>(() => LearningEngine.ValidateSettings(new UserSettings
+    {
+        QuizChoicePalette = "custom:#1F2937,#F9FAFB;#0F766E,#ECFEFF;#7C2D12,#FFEDD5"
+    }));
     var state = Sample(); state.Sessions["bad"] = new StudySessionState();
     Throws<InvalidDataException>(() => LearningEngine.ValidateProgress(state));
 }
@@ -223,18 +241,16 @@ static async Task Serialization()
     await File.WriteAllTextAsync(folder.File("settings.json"), """{"UiLanguage":"tr","StudyLanguage":"en","Level":"A1","CloudConnected":true}""");
     await File.WriteAllTextAsync(folder.File("progress.json"), """{"KnownWords":["en:A1:apple"],"FavoriteWords":[],"GameBestScores":{},"CorrectAnswers":2,"WrongAnswers":1,"StudyStreak":1,"LastStudyDate":"2024-02-28"}""");
     var legacySettings = await storage.LoadSettingsAsync();
-    Check(!legacySettings.CloudConnected); Equal(20, legacySettings.DailyGoal); Check(!legacySettings.ReduceMotion);
+    Equal(20, legacySettings.DailyGoal); Check(!legacySettings.ReduceMotion);
     var legacy = await storage.LoadProgressAsync();
     Equal(1, legacy.KnownWords.Count); Equal(2, legacy.CorrectAnswers); Equal(0, legacy.Reviews.Count); Equal(0, legacy.Sessions.Count);
     Check(storage.RecoveryMessage is null);
     var progress = Sample(); await storage.SaveProgressAsync(progress);
     Equal(Json(progress), Json(await storage.LoadProgressAsync()));
-    var settings = new UserSettings { DailyGoal = 37, ReduceMotion = true, UntimedPractice = true, CloudConnected = true };
+    var settings = new UserSettings { DailyGoal = 37, ReduceMotion = true, UntimedPractice = true };
     await storage.SaveSettingsAsync(settings);
-    Check(settings.CloudConnected); // Storage does not mutate UI-owned objects.
     var loaded = await storage.LoadSettingsAsync();
-    Equal(37, loaded.DailyGoal); Check(loaded.ReduceMotion && loaded.UntimedPractice && !loaded.CloudConnected);
-    Check(!File.Exists(folder.File("cloudprofile.json")));
+    Equal(37, loaded.DailyGoal); Check(loaded.ReduceMotion && loaded.UntimedPractice);
 }
 
 static async Task Recovery()
@@ -313,7 +329,7 @@ static async Task Roundtrip()
     importedProgress.CorrectAnswers = 99; Equal(12, state.CorrectAnswers);
     var legacyFlag = JsonNode.Parse(bytes)!; legacyFlag["Settings"]!["CloudConnected"] = true;
     await File.WriteAllTextAsync(export, legacyFlag.ToJsonString());
-    Check(!(await storage.ImportAsync(export)).Settings.CloudConnected);
+    Equal(settings.DailyGoal, (await storage.ImportAsync(export)).Settings.DailyGoal);
 }
 
 static async Task InvalidImports()

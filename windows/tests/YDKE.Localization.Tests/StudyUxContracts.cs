@@ -24,7 +24,7 @@ internal static class StudyUxContracts
         Test(partials.Any(partial => Compact(partial) == Compact(source)), "audit the current owned partial, not a stale renderer fixture.");
         var cards = Member(source, "RenderCards");
         var quiz = Member(source, "RenderQuiz");
-        var rating = Member(source, "RateCardAsync");
+        var completeCard = Member(source, "NextCardAsync");
         var move = Member(source, "MoveCardAsync");
         var undo = Member(source, "BuildUndoButton");
         var answer = Member(source, "AnswerQuizAsync");
@@ -36,58 +36,99 @@ internal static class StudyUxContracts
         var layout = Member(source, "ConfigureStudyChoices");
         var option = Member(source, "StudyOptionContent");
         var tools = Member(source, "CompactStudyAction");
+        var buttonVisuals = SourceAudit.WithoutComments(File.ReadAllText(Path.Combine(sourceDirectory, "MainPage.xaml.cs")));
+        var studyLabel = Member(source, "StudyLabel");
+        var ratingVisual = Member(source, "RatingVisual");
+        var applyVisual = Member(source, "ApplyStudyChoiceVisual");
         var disclosure = Member(source, "StudyDisclosure");
         var popup = Member(source, "StudyPopupButton");
+        var dialogButton = Member(source, "StudyContentDialogButton");
         var readableAction = Member(source, "ReadableStudyAction");
         var optionButton = Member(source, "StudyOptionButton");
         var wordRow = Member(source, "StudyWordRow");
         var cardHelp = Member(source, "AddCardsHintButton");
-
-        Test(CardsGated(cards), "rating buttons must require reveal and an unrated card, and invoke the selected RecallRating.");
-        var revealed = Block(cards, "if (_cardRevealed || rated)");
+        Test(!cards.Contains("RateCardAsync", StringComparison.Ordinal) && !cards.Contains("cards.Rating", StringComparison.Ordinal) &&
+            !cards.Contains("Kids.Rating.", StringComparison.Ordinal) && !cards.Contains("var ratings", StringComparison.Ordinal),
+            "Cards must not render or invoke the removed self-rating controls.");
+        var revealed = Block(cards, "if (_cardRevealed || completed)");
         Test(Has(revealed, "StudyDetail(T(\"Cards.Meaning\"), LocalizedPart(entry.Definition)") && Has(revealed, "StudyDetail(T(\"Cards.Example\"), entry.Example"),
             "meaning and example must remain visible on already-rated navigation as well as after reveal.");
         Test(Has(revealed, "StudyDetail(T(\"Cards.Meaning\"), LocalizedPart(entry.Definition), 24)") &&
             Has(revealed, "if (!string.IsNullOrWhiteSpace(entry.Example)) content.Children.Add(StudyDetail(T(\"Cards.Example\"), entry.Example, 20))"),
             "the real meaning must use 24-point reading text, followed by the real example at 20 points only when present.");
         Test(Has(cards, "StudyText(entry.Word, 40, emphasis: true, selectable: true)"), "the focused word must be large, full text and selectable.");
-        Test(Has(cards, "var reveal = ReadableStudyAction(AccentButton(U(\"Kids.Cards.Reveal\"") && Has(cards, "if (!_cardRevealed && !rated) content.Children.Add(reveal)"),
-            "reveal must be a primary action before recall, not a permanent redundant toolbar item.");
-        Test(StagedRatings(cards), "rating choices must enter the visual tree only after reveal or when revisiting an already-rated card.");
-        Test(Has(cards, "var next = rated ? ReadableStudyAction(AccentButton(T(\"Cards.Next\")") && Has(cards, "next.IsEnabled = rated"),
-            "Next must be primary on an already-rated card and unavailable otherwise.");
+        Test(Has(cards, "var reveal = ReadableStudyAction(AccentButton(U(\"Kids.Cards.Reveal\"") && Has(cards, "if (!_cardRevealed && !completed) content.Children.Add(reveal)"),
+            "reveal must be a primary action before completion, not a permanent redundant control.");
+        Test(Has(cards, "var next = _cardRevealed || completed ? ReadableStudyAction(AccentButton(T(\"Cards.Next\")") &&
+            Has(cards, "next.IsEnabled = _cardRevealed || completed") && Has(cards, "next.Click += async (_, _) => await NextCardAsync()"),
+            "Next must be the only post-reveal completion action and remain unavailable before reveal.");
+        var cardsSearch = Member(source, "AddCardsSearch");
+        Test(Has(cardsSearch, "new AutoSuggestBox") && Has(cardsSearch, "FocusTarget(search, \"cards.Search\")") &&
+            Has(cardsSearch, "FindCardSearchMatches(entries, query)") && Has(cardsSearch, "search.QuerySubmitted += async") &&
+            Has(cardsSearch, "live.Index = targetIndex") && Has(cardsSearch, "_progress.CardPositions[StudyContext] = live.WordKeys[targetIndex]"),
+            "cards search must provide suggestions and jump to the selected card while persisting position.");
+        var cardsSearchMatching = Member(source, "FindCardSearchMatches");
+        Test(Has(cardsSearchMatching, "LearningEngine.NormalizeAnswer(query, _settings.StudyLanguage)") &&
+            Has(cardsSearchMatching, "FoldForCardSearch") && Has(cardsSearchMatching, "CardSearchTypoBudget") &&
+            Has(cardsSearchMatching, "CardSearchScore"),
+            "cards search must normalize child input and score close spellings for typo tolerance.");
         Test(Has(cards, "previous.IsEnabled = session.Index > 0") && Has(move, "if (delta > 0 && !session.Answers.ContainsKey(session.WordKeys[session.Index])) return"),
-            "previous/next boundary and rating guards must remain in the UI and action.");
-        Test(Has(rating, "if (!_cardRevealed || session is null || session.Index >= session.WordKeys.Count) return") &&
-            Has(rating, "if (session.Answers.ContainsKey(key)) return"), "keyboard/programmatic ratings must retain action-level gates.");
-        Test(Has(rating, "LearningEngine.RecordCardReview(_progress, key, rating, Today)") &&
-            Has(rating, "session.Index = LearningEngine.NextUnansweredIndex(session)") && Has(rating, "keepUndo: true"),
-            "rating must keep real grading, next-unanswered auto-advance and Undo capture.");
-        Test(Has(rating, "session.Answers[key] = rating != RecallRating.Again") &&
-            Has(rating, "_cardUndo = before; _cardUndoContext = StudyContext; _cardRevealed = false;") &&
-            !Regex.IsMatch(WithoutComments(rating), @"WordKeys\.(?:Add|Insert)|StartStudySessionAsync"),
-            "Help me must still record Again as unsuccessful, capture Undo, and never append or restart the queue.");
+            "Previous/Next boundaries must remain guarded in the UI and action.");
+        Test(Has(completeCard, "if (!session.Answers.ContainsKey(key) && !_cardRevealed) return") &&
+            Has(completeCard, "session.Answers[key] = true") && Has(completeCard, "keepUndo: true") &&
+            Has(completeCard, "session.Index = LearningEngine.NextUnansweredIndex(session)"),
+            "Next must save card completion, advance to the next unanswered card and capture Undo.");
         Test(Has(undo, "undo.IsEnabled = _cardUndo is not null && _cardUndoContext == StudyContext") &&
             Has(undo, "if (_cardUndo is not { } snapshot || _cardUndoContext != StudyContext) return") &&
             Has(undo, "MutateStudyAsync(() => _progress = JsonSerializer.Deserialize<ProgressState>(snapshot)!)"),
             "Undo must restore the real context-scoped snapshot through persistence.");
         foreach (var id in new[] { "cards.Reveal", "cards.Listen", "cards.Previous", "cards.Next" })
             Test(Regex.IsMatch(cards, @"FocusTarget\(\w+,\s*""" + Regex.Escape(id) + @"""\)"), "missing focus target " + id);
-        Test(Has(cards, "FocusTarget(button, $\"cards.Rating.{rating}\")") && Has(undo, "FocusTarget(undo, \"cards.Undo\")"), "rating and Undo IDs must remain stable.");
-        foreach (var key in new[] { "Kids.Cards.StepRecall", "Kids.Cards.StepRate", "Kids.Cards.StepRated", "Kids.Rating.AgainHelp", "Kids.Rating.HardHelp", "Kids.Rating.GoodHelp", "Kids.Rating.EasyHelp" })
-            Test(cards.Contains("U(\"" + key + "\",", StringComparison.Ordinal), "missing rendered cue/description " + key);
-        Test(OrderedRatingCopy(cards, "labels", "", new[] { "Help me", "Hard", "I knew it", "Easy!" }),
-            "the four child-friendly labels must map in the exact Again/Hard/Good/Easy order, not change the ratings.");
-        Test(OrderedRatingCopy(cards, "descriptions", "Help", new[] { "Try this one again", "I needed time", "I remembered", "I knew it quickly" }),
-            "short visible helpers must retain the same four recall meanings and order.");
-        Test(Regex.IsMatch(WithoutComments(File.ReadAllText(Path.Combine(sourceDirectory, "Models.cs"))),
-            @"enum\s+RecallRating\s*\{\s*Again\s*,\s*Hard\s*,\s*Good\s*,\s*Easy\s*\}"),
-            "the renderer's indexed labels must match the real RecallRating enum, not a copied grading fixture.");
-        Test(Has(cards, "descriptions[index], palette.BoxBrush, palette.BoxForegroundBrush)") &&
-            Has(cards, "AutomationProperties.SetHelpText(button, descriptions[index])"), "rating explanations must appear visually and in accessibility help.");
+        Test(Has(undo, "FocusTarget(undo, \"cards.Undo\")") && Has(cards, "FocusTarget(next, \"cards.Next\")"), "Next and Undo IDs must remain stable.");
+        foreach (var key in new[] { "Kids.Cards.StepRecall", "Kids.Cards.StepNext", "Kids.Cards.StepRated" })
+            Test(cards.Contains("U(\"" + key + "\",", StringComparison.Ordinal), "missing rendered cue " + key);
+        foreach (var key in new[] { "Kids.Cards.ClickHelp", "Kids.Cards.Shortcuts", "Kids.Cards.UndoHelp" })
+            Test(cardHelp.Contains("U(\"" + key + "\",", StringComparison.Ordinal), "missing Cards help cue " + key);
+        Test(Has(studyLabel, "var background = AppearancePalette.EnsureFillContrast(palette.Box, palette.Border, 4.5)") &&
+            Has(studyLabel, "AppearancePalette.EnsureTextContrast(background, palette.BackgroundForeground)") &&
+            Has(studyLabel, "var preferredBorder = AppearancePalette.EnsureBoundaryContrast(palette.Box, palette.Border)") &&
+            Has(studyLabel, "AppearancePalette.EnsureBoundaryContrast(background, preferredBorder)") &&
+            Has(studyLabel, "StudyText(text, 18") && Has(studyLabel, "ElementHighContrastAdjustment.Auto") &&
+            !Regex.IsMatch(WithoutComments(studyLabel), @"\bOpacity\s*="),
+            "every semantic badge label must use opaque 18-point text, verified contrast and automatic contrast-theme adjustment.");
+        Test(Has(ratingVisual, "AppearancePalette.EnsureTextContrast(background, foreground)") &&
+            Has(ratingVisual, "AppearancePalette.EnsureBoundaryContrast(background, border)") &&
+            Has(applyVisual, "ElementHighContrastAdjustment.Auto"),
+            "semantic rating colors must have runtime text/boundary contrast guards and contrast-theme support.");
+        var ratingColors = Regex.Matches(ratingVisual, @"Color\.FromArgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)")
+            .Select(match => match.Groups.Cast<Group>().Skip(1).Select(group => int.Parse(group.Value, CultureInfo.InvariantCulture)).ToArray()).ToArray();
+        Test(ratingColors.Length == 24, "the four semantic ratings need complete light/dark background, text and border triples.");
+        for (var index = 0; index + 2 < ratingColors.Length; index += 3)
+            Test(ratingColors[index..(index + 3)].All(color => color[0] == 255) &&
+                Contrast(ratingColors[index], ratingColors[index + 1]) >= 4.5 &&
+                Contrast(ratingColors[index], ratingColors[index + 2]) >= 3,
+                $"rating palette {index / 3 + 1} must have opaque 4.5:1 text and 3:1 boundary contrast.");
         Test(!optionButton.Contains("AccentButton(", StringComparison.Ordinal) &&
-            Has(tools, "button.Background = palette.BoxBrush") && Has(tools, "button.Foreground = palette.BoxForegroundBrush"),
+            Has(tools, "var background = AppearancePalette.EnsureFillContrast(palette.Background, palette.Box, 4.5)") &&
+            Has(tools, "var preferredBorder = AppearancePalette.EnsureBoundaryContrast(palette.Background, palette.Border)") &&
+            Has(tools, "ApplyAccessibleButtonVisuals(button, background, palette.BoxForeground, preferredBorder)"),
             "utility/rating/choice controls must not all use primary accent fill.");
+        Test(Has(buttonVisuals, "EnsureTextContrast(background, preferredForeground)") &&
+            Has(buttonVisuals, "EnsureBoundaryContrast(background, preferredBorder)") &&
+            Has(buttonVisuals, "HighContrastAdjustment = ElementHighContrastAdjustment.Auto") &&
+            Has(buttonVisuals, "UseSystemFocusVisuals = true") &&
+            Has(buttonVisuals, "ButtonBackground{state}") && Has(buttonVisuals, "ButtonForeground{state}") &&
+            Has(buttonVisuals, "ButtonBorderBrush{state}"),
+            "all shared buttons must keep readable text, boundaries, focus visuals, high-contrast support and explicit interaction states.");
+        Test(Has(buttonVisuals, "glyph = string.IsNullOrWhiteSpace(glyph) ? ButtonGlyphForText(text) : glyph") &&
+            Has(buttonVisuals, "private static string ButtonGlyphForText(string text)") &&
+            Has(buttonVisuals, "if (button.Content is UIElement content) ApplyButtonIconForeground(content, foregroundBrush)") &&
+            Has(buttonVisuals, "private static void ApplyButtonIconForeground(UIElement element, Brush foreground)") &&
+            Has(buttonVisuals, "value.Contains(\"listen\", StringComparison.Ordinal)") &&
+            Has(buttonVisuals, "return \"\\uE72A\""),
+            "shared buttons must resolve empty glyphs to semantic action icons, including a safe select/action fallback.");
+        Test(Has(buttonVisuals, "Content = ButtonContent(text, \"\\uE72A\")"),
+            "game answer buttons must expose a visible select/action icon alongside their text.");
         Test(Has(Member(source, "StudyMarkButton"), "known ? KnownButton(entry, Refresh) : FavoriteButton(entry, Refresh)"),
             "compact mark controls must retain the real in-place favorite/known actions.");
         Test(Has(cards, "content.Children.Add(StudyWordRow(word, listen))") &&
@@ -97,9 +138,11 @@ internal static class StudyUxContracts
             "Listen must stay next to the word and speak only that word, never a localized meaning or example in the wrong voice.");
         Test(Has(cards, "tools.Children.Add(StudyMarkButton(entry, known: false))") &&
             Has(cards, "tools.Children.Add(StudyMarkButton(entry, known: true))") && Has(cards, "list.Children.Add(tools)") &&
-            Has(cards, "AddCardsHintButton(list, navigation)") && Has(cards, "ConfigureResponsiveGrid(navigation, 5") &&
-            Has(cardHelp, "StudyPopupButton(U(\"Kids.Cards.WordList\", \"My word list\", \"Kelime listem\"), wordList, \"cards.WordList\")"),
-            "Favorite and Known must remain reachable through a fixed popup rather than crowding or lengthening the recall page.");
+            Has(cards, "AddCardsHintButton(entry, list, navigation)") && Has(cards, "ConfigureResponsiveGrid(navigation, 5") &&
+            Has(cardHelp, "sharedMarks.Children.Add(wordList)") && Has(cardHelp, "Kids.Cards.WordListSync") &&
+            Has(cardHelp, "FocusTarget(openWords, \"cards.OpenWords\")") && Has(cardHelp, "NavigateTo(\"words\", WordsItem)") &&
+            Has(cardHelp, "StudyPopupButton(U(\"Kids.Cards.WordList\", \"My word list\", \"Kelime listem\"), sharedMarks, \"cards.WordList\")"),
+            "Favorite and Known must remain compact while explicitly sharing state with, and linking to, the Words page.");
         Test(Has(Member(source, "OnStudyKeyDown"), "RequestUiFocus(\"cards.WordList\")"),
             "the U shortcut must return focus to the visible word-list popup button after rebuilding.");
         Test(Has(Member(source, "StudyMarkButton"), "AutomationProperties.SetName(button, label)") &&
@@ -108,6 +151,10 @@ internal static class StudyUxContracts
 
         Test(Has(quiz, "var answered = session.Answers.TryGetValue(answer.Key, out var correctAnswer)") &&
             Has(quiz, "var selected = options.Answers.Keys.FirstOrDefault()"), "answer state and selection must come from saved session state.");
+        Test(Has(quiz, "AutomationProperties.SetAutomationId(choices, \"quiz.Choices\")") &&
+            Has(quiz, "AutomationProperties.SetName(choices, U(\"Kids.Quiz.ChooseOne\"") &&
+            Has(quiz, "AutomationProperties.SetHelpText(choices, U(\"Kids.Quiz.ChooseOne\""),
+            "answer choices must expose a named, guided choice group.");
         Test(Has(quiz, "var choice = _words.First(word => word.Key == options.WordKeys[index])") && !quiz.Contains("_random", StringComparison.Ordinal),
             "rendering must preserve the stored option order.");
         Test(QuizCues(quiz), "only the correct option gets a check; the incorrect chosen option gets a cross and explicit text.");
@@ -162,8 +209,12 @@ internal static class StudyUxContracts
         Test(Regex.Matches(feedback, @"StudyDetail\(T\(""Cards\.Example""\)").Count == 1,
             "feedback must have one example section, not duplicate selected/correct examples.");
         Test(Has(feedback, "if (!string.IsNullOrWhiteSpace(answer.Example)) details.Children.Add(StudyDetail(T(\"Cards.Example\"), answer.Example, 20, brushes.Foreground))") &&
-            Has(feedback, "StudyPopupButton(U(\"Kids.Quiz.AnswerDetails\", \"Look at the answer\", \"Yanıta bakalım\"), details, \"quiz.AnswerDetails\")"),
-            "an available example must remain readable inside optional popup details; absent examples must not be invented.");
+            Has(feedback, "StudyContentDialogButton(") && Has(feedback, "Kids.Quiz.AnswerDetailsHelp"),
+            "answer details must use a modal, contextual dialog without obscuring the quiz surface.");
+        Test(Has(dialogButton, "new ContentDialog") && Has(dialogButton, "DefaultButton = ContentDialogButton.Close") &&
+            Has(dialogButton, "AutomationProperties.SetAutomationId(dialog, id + \".Dialog\")") &&
+            Has(dialogButton, "RestoreDialogFocus(focus, page, context)"),
+            "Quiz answer details need an explicit closeable dialog with focus restoration.");
         Test(Has(feedback, "StudyLive(status, \"quiz.Feedback\")") && Has(cards, "StudyLive(step, \"cards.Step\")") &&
             Has(Member(source, "StudyLive"), "IsWithin(text, PageContent)") && Has(Member(source, "StudyLive"), "Announce(text, text.Text)"),
             "live study cues must announce only their attached current text.");
@@ -197,16 +248,17 @@ internal static class StudyUxContracts
         Test(Has(surface, "Background = background ?? AppearancePalette.Current.BoxBrush") &&
             Has(text, "Foreground = foreground ?? AppearancePalette.Current.BoxForegroundBrush") && !surface.Contains("ApplyReadableForeground", StringComparison.Ordinal),
             "study surface/text must use a matched palette pair without recursive recoloring.");
-        Test(Has(cards, "ConfigureStudyChoices(ratings, 4, 190)") && Has(quiz, "ConfigureStudyChoices(choices, 2, 230)"),
-            "real rating and quiz grids must use responsive 4/2/1 and 2/1 layouts.");
+        Test(!cards.Contains("ConfigureStudyChoices(ratings", StringComparison.Ordinal) && Has(quiz, "ConfigureStudyChoices(choices, 2, 230)"),
+            "Cards must not retain the removed rating grid; Quiz choices remain responsive.");
         Test(Has(layout, "minimumColumnWidth * Math.Max(1, AppearancePalette.Current.FontScale)") &&
             Has(layout, "? maximumColumns : width >= 2 * minimum + grid.ColumnSpacing ? 2 : 1") &&
             Has(layout, "Height = GridLength.Auto") && Has(layout, "grid.SizeChanged += (_, _) => Reflow()"),
             "reflow must account for text growth without shrinking below the reading floor, balanced columns, automatic row height and live resizing.");
         Test(Has(option, "content.Children.Add(badge)") && Has(option, "number.ToString(CultureInfo.CurrentCulture)") &&
             Has(option, "copy.Children.Add(label)") && Has(option, "StudyText(description, 18, foreground)") &&
-            Has(option, "StudyText(number.ToString(CultureInfo.CurrentCulture), 18, background, emphasis: true)"),
-            "number badges and full descriptions must be rendered at the same 18-point reading floor, never as tiny labels.");
+            Has(option, "StudyText(number.ToString(CultureInfo.CurrentCulture), 18, background, emphasis: true)") &&
+            Has(option, "AccessibilityView.Raw"),
+            "number badges and full descriptions must be visible at 18 points; the decorative duplicate number stays out of the accessibility tree because the parent name and accelerator already announce it.");
         Test(Has(wordRow, "row.Children.Add(word)") && Has(wordRow, "row.Children.Add(listen)") &&
             Has(wordRow, "Grid.SetColumnSpan(word, narrow ? 2 : 1)") && Has(wordRow, "Grid.SetRow(listen, narrow ? 1 : 0)") &&
             Has(wordRow, "Height = GridLength.Auto") && Has(wordRow, "row.SizeChanged += (_, _) => Reflow()") &&
@@ -219,8 +271,11 @@ internal static class StudyUxContracts
         var summary = Member(source, "AddMissedSessionSummary");
         Test(Has(summary, "detailHost.Content = wordDetail") && Has(summary, "StudyPopupButton(missedLabel, details,") &&
             Has(Member(source, "AddCardsHintButton"), "StudyPopupButton("), "missed details and secondary help must use page-sized popups, not permanent walls of text.");
-        Test(Has(summary, "SessionStartButton(mode, restart: true, secondary: missed.Length > 0)") &&
-            Has(summary, "StartStudySessionAsync(mode, missed, isRetry: true)"), "completion must prioritize finite missed practice over starting a fresh session.");
+        Test(Has(summary, "SessionStartButton(restart: true, secondary: missed.Length > 0)") &&
+            Has(summary, "StartCardsSessionAsync(missed, isRetry: true)") &&
+            Has(summary, "if (mode == \"cards\" && missed.Length > 0)") &&
+            Has(summary, "StartQuizExamSessionAsync(exam, restart: true)"),
+            "Cards may retry missed words, but Quiz must restart the entire selected island rather than a short subset.");
         Test(Has(summary, "U(\"Kids.Session.Complete\", \"Great practice!\", \"Güzel çalıştın!\")") &&
             Has(summary, "U(\"Kids.Session.Practiced\", \"You practiced {0} words.\", \"{0} kelime çalıştın.\"), session.Answers.Count") &&
             Has(summary, "StudyPopupButton(U(\"Kids.Session.Details\", \"More details\", \"Daha fazla bilgi\"), result, \"quiz.Results\")") &&
@@ -237,35 +292,77 @@ internal static class StudyUxContracts
             Has(popup, "FocusTarget(button, id)"), "optional study details must use a viewport-bounded, keyboard-focusable popup.");
         Test(!cards.Contains("_settings.Level", StringComparison.Ordinal) && !quiz.Contains("_settings.Level", StringComparison.Ordinal) &&
             Has(Member(source, "AddSessionStart"), "U(\"Kids.Cards.StartHint\"") &&
-            Has(Member(source, "AddSessionStart"), "U(\"Kids.Quiz.StartHint\""),
+            Has(Member(source, "AddSessionStart"), "U(\"Kids.Quiz.ExamIntro\"") &&
+            Has(Member(source, "AddSessionStart"), "AddQuizExamPicker(content)"),
             "study subtitles and start hints must explain the next action rather than repeating CEFR or queue jargon.");
-        var startSession = Member(source, "StartStudySessionAsync");
-        Test(Has(startSession, "DistinctBy(word => word.Key).Take(mode == \"cards\" ? 20 : 8).ToArray()") &&
+        var startSession = Member(source, "StartCardsSessionAsync");
+        Test(Has(startSession, "subset ?? CardsDeckPool()") && Has(startSession, "var entries = queue.ToArray()") &&
+            Has(startSession, "_progress.CardPositions.TryGetValue(StudyContext, out var resumeKey)") &&
             Has(startSession, "LearningEngine.CreateSession(entries.Select(word => word.Key), isRetry)") &&
-            Has(startSession, "DistinctBy(word => word.Word).OrderBy(_ => _random.Next()).Take(3)") &&
-            Has(startSession, "WordKeys = choices"),
-            "shorter start copy must not alter queue length, retry attribution, distractor selection or persisted option order.");
+            !source.Contains("StartStudySessionAsync", StringComparison.Ordinal),
+            "Cards must keep the full level queue and resume position without leaving a generic quick-quiz creation path.");
+        Test(Has(quiz, "var session = SelectedQuizSession()") &&
+            Has(quiz, "!TryGetQuizExamInfo(session, out var selectedExam, out _, out _)") &&
+            Has(quiz, "selectedExam != _quizExamIndex") && Has(quiz, "ResetQuizSelection(); AddSessionStart(\"quiz\"); return;") &&
+            !source.Contains("Session(\"quiz\")", StringComparison.Ordinal),
+            "Quiz must show island selection by default, never resume a legacy global eight-question session.");
+        var openExam = Member(source, "StartQuizExamSessionAsync");
+        Test(Has(openExam, "MutateStudyAsync(() => QuizExamEngine.OpenExam(_progress, pool, examIndex, _random, restart))") &&
+            openExam.IndexOf("MutateStudyAsync", StringComparison.Ordinal) < openExam.IndexOf("_quizExamIndex = examIndex", StringComparison.Ordinal) &&
+            Has(openExam, "_quizExamContext = StudyContext"),
+            "tile selection must commit its exact per-island session before activating questions; failed saves leave the picker intact.");
+        Test(Has(Member(source, "TryGetQuizExamInfo"), "QuizExamEngine.TryGetExamIndex") &&
+            Has(Member(source, "SelectedQuizSession"), "QuizExamEngine.SessionKey(StudyContext, index)") &&
+            Has(Member(source, "QuizOptions"), "QuizExamEngine.OptionsKey(StudyContext, index, questionIndex)") &&
+            Has(answer, "var session = SelectedQuizSession()") && Has(answer, "var options = QuizOptions(session.Index)") &&
+            Has(next, "var session = SelectedQuizSession()"),
+            "question rendering and answer/Continue handlers must all use the selected island's saved state.");
+        var picker = Member(source, "AddQuizExamPicker");
+        Test(Has(picker, "QuizExamEngine.ExamCount(pool.Length)") && Has(picker, "QuizExamEngine.SavedExam(_progress, pool, examIndex)") &&
+            Has(picker, "QuizExamFocusId(examIndex)") && Has(picker, "var capturedIndex = examIndex") &&
+            Has(picker, "StartQuizExamSessionAsync(capturedIndex)") && Has(picker, "Grid.SetRow(button, position / _quizExamColumns)") &&
+            Has(picker, "U(\"Kids.Quiz.ExamPageRange\"") && Has(picker, "SelectPage(pages.SelectedIndex)"),
+            "numbered tiles must expose ranges, saved progress and direct page selection with safe captured indices.");
+        Test(Has(picker, "ApplyStudyChoiceVisual(button, new StudyChoiceVisual(palette.Box, palette.BoxForeground, palette.Border))") &&
+            Has(picker, "StudyText(examLabel, 22, palette.BoxForegroundBrush, emphasis: true)") &&
+            Has(picker, "ConfigureReadingComboBox(pages)"),
+            "islands and their page selector must retain readable contrast, text and touch targets.");
+        var showPicker = Member(source, "ShowQuizExamPicker");
+        Test(Has(showPicker, "ResetQuizSelection()") && !showPicker.Contains("MutateStudyAsync", StringComparison.Ordinal) &&
+            !showPicker.Contains(".Remove(", StringComparison.Ordinal) && Has(summary, "changeExam.Click += (_, _) => ShowQuizExamPicker()") &&
+            Has(Member(source, "AddSessionProgress"), "QuizExamPickerButton(\"quiz.BackToExams\")"),
+            "returning to the islands must be available mid-test and on completion without deleting saved progress.");
+        Test(Has(Member(buttonVisuals, "OnNavigationSelectionChanged"), "ResetQuizSelection()") &&
+            Has(Member(buttonVisuals, "ReloadWordsAsync"), "ResetQuizSelection()") &&
+            Has(Member(buttonVisuals, "OnContentScrollSizeChanged"), "RefreshQuizExamLayout()"),
+            "navigation and language/level reloads must return to selection; resizing must reflow the picker without changing active questions.");
         var progress = Member(source, "AddSessionProgress");
         Test(Has(progress, "Value = session.Answers.Count") && !progress.Contains("session.Index", StringComparison.Ordinal) &&
             cards.Contains("U(\"Cards.Position\",", StringComparison.Ordinal) && quiz.Contains("U(\"Quiz.Position\",", StringComparison.Ordinal),
             "persisted session totals and current position must remain distinct.");
         var keys = Member(source, "OnStudyKeyDown");
-        Test(Has(keys, "VirtualKey.Space && !_cardRevealed") && Has(keys, "number is >= 0 and <= 3 && _cardRevealed") &&
+        Test(Has(keys, "controlDown") && Has(keys, "_currentPage == \"cards\" && controlDown && e.Key == VirtualKey.F") &&
+            Has(keys, "RequestUiFocus(\"cards.Search\", \"cards\")"),
+            "cards must expose a Ctrl+F keyboard shortcut to focus search.");
+        Test(Has(keys, "VirtualKey.Space && !_cardRevealed") && Has(keys, "VirtualKey.Enter && _cardRevealed") &&
             Has(keys, "VirtualKey.Enter && _quizContinue?.IsEnabled == true") && Has(keys, "e.KeyStatus.WasKeyDown"),
             "reviewer shortcuts and explicit quiz continuation must retain repeat/input guards.");
         var settings = Member(source, "ChangeQuickSettingAsync");
-        Test(Has(settings, "_navigationBusy = true; SyncAccountStatus();") &&
-            Has(settings, "finally { _navigationBusy = false; SyncAccountStatus(); }"), "quick-setting account status must synchronize on both busy transitions.");
+        Test(Has(settings, "_navigationBusy = true;") &&
+            Has(settings, "finally { _navigationBusy = false; }"), "quick-setting busy state must synchronize on both transitions.");
 
-        var colors = Regex.Matches(Member(source, "StudyResultBrushes"), @"Color\.FromArgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)")
+        var resultBrushes = Member(source, "StudyResultBrushes");
+        Test(Has(resultBrushes, "AppearancePalette.EnsureTextContrast(background, preferred)"),
+            "quiz result labels must retain a 4.5:1 runtime contrast guard as well as correct/wrong text and symbols.");
+        var colors = Regex.Matches(resultBrushes, @"Color\.FromArgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)")
             .Select(match => match.Groups.Cast<Group>().Skip(1).Select(group => int.Parse(group.Value, CultureInfo.InvariantCulture)).ToArray()).ToArray();
         Test(colors.Length == 8, "review result brush mappings if the four light/dark background/foreground pairs change shape.");
         if (colors.Length == 8)
         {
-            foreach (var pair in new[] { (0, 2), (1, 3), (4, 6), (5, 7) })
+            foreach (var pair in new[] { (0, 4), (1, 5), (2, 6), (3, 7) })
                 Test(colors[pair.Item1][0] == 255 && colors[pair.Item2][0] == 255 && Contrast(colors[pair.Item1], colors[pair.Item2]) >= 7,
                     "actual success/retry text and backgrounds must be opaque with at least 7:1 contrast in both themes.");
-            Test(colors[4][2] > colors[4][3] && colors[5][2] > colors[5][3],
+            Test(colors[2][2] > colors[2][3] && colors[3][2] > colors[3][3],
                 "wrong-selection backgrounds must use the warm retry treatment, not the former pink/red error treatment.");
         }
 
@@ -277,12 +374,6 @@ internal static class StudyUxContracts
             group.Select(call => (call.Groups[2].Value, call.Groups[3].Value)).Distinct().Count() == 1),
             "reused Kids keys must not carry conflicting visible copy in different study states.");
 
-        Test(!CardsGated(cards.Replace("_cardRevealed && !rated", "true", StringComparison.Ordinal)), "rating gate audit must reject an ungated real renderer.");
-        Test(!StagedRatings(cards.Replace("if (_cardRevealed || rated) PageContent.Children.Add(ratings)", "PageContent.Children.Add(ratings)", StringComparison.Ordinal)),
-            "the staged-rating audit must reject attaching all rating controls before reveal.");
-        Test(!OrderedRatingCopy(cards.Replace("\"Kids.Rating.Again\"", "\"Kids.Rating.Good\"", StringComparison.Ordinal),
-            "labels", "", new[] { "Help me", "Hard", "I knew it", "Easy!" }),
-            "the label-mapping audit must reject a child-friendly label routed to the wrong rating.");
         Test(!QuizCues(quiz.Replace("choice.Key == answer.Key", "choice.Key == selected", StringComparison.Ordinal)), "cue audit must reject the original check-on-any-selected defect.");
         Test(!ExplicitContinue(quiz.Replace("_quizContinue.IsEnabled = answered", "_quizContinue.IsEnabled = true", StringComparison.Ordinal), answer, next),
             "Continue audit must reject premature enabling.");

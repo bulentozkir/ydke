@@ -1,48 +1,6 @@
-/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
- * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
- * <https://polyformproject.org/licenses/noncommercial/1.0.0>
- *
- * Any commercial use requires prior written permission from the copyright
- * holders. Written permission from any ONE of bulentozkir@hotmail.com,
- * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
- * is sufficient and binding on all of them.
- *
- * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
- * Ozkir (https://udsp.vercel.app)
- * Full terms: see LICENSE and NOTICE in this repository.
- */
-/*! Compilation notice — read together with the licence above.
- * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
- * translations in this file are the copyright holders' own work and ARE
- * covered by the PolyForm Noncommercial licence above. Copying this list, or
- * any substantial part of it, into a commercial product or service requires
- * prior written permission from one of the addresses above.
- *
- * Some individual definitions and example sentences come from open community
- * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
- * others — see NOTICE). Those items keep THEIR OWN licence and the
- * noncommercial term is not asserted over them.
- */
 
-// Reading Comprehension passages -- German track (CEFR levels A1-C2).
-// All passages and questions below are ORIGINAL content written for this
-// app -- they are NOT copied or adapted from any third-party site.
-// (lingua.com / german.net, both operated by Weblayout s.r.o., were
-// consulted only for structural inspiration -- their Terms & Conditions
-// explicitly prohibit copying, redistributing, or publishing their
-// content: "Digital distribution or dissemination is not permitted.
-// Publication is not permitted." -- so their actual texts were
-// intentionally NOT used as a source here.)
-// Schema: { level, title, text, questions: [ { q, options: [4], correct,
-// hint, explain } ] }. `correct` is the 0-based index into `options` of
-// the right answer. `hint`/`explain` are shown via the Hint/Explain
-// buttons in the game UI. All text (passage, questions, hint, explain) is
-// in German, matching the passage's own language.
-// Used ONLY by the Reading Comprehension game (readingcomprehension.js),
-// selected automatically when currentLang === "de".
 
 window.READING_PASSAGES_DE = [
-  // ===================== A1 =====================
   {
     level: "A1",
     title: "Meine Familie",
@@ -82,7 +40,6 @@ window.READING_PASSAGES_DE = [
     ],
   },
 
-  // ===================== A2 =====================
   {
     level: "A2",
     title: "Einkaufen im Supermarkt",
@@ -124,7 +81,6 @@ window.READING_PASSAGES_DE = [
     ],
   },
 
-  // ===================== B1 =====================
   {
     level: "B1",
     title: "Meine Stadt",
@@ -169,7 +125,6 @@ window.READING_PASSAGES_DE = [
     ],
   },
 
-  // ===================== B2 =====================
   {
     level: "B2",
     title: "Die Digitalisierung der Arbeitswelt",
@@ -219,7 +174,6 @@ window.READING_PASSAGES_DE = [
     ],
   },
 
-  // ===================== C1 =====================
   {
     level: "C1",
     title: "Die Bedeutung der Pressefreiheit",
@@ -274,7 +228,6 @@ window.READING_PASSAGES_DE = [
     ],
   },
 
-  // ===================== C2 =====================
   {
     level: "C2",
     title: "Die Krise der repräsentativen Demokratie",

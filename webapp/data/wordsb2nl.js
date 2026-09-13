@@ -1,10 +1,3 @@
-// Dutch B2 vocabulary (self-authored, CEFR B2).
-// 100% original content -- see wordsa1nl.js for the full authorship note.
-// Definitions & examples shown as English - Turkish. Nouns store their
-// definite article (de/het) as part of `word`, matching wordsa1nl.js.
-// category is a placeholder "General" here -- run
-// scripts/classify_word_categories.py (with these files in TARGET_FILES) to
-// assign real topical domains, matching every other file.
 window.WORDS_NL_B2 = [
   { word: "het milieu", pos: "noun", level: "B2", category: "Nature", definition: "Environment (ecological). - Çevre (ekolojik).", example: "We moeten allemaal iets doen voor het milieu. - Hepimiz çevre için bir şeyler yapmalıyız." },
   { word: "het klimaat", pos: "noun", level: "B2", category: "Nature", definition: "Climate. - İklim.", example: "Het klimaat verandert sneller dan verwacht. - İklim beklenenden daha hızlı değişiyor." },

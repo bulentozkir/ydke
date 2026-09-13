@@ -19,19 +19,19 @@ internal static class GameReadabilityContracts
         ("RenderMemoryRound", ["memory"], [("panel", "U:Games.Memory.Pairs")]),
         ("RenderOddGame", ["oddoneout"], [("panel", "category.Key")]),
         ("RenderTypingChallenge", ["wordrace"], [("panel", "LocalizedPart(entry.Definition)")]),
-        ("RenderClozeGame", ["clozetest"], [("panel", "picked.Mask!")]),
+        ("RenderClozeGame", ["clozetest"], [("panel", "picked.MaskedSentence")]),
         ("RenderSentenceGame", ["sentencescramble"], [("panel", "GameTask(session.Game)")]),
         ("RenderLocalDataGame", ["readingcomprehension", "wordmorph"],
             [("panel", "pages[0]"), ("questionPanel", "question.Prompt"), ("panel", "pair.Word + \" ↔ \" + pair.Related")]),
         ("RenderBingoGame", ["bingo"], [("panel", "LocalizedPart(words[target].Definition)")]),
         ("RenderBossRushRound", ["bossrush"], [("panel", "string.Empty")]),
-        ("RenderCodyCrossRound", ["codycross"], [("rowStack", "LocalizedPart(entries[row].Definition)")]),
+        ("RenderCodyCrossRound", ["codycross"], [("rowStack", "LocalizedPart(entries[capturedRow].Definition)")]),
         ("RenderCrosswordGame", ["crossword"],
             [("panel", "acrossLabel + \": \" + LocalizedPart(crossing.Across.Definition)"),
              ("panel", "downLabel + \": \" + LocalizedPart(crossing.Down.Definition)")]),
         ("RenderWordGuessRound", ["dailychallenge", "wordguess"], [("panel", "U:Games.Guess.Prompt")]),
         ("RenderRackGame", ["scrabble"], [("panel", "GameTask(session.Game)")]),
-        ("RenderCategoryGame", ["categorysprint"], [("panel", "_categoryWords[0].Category")]),
+        ("RenderCategoryGame", ["categorysprint"], [("panel", "$\"{entry.Category}\\n{LocalizedPart(entry.Definition)}\"")]),
         ("RenderClueGame", ["cluedetective"], [("panel", "GameTask(session.Game)")]),
         ("RenderMatrixGame", ["matrix"], [("panel", "LocalizedPart(entry.Definition)")]),
     ];
@@ -74,8 +74,10 @@ internal static class GameReadabilityContracts
             var questions = Calls(body, "AddGameQuestion").ToArray();
             questionCount += questions.Length;
             Test(questions.Length == renderer.Questions.Length, $"{renderer.Method}: question call sites changed; review the real prompts, not just helper presence.");
+            Test(questions.All(call => call.Args.Length is 3 or 4 && !string.Equals(call.Args[2].Trim(), "null", StringComparison.Ordinal)),
+                $"{renderer.Method}: every displayed question must supply current Definition-and-Example details for its bulb.");
             foreach (var expected in renderer.Questions)
-                Test(questions.Any(call => call.Args.Length == 2 && Compact(call.Args[0]) == expected.Panel && MatchesValue(call.Args[1], expected.Value)),
+                Test(questions.Any(call => call.Args.Length >= 2 && Compact(call.Args[0]) == expected.Panel && MatchesValue(call.Args[1], expected.Value)),
                     $"{renderer.Method}: {expected.Panel}/{expected.Value} must be passed to AddGameQuestion.");
             questionArguments.AddRange(questions.SelectMany(q => q.Args.Skip(1)));
 
@@ -100,8 +102,8 @@ internal static class GameReadabilityContracts
         Test(questionCount == 24, "expected 24 real prompt/task call sites, including both crossword clues and both local-data branches.");
 
         var questionBody = Method(source, "AddGameQuestion");
-        Test(Regex.IsMatch(Code(source), @"\bTextBlock\s+AddGameQuestion\s*\(\s*Panel\s+panel\s*,\s*string\s+text\s*\)"),
-            "AddGameQuestion must still return a mutable TextBlock and accept Panel/string.");
+        Test(Regex.IsMatch(Code(source), @"\bTextBlock\s+AddGameQuestion\s*\(\s*Panel\s+panel\s*,\s*string\s+text\s*,\s*Func<GameQuestionExample\?>\?\s+exampleProvider\s*=\s*null\s*,\s*string\?\s+automationSuffix\s*=\s*null\s*\)"),
+            "AddGameQuestion must accept current details plus an optional unique automation suffix.");
         var prompt = NamedInitializer(questionBody, "prompt", "TextBlock");
         var card = NamedInitializer(questionBody, "card", "Border");
         var font = FontValue(prompt, "FontSize");
@@ -119,23 +121,59 @@ internal static class GameReadabilityContracts
         Test(Opaque(questionBody), "question/card/label must have effective local opacity 1.");
         foreach (var fragment in new[]
         {
-            "AutomationProperties.SetAutomationId(prompt, \"game.Question\")", "Live(prompt)",
-            "copy.Children.Add(prompt)", "Child = copy", "panel.Children.Add(card)", "return prompt;",
-            "AutomationProperties.SetAutomationId(card, \"game.QuestionCard\")",
+            "AutomationProperties.SetAutomationId(prompt, questionId)", "Live(prompt)",
+            "questionRow.Children.Add(prompt)", "copy.Children.Add(questionRow)", "Child = copy", "panel.Children.Add(card)", "return prompt;",
+            "AutomationProperties.SetAutomationId(card, cardId)", "AutomationProperties.SetAutomationId(exampleButton, exampleId)",
+            "Games.Example.Help", "Help me with word definition and example",
+            "AutomationProperties.SetName(exampleButton, helpDetails)", "AutomationProperties.SetHelpText(exampleButton, helpDetails)",
+            "ToolTipService.SetToolTip(exampleButton, helpDetails)", "MinWidth = 48", "MinHeight = 48",
+            "Font(22)", "HighContrastAdjustment = ElementHighContrastAdjustment.Auto",
+            "ShowGameQuestionExampleAsync(exampleButton, exampleProvider, exampleId)",
         }) Has(questionBody, fragment, "missing question attachment/live-reference contract: " + fragment);
+        foreach (var fragment in new[] { "game.Question.{automationSuffix}", "game.QuestionExample.{automationSuffix}", "game.QuestionCard.{automationSuffix}" })
+            Has(questionBody, fragment, "secondary question IDs must remain unique: " + fragment);
+        var wordExample = Method(source, "WordExample");
+        Has(wordExample, "Games.Example.Word", "every vocabulary detail must name the word before its definition.");
+        Has(wordExample, "LocalizedPart(entry.Definition)", "word details must show the related definition.");
+        Has(wordExample, "LocalizedPart(entry.Example)", "word details must show the related example.");
+        var exampleDialog = Method(source, "ShowGameQuestionExampleAsync");
+        foreach (var fragment in new[]
+        {
+            "var details = exampleProvider()", "new ContentDialog", "GameQuestionExampleContent(definition, example, exampleId)",
+            "AutomationProperties.SetAutomationId(dialog, exampleId + \".Dialog\")", "ConfigureReadingDialog(dialog)",
+            "DefaultButton = ContentDialogButton.Close", "RestoreDialogFocus(source, page, context)",
+        }) Has(exampleDialog, fragment, "missing accessible definition/example dialog contract: " + fragment);
+        var exampleContent = Method(source, "GameQuestionExampleContent");
+        foreach (var fragment in new[]
+        {
+            "exampleId + \".Definition\"", "exampleId + \".Example\"", "exampleId + \".Page\"",
+            "exampleId + \".Previous\"", "exampleId + \".Next\"", "GameQuestionExamplePages(definition, pageLength)",
+            "GameQuestionExamplePages(example, pageLength)", "return new StackPanel",
+        }) Has(exampleContent, fragment, "missing paged definition/example content contract: " + fragment);
+        Test(!Regex.IsMatch(Code(exampleDialog + exampleContent), @"\b(?:Flyout|ScrollViewer|Viewbox|MaxHeight|MaxLines|Clip)\b"),
+            "definition/example details must use a native dialog with explicit pages, never a flyout, scroll region, scaling or clipping.");
+        Has(bodies["RenderMemoryRound"], "detailEntry = tile.Entry", "Memory details must follow the most recently opened card rather than a fixed first word.");
+        Has(bodies["RenderLocalDataGame"], "Games.Example.NoTargetWord", "Reading details must state honestly that no single vocabulary word is being tested.");
+        Has(bodies["RenderCrosswordGame"], "WordExample(crossing.Down), \"Down\")", "Crossword Down must have a unique question/bulb ID.");
+        Has(bodies["RenderLocalDataGame"], "new GameQuestionExample(question.Prompt, question.Explanation), \"Answer\")", "reading's hidden answer question must have related details and a unique ID.");
+        Has(bodies["RenderCategoryGame"], "WordExample(entry)", "Category Sprint's bulb must show the current tested word's definition and example.");
+        Has(bodies["RenderCategoryGame"], "_gameHintProvider = () => WordHint(entry, entry.Category)", "Category Sprint hint must use the current category and tested entry.");
+        foreach (var fragment in new[] { "DefinitionFor(pair.Word)", "DefinitionFor(pair.Related)", "ExampleFor(pair.Word)", "ExampleFor(pair.Related)" })
+            Has(bodies["RenderLocalDataGame"], fragment, "Word Morph must explain both displayed words: " + fragment);
 
         var foreground = ColorValue(prompt, "Foreground");
         var background = ColorValue(card, "Background");
         Test(foreground == (255, 15, 23, 42) && background == (255, 248, 250, 252), "question must use the actual opaque ink/paper brushes.");
         var contrast = Contrast(foreground, background);
         Test(foreground.A == 255 && background.A == 255 && contrast >= 7, $"production question contrast {contrast:F2}:1 must be >= 7:1, with no translucent brush.");
-        var labels = Initializers(questionBody, "TextBlock").Where(block => Property(block, "Text").StartsWith("U(", StringComparison.Ordinal)).ToArray();
-        Test(labels.Length == 1 && MatchesValue(Property(labels[0], "Text"), "U:Games.Question"), "question card must actually render its localized Question label.");
-        if (labels.Length == 1)
-        {
-            var ink = ColorValue(labels[0], "Foreground");
-            Test(ink.A == 255 && Contrast(ink, background) >= 7, "the production Question label also needs >= 7:1 contrast.");
-        }
+        Has(questionBody, "copy.Children.Add(StudyLabel(U(\"Games.Question\", \"Question\", \"Soru\")))",
+            "question cards must render their localized semantic label through the shared accessible label helper.");
+        var studySource = SourceAudit.WithoutComments(File.ReadAllText(Path.Combine(sourceDirectory, "MainPage.Study.cs")));
+        foreach (var fragment in new[] { "StudyText(text, 18", "AutomationHeadingLevel.Level3", "AutomationProperties.SetName(heading, text)",
+            "EnsureTextContrast", "EnsureBoundaryContrast", "ElementHighContrastAdjustment.Auto" })
+            Has(studySource, fragment, "game/study label accessibility contract: " + fragment);
+        Test(!Regex.IsMatch(studySource, @"StudyLabel[\s\S]*?\bOpacity\s*=|\bOpacity\s*=\s*0\.[0-9]+"),
+            "game definition/example/question labels must remain fully opaque.");
 
         var scene = Method(source, "AddGameScene");
         var contentCard = NamedInitializer(scene, "contentCard", "Border");
@@ -161,14 +199,18 @@ internal static class GameReadabilityContracts
         Test(FontValue(caption, "FontSize") >= 18 && Opaque(caption) && captionInk.A == 255 &&
             captionInk.R >= 240 && captionInk.G >= 240 && captionInk.B >= 240 && Contrast(captionInk, contentInk) >= 7,
             "GameCaption must have child-readable type, opaque near-white, with >= 7:1 contrast on the dark content card.");
+        foreach (var member in new[] { "GameFeedbackText", "AnimatePulse" })
+            Has(Method(source, member), "AppearancePalette.EnsureTextContrast", member + " must enforce readable semantic colors at runtime.");
+        Has(Method(source, "WordGuessRow"), "AppearancePalette.EnsureTextContrast", "letter-state tiles must pair color with symbols/text and verified contrast.");
         Has(source, "private static double ReadingSize(double size) => Math.Max(18, Font(size))", "child text must never shrink below 18 logical pixels.");
         Has(scene, "if (interactiveBoard)", "interactive game boards need an unscaled branch.");
         Has(scene, "visualHost.Children.Add(visual!)", "interactive board must not be placed in a Viewbox.");
-        Has(scene, "game.Id is \"matrix\" or \"wordguess\" or \"dailychallenge\"", "Matrix and guessed-letter boards must reserve unscaled space.");
+        Has(scene, "game.Id is \"matrix\" or \"wordguess\" or \"dailychallenge\" or \"crossword\"", "Matrix, crossword and guessed-letter boards must reserve unscaled space.");
+        Has(bodies["RenderWordGuessRound"], "var panel = GameSceneContent(); panel.Spacing = 5", "word-guess controls must fit the compact fixed viewport without scrolling.");
         Has(scene, "else if (visual is StackPanel) visualHost.Children.Add(visual)", "boss/bonus captions must not be scaled with decorative artwork.");
         Has(source, "Text = guess[index] + \"\\n\"", "guessed letters and position marks need separate readable lines.");
         Has(bodies["RenderCodyCrossRound"], "ConfigureResponsiveGrid(bonusRow, 5, 38)", "bonus letters must reflow rather than shrink.");
-        Has(bodies["RenderCodyCrossRound"], "FontSize = ReadingSize(20)", "CodyCross input must honor the reading floor.");
+        Has(bodies["RenderCodyCrossRound"], "GameChoices(rowStack, session, rowChoices, async (index, submit) => await SubmitRowAsync(capturedRow, rowChoices[index], cellsGrid, submit))", "CodyCross must resolve each active clue from explicit options, not typing.");
         Has(bodies["RenderCrosswordGame"], "AddGameScene(session.Game, panel, board)", "crossword letters must not pass through a scaling wrapper.");
         Has(bodies["RenderCrosswordGame"], "Math.Max(34, ReadingSize(18) * 1.4 + 4)", "crossword cells must grow with readable text.");
         Has(bodies["RenderMatrixGame"], "var visual = board; board.Width = 308", "Matrix needs room for 48px touch targets.");
@@ -188,14 +230,14 @@ internal static class GameReadabilityContracts
             Test(!Regex.IsMatch(File.ReadAllText(Path.Combine(sourceDirectory, file)), @"<(?:\w+:)?Viewbox\b"), $"{file}: no outer Viewbox may scale game questions.");
 
         // These are real live TextBlock references, not merely a matching helper definition.
-        Has(bodies["RenderBingoGame"], "var clue = AddGameQuestion(panel, LocalizedPart(words[target].Definition))", "Bingo must retain the displayed question reference.");
+        Has(bodies["RenderBingoGame"], "var clue = AddGameQuestion(panel, LocalizedPart(words[target].Definition), () => WordExample(words[target]))", "Bingo must retain the displayed question reference.");
         Has(bodies["RenderBingoGame"], "target = remaining[_random.Next(remaining.Length)]; Announce(clue, LocalizedPart(words[target].Definition))", "Bingo must announce the new target through that reference.");
-        Has(bodies["RenderClueGame"], "var caption = AddGameQuestion(panel, GameTask(session.Game))", "Clue Detective must retain the displayed question reference.");
+        Has(bodies["RenderClueGame"], "var caption = AddGameQuestion(panel, GameTask(session.Game), () => WordExample(entry))", "Clue Detective must retain the displayed question reference.");
         Has(bodies["RenderClueGame"], "Announce(caption, string.Join(\" · \", clues.Take(revealed)))", "Clue Detective must update the same question when a clue is revealed.");
-        Has(bodies["RenderBossRushRound"], "var word = AddGameQuestion(panel, string.Empty)", "Boss Rush must retain the displayed question reference.");
+        Has(bodies["RenderBossRushRound"], "var word = AddGameQuestion(panel, string.Empty, () => correctEntry is { } current ? WordExample(current) : null)", "Boss Rush must retain the displayed question reference.");
         Has(Method(bodies["RenderBossRushRound"], "NextQuestion"), "word.Text = correctEntry.Word", "Boss Rush NextQuestion must update that TextBlock.");
         var codyRows = Method(bodies["RenderCodyCrossRound"], "RenderAllRows");
-        foreach (var fragment in new[] { "rowsPanel.Children.Clear()", "if (row != activeRow) continue", "AddGameQuestion(rowStack, LocalizedPart(entries[row].Definition))", "rowsPanel.Children.Add(rowStack)", "var capturedRow = row", "SubmitRowAsync(capturedRow, input, cellsGrid, submit)" })
+        foreach (var fragment in new[] { "rowsPanel.Children.Clear()", "if (row != activeRow) continue", "var capturedRow = row", "AddGameQuestion(rowStack, LocalizedPart(entries[capturedRow].Definition), () => WordExample(entries[capturedRow]))", "rowsPanel.Children.Add(rowStack)", "SubmitRowAsync(capturedRow, rowChoices[index], cellsGrid, submit)" })
             Has(codyRows, fragment, "CodyCross live row/capture contract missing: " + fragment);
         Has(bodies["RenderCodyCrossRound"], "var bonusRow = new Grid { ColumnSpacing = 4, RowSpacing = 4", "CodyCross bonus letters must stay in one compact row.");
         Has(Method(bodies["RenderCodyCrossRound"], "SubmitRowAsync"), "RenderAllRows()", "CodyCross must rebuild questions after advancing the active row.");
@@ -228,7 +270,7 @@ internal static class GameReadabilityContracts
     private static bool MatchesValue(string actual, string expected) => expected.StartsWith("U:", StringComparison.Ordinal)
         ? Calls(actual, "U").Any(c => c.Start == 0 && c.Args.Length == 3 && c.Args[0] == "\"" + expected[2..] + "\"")
         : Compact(actual) == Compact(expected);
-    private static bool Unclipped(string body) => !Regex.IsMatch(Code(body), @"\b(?:Width|Height|MaxHeight|MaxLines|Clip|RenderTransform|LayoutTransform|Visibility)\s*=");
+    private static bool Unclipped(string body) => !Regex.IsMatch(Code(body), @"\b(?:Width|Height|MaxHeight|MaxLines|Clip|RenderTransform|LayoutTransform|Visibility)\s*=(?!\s*GridLength\.Auto\b)");
     private static bool Opaque(string body) => Regex.Matches(body, @"\bOpacity\s*=\s*(?<value>[^,;}]+)")
         .All(m => double.TryParse(m.Groups["value"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out var opacity) && opacity == 1);
     private static double FontValue(string body, string property)
@@ -283,7 +325,7 @@ internal static class GameReadabilityContracts
     private static string Method(string source, string name)
     {
         var code = Code(source);
-        var matches = Regex.Matches(code, @"\b(?:void|Grid|TextBlock|StackPanel|Task(?:<[^>]+>)?)\s+" + Regex.Escape(name) + @"\s*\([^{};]*?\)\s*(?:=>|\{)");
+        var matches = Regex.Matches(code, @"\b(?:void|Border|GameQuestionExample|Grid|TextBlock|StackPanel|UIElement|Task(?:<[^>]+>)?)\s+" + Regex.Escape(name) + @"\s*\([^{};]*?\)\s*(?:=>|\{)");
         if (matches.Count != 1) throw new InvalidOperationException($"Expected one real {name} method, found {matches.Count}.");
         var start = matches[0].Index + matches[0].Length;
         return code[start - 1] == '{' ? source[start..Close(code, start - 1)] : source[start..code.IndexOf(';', start)];

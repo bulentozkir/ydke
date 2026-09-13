@@ -40,9 +40,9 @@ on other platforms; the target environment for this issue is Windows.
    local state, or an existing pending journal, including during corruption.
 2. `ApplyImportAsync(settings, progress)` synchronously validates and snapshots
    **both** targets before its first await or filesystem operation. Legacy settings
-   are normalized in the snapshot (`CloudConnected = false`; the selected level
-   is authoritative), never by mutating caller-owned models. Invalid arguments or
-   an oversized encoded envelope cause no writes, even when recovery is pending.
+   keep compatibility defaults (the selected level is authoritative), never by
+   mutating caller-owned models. Invalid arguments or an oversized encoded
+   envelope cause no writes, even when recovery is pending.
 3. The canonical transaction record is named **import.pending.json** in
    `FolderPath`. Its content is the **complete `YDKE.Backup` v1 envelope**, with
    both validated target settings and progress embedded. It never references the
@@ -56,9 +56,9 @@ on other platforms; the target environment for this issue is Windows.
    before its atomic rename. The journal is deleted **only after both complete**.
    Public save/load methods are never called recursively while holding `IoGate`.
 6. Every state load and every normal write first checks/replays a pending journal
-   under the gate. This includes settings, progress, legacy local cloud-profile
-   saves, exports, and a subsequent apply request. Recovery revalidates **both**
-   journal targets before inspecting or writing any state or backup.
+   under the gate. This includes settings, progress, exports, and a subsequent
+   apply request. Recovery revalidates **both** journal targets before inspecting
+   or writing any state or backup.
 7. Recovery always **rolls forward**. An already-matching target is skipped so
    retries do not rotate imported bytes over pre-import backups. Interrupted
    backup rotations deduplicate replay sources to retain the three recent valid

@@ -62,7 +62,11 @@ internal static class GameEngine
 
     public static (int Maximum, int Value, bool Visible) Progress(GameSession session, string mode)
     {
-        if (mode == "timed") return (TimedSeconds, TimedSeconds - Math.Clamp(session.SecondsRemaining, 0, TimedSeconds), true);
+        if (mode == "timed")
+        {
+            var maximum = session.TimedLimitSeconds > 0 ? session.TimedLimitSeconds : TimedSeconds;
+            return (maximum, maximum - Math.Clamp(session.SecondsRemaining, 0, maximum), true);
+        }
         return RoundLimit(session, mode) is { } rounds
             ? (rounds, Math.Clamp(session.Round - 1, 0, rounds), true) : (1, 0, false);
     }

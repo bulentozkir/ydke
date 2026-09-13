@@ -1,41 +1,6 @@
-/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
- * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
- * <https://polyformproject.org/licenses/noncommercial/1.0.0>
- *
- * Any commercial use requires prior written permission from the copyright
- * holders. Written permission from any ONE of bulentozkir@hotmail.com,
- * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
- * is sufficient and binding on all of them.
- *
- * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
- * Ozkir (https://udsp.vercel.app)
- * Full terms: see LICENSE and NOTICE in this repository.
- */
-/*! Compilation notice — read together with the licence above.
- * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
- * translations in this file are the copyright holders' own work and ARE
- * covered by the PolyForm Noncommercial licence above. Copying this list, or
- * any substantial part of it, into a commercial product or service requires
- * prior written permission from one of the addresses above.
- *
- * Some individual definitions and example sentences come from open community
- * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
- * others — see NOTICE). Those items keep THEIR OWN licence and the
- * noncommercial term is not asserted over them.
- */
 
-// Reading Comprehension passages (Grades 1-12).
-// All passages and questions below are ORIGINAL content written for this
-// app -- they are NOT copied or adapted from any third-party worksheet
-// site. (englishforeveryone.org/ReadTheory's Terms of Use explicitly
-// prohibit automated copying/redistribution of their materials, so their
-// passages were intentionally NOT used as a source here.)
-// Schema: { grade, title, text, questions: [ { q, options: [4], correct } ] }
-// `correct` is the 0-based index into `options` of the right answer.
-// Used ONLY by the Reading Comprehension game (readingcomprehension.js).
 
 window.READING_PASSAGES = [
-  // ===================== GRADE 1 =====================
   {
     grade: 1,
     title: "Tom the Cat",
@@ -65,7 +30,6 @@ window.READING_PASSAGES = [
     ],
   },
 
-  // ===================== GRADE 2 =====================
   {
     grade: 2,
     title: "The Lost Ball",
@@ -98,7 +62,6 @@ window.READING_PASSAGES = [
     ],
   },
 
-  // ===================== GRADE 3 =====================
   {
     grade: 3,
     title: "The New Student",
@@ -132,7 +95,6 @@ window.READING_PASSAGES = [
     ],
   },
 
-  // ===================== GRADE 4 =====================
   {
     grade: 4,
     title: "The Secret Fort",
@@ -169,7 +131,6 @@ window.READING_PASSAGES = [
     ],
   },
 
-  // ===================== GRADE 5 =====================
   {
     grade: 5,
     title: "A Trip to the Museum",
@@ -208,7 +169,6 @@ window.READING_PASSAGES = [
     ],
   },
 
-  // ===================== GRADE 6 =====================
   {
     grade: 6,
     title: "The Long Race",
@@ -248,7 +208,6 @@ window.READING_PASSAGES = [
     ],
   },
 
-  // ===================== GRADE 7 =====================
   {
     grade: 7,
     title: "Ancient Egypt",
@@ -289,7 +248,6 @@ window.READING_PASSAGES = [
     ],
   },
 
-  // ===================== GRADE 8 =====================
   {
     grade: 8,
     title: "Photosynthesis: How Plants Make Food",
@@ -333,7 +291,6 @@ window.READING_PASSAGES = [
     ],
   },
 
-  // ===================== GRADE 9 =====================
   {
     grade: 9,
     title: "The Renaissance: A Time of Rebirth",
@@ -380,7 +337,6 @@ window.READING_PASSAGES = [
     ],
   },
 
-  // ===================== GRADE 10 =====================
   {
     grade: 10,
     title: "Climate Change and Its Effects",
@@ -430,7 +386,6 @@ window.READING_PASSAGES = [
     ],
   },
 
-  // ===================== GRADE 11 =====================
   {
     grade: 11,
     title: "The Rise and Fall of Ancient Rome",
@@ -485,7 +440,6 @@ window.READING_PASSAGES = [
     ],
   },
 
-  // ===================== GRADE 12 =====================
   {
     grade: 12,
     title: "The Philosophy of Utilitarianism",

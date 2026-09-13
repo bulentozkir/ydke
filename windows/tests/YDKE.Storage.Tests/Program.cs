@@ -45,7 +45,7 @@ internal static class Program
                     () => CrashBoundary(checkpoint, firstLoad)));
             tests.Add(($"Repeated recovery interrupted at {checkpoint} preserves history", () => RepeatedRecovery(checkpoint)));
         }
-        foreach (var write in new[] { "settings", "progress", "cloudprofile", "export", "apply" })
+        foreach (var write in new[] { "settings", "progress", "export", "apply" })
             tests.Add(($"Pending import recovers then rejects stale {write}, including retries", () => StaleWrite(write)));
 
         var failures = 0;
@@ -133,9 +133,7 @@ internal static class Program
         Json(new { Format = "YDKE.Backup", Version = AppStorage.ExportVersion, Settings = settings ?? Settings(), Progress = progress ?? Progress() });
     private static UserSettings Normalized(UserSettings settings)
     {
-        var copy = JsonSerializer.Deserialize<UserSettings>(Json(settings))!;
-        copy.CloudConnected = false;
-        return copy;
+        return JsonSerializer.Deserialize<UserSettings>(Json(settings))!;
     }
 
     private static void Check(bool condition, string message = "Assertion failed")
@@ -220,6 +218,7 @@ internal static class Program
         var path = folder.File("empty") + System.IO.Path.DirectorySeparatorChar;
         var storage = new AppStorage(path);
         Equal(System.IO.Path.TrimEndingDirectorySeparator(System.IO.Path.GetFullPath(path)), storage.FolderPath);
+        Equal(UserSettings.DefaultUiLanguage, (await storage.LoadSettingsAsync()).UiLanguage);
         Equal(20, (await storage.LoadSettingsAsync()).DailyGoal);
         Equal(0, (await storage.LoadProgressAsync()).CorrectAnswers);
         await storage.LoadStateAsync();
@@ -233,7 +232,6 @@ internal static class Program
         using var folder = new TestFolder();
         var storage = await Seed(folder);
         var settings = Settings();
-        settings.CloudConnected = true;
         settings.LastStudyLevels["fr"] = "A1"; // Current Level wins, without mutating the caller.
         var progress = Progress();
         var settingsBefore = Json(settings);
@@ -245,7 +243,6 @@ internal static class Program
         AssertBackups(folder);
         Check(!storage.HasPendingImport && !storage.RequiresReload);
         Check(!File.Exists(folder.File(Journal)));
-        Check(!File.Exists(folder.File("cloudprofile.json")));
         var before = Snapshot(folder);
         AssertPair(await new AppStorage(folder.Path).LoadStateAsync(), settings, progress);
         Unchanged(before, folder);
@@ -476,9 +473,6 @@ internal static class Program
         yield return () => storage.LoadStateAsync();
         yield return () => storage.SaveSettingsAsync(Settings(15));
         yield return () => storage.SaveProgressAsync(Progress(15));
-#pragma warning disable CS0618 // Explicit legacy compatibility/safety regression.
-        yield return () => storage.SaveCloudProfileAsync(Progress(15));
-#pragma warning restore CS0618
         yield return () => storage.ExportAsync(folder.File("unrelated-output.json"), Settings(15), Progress(15));
         yield return () => storage.ApplyImportAsync(Settings(15), Progress(15));
     }
@@ -652,7 +646,7 @@ internal static class Program
         var storage = await Seed(folder);
         File.WriteAllText(folder.File(Journal + ".tmp-evidence"), "preserve evidence");
         var before = Snapshot(folder);
-        foreach (var reserved in new[] { "settings.json", "progress.json", "cloudprofile.json", Journal })
+        foreach (var reserved in new[] { "settings.json", "progress.json", Journal })
         {
             foreach (var suffix in new[] { "", ".bak1", ".bak3", ".tmp-evidence", ".corrupt-evidence", ".bak1.tmp-evidence", ":stream", ".", " " })
             {
@@ -699,9 +693,6 @@ internal static class Program
         {
             "settings" => storage.SaveSettingsAsync(Settings(555)),
             "progress" => storage.SaveProgressAsync(Progress(555)),
-#pragma warning disable CS0618
-            "cloudprofile" => storage.SaveCloudProfileAsync(Progress(555)),
-#pragma warning restore CS0618
             "export" => storage.ExportAsync(folder.File("stale-output.json"), Settings(555), Progress(555)),
             "apply" => storage.ApplyImportAsync(Settings(555), Progress(555)),
             _ => throw new InvalidOperationException(kind),
@@ -711,7 +702,7 @@ internal static class Program
         Check(error.Message.Contains("NOT performed", StringComparison.Ordinal));
         AssertDiskPair(folder);
         AssertBackups(folder);
-        Check(!File.Exists(folder.File("stale-output.json")) && !File.Exists(folder.File("cloudprofile.json")));
+        Check(!File.Exists(folder.File("stale-output.json")));
         Check(!storage.HasPendingImport && storage.RequiresReload);
         var before = Snapshot(folder);
         await Throws<ImportReloadRequiredException>(Write);
@@ -812,7 +803,6 @@ internal static class Program
         File.WriteAllText(folder.File("progress.json"), progressJson);
         var before = Snapshot(folder);
         var pair = await storage.LoadStateAsync();
-        Check(!pair.Settings.CloudConnected);
         Equal("B1", pair.Settings.LastStudyLevels["en"]);
         Equal(20, pair.Settings.DailyGoal);
         Equal(0, pair.Progress.RecallRatings.Count);

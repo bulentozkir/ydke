@@ -101,6 +101,30 @@ internal sealed class AppearancePalette
         return (lighter + 0.05) / (darker + 0.05);
     }
 
+    public static Color EnsureTextContrast(Color background, Color preferred) =>
+        ContrastRatio(background, preferred) >= 4.5 ? preferred : BestForeground(background);
+
+    public static Color EnsureBoundaryContrast(Color background, Color preferred) =>
+        ContrastRatio(background, preferred) >= 3 ? preferred : ContrastingBorder(background, BestForeground(background));
+
+    public static Color EnsureFillContrast(Color surrounding, Color preferred, double minimumContrast = 3)
+    {
+        minimumContrast = Math.Max(1, minimumContrast);
+        if (ContrastRatio(surrounding, preferred) >= minimumContrast) return preferred;
+
+        var toward = BestForeground(surrounding);
+        for (var amount = 0.14; amount <= 0.92; amount += 0.08)
+        {
+            var candidate = Mix(preferred, toward, amount);
+            if (ContrastRatio(surrounding, candidate) >= minimumContrast) return candidate;
+        }
+
+        return ContrastRatio(surrounding, Microsoft.UI.Colors.White) >=
+            ContrastRatio(surrounding, Microsoft.UI.Colors.Black)
+            ? Microsoft.UI.Colors.White
+            : Microsoft.UI.Colors.Black;
+    }
+
     private static AppearancePalette From(UserSettings settings) => new(
         Parse(settings.AppBackgroundColor, DefaultBackground),
         Parse(settings.ButtonColor, DefaultButton),

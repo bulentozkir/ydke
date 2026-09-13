@@ -119,6 +119,20 @@ Test-Case 'MSI-only builds republish and commit version history after packaging 
     Assert-Version 'yes' $wxs.Wix.Package.MajorUpgrade.AllowSameVersionUpgrades
 }
 
+Test-Case 'Windows package keeps the Windows 10 1809 compatibility floor' {
+    $project = Get-Content -LiteralPath (Join-Path $PSScriptRoot '..\src\YDKE.Windows\YDKE.Windows.csproj') -Raw
+    $manifest = Get-Content -LiteralPath (Join-Path $packaging 'AppxManifest.xml') -Raw
+    if ($project -notmatch '<TargetPlatformMinVersion>10\.0\.17763\.0</TargetPlatformMinVersion>') {
+        throw 'Native project minimum OS changed from Windows 10 version 1809.'
+    }
+    if ($manifest -notmatch 'TargetDeviceFamily Name="Windows\.Desktop" MinVersion="10\.0\.17763\.0"') {
+        throw 'Release MSIX minimum OS changed from Windows 10 version 1809.'
+    }
+    if ($manifest -notmatch 'MaxVersionTested="10\.0\.26100\.0"') {
+        throw 'Release MSIX Windows 11 tested version changed unexpectedly.'
+    }
+}
+
 Write-Output "RESULT VERSION passed=$script:passed failed=$script:failed"
 if ($script:failed -gt 0) { exit 1 }
 exit 0

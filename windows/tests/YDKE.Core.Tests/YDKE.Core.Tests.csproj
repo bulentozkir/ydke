@@ -9,6 +9,7 @@
   <ItemGroup>
     <Compile Include="../../src/YDKE.Windows/Models.cs" Link="Core/Models.cs" />
     <Compile Include="../../src/YDKE.Windows/LearningEngine.cs" Link="Core/LearningEngine.cs" />
+    <Compile Include="../../src/YDKE.Windows/QuizExamEngine.cs" Link="Core/QuizExamEngine.cs" />
     <Compile Include="../../src/YDKE.Windows/AppStorage.cs" Link="Core/AppStorage.cs" />
   </ItemGroup>
 </Project>

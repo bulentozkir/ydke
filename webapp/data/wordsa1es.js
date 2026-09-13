@@ -1,44 +1,4 @@
-/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
- * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
- * <https://polyformproject.org/licenses/noncommercial/1.0.0>
- *
- * Any commercial use requires prior written permission from the copyright
- * holders. Written permission from any ONE of bulentozkir@hotmail.com,
- * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
- * is sufficient and binding on all of them.
- *
- * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
- * Ozkir (https://udsp.vercel.app)
- * Full terms: see LICENSE and NOTICE in this repository.
- */
-/*! Compilation notice — read together with the licence above.
- * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
- * translations in this file are the copyright holders' own work and ARE
- * covered by the PolyForm Noncommercial licence above. Copying this list, or
- * any substantial part of it, into a commercial product or service requires
- * prior written permission from one of the addresses above.
- *
- * Some individual definitions and example sentences come from open community
- * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
- * others — see NOTICE). Those items keep THEIR OWN licence and the
- * noncommercial term is not asserted over them.
- */
 
-// Spanish A1 vocabulary (self-authored, CEFR A1).
-// 100% original content: every word, definition, and example sentence below
-// was authored directly for this project (no external source scraped or
-// copied) -- same policy already applied to this project's other
-// self-authored language files (see wordsa1fr.js / wordsa1it.js etc.).
-// Level assignment is grounded in the open hermitdave/FrequencyWords Spanish
-// frequency list (es_50k): the words below sit in the highest-frequency band
-// (roughly the top ~1000 Spanish words). Definitions & examples shown as
-// English - Turkish (matches every other data/words*.js file's
-// "English. - Türkçe." convention). Nouns store their definite article
-// (el/la/los/las) as part of `word`, mirroring French's le/la/l', Italian's
-// il/lo/la and German's der/die/das convention.
-// category is a placeholder "General" here -- run
-// scripts/classify_word_categories.py (with these files in TARGET_FILES) to
-// assign real topical domains, matching every other file.
 window.WORDS_ES_A1 = [
   { word: "la casa", pos: "noun", level: "A1", category: "Household", definition: "House, home. - Ev.", example: "Mi casa es pequeña pero bonita. - Evim küçük ama güzel." },
   { word: "el agua", pos: "noun", level: "A1", category: "General", definition: "Water. - Su.", example: "Bebo mucha agua cada día. - Her gün çok su içerim." },

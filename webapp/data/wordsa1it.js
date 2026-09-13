@@ -1,41 +1,4 @@
-/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
- * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
- * <https://polyformproject.org/licenses/noncommercial/1.0.0>
- *
- * Any commercial use requires prior written permission from the copyright
- * holders. Written permission from any ONE of bulentozkir@hotmail.com,
- * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
- * is sufficient and binding on all of them.
- *
- * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
- * Ozkir (https://udsp.vercel.app)
- * Full terms: see LICENSE and NOTICE in this repository.
- */
-/*! Compilation notice — read together with the licence above.
- * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
- * translations in this file are the copyright holders' own work and ARE
- * covered by the PolyForm Noncommercial licence above. Copying this list, or
- * any substantial part of it, into a commercial product or service requires
- * prior written permission from one of the addresses above.
- *
- * Some individual definitions and example sentences come from open community
- * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
- * others — see NOTICE). Those items keep THEIR OWN licence and the
- * noncommercial term is not asserted over them.
- */
 
-// Italian A1 vocabulary (self-authored, CEFR A1).
-// 100% original content: every word, definition, and example sentence below
-// was authored directly for this project (no external source scraped or
-// copied) -- same policy already applied to this project's other
-// self-authored language files (see wordsa1fr.js etc.). Definitions &
-// examples shown as English - Turkish (matches every other data/words*.js
-// file's "English. - Türkçe." convention). Nouns store their definite
-// article (il/lo/la/l'/i/gli/le) as part of `word`, mirroring French's
-// le/la/l' and German's der/die/das convention.
-// category is a placeholder "General" here -- run
-// scripts/classify_word_categories.py (with these files added to
-// TARGET_FILES) to assign real topical domains, matching every other file.
 window.WORDS_IT_A1 = [
   { word: "il gatto", pos: "noun", level: "A1", category: "General", definition: "Cat. - Kedi.", example: "Il gatto dorme sul divano. - Kedi kanepede uyuyor." },
   { word: "il cane", pos: "noun", level: "A1", category: "General", definition: "Dog. - Köpek.", example: "Il cane corre nel parco. - Köpek parkta koşuyor." },

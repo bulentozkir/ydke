@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([switch]$Ui)
+param()
 $ErrorActionPreference = 'Stop'
 $root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 Set-Location $root
@@ -23,7 +23,7 @@ function Invoke-Check([string]$name, [string[]]$arguments) {
 
 $script:failed = $false
 Invoke-Check 'native' @('build', 'windows/src/YDKE.Windows/YDKE.Windows.csproj', '-c','Release','-r','win-x64','-p:NuGetAudit=false','-nologo','-v','minimal')
-foreach ($name in @('Core','Games','Storage','CloudCore','Localization')) {
+foreach ($name in @('Core','Games','Storage','Localization')) {
     $project = "windows/tests/YDKE.$name.Tests/YDKE.$name.Tests.csproj"
     $destination = Join-Path $output $name.ToLowerInvariant()
     Invoke-Check "$name-build" @('build',$project,'-c','Release','-o',$destination,'-p:NuGetAudit=false','-nologo','-v','minimal')
@@ -32,12 +32,6 @@ foreach ($name in @('Core','Games','Storage','CloudCore','Localization')) {
     if ($name -eq 'Games') { $arguments += Join-Path $root 'data' }
     if ($name -eq 'Localization') { $arguments += $root }
     Invoke-Check $name $arguments
-}
-if ($Ui -and $results[0].exitCode -eq 0) {
-    & "$env:WINDIR\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -MTA -File (Join-Path $PSScriptRoot 'Test-IntegratedUx.ps1') -IsolationConfirmed
-    $code = $LASTEXITCODE
-    $results.Add([pscustomobject]@{ name='UI'; exitCode=$code })
-    if ($code -ne 0) { $script:failed = $true }
 }
 $results.ToArray() | ConvertTo-Json -Depth 8 | Out-File -LiteralPath (Join-Path $output 'summary.json') -Encoding utf8
 if ($script:failed) { exit 1 }

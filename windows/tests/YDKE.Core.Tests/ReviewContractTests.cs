@@ -35,8 +35,24 @@ internal static class ReviewContractTests
         Equal("due,new", string.Join(',', LearningEngine.DueAndNew(words, progress, Day).Select(word => word.Word)));
         Equal(before, Json(progress)); // Pure selection, not automatic mastery.
         LearningEngine.RecordCardReview(progress, Word("new").Key, RecallRating.Easy, Day);
-        Check(!progress.KnownWords.Contains(Word("new").Key));
+        Check(progress.KnownWords.Contains(Word("new").Key));
+        LearningEngine.RecordCardReview(progress, Word("future").Key, RecallRating.Good, Day);
+        Check(progress.KnownWords.Contains(Word("future").Key));
+        LearningEngine.RecordCardReview(progress, Word("due").Key, RecallRating.Again, Day);
         Check(progress.KnownWords.Contains(Word("due").Key));
+    }
+
+    public static void ExplicitRepeat()
+    {
+        var progress = new ProgressState();
+        var word = Word("repeat");
+        LearningEngine.ScheduleReview(progress, word.Key, Day);
+        Equal(Day.AddDays(1), progress.Reviews[word.Key].DueDate);
+        Check(!progress.KnownWords.Contains(word.Key));
+        Equal(0, progress.RecallRatings.Count);
+        Equal(0, progress.DailyReviewedWords.Count);
+        Equal(0, LearningEngine.DueWords([word], progress, Day).Count);
+        Equal(1, LearningEngine.DueWords([word], progress, Day.AddDays(1)).Count);
     }
 
     public static void FiniteRetries()
@@ -137,6 +153,7 @@ internal static class ReviewContractTests
         LearningEngine.RecordCardReview(progress, Pear, RecallRating.Easy, Day.AddDays(1));
         Equal(LearningEngine.MaxCounter, progress.GameCorrectAnswers);
         Equal(LearningEngine.MaxCounter, progress.CompletedGames); Equal(LearningEngine.MaxCounter, progress.RecallRatings["Easy"]);
+        Check(progress.KnownWords.SetEquals([Apple, Pear]));
     }
 
     public static void BatchAtomicity()

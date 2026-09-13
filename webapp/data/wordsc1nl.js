@@ -1,11 +1,3 @@
-// Dutch C1 vocabulary (self-authored, CEFR C1).
-// 100% original content -- see wordsa1nl.js for the full authorship note.
-// These are more abstract / academic-register words than wordsb2nl.js.
-// Definitions & examples shown as English - Turkish. Nouns store their
-// definite article (de/het) as part of `word`, matching wordsa1nl.js.
-// category is a placeholder "General" here -- run
-// scripts/classify_word_categories.py (with these files in TARGET_FILES) to
-// assign real topical domains, matching every other file.
 window.WORDS_NL_C1 = [
   { word: "de nuance", pos: "noun", level: "C1", category: "General", definition: "Nuance. - Nüans, ince ayrım.", example: "Er zit een belangrijke nuance in zijn uitspraak. - Onun sözünde önemli bir nüans var." },
   { word: "het perspectief", pos: "noun", level: "C1", category: "General", definition: "Perspective. - Bakış açısı, perspektif.", example: "Dit boek biedt een heel ander perspectief op de geschiedenis. - Bu kitap tarihe çok farklı bir bakış açısı sunuyor." },

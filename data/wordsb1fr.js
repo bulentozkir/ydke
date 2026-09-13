@@ -1,37 +1,4 @@
-/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
- * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
- * <https://polyformproject.org/licenses/noncommercial/1.0.0>
- *
- * Any commercial use requires prior written permission from the copyright
- * holders. Written permission from any ONE of bulentozkir@hotmail.com,
- * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
- * is sufficient and binding on all of them.
- *
- * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
- * Ozkir (https://udsp.vercel.app)
- * Full terms: see LICENSE and NOTICE in this repository.
- */
-/*! Compilation notice — read together with the licence above.
- * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
- * translations in this file are the copyright holders' own work and ARE
- * covered by the PolyForm Noncommercial licence above. Copying this list, or
- * any substantial part of it, into a commercial product or service requires
- * prior written permission from one of the addresses above.
- *
- * Some individual definitions and example sentences come from open community
- * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
- * others — see NOTICE). Those items keep THEIR OWN licence and the
- * noncommercial term is not asserted over them.
- */
 
-// French B1 vocabulary (self-authored, CEFR B1).
-// See data/wordsa1fr.js header for the sourcing note: content is 100%
-// original (lawlessfrench.com's actual pages could not be accessed/scraped
-// and carry an "All rights reserved" notice); only the generic idea of
-// "CEFR-leveled French vocabulary" inspired the level scope.
-// Definitions & examples shown as English - Turkish.
-// +3016 word(s) relocated here from wordsa1fr.js by scripts/rebalance_cefr_level.py
-// (too advanced for genuine A1 difficulty, reassigned by real frequency rank).
 window.WORDS_FR_B1 = [
   {
     word: "la joie",
@@ -21298,14 +21265,6 @@ window.WORDS_FR_B1 = [
     example: "Arrête de fricoter avec ces gens. - Bu insanlarla uğraşmayı bırakın.",
   },
   {
-    word: "le papillon",
-    pos: "noun",
-    level: "B1",
-    category: "Animals",
-    definition: "butterfly, a colorful insect with large, delicate wings. - kelebek, geniş, narin kanatları olan renkli bir böcek.",
-    example: "Le papillon vole de fleur en fleur. - Kelebek çiçekten çiçeğe uçar.",
-  },
-  {
     word: "la convoitise",
     pos: "noun",
     level: "B1",
@@ -23368,14 +23327,6 @@ window.WORDS_FR_B1 = [
     category: "Family",
     definition: "grandchild (child of someone’s child). - torun (birinin çocuğunun çocuğu)",
     example: "Les enfants, c’est le capital. Et les petits-enfants, les intérêts du capital. - Çocuklar sermayedir. Ve torunlar, sermaye faizi.",
-  },
-  {
-    word: "généreux",
-    pos: "adjective",
-    level: "B1",
-    category: "General",
-    definition: "generous, willing to give or share freely. - cömert, vermeye veya paylaşmaya isteklidir.",
-    example: "Il est très généreux avec ses amis. - Arkadaşlarına karşı çok cömerttir.",
   },
   {
     word: "l'allégation",
@@ -33504,14 +33455,6 @@ window.WORDS_FR_B1 = [
     category: "General",
     definition: "to get (someone) drunk, to inebriate. - (birini) sarhoş etmek, sarhoş etmek",
     example: "Il aime le gibier, le poisson, on l’en a soulé. - Oyunu ve balığı seviyor, onu sarhoş ettik.",
-  },
-  {
-    word: "le hibou",
-    pos: "noun",
-    level: "B1",
-    category: "Animals",
-    definition: "owl, a night bird known for its round eyes and quiet flight. - baykuş, yuvarlak gözleri ve sessiz uçuşuyla bilinen bir gece kuşu.",
-    example: "Le hibou chasse la nuit. - Baykuş geceleri av yapar.",
   },
   {
     word: "hardiment",
@@ -44528,14 +44471,6 @@ window.WORDS_FR_B1 = [
     category: "General",
     definition: "abstinent, teetotal. - alkolden uzak durmak, alkolden uzak durmak",
     example: "The church teaches abstinence before marriage. - Kilise evlilikten önce cinsel perhiz yapmayı öğretir.",
-  },
-  {
-    word: "la lavande",
-    pos: "noun",
-    level: "B1",
-    category: "General",
-    definition: "lavender, a purple flower known for its calming scent. - lavanta, sakinleştirici kokusuyla bilinen mor bir çiçek.",
-    example: "Le champ de lavande sentait très bon. - Lavanta tarlası çok güzel kokuyordu.",
   },
   {
     word: "le paroissien",

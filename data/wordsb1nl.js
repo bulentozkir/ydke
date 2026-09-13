@@ -1,13 +1,3 @@
-// Dutch B1 vocabulary (self-authored, CEFR B1).
-// 100% original content -- see wordsa1nl.js for the full authorship note.
-// Definitions & examples shown as English - Turkish. Nouns store their
-// definite article (de/het) as part of `word`, matching wordsa1nl.js.
-// A handful of verbs are reflexive ("zich ..."), mirroring how other
-// language files (e.g. French "se souvenir") keep the reflexive particle as
-// part of the headword.
-// category is a placeholder "General" here -- run
-// scripts/classify_word_categories.py (with these files in TARGET_FILES) to
-// assign real topical domains, matching every other file.
 window.WORDS_NL_B1 = [
   { word: "de mening", pos: "noun", level: "B1", category: "General", definition: "Opinion. - Görüş, fikir.", example: "Wat is jouw mening over dit plan? - Bu plan hakkında senin fikrin nedir?" },
   { word: "het gevoel", pos: "noun", level: "B1", category: "Emotions", definition: "Feeling. - Duygu, his.", example: "Ik had een raar gevoel bij dat gesprek. - O konuşmada garip bir his vardı içimde." },

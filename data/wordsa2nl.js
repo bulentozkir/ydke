@@ -1,11 +1,3 @@
-// Dutch A2 vocabulary (self-authored, CEFR A2).
-// 100% original content -- see wordsa1nl.js for the full authorship note.
-// Definitions & examples shown as English - Turkish. Nouns store their
-// definite article (de/het) as part of `word`, matching wordsa1nl.js and
-// every other language file's article convention.
-// category is a placeholder "General" here -- run
-// scripts/classify_word_categories.py (with these files in TARGET_FILES) to
-// assign real topical domains, matching every other file.
 window.WORDS_NL_A2 = [
   { word: "de winkel", pos: "noun", level: "A2", category: "General", definition: "Shop, store. - Dükkan, mağaza.", example: "De winkel is om zes uur dicht. - Dükkan saat altıda kapanıyor." },
   { word: "het geld", pos: "noun", level: "A2", category: "General", definition: "Money. - Para.", example: "Ik heb niet genoeg geld bij me. - Yanımda yeterince param yok." },

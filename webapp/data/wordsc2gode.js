@@ -1,40 +1,4 @@
-/*! Top Words (udsp) — Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren Ozkir
- * Licensed under the PolyForm Noncommercial License 1.0.0 — NONCOMMERCIAL USE ONLY.
- * <https://polyformproject.org/licenses/noncommercial/1.0.0>
- *
- * Any commercial use requires prior written permission from the copyright
- * holders. Written permission from any ONE of bulentozkir@hotmail.com,
- * bulentozkir@gmail.com, ahmetardaozkir@gmail.com or haliterenozkir@gmail.com
- * is sufficient and binding on all of them.
- *
- * Required Notice: Copyright 2026 Bulent Ozkir, Ahmet Arda Ozkir, Halit Eren
- * Ozkir (https://udsp.vercel.app)
- * Full terms: see LICENSE and NOTICE in this repository.
- */
-/*! Compilation notice — read together with the licence above.
- * The SELECTION, ARRANGEMENT, CEFR levelling, editing and Turkish
- * translations in this file are the copyright holders' own work and ARE
- * covered by the PolyForm Noncommercial licence above. Copying this list, or
- * any substantial part of it, into a commercial product or service requires
- * prior written permission from one of the addresses above.
- *
- * Some individual definitions and example sentences come from open community
- * projects (Wiktionary CC BY-SA 4.0, Tatoeba CC BY 2.0 FR, WordNet and
- * others — see NOTICE). Those items keep THEIR OWN licence and the
- * noncommercial term is not asserted over them.
- */
 
-// German C2 vocabulary (self-authored, CEFR C2). Definitions & examples shown as English/German - Turkish.
-// Expanded with internet source words from german.syn (GitHub).
-// +3449 word(s) relocated here from wordsa1gode.js by scripts/rebalance_de_a1.py
-// (their original telc sub-level label was too advanced for genuine A1
-// difficulty; reassigned by real frequency rank instead).
-// +222 word(s) relocated here from wordsa2gode.js by scripts/rebalance_cefr_level.py
-// (too advanced for genuine A2 difficulty, reassigned by real frequency rank).
-// +233 word(s) relocated here from wordsb1gode.js by scripts/rebalance_cefr_level.py
-// (too advanced for genuine B1 difficulty, reassigned by real frequency rank).
-// +706 word(s) relocated here from wordsb2gode.js by scripts/rebalance_cefr_level.py
-// (too advanced for genuine B2 difficulty, reassigned by real frequency rank).
 window.WORDS_GODE_C2 = [
   {
     word: "die Vergeblichkeit",
