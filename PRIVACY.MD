@@ -1,4 +1,97 @@
-# YDKE Privacy Policy
+# YDKE Gizlilik Politikasi
+
+**Yururluk tarihi:** 14 September 2026
+
+Bu Gizlilik Politikasi, yerel Windows uygulamasi olan **YDKE - Yabanci Dil Kelime Ezberleme** ("YDKE", "uygulama", "biz") icin gecerlidir. Bu metin, emekliye ayrilan web uygulamasi veya eski web sitesi icin degil, guncel yerel YDKE uygulamasi icin hazirlanmistir.
+
+## Ozet
+
+- YDKE yerel-odakli (local-only) bir uygulamadir.
+- Hesap, oturum acma, tarayici yonlendirmesi veya bulut esitleme gerekmez ve sunulmaz.
+- Kurulumdan sonra YDKE cevrimdisi kullanilabilir.
+- Calisma verileri Windows cihazinda saklanir.
+- YDKE reklam, reklam takibi, analiz veya profilleme kodu icermez.
+- Cards, Quiz, Words ve Games ozellikleri icin cocugun adi, e-posta adresi, telefon numarasi, dogum tarihi veya hesap gerekmez.
+
+## Yerel Olarak Saklanan Bilgiler
+
+YDKE uygulama verilerini Windows uygulama depolamasinda yerel olarak saklar. Bu veriler sunlari icebilir:
+
+- arayuz dili, calisma dili, seviye, metin boyutu ve gorunum tercihleri;
+- gunluk calisma hedefi, azaltmis hareket tercihi ve zamanlayicisiz calisma tercihi;
+- favori ve biliniyor olarak isaretlenen kelimeler;
+- kart gecmisi, quiz/oyun sonuclari, seriler, gunluk etkinlik ve devam ettirilebilir oturumlar; ve
+- guvenli geri yukleme islemleri icin kullanilan kurtarma bilgileri.
+
+Kelime veri setleri uygulama paketiyle birlikte gelir ve yerel dosyalardan okunur.
+
+Uygulama beklenmeyen bir hatayla karsilasirsa, tarih/saat ve teknik hata ayrintilarini iceren yerel bir `crash.log` dosyasi olusturabilir. YDKE bu dosyayi yuklemez.
+
+## Yerel Yedekler
+
+**Ayarlar > Buyukler icin** bolumunde:
+
+- **Make a copy** kullanicinin sectigi konuma yerel yedek disa aktarir.
+- **Open a copy...** kullanicinin sectigi yerel yedegi geri yukler.
+
+Geri yuklemeden once YDKE yedegi dogrular, onay ister ve bir guvenlik kopyasi olusturur. Yedek dosyalari kullanicinin sectigi konumda ve kullanicinin denetimindedir.
+
+## Ag ve Ucuncu Taraflar
+
+Temel ogrenme ozellikleri yereldir ve normal calisma etkinligini YDKE sunucularina gondermez.
+
+Guncel yerel uygulamada Google oturum acma, Firebase esitleme veya bulut yedek ozellikleri yoktur.
+
+Uygulamanin yuklenmesi, guncellenmesi veya kullanimi sirasinda Windows ve Microsoft Store hizmetleri kendi kosullari kapsaminda teknik verileri isleyebilir. YDKE ayrica reklam veya analiz SDK'si eklemez.
+
+Sesli okuma icin YDKE cihazdaki yuklu Windows konusma seslerini kullanir. YDKE ses metnini bir YDKE sunucusuna gondermez.
+
+## Cocuklar ve Aile Kullanimi
+
+YDKE 6-12 yas arasi cocuklar icin tasarlanmistir ve temel ogrenme ozellikleri icin kisisel bilgi istemez.
+
+YDKE cocugun adi, telefonu, ev adresi, dogum tarihi veya okul bilgisi gibi verileri bilerek istemez.
+
+Ebeveynlerin veya vasilerin paylasilan aile cihazlarinda yedek disa aktarma/geri yukleme ve sifirlama islemlerini denetlemesi onerilir.
+
+Bu bolum urun davranisini aciklar. Yayinci, YDKE'nin dagitildigi ulke/bolgeler icin ve cocuklara yonelik gereklilikler icin hukuki inceleme yaptirmalidir.
+
+## YDKE'nin Yapmadiklari
+
+Yerel YDKE uygulamasi sunlari yapmaz:
+
+- calismak icin hesap zorunlulugu getirmez;
+- kisisel veriyi veya ogrenme verisini satmaz;
+- reklam gostermez;
+- reklam, analiz veya davranissal takip betikleri yuklemez;
+- yerel ogrenme ilerlemesini otomatik yuklemez; ve
+- yerel hata gunluklerini YDKE servisleri uzerinden yuklemez.
+
+## Saklama ve Silme
+
+Yerel ayarlar, ilerleme, yedekler ve hata gunlukleri; kullanici bunlari silene, uygulamayi kaldirana/sifirlayana veya geri yukleme ile degistirene kadar cihazda kalir.
+
+Uygulama depolamasi disina kaydedilen yerel yedek dosyalari, secilen konumdan kullanici tarafindan silinmelidir.
+
+Guncel yerel uygulamada bulut hesap/esitleme servisi olmadigi icin silinecek bir YDKE bulut profili yoktur.
+
+## Gizlilik Talepleri
+
+Gizlilik sorulari veya talepleri icin, resmi YDKE Microsoft Store listesinde veya dagitim paketinde yer alan yayinlayici destek iletisimini kullanin. Kamuya acik yayin oncesinde bu iletisimin gizlilik talepleri icin aktif olarak takip edilmesi gerekir.
+
+## Bu Politikadaki Degisiklikler
+
+Veri uygulamalari veya hukuki gereklilikler degistiginde bu politika guncellenebilir. Onemli guncellemelerde ustteki yururluk tarihi yenilenir.
+
+## Ilgili Dokumanlar
+
+- [Project README](README.md)
+- [Project license](LICENSE)
+- [Project notice](NOTICE)
+
+---
+
+# YDKE Privacy Policy (English)
 
 **Effective date:** 14 September 2026
 
