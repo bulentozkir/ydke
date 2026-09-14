@@ -86,8 +86,8 @@ Veri uygulamalari veya hukuki gereklilikler degistiginde bu politika guncelleneb
 ## Ilgili Dokumanlar
 
 - [Project README](README.md)
-- [Project license](LICENSE)
-- [Project notice](NOTICE)
+- [Project license](LICENSE.md)
+- [Project notice](NOTICE.md)
 
 ---
 
@@ -179,5 +179,5 @@ This policy may be updated when data practices or legal requirements change. Mat
 ## Related Documents
 
 - [Project README](README.md)
-- [Project license](LICENSE)
-- [Project notice](NOTICE)
+- [Project license](LICENSE.md)
+- [Project notice](NOTICE.md)

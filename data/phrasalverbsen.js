@@ -5431,7 +5431,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "Make or persuade someone to accept something you don't want. - Birisinin istemediğiniz bir şeyi kabul etmesini sağlayın veya ikna edin.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used fob off on because they needed to make or persuade someone to accept something you don't want. - birisinin istemediğiniz bir şeyi kabul etmesini sağlayın veya ikna edin icin sikca fob off on ifadesi tercih edilir.",
   },
   {
     word: "fob off onto",
@@ -5439,7 +5439,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "Make or persuade someone to accept something you don't want. - Birisinin istemediğiniz bir şeyi kabul etmesini sağlayın veya ikna edin.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use fob off onto if you want to make or persuade someone to accept something you don't want. - Insanlar birisinin istemediğiniz bir şeyi kabul etmesini sağlayın veya ikna edin istediginde fob off onto kullanir.",
   },
   {
     word: "fob off with",
@@ -6207,7 +6207,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "Persuade someone. - Birini ikna et.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used get round (or around) because they needed to persuade someone. - birini ikna et icin sikca get round (or around) ifadesi tercih edilir.",
   },
   {
     word: "get through",
@@ -8543,7 +8543,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "Enjoy yourself noisily and exuberantly. - Gürültülü ve coşkulu bir şekilde keyfini çıkarın.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use lark it up when they need to enjoy yourself noisily and exuberantly. - Genelde gürültülü ve coşkulu bir şekilde keyfini çıkarın gerektiginde lark it up ifadesi kullanilir.",
   },
   {
     word: "lash down",
@@ -13823,7 +13823,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "Cut, remove an amount or part of something. - Bir şeyin bir miktarını veya bir kısmını kesin, çıkarın.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used slice off because they needed to cut, remove an amount or part of something. - bir şeyin bir miktarını veya bir kısmını kesin, çıkarın icin sikca slice off ifadesi tercih edilir.",
   },
   {
     word: "slice up",
@@ -14935,7 +14935,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Business",
     definition: "a salary raise. - maaş artışı.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use stick out fordemand if you want to a salary raise. - Insanlar maaş artışı istediginde stick out fordemand kullanir.",
   },
   {
     word: "stick to",
@@ -15703,7 +15703,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "Persuade; Talk about a problem or issue without really dealing with it. - İkna etmek; Bir sorun ya da konu hakkında, onunla gerçekten ilgilenmeden konuşun.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use talk round when they need to persuade. - Genelde İkna etmek gerektiginde talk round ifadesi kullanilir.",
   },
   {
     word: "talk through",
@@ -17727,7 +17727,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to force to go away by blinking - göz kırparak gitmeye zorlamak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use blink away if you want to force to go away by blinking. - Insanlar göz kırparak gitmeye zorlamak istediginde blink away kullanir.",
   },
   {
     word: "bring to",
@@ -17775,7 +17775,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to develop or come to a promising stage - gelişmek veya ümit verici bir aşamaya gelmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use blossom forth if you want to develop or come to a promising stage. - Insanlar gelişmek veya ümit verici bir aşamaya gelmek istediginde blossom forth kullanir.",
   },
   {
     word: "burst forth",
@@ -17799,7 +17799,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to darken completely - tamamen karartmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use blacken out when they need to darken completely. - Genelde tamamen karartmak gerektiginde blacken out ifadesi kullanilir.",
   },
   {
     word: "burgeon forth",
@@ -17807,7 +17807,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to produce buds, branches, or germinate - tomurcuklar, dallar üretmek veya çimlenmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use burgeon forth to produce buds, branches, or germinate. - Bu durumda tomurcuklar, dallar üretmek veya çimlenmek amaciyla burgeon forth denir.",
   },
   {
     word: "break apart",
@@ -17839,7 +17839,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Transportation",
     definition: "to remove water from a boat by filling a bucket or other container and throwing the contained water over the side of the boat - bir kovayı veya başka bir kabı doldurup içindeki suyu teknenin yan tarafına atarak tekneden suyu çıkarmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use bale out when they need to remove water from a boat by filling a bucket or other container and throwing the contained water. - Genelde bir kovayı veya başka bir kabı doldurup içindeki suyu teknenin yan tarafına atarak tekneden suyu gerektiginde bale out ifadesi kullanilir.",
   },
   {
     word: "break into",
@@ -17903,7 +17903,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to place into brackets - parantez içine yerleştirmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use bracket out when they need to place into brackets. - Genelde parantez içine yerleştirmek gerektiginde bracket out ifadesi kullanilir.",
   },
   {
     word: "burst upon",
@@ -17935,7 +17935,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to show anger or indignation - kızgınlık veya kızgınlık göstermek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used bridle at because they needed to show anger or indignation. - kızgınlık veya kızgınlık göstermek icin sikca bridle at ifadesi tercih edilir.",
   },
   {
     word: "bridle up",
@@ -17943,7 +17943,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to show anger or indignation - kızgınlık veya kızgınlık göstermek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used bridle up because they needed to show anger or indignation. - kızgınlık veya kızgınlık göstermek icin sikca bridle up ifadesi tercih edilir.",
   },
   {
     word: "bristle up",
@@ -17975,7 +17975,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to divulge confidential information or secrets - gizli bilgileri veya sırları ifşa etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use babble out when they need to divulge confidential information or secrets. - Genelde gizli bilgileri veya sırları ifşa etmek gerektiginde babble out ifadesi kullanilir.",
   },
   {
     word: "blab out",
@@ -17983,7 +17983,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to divulge confidential information or secrets - gizli bilgileri veya sırları ifşa etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use blab out to divulge confidential information or secrets. - Bu durumda gizli bilgileri veya sırları ifşa etmek amaciyla blab out denir.",
   },
   {
     word: "beg off",
@@ -17999,7 +17999,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to utter while crying - ağlarken söylemek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use blubber out if you want to utter while crying. - Insanlar ağlarken söylemek istediginde blubber out kullanir.",
   },
   {
     word: "bite out",
@@ -18023,7 +18023,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to proclaim or announce in public - kamuoyuna ilan etmek veya duyurmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use blazon out if you want to proclaim or announce in public. - Insanlar kamuoyuna ilan etmek veya duyurmak istediginde blazon out kullanir.",
   },
   {
     word: "blat out",
@@ -18031,7 +18031,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to announce loudly - yüksek sesle duyurmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used blat out because they needed to announce loudly. - yüksek sesle duyurmak icin sikca blat out ifadesi tercih edilir.",
   },
   {
     word: "blunder out",
@@ -18039,7 +18039,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to utter impulsively - dürtüsel olarak söylemek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use blunder out when they need to utter impulsively. - Genelde dürtüsel olarak söylemek gerektiginde blunder out ifadesi kullanilir.",
   },
   {
     word: "bluff out",
@@ -18063,7 +18063,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Sports",
     definition: "to start a game by a face-off - bir oyunu karşılıklı olarak başlatmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used bully off because they needed to start a game by a face-off. - bir oyunu karşılıklı olarak başlatmak icin sikca bully off ifadesi tercih edilir.",
   },
   {
     word: "bolt down",
@@ -18167,7 +18167,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to move up and down with no specific path - belirli bir yol olmadan yukarı ve aşağı hareket etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use bob around when they need to move up and down with no specific path. - Genelde belirli bir yol olmadan yukarı ve aşağı hareket etmek gerektiginde bob around ifadesi kullanilir.",
   },
   {
     word: "bob about",
@@ -18207,7 +18207,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Transportation",
     definition: "to sail towards another vessel, of a ship - bir geminin başka bir gemisine doğru yelken açmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use bear down upon when they need to sail towards another vessel, of a ship. - Genelde bir geminin başka bir gemisine doğru yelken açmak gerektiginde bear down upon ifadesi kullanilir.",
   },
   {
     word: "bugger off",
@@ -18255,7 +18255,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to move fast - hızlı hareket etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used bucket along because they needed to move fast. - hızlı hareket etmek icin sikca bucket along ifadesi tercih edilir.",
   },
   {
     word: "belt along",
@@ -18263,7 +18263,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to move fast - hızlı hareket etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use belt along when they need to move fast. - Genelde hızlı hareket etmek gerektiginde belt along ifadesi kullanilir.",
   },
   {
     word: "brim over",
@@ -18311,7 +18311,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Business",
     definition: "to trade in a transaction - bir işlemde işlem yapmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use barter away if you want to trade in a transaction. - Insanlar bir işlemde işlem yapmak istediginde barter away kullanir.",
   },
   {
     word: "bull through",
@@ -18319,7 +18319,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to push or force - itmek veya zorlamak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use bull through when they need to push or force. - Genelde itmek veya zorlamak gerektiginde bull through ifadesi kullanilir.",
   },
   {
     word: "break with",
@@ -18343,7 +18343,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to order a defendant to be placed in custody pending the outcome of a proceedings against him or her - Bir sanığın kendisine karşı açılan davanın sonucuna kadar tutuklanmasına karar vermek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use bind over to order a defendant to be placed in custody pending the outcome of a proceedings against him or he. - Bu durumda bir sanığın kendisine karşı açılan davanın sonucuna kadar tutuklanmasına karar vermek amaciyla bind over denir.",
   },
   {
     word: "band together",
@@ -18375,7 +18375,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to make a mess of, destroy or ruin - ortalığı karıştırmak, yok etmek veya harap etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used bollix up because they needed to make a mess of, destroy or ruin. - ortalığı karıştırmak, yok etmek veya harap etmek icin sikca bollix up ifadesi tercih edilir.",
   },
   {
     word: "bollocks up",
@@ -18391,7 +18391,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to represent in physical form - fiziksel formda temsil etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use body forth to represent in physical form. - Bu durumda fiziksel formda temsil etmek amaciyla body forth denir.",
   },
   {
     word: "blaze up",
@@ -18431,7 +18431,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to be lazy or idle - tembel veya aylak olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use bum around to be lazy or idle. - Bu durumda tembel veya aylak olmak amaciyla bum around denir.",
   },
   {
     word: "bum about",
@@ -18559,7 +18559,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to perform or finish an action rapidly - bir eylemi hızlı bir şekilde gerçekleştirmek veya bitirmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use click off to perform or finish an action rapidly. - Bu durumda bir eylemi hızlı bir şekilde gerçekleştirmek veya bitirmek amaciyla click off denir.",
   },
   {
     word: "cast about",
@@ -18599,7 +18599,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to select desirable parts from a group or list - bir gruptan veya listeden istenen parçaları seçmek için",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use cull out when they need to select desirable parts from a group or list. - Genelde bir gruptan veya listeden istenen parçaları seçmek için gerektiginde cull out ifadesi kullanilir.",
   },
   {
     word: "crawfish out",
@@ -18607,7 +18607,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to make a retreat from an earlier commitment or activity - daha önceki bir taahhüt veya faaliyetten geri çekilmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used crawfish out because they needed to make a retreat from an earlier commitment or activity. - daha önceki bir taahhüt veya faaliyetten geri çekilmek icin sikca crawfish out ifadesi tercih edilir.",
   },
   {
     word: "chisel in",
@@ -18631,7 +18631,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to become cheerful - neşeli olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use chirk up if you want to become cheerful. - Insanlar neşeli olmak istediginde chirk up kullanir.",
   },
   {
     word: "confer with",
@@ -18727,7 +18727,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to remove the interior of - iç kısmını çıkarmak için",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use core out to remove the interior of. - Bu durumda iç kısmını çıkarmak için amaciyla core out denir.",
   },
   {
     word: "chain up",
@@ -18743,7 +18743,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to apply carelessly - dikkatsizce uygulamak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use clap on to apply carelessly. - Bu durumda dikkatsizce uygulamak amaciyla clap on denir.",
   },
   {
     word: "couple on",
@@ -18823,7 +18823,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to make hastily and carelessly - aceleyle ve dikkatsizce yapmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use clap together if you want to make hastily and carelessly. - Insanlar aceleyle ve dikkatsizce yapmak istediginde clap together kullanir.",
   },
   {
     word: "chock up",
@@ -18831,7 +18831,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to crowd or pack to capacity - kalabalıklaştırmak veya kapasiteye göre paketlemek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use chock up to crowd or pack to capacity. - Bu durumda kalabalıklaştırmak veya kapasiteye göre paketlemek amaciyla chock up denir.",
   },
   {
     word: "cordon off",
@@ -18847,7 +18847,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to put together hastily - aceleyle bir araya getirmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use cobble up when they need to put together hastily. - Genelde aceleyle bir araya getirmek gerektiginde cobble up ifadesi kullanilir.",
   },
   {
     word: "cut away",
@@ -18887,7 +18887,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to share the suffering of - acılarını paylaşmak için",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use condole with when they need to share the suffering of. - Genelde acılarını paylaşmak için gerektiginde condole with ifadesi kullanilir.",
   },
   {
     word: "cut to",
@@ -18911,7 +18911,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to suffer a nervous breakdown - sinir krizi geçirmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used crock up because they needed to suffer a nervous breakdown. - sinir krizi geçirmek icin sikca crock up ifadesi tercih edilir.",
   },
   {
     word: "churn up",
@@ -18967,7 +18967,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to heel over - diz çökmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use cant over if you want to heel over. - Insanlar diz çökmek istediginde cant over kullanir.",
   },
   {
     word: "crowd out",
@@ -19015,7 +19015,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to move fast - hızlı hareket etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use cannonball along to move fast. - Bu durumda hızlı hareket etmek amaciyla cannonball along denir.",
   },
   {
     word: "crowd together",
@@ -19023,7 +19023,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to gather together in large numbers - çok sayıda bir araya toplanmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use crowd together to gather together in large numbers. - Bu durumda çok sayıda bir araya toplanmak amaciyla crowd together denir.",
   },
   {
     word: "chance on",
@@ -19039,7 +19039,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to give one's silent approval to - birine sessizce onay vermek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used connive at because they needed to give one's silent approval to. - birine sessizce onay vermek icin sikca connive at ifadesi tercih edilir.",
   },
   {
     word: "cry out for",
@@ -19103,7 +19103,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to go or occur together - birlikte gitmek veya birlikte olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used construe with because they needed to go or occur together. - birlikte gitmek veya birlikte olmak icin sikca construe with ifadesi tercih edilir.",
   },
   {
     word: "cooccur with",
@@ -19111,7 +19111,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to go or occur together - birlikte gitmek veya birlikte olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use cooccur with if you want to go or occur together. - Insanlar birlikte gitmek veya birlikte olmak istediginde cooccur with kullanir.",
   },
   {
     word: "come with",
@@ -19135,7 +19135,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "change from a waking to a sleeping state - uyanık durumdan uyku durumuna geçiş",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used dope off because they needed to change from a waking to a sleeping state. - uyanık durumdan uyku durumuna geçiş icin sikca dope off ifadesi tercih edilir.",
   },
   {
     word: "drowse off",
@@ -19143,7 +19143,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "change from a waking to a sleeping state - uyanık durumdan uyku durumuna geçiş",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used drowse off because they needed to change from a waking to a sleeping state. - uyanık durumdan uyku durumuna geçiş icin sikca drowse off ifadesi tercih edilir.",
   },
   {
     word: "deck up",
@@ -19175,7 +19175,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "give a narcotic to - narkotik vermek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use dope up to give a narcotic to. - Bu durumda narkotik vermek amaciyla dope up denir.",
   },
   {
     word: "dwindle away",
@@ -19183,7 +19183,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "become smaller or lose substance - küçülmek veya içeriğini kaybetmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use dwindle away to become smaller or lose substance. - Bu durumda küçülmek veya içeriğini kaybetmek amaciyla dwindle away denir.",
   },
   {
     word: "dwindle down",
@@ -19191,7 +19191,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "become smaller or lose substance - küçülmek veya içeriğini kaybetmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used dwindle down because they needed to become smaller or lose substance. - küçülmek veya içeriğini kaybetmek icin sikca dwindle down ifadesi tercih edilir.",
   },
   {
     word: "drag out",
@@ -19327,7 +19327,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to lag or linger behind - geride kalmak veya geride kalmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used drop behind because they needed to lag or linger behind. - geride kalmak veya geride kalmak icin sikca drop behind ifadesi tercih edilir.",
   },
   {
     word: "default on",
@@ -19383,7 +19383,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "be contingent on - şarta bağlı olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use devolve on if you want to be contingent on. - Insanlar şarta bağlı olmak istediginde devolve on kullanir.",
   },
   {
     word: "depend upon",
@@ -19431,7 +19431,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "cut and assemble the components of - bileşenlerini kesip birleştirin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use edit out if you want to cut and assemble the components of. - Insanlar bileşenlerini kesip birleştirin istediginde edit out kullanir.",
   },
   {
     word: "eat at",
@@ -19471,7 +19471,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "flow back or recede - geri akmak veya geri çekilmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use ebb down to flow back or recede. - Bu durumda geri akmak veya geri çekilmek amaciyla ebb down denir.",
   },
   {
     word: "ebb out",
@@ -19479,7 +19479,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "flow back or recede - geri akmak veya geri çekilmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use ebb out to flow back or recede. - Bu durumda geri akmak veya geri çekilmek amaciyla ebb out denir.",
   },
   {
     word: "ebb off",
@@ -19487,7 +19487,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "flow back or recede - geri akmak veya geri çekilmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use ebb off when they need to flow back or recede. - Genelde geri akmak veya geri çekilmek gerektiginde ebb off ifadesi kullanilir.",
   },
   {
     word: "edge in",
@@ -19511,7 +19511,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "take possession of - ele geçirmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use enter upon when they need to take possession of. - Genelde ele geçirmek gerektiginde enter upon ifadesi kullanilir.",
   },
   {
     word: "even off",
@@ -19543,7 +19543,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Clothing",
     definition: "put on special clothes to appear particularly appealing and attractive - özellikle çekici ve çekici görünmek için özel kıyafetler giyin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use fig out if you want to put on special clothes to appear particularly appealing and attractive. - Insanlar özellikle çekici ve çekici görünmek için özel kıyafetler giyin istediginde fig out kullanir.",
   },
   {
     word: "fig up",
@@ -19567,7 +19567,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "exhaust or get tired through overuse or great strain or stress - aşırı kullanım veya büyük gerginlik veya stres nedeniyle tükenmek veya yorulmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use fag out if you want to exhaust or get tired through overuse or great strain or stress. - Insanlar aşırı kullanım veya büyük gerginlik veya stres nedeniyle tükenmek veya yorulmak istediginde fag out kullanir.",
   },
   {
     word: "fall away",
@@ -19591,7 +19591,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "restore by replacing a part or putting together what is torn or broken - bir parçayı değiştirerek veya yırtılan veya kırılan şeyleri bir araya getirerek onarın",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use furbish up when they need to restore by replacing a part or putting together what is torn or broken. - Genelde bir parçayı değiştirerek veya yırtılan veya kırılan şeyleri bir araya getirerek onarın gerektiginde furbish up ifadesi kullanilir.",
   },
   {
     word: "fetch up",
@@ -19599,7 +19599,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "finally be or do something - sonunda bir şey ol ya da yap",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used fetch up because they needed to finally be or do something. - sonunda bir şey ol ya da yap icin sikca fetch up ifadesi tercih edilir.",
   },
   {
     word: "flatten out",
@@ -19607,7 +19607,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "become flat or flatter - düz veya daha düz hale gelmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use flatten out if you want to become flat or flatter. - Insanlar düz veya daha düz hale gelmek istediginde flatten out kullanir.",
   },
   {
     word: "freeze down",
@@ -19615,7 +19615,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "change from a liquid to a solid when cold - soğukken sıvıdan katıya geçmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use freeze down to change from a liquid to a solid when cold. - Bu durumda soğukken sıvıdan katıya geçmek amaciyla freeze down denir.",
   },
   {
     word: "fade out",
@@ -19671,7 +19671,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "resolve into factors - faktörlere ayırmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used factor out because they needed to resolve into factors. - faktörlere ayırmak icin sikca factor out ifadesi tercih edilir.",
   },
   {
     word: "foot up",
@@ -19759,7 +19759,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "make fat or plump - şişman veya dolgun yapmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use fatten out if you want to make fat or plump. - Insanlar şişman veya dolgun yapmak istediginde fatten out kullanir.",
   },
   {
     word: "frivol away",
@@ -19767,7 +19767,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "spend frivolously and unwisely - anlamsızca ve akılsızca harcamak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use frivol away when they need to spend frivolously and unwisely. - Genelde anlamsızca ve akılsızca harcamak gerektiginde frivol away ifadesi kullanilir.",
   },
   {
     word: "fritter away",
@@ -19783,7 +19783,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "spend frivolously and unwisely - anlamsızca ve akılsızca harcamak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use fool away if you want to spend frivolously and unwisely. - Insanlar anlamsızca ve akılsızca harcamak istediginde fool away kullanir.",
   },
   {
     word: "flake off",
@@ -19807,7 +19807,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "throw violently - şiddetle atmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used flap down because they needed to throw violently. - şiddetle atmak icin sikca flap down ifadesi tercih edilir.",
   },
   {
     word: "fling off",
@@ -19823,7 +19823,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "produce shoddily, without much attention to detail - ayrıntılara fazla dikkat etmeden, kalitesiz bir şekilde üretmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use fudge together to produce shoddily, without much attention to detail. - Bu durumda ayrıntılara fazla dikkat etmeden, kalitesiz bir şekilde üretmek amaciyla fudge together denir.",
   },
   {
     word: "frame up",
@@ -19831,7 +19831,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "construct by fitting or uniting parts together - Parçaları bir araya getirerek veya birleştirerek inşa edin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use frame up when they need to construct by fitting or uniting parts together. - Genelde parçaları bir araya getirerek veya birleştirerek inşa edin gerektiginde frame up ifadesi kullanilir.",
   },
   {
     word: "feel for",
@@ -19855,7 +19855,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "return in time - zamanında geri dönmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used flash back because they needed to return in time. - zamanında geri dönmek icin sikca flash back ifadesi tercih edilir.",
   },
   {
     word: "flump down",
@@ -19863,7 +19863,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "fall heavily - ağır düşmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use flump down when they need to fall heavily. - Genelde ağır düşmek gerektiginde flump down ifadesi kullanilir.",
   },
   {
     word: "foray into",
@@ -19975,7 +19975,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "be lazy or idle - tembel olmak veya boşta kalmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use frig around to be lazy or idle. - Bu durumda tembel olmak veya boşta kalmak amaciyla frig around denir.",
   },
   {
     word: "frost over",
@@ -19983,7 +19983,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "become covered with a layer of ice - bir buz tabakasıyla kaplanmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use frost over if you want to become covered with a layer of ice. - Insanlar bir buz tabakasıyla kaplanmak istediginde frost over kullanir.",
   },
   {
     word: "glam up",
@@ -19991,7 +19991,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "use special care in dressing, making-up, etc. - Giyinirken, makyaj yaparken vs. özel dikkat gösterin.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use glam up if you want to use special care in dressing, making-up, etc. - Insanlar giyinirken, makyaj yaparken vs istediginde glam up kullanir.",
   },
   {
     word: "glaze over",
@@ -20007,7 +20007,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Food",
     definition: "eat a large amount of food quickly - çok miktarda yemeği hızlı bir şekilde yiyin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use garbage down to eat a large amount of food quickly. - Bu durumda çok miktarda yemeği hızlı bir şekilde yiyin amaciyla garbage down denir.",
   },
   {
     word: "gobble up",
@@ -20143,7 +20143,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "shout out - bağırmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use holler out if you want to shout out. - Insanlar bağırmak istediginde holler out kullanir.",
   },
   {
     word: "hash over",
@@ -20151,7 +20151,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to go back over - geri dönmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use hash over when they need to go back over. - Genelde geri dönmek gerektiginde hash over ifadesi kullanilir.",
   },
   {
     word: "hark back",
@@ -20191,7 +20191,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "make or shape as with an axe - baltayla yapar gibi yapın veya şekillendirin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use hew out when they need to make or shape as with an axe. - Genelde baltayla yapar gibi yapın veya şekillendirin gerektiginde hew out ifadesi kullanilir.",
   },
   {
     word: "hollow out",
@@ -20223,7 +20223,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Transportation",
     definition: "take away by means of a vehicle - araçla götürmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use haul away when they need to take away by means of a vehicle. - Genelde araçla götürmek gerektiginde haul away ifadesi kullanilir.",
   },
   {
     word: "heave up",
@@ -20239,7 +20239,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "lift or elevate - kaldır veya yükselt",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use heft up when they need to lift or elevate. - Genelde kaldır veya yükselt gerektiginde heft up ifadesi kullanilir.",
   },
   {
     word: "hike up",
@@ -20255,7 +20255,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "get excited or stimulated - heyecanlanmak veya uyarılmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used hype up because they needed to get excited or stimulated. - heyecanlanmak veya uyarılmak icin sikca hype up ifadesi tercih edilir.",
   },
   {
     word: "haul up",
@@ -20279,7 +20279,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "get out of quickly - çabuk çık",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used hop out because they needed to get out of quickly. - çabuk çık icin sikca hop out ifadesi tercih edilir.",
   },
   {
     word: "hunch over",
@@ -20287,7 +20287,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to round one's back by bending forward and drawing the shoulders forward - öne doğru eğilerek ve omuzları öne doğru çekerek sırtını döndürmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use hunch over if you want to round one's back by bending forward and drawing the shoulders forward. - Insanlar öne doğru eğilerek ve omuzları öne doğru çekerek sırtını döndürmek istediginde hunch over kullanir.",
   },
   {
     word: "huddle together",
@@ -20303,7 +20303,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "round one's back by bending forward and drawing the shoulders forward - öne doğru eğilerek ve omuzları öne doğru çekerek sırtını döndürmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used hunch forward because they needed to round one's back by bending forward and drawing the shoulders forward. - öne doğru eğilerek ve omuzları öne doğru çekerek sırtını döndürmek icin sikca hunch forward ifadesi tercih edilir.",
   },
   {
     word: "hire out",
@@ -20351,7 +20351,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "keep or lay aside for future use - ileride kullanmak üzere saklayın veya bir kenara koyun",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use hive away if you want to keep or lay aside for future use. - Insanlar ileride kullanmak üzere saklayın veya bir kenara koyun istediginde hive away kullanir.",
   },
   {
     word: "happen upon",
@@ -20391,7 +20391,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "be part of - parçası olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use inhere in if you want to be part of. - Insanlar parçası olmak istediginde inhere in kullanir.",
   },
   {
     word: "jest at",
@@ -20415,7 +20415,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to cause someone or something to be happier or more cheerful - birinin ya da bir şeyin daha mutlu ya da daha neşeli olmasına neden olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used jolly up because they needed to cause someone or something to be happier or more cheerful. - birinin ya da bir şeyin daha mutlu ya da daha neşeli olmasına neden olmak icin sikca jolly up ifadesi tercih edilir.",
   },
   {
     word: "jazz around",
@@ -20423,7 +20423,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to wander aimlessly in search of pleasure - zevk arayışı içinde amaçsızca dolaşmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use jazz around when they need to wander aimlessly in search of pleasure. - Genelde zevk arayışı içinde amaçsızca dolaşmak gerektiginde jazz around ifadesi kullanilir.",
   },
   {
     word: "jut out",
@@ -20463,7 +20463,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to curl tightly - sıkıca kıvrılmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use kink up if you want to curl tightly. - Insanlar sıkıca kıvrılmak istediginde kink up kullanir.",
   },
   {
     word: "knock over",
@@ -20487,7 +20487,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to supply with a set of articles or tools - bir dizi makale veya araç sağlamak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use kit up to supply with a set of articles or tools. - Bu durumda bir dizi makale veya araç sağlamak amaciyla kit up denir.",
   },
   {
     word: "lie in",
@@ -20607,7 +20607,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Communication",
     definition: "speak spontaneously and without restraint - kendiliğinden ve kısıtlama olmadan konuşun",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use lip off when they need to speak spontaneously and without restraint. - Genelde kendiliğinden ve kısıtlama olmadan konuşun gerektiginde lip off ifadesi kullanilir.",
   },
   {
     word: "log up",
@@ -20615,7 +20615,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "record a distance travelled - kat edilen mesafeyi kaydedin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used log up because they needed to record a distance travelled. - kat edilen mesafeyi kaydedin icin sikca log up ifadesi tercih edilir.",
   },
   {
     word: "loose off",
@@ -20647,7 +20647,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "bind together with a cord or rope - bir ip veya ip ile birbirine bağlayın",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use lash together if you want to bind together with a cord or rope. - Insanlar bir ip veya ip ile birbirine bağlayın istediginde lash together kullanir.",
   },
   {
     word: "lop off",
@@ -20671,7 +20671,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "admire boundlessly and follow around - Sınırsızca hayran olun ve etrafı takip edin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use leech onto to admire boundlessly and follow around. - Bu durumda sınırsızca hayran olun ve etrafı takip edin amaciyla leech onto denir.",
   },
   {
     word: "lace up",
@@ -20711,7 +20711,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "jump out from a hiding place and surprise (someone) - Saklandığı yerden atlamak ve (birini) şaşırtmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use leap out if you want to jump out from a hiding place and surprise (someone). - Insanlar saklandığı yerden atlamak ve (birini) şaşırtmak istediginde leap out kullanir.",
   },
   {
     word: "lean back",
@@ -20799,7 +20799,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to be lazy or idle - tembel veya aylak olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use loll around when they need to be lazy or idle. - Genelde tembel veya aylak olmak gerektiginde loll around ifadesi kullanilir.",
   },
   {
     word: "look out over",
@@ -20815,7 +20815,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "be lazy or idle - tembel olmak veya boşta kalmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use lounge about to be lazy or idle. - Bu durumda tembel olmak veya boşta kalmak amaciyla lounge about denir.",
   },
   {
     word: "look across",
@@ -20847,7 +20847,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "take off weight - kilo almak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use melt off to take off weight. - Bu durumda kilo almak amaciyla melt off denir.",
   },
   {
     word: "mix in",
@@ -20879,7 +20879,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "change texture so as to become matted and felt-like - keçeleşmiş ve keçe gibi olacak şekilde dokuyu değiştirin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used mat up because they needed to change texture so as to become matted and felt-like. - keçeleşmiş ve keçe gibi olacak şekilde dokuyu değiştirin icin sikca mat up ifadesi tercih edilir.",
   },
   {
     word: "matte up",
@@ -20887,7 +20887,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "change texture so as to become matted and felt-like - keçeleşmiş ve keçe gibi olacak şekilde dokuyu değiştirin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use matte up when they need to change texture so as to become matted and felt-like. - Genelde keçeleşmiş ve keçe gibi olacak şekilde dokuyu değiştirin gerektiginde matte up ifadesi kullanilir.",
   },
   {
     word: "muster in",
@@ -20895,7 +20895,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Military",
     definition: "engage somebody to enter the army - birini askere almak için görevlendir",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used muster in because they needed to engage somebody to enter the army. - birini askere almak için görevlendir icin sikca muster in ifadesi tercih edilir.",
   },
   {
     word: "muster out",
@@ -20903,7 +20903,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Military",
     definition: "release from military service - askerlikten salıverilme",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use muster out when they need to release from military service. - Genelde askerlikten salıverilme gerektiginde muster out ifadesi kullanilir.",
   },
   {
     word: "muddy up",
@@ -20911,7 +20911,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "dirty with mud - çamurla kirlenmiş",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use muddy up when they need to dirty with mud. - Genelde çamurla kirlenmiş gerektiginde muddy up ifadesi kullanilir.",
   },
   {
     word: "muster up",
@@ -20951,7 +20951,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "form mounds over - üzerinde tepecikler oluşturmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used mound over because they needed to form mounds over. - üzerinde tepecikler oluşturmak icin sikca mound over ifadesi tercih edilir.",
   },
   {
     word: "map out",
@@ -20983,7 +20983,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "move about in a confused manner - kafası karışık bir şekilde hareket etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use mill about to move about in a confused manner. - Bu durumda kafası karışık bir şekilde hareket etmek amaciyla mill about denir.",
   },
   {
     word: "march on",
@@ -21031,7 +21031,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "release (a liquid) in drops or small quantities - (sıvıyı) damlalar veya küçük miktarlarda salmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use ooze out to release (a liquid) in drops or small quantities. - Bu durumda (sıvıyı) damlalar veya küçük miktarlarda salmak amaciyla ooze out denir.",
   },
   {
     word: "ooze through",
@@ -21039,7 +21039,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "run slowly and gradually - yavaş ve yavaş yavaş koş",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use ooze through if you want to run slowly and gradually. - Insanlar yavaş ve yavaş yavaş koş istediginde ooze through kullanir.",
   },
   {
     word: "out in",
@@ -21087,7 +21087,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Clothing",
     definition: "dress primly - gösterişli giyin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use prim up to dress primly. - Bu durumda gösterişli giyin amaciyla prim up denir.",
   },
   {
     word: "prim out",
@@ -21095,7 +21095,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Clothing",
     definition: "dress primly - gösterişli giyin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use prim out when they need to dress primly. - Genelde gösterişli giyin gerektiginde prim out ifadesi kullanilir.",
   },
   {
     word: "put under",
@@ -21135,7 +21135,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "round one's lips as if intending to kiss - öpmek niyetindeymiş gibi dudaklarını yuvarlamak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use pooch out to round one's lips as if intending to kiss. - Bu durumda öpmek niyetindeymiş gibi dudaklarını yuvarlamak amaciyla pooch out denir.",
   },
   {
     word: "puff up",
@@ -21159,7 +21159,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "be killed or die - öldürülmek ya da ölmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use pip out to be killed or die. - Bu durumda öldürülmek ya da ölmek amaciyla pip out denir.",
   },
   {
     word: "plug away",
@@ -21287,7 +21287,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "depart suddenly - aniden ayrılmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use plump out if you want to depart suddenly. - Insanlar aniden ayrılmak istediginde plump out kullanir.",
   },
   {
     word: "poke into",
@@ -21319,7 +21319,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "cover with planks - kalaslarla kaplamak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use plank over if you want to cover with planks. - Insanlar kalaslarla kaplamak istediginde plank over kullanir.",
   },
   {
     word: "pound up",
@@ -21327,7 +21327,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "shut up or confine in any enclosure or within any bounds or limits - herhangi bir kapalı alana veya herhangi bir sınır veya sınırlamaya kapatın veya hapsedin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used pound up because they needed to shut up or confine in any enclosure or within any bounds or limits. - herhangi bir kapalı alana veya herhangi bir sınır veya sınırlamaya kapatın veya hapsedin icin sikca pound up ifadesi tercih edilir.",
   },
   {
     word: "pen up",
@@ -21383,7 +21383,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "divide into parts, pieces, or sections - parçalara, parçalara veya bölümlere bölün",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use partition off to divide into parts, pieces, or sections. - Bu durumda parçalara, parçalara veya bölümlere bölün amaciyla partition off denir.",
   },
   {
     word: "pound off",
@@ -21391,7 +21391,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "partition off into compartments - bölmelere ayırmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use pound off to partition off into compartments. - Bu durumda bölmelere ayırmak amaciyla pound off denir.",
   },
   {
     word: "press down on",
@@ -21439,7 +21439,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "drop heavily - ağır düşüş",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use plank down if you want to drop heavily. - Insanlar ağır düşüş istediginde plank down kullanir.",
   },
   {
     word: "plump in",
@@ -21447,7 +21447,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "arrive suddenly and unannounced - aniden ve habersiz gelmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use plump in to arrive suddenly and unannounced. - Bu durumda aniden ve habersiz gelmek amaciyla plump in denir.",
   },
   {
     word: "pelt along",
@@ -21455,7 +21455,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "move fast - hızlı hareket et",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use pelt along if you want to move fast. - Insanlar hızlı hareket et istediginde pelt along kullanir.",
   },
   {
     word: "progress to",
@@ -21503,7 +21503,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "be behind - geride olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use plunk for to be behind. - Bu durumda geride olmak amaciyla plunk for denir.",
   },
   {
     word: "partner off",
@@ -21519,7 +21519,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "continue in existence after (an adversity, etc.) - (bir sıkıntı vb.) sonrasında varlığını sürdürmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use pull round to continue in existence after (an adversity, etc. - Bu durumda (bir sıkıntı vb amaciyla pull round denir.",
   },
   {
     word: "piddle away",
@@ -21535,7 +21535,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "exist in large quantity - büyük miktarda var",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use pullulate with when they need to exist in large quantity. - Genelde büyük miktarda var gerektiginde pullulate with ifadesi kullanilir.",
   },
   {
     word: "persist in",
@@ -21567,7 +21567,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to anticipate with dread or anxiety - korku veya endişeyle tahmin etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use quail at to anticipate with dread or anxiety. - Bu durumda korku veya endişeyle tahmin etmek amaciyla quail at denir.",
   },
   {
     word: "quiet down",
@@ -21631,7 +21631,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "substitute a natural for a supernatural explanation of - doğaüstü bir açıklamanın yerine doğal olanı koyun",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use rationalize away when they need to substitute a natural for a supernatural explanation of. - Genelde doğaüstü bir açıklamanın yerine doğal olanı koyun gerektiginde rationalize away ifadesi kullanilir.",
   },
   {
     word: "rationalise away",
@@ -21639,7 +21639,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "substitute a natural for a supernatural explanation of - doğaüstü bir açıklamanın yerine doğal olanı koyun",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use rationalise away to substitute a natural for a supernatural explanation of. - Bu durumda doğaüstü bir açıklamanın yerine doğal olanı koyun amaciyla rationalise away denir.",
   },
   {
     word: "ram down",
@@ -21655,7 +21655,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "fail to fulfill a promise or obligation - bir sözü veya yükümlülüğü yerine getirememek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used renege on because they needed to fail to fulfill a promise or obligation. - bir sözü veya yükümlülüğü yerine getirememek icin sikca renege on ifadesi tercih edilir.",
   },
   {
     word: "renegue on",
@@ -21663,7 +21663,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "fail to fulfill a promise or obligation - bir sözü veya yükümlülüğü yerine getirememek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use renegue on when they need to fail to fulfill a promise or obligation. - Genelde bir sözü veya yükümlülüğü yerine getirememek gerektiginde renegue on ifadesi kullanilir.",
   },
   {
     word: "root on",
@@ -21695,7 +21695,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "recite volubly or extravagantly - yüksek sesle veya abartılı bir şekilde okumak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use rattle down when they need to recite volubly or extravagantly. - Genelde yüksek sesle veya abartılı bir şekilde okumak gerektiginde rattle down ifadesi kullanilir.",
   },
   {
     word: "roll off",
@@ -21743,7 +21743,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "be counted out - sayılmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use remain down when they need to be counted out. - Genelde sayılmak gerektiginde remain down ifadesi kullanilir.",
   },
   {
     word: "rout out",
@@ -21751,7 +21751,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "cause to flee - kaçmasına neden olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use rout out if you want to cause to flee. - Insanlar kaçmasına neden olmak istediginde rout out kullanir.",
   },
   {
     word: "ruck up",
@@ -21799,7 +21799,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "disturb the smoothness of - pürüzsüzlüğünü bozmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use ruffle up to disturb the smoothness of. - Bu durumda pürüzsüzlüğünü bozmak amaciyla ruffle up denir.",
   },
   {
     word: "ravel out",
@@ -21839,7 +21839,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "erect or construct, especially as a temporary measure - özellikle geçici bir önlem olarak dikmek veya inşa etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used rig up because they needed to erect or construct, especially as a temporary measure. - özellikle geçici bir önlem olarak dikmek veya inşa etmek icin sikca rig up ifadesi tercih edilir.",
   },
   {
     word: "rough in",
@@ -21871,7 +21871,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Emotions",
     definition: "start with anger or resentment or in protest - öfkeyle, kızgınlıkla veya protestoyla başlayın",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used rear back because they needed to start with anger or resentment or in protest. - öfkeyle, kızgınlıkla veya protestoyla başlayın icin sikca rear back ifadesi tercih edilir.",
   },
   {
     word: "rise up",
@@ -21911,7 +21911,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "move by degrees in one direction only - yalnızca bir yönde derece derece hareket edin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use rachet up when they need to move by degrees in one direction only. - Genelde yalnızca bir yönde derece derece hareket edin gerektiginde rachet up ifadesi kullanilir.",
   },
   {
     word: "ratchet down",
@@ -21919,7 +21919,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "move by degrees in one direction only - yalnızca bir yönde derece derece hareket edin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used ratchet down because they needed to move by degrees in one direction only. - yalnızca bir yönde derece derece hareket edin icin sikca ratchet down ifadesi tercih edilir.",
   },
   {
     word: "rail off",
@@ -21943,7 +21943,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "dispose of in a lottery - piyangoda elden çıkarmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used raffle off because they needed to dispose of in a lottery. - piyangoda elden çıkarmak icin sikca raffle off ifadesi tercih edilir.",
   },
   {
     word: "rout up",
@@ -21967,7 +21967,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "be based on - dayalı olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used repose on because they needed to be based on. - dayalı olmak icin sikca repose on ifadesi tercih edilir.",
   },
   {
     word: "rail in",
@@ -21999,7 +21999,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "center upon - odaklanmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use revolve about if you want to center upon. - Insanlar odaklanmak istediginde revolve about kullanir.",
   },
   {
     word: "reach into",
@@ -22039,7 +22039,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Clothing",
     definition: "dress and groom with particular care, as for a special occasion - Özel bir gün için olduğu gibi, özel bir özenle giyin ve damatlaşın",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used slick up because they needed to dress and groom with particular care, as for a special occasion. - özel bir gün için olduğu gibi, özel bir özenle giyin ve damatlaşın icin sikca slick up ifadesi tercih edilir.",
   },
   {
     word: "smarten up",
@@ -22095,7 +22095,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to wash thoroughly - iyice yıkamak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use scrub up when they need to wash thoroughly. - Genelde iyice yıkamak gerektiginde scrub up ifadesi kullanilir.",
   },
   {
     word: "slick down",
@@ -22111,7 +22111,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "give a smooth and glossy appearance - pürüzsüz ve parlak bir görünüm kazandırır",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use sleek down when they need to give a smooth and glossy appearance. - Genelde pürüzsüz ve parlak bir görünüm kazandırır gerektiginde sleek down ifadesi kullanilir.",
   },
   {
     word: "strip down",
@@ -22183,7 +22183,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "partition by means of a divider, such as a screen - ekran gibi bir bölücü aracılığıyla bölme",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use separate off when they need to partition by means of a divider, such as a screen. - Genelde ekran gibi bir bölücü aracılığıyla bölme gerektiginde separate off ifadesi kullanilir.",
   },
   {
     word: "steady down",
@@ -22191,7 +22191,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "become settled or established and stable in one's residence or life style - kişinin ikametgahında veya yaşam tarzında yerleşik veya yerleşik ve istikrarlı hale gelmesi",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use steady down if you want to become settled or established and stable in one's residence or life style. - Insanlar kişinin ikametgahında veya yaşam tarzında yerleşik veya yerleşik ve istikrarlı hale gelmesi istediginde steady down kullanir.",
   },
   {
     word: "speed up",
@@ -22207,7 +22207,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "make less active or fast - daha az aktif veya hızlı hale getirin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used slack up because they needed to make less active or fast. - daha az aktif veya hızlı hale getirin icin sikca slack up ifadesi tercih edilir.",
   },
   {
     word: "stamp down",
@@ -22215,7 +22215,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to put down by force or authority - zorla veya otoriteyle bastırmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use stamp down to put down by force or authority. - Bu durumda zorla veya otoriteyle bastırmak amaciyla stamp down denir.",
   },
   {
     word: "smell out",
@@ -22247,7 +22247,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "read superficially - yüzeysel olarak oku",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use skim over when they need to read superficially. - Genelde yüzeysel olarak oku gerektiginde skim over ifadesi kullanilir.",
   },
   {
     word: "sweep up",
@@ -22263,7 +22263,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Education",
     definition: "study intensively, as before an exam - Sınavdan önce olduğu gibi yoğun bir şekilde çalışın",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use swot up if you want to study intensively, as before an exam. - Insanlar sınavdan önce olduğu gibi yoğun bir şekilde çalışın istediginde swot up kullanir.",
   },
   {
     word: "skim off",
@@ -22279,7 +22279,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "separate or remove - ayırın veya kaldırın",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use sieve out when they need to separate or remove. - Genelde ayırın veya kaldırın gerektiginde sieve out ifadesi kullanilir.",
   },
   {
     word: "stay off",
@@ -22311,7 +22311,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "recite volubly or extravagantly - yüksek sesle veya abartılı bir şekilde okumak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use spiel off when they need to recite volubly or extravagantly. - Genelde yüksek sesle veya abartılı bir şekilde okumak gerektiginde spiel off ifadesi kullanilir.",
   },
   {
     word: "swear in",
@@ -22375,7 +22375,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Food",
     definition: "drink large quantities of (liquid, especially alcoholic drink) - çok miktarda içmek (sıvı, özellikle alkollü içecek)",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used swill down because they needed to drink large quantities of (liquid, especially alcoholic drink). - çok miktarda içmek (sıvı, özellikle alkollü içecek) icin sikca swill down ifadesi tercih edilir.",
   },
   {
     word: "sop up",
@@ -22383,7 +22383,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "take up as if with a sponge - sanki bir süngerle alıyormuş gibi al",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used sop up because they needed to take up as if with a sponge. - sanki bir süngerle alıyormuş gibi al icin sikca sop up ifadesi tercih edilir.",
   },
   {
     word: "scrunch up",
@@ -22407,7 +22407,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "manage one's existence barely - varlığını zar zor idare etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use squeak by to manage one's existence barely. - Bu durumda varlığını zar zor idare etmek amaciyla squeak by denir.",
   },
   {
     word: "shore up",
@@ -22423,7 +22423,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Food",
     definition: "overeat or eat immodestly - aşırı yemek veya utanmazca yemek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used scarf out because they needed to overeat or eat immodestly. - aşırı yemek veya utanmazca yemek icin sikca scarf out ifadesi tercih edilir.",
   },
   {
     word: "slap on",
@@ -22455,7 +22455,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "spill or splash copiously or clumsily - bol miktarda veya beceriksizce dökülmek veya sıçramak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use slosh around if you want to spill or splash copiously or clumsily. - Insanlar bol miktarda veya beceriksizce dökülmek veya sıçramak istediginde slosh around kullanir.",
   },
   {
     word: "slush around",
@@ -22463,7 +22463,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "spill or splash copiously or clumsily - bol miktarda veya beceriksizce dökülmek veya sıçramak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use slush around when they need to spill or splash copiously or clumsily. - Genelde bol miktarda veya beceriksizce dökülmek veya sıçramak gerektiginde slush around ifadesi kullanilir.",
   },
   {
     word: "scratch up",
@@ -22527,7 +22527,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "deliver a warrant or summons to someone - birine emir veya celp teslim etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use swear out if you want to deliver a warrant or summons to someone. - Insanlar birine emir veya celp teslim etmek istediginde swear out kullanir.",
   },
   {
     word: "snatch up",
@@ -22535,7 +22535,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to grasp hastily or eagerly - aceleyle veya hevesle kavramak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use snatch up if you want to grasp hastily or eagerly. - Insanlar aceleyle veya hevesle kavramak istediginde snatch up kullanir.",
   },
   {
     word: "swoop up",
@@ -22543,7 +22543,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "seize or catch with a swooping motion - hızlı bir hareketle yakalayın veya yakalayın",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use swoop up to seize or catch with a swooping motion. - Bu durumda hızlı bir hareketle yakalayın veya yakalayın amaciyla swoop up denir.",
   },
   {
     word: "sow in",
@@ -22583,7 +22583,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "make hastily and carelessly - aceleyle ve dikkatsizce yapmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use slap together if you want to make hastily and carelessly. - Insanlar aceleyle ve dikkatsizce yapmak istediginde slap together kullanir.",
   },
   {
     word: "swing out",
@@ -22591,7 +22591,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "make a big sweeping gesture or movement - büyük, kapsamlı bir jest veya hareket yapın",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use swing out when they need to make a big sweeping gesture or movement. - Genelde büyük, kapsamlı bir jest veya hareket yapın gerektiginde swing out ifadesi kullanilir.",
   },
   {
     word: "soak through",
@@ -22599,7 +22599,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "be or become thoroughly soaked or saturated with a liquid - bir sıvıyla iyice ıslatılmış veya doymuş hale getirilmiş olması",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used soak through because they needed to be or become thoroughly soaked or saturated with a liquid. - bir sıvıyla iyice ıslatılmış veya doymuş hale getirilmiş olması icin sikca soak through ifadesi tercih edilir.",
   },
   {
     word: "suck out",
@@ -22631,7 +22631,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "remove by or as if by rubbing or erasing - sürterek veya silerek veya sanki sürterek veya silerek çıkarın",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use score out when they need to remove by or as if by rubbing or erasing. - Genelde sürterek veya silerek veya sanki sürterek veya silerek çıkarın gerektiginde score out ifadesi kullanilir.",
   },
   {
     word: "scratch out",
@@ -22687,7 +22687,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "ingratiate oneself to - kendini beğendirmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use sidle up if you want to ingratiate oneself to. - Insanlar kendini beğendirmek istediginde sidle up kullanir.",
   },
   {
     word: "shoulder in",
@@ -22703,7 +22703,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Emotions",
     definition: "overcome, as with emotions or perceptual stimuli - duygular veya algısal uyaranlarda olduğu gibi üstesinden gelmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use sweep over when they need to overcome, as with emotions or perceptual stimuli. - Genelde duygular veya algısal uyaranlarda olduğu gibi üstesinden gelmek gerektiginde sweep over ifadesi kullanilir.",
   },
   {
     word: "soar up",
@@ -22711,7 +22711,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "rise rapidly - hızla yükselmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use soar up if you want to rise rapidly. - Insanlar hızla yükselmek istediginde soar up kullanir.",
   },
   {
     word: "slide down",
@@ -22759,7 +22759,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "turn abruptly and face the other way, either physically or metaphorically - aniden dönün ve fiziksel ya da mecazi olarak diğer tarafa dönün",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used swing about because they needed to turn abruptly and face the other way, either physically or metaphorically. - aniden dönün ve fiziksel ya da mecazi olarak diğer tarafa dönün icin sikca swing about ifadesi tercih edilir.",
   },
   {
     word: "shoot down",
@@ -22775,7 +22775,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "recognize or detect by or as if by smelling - koklayarak veya sanki koklayarak tanıyın veya tespit edin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use scent out to recognize or detect by or as if by smelling. - Bu durumda koklayarak veya sanki koklayarak tanıyın veya tespit edin amaciyla scent out denir.",
   },
   {
     word: "send around",
@@ -22783,7 +22783,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "forward to others - başkalarına ilet",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used send around because they needed to forward to others. - başkalarına ilet icin sikca send around ifadesi tercih edilir.",
   },
   {
     word: "stink up",
@@ -22871,7 +22871,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "cover up a misdemeanor, fault, or error - Bir kabahati, kusuru veya hatayı örtbas etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use sleek over when they need to cover up a misdemeanor, fault, or error. - Genelde bir kabahati, kusuru veya hatayı örtbas etmek gerektiginde sleek over ifadesi kullanilir.",
   },
   {
     word: "squirrel away",
@@ -22911,7 +22911,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Business",
     definition: "make as a net profit - net kar olarak elde etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used sack up because they needed to make as a net profit. - net kar olarak elde etmek icin sikca sack up ifadesi tercih edilir.",
   },
   {
     word: "sign over",
@@ -22967,7 +22967,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "take the place or move into the position of - yerini almak veya konumuna geçmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used supervene upon because they needed to take the place or move into the position of. - yerini almak veya konumuna geçmek icin sikca supervene upon ifadesi tercih edilir.",
   },
   {
     word: "swing over",
@@ -22975,7 +22975,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "influence decisively - kararlı bir şekilde etkilemek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use swing over when they need to influence decisively. - Genelde kararlı bir şekilde etkilemek gerektiginde swing over ifadesi kullanilir.",
   },
   {
     word: "speak for",
@@ -22991,7 +22991,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "treat hurriedly or avoid dealing with properly - aceleyle davranın veya uygun şekilde ilgilenmekten kaçının",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use skate over when they need to treat hurriedly or avoid dealing with properly. - Genelde aceleyle davranın veya uygun şekilde ilgilenmekten kaçının gerektiginde skate over ifadesi kullanilir.",
   },
   {
     word: "smooth over",
@@ -23007,7 +23007,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "treat hurriedly or avoid dealing with properly - aceleyle davranın veya uygun şekilde ilgilenmekten kaçının",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use slur over if you want to treat hurriedly or avoid dealing with properly. - Insanlar aceleyle davranın veya uygun şekilde ilgilenmekten kaçının istediginde slur over kullanir.",
   },
   {
     word: "skimp over",
@@ -23015,7 +23015,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "treat hurriedly or avoid dealing with properly - aceleyle davranın veya uygun şekilde ilgilenmekten kaçının",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use skimp over when they need to treat hurriedly or avoid dealing with properly. - Genelde aceleyle davranın veya uygun şekilde ilgilenmekten kaçının gerektiginde skimp over ifadesi kullanilir.",
   },
   {
     word: "scratch along",
@@ -23023,7 +23023,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "manage one's existence barely - varlığını zar zor idare etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use scratch along to manage one's existence barely. - Bu durumda varlığını zar zor idare etmek amaciyla scratch along denir.",
   },
   {
     word: "squeeze by",
@@ -23039,7 +23039,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "occupy a large, elongated area - geniş, uzun bir alanı kaplar",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use stretch along if you want to occupy a large, elongated area. - Insanlar geniş, uzun bir alanı kaplar istediginde stretch along kullanir.",
   },
   {
     word: "send down",
@@ -23063,7 +23063,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "be available or ready for a certain function or service - belirli bir işlev veya hizmet için mevcut veya hazır olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use stick about to be available or ready for a certain function or service. - Bu durumda belirli bir işlev veya hizmet için mevcut veya hazır olmak amaciyla stick about denir.",
   },
   {
     word: "shine at",
@@ -23127,7 +23127,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Clothing",
     definition: "put on special clothes to appear particularly appealing and attractive - özellikle çekici ve çekici görünmek için özel kıyafetler giyin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used tog up because they needed to put on special clothes to appear particularly appealing and attractive. - özellikle çekici ve çekici görünmek için özel kıyafetler giyin icin sikca tog up ifadesi tercih edilir.",
   },
   {
     word: "tog out",
@@ -23135,7 +23135,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Clothing",
     definition: "put on special clothes to appear particularly appealing and attractive - özellikle çekici ve çekici görünmek için özel kıyafetler giyin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use tog out if you want to put on special clothes to appear particularly appealing and attractive. - Insanlar özellikle çekici ve çekici görünmek için özel kıyafetler giyin istediginde tog out kullanir.",
   },
   {
     word: "tucker out",
@@ -23151,7 +23151,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Medicine",
     definition: "give a healthy elasticity to - sağlıklı bir esneklik kazandırmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used tone up because they needed to give a healthy elasticity to. - sağlıklı bir esneklik kazandırmak icin sikca tone up ifadesi tercih edilir.",
   },
   {
     word: "thin out",
@@ -23199,7 +23199,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "cut down on - azaltmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use trim back to cut down on. - Bu durumda azaltmak amaciyla trim back denir.",
   },
   {
     word: "think of",
@@ -23279,7 +23279,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "determine the sum of - toplamını belirlemek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use tote up to determine the sum of. - Bu durumda toplamını belirlemek amaciyla tote up denir.",
   },
   {
     word: "trump out",
@@ -23311,7 +23311,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "hoist up or in and lash or secure with a small rope - yukarı veya içeri çekin ve küçük bir halatla bağlayın veya sabitleyin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use trice up when they need to hoist up or in and lash or secure with a small rope. - Genelde yukarı veya içeri çekin ve küçük bir halatla bağlayın veya sabitleyin gerektiginde trice up ifadesi kullanilir.",
   },
   {
     word: "tease apart",
@@ -23319,7 +23319,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "disentangle and raise the fibers of - liflerini çözün ve yükseltin",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use tease apart if you want to disentangle and raise the fibers of. - Insanlar liflerini çözün ve yükseltin istediginde tease apart kullanir.",
   },
   {
     word: "turf out",
@@ -23343,7 +23343,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "put in motion or move to act - harekete geçmek veya harekete geçmek için hareket etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used trigger off because they needed to put in motion or move to act. - harekete geçmek veya harekete geçmek için hareket etmek icin sikca trigger off ifadesi tercih edilir.",
   },
   {
     word: "tack together",
@@ -23351,7 +23351,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "create by putting components or members together - bileşenleri veya üyeleri bir araya getirerek yaratın",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use tack together to create by putting components or members together. - Bu durumda bileşenleri veya üyeleri bir araya getirerek yaratın amaciyla tack together denir.",
   },
   {
     word: "tramp down",
@@ -23391,7 +23391,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Sports",
     definition: "ride in a car with no particular goal and just for the pleasure of it - belirli bir hedefi olmayan ve sadece zevk için arabaya binmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used tool around because they needed to ride in a car with no particular goal and just for the pleasure of it. - belirli bir hedefi olmayan ve sadece zevk için arabaya binmek icin sikca tool around ifadesi tercih edilir.",
   },
   {
     word: "thrust ahead",
@@ -23399,7 +23399,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "push one's way - yolunu zorlamak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use thrust ahead to push one's way. - Bu durumda yolunu zorlamak amaciyla thrust ahead denir.",
   },
   {
     word: "thump out",
@@ -23407,7 +23407,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "beat out a rhythm - bir ritim tutturmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use thump out if you want to beat out a rhythm. - Insanlar bir ritim tutturmak istediginde thump out kullanir.",
   },
   {
     word: "thresh about",
@@ -23415,7 +23415,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "move or stir about violently - şiddetle hareket etmek veya hareket etmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use thresh about to move or stir about violently. - Bu durumda şiddetle hareket etmek veya hareket etmek amaciyla thresh about denir.",
   },
   {
     word: "thrash about",
@@ -23463,7 +23463,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "spend wastefully - israfla harcamak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use trifle away when they need to spend wastefully. - Genelde israfla harcamak gerektiginde trifle away ifadesi kullanilir.",
   },
   {
     word: "tangle with",
@@ -23487,7 +23487,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "end one's encounter with somebody by causing or permitting the person to leave - kişinin gitmesine neden olarak veya gitmesine izin vererek biriyle karşılaşmayı sona erdirmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used usher out because they needed to end one's encounter with somebody by causing or permitting the person to leave. - kişinin gitmesine neden olarak veya gitmesine izin vererek biriyle karşılaşmayı sona erdirmek icin sikca usher out ifadesi tercih edilir.",
   },
   {
     word: "vege out",
@@ -23495,7 +23495,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "engage in passive relaxation - pasif rahatlamaya katılın",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used vege out because they needed to engage in passive relaxation. - pasif rahatlamaya katılın icin sikca vege out ifadesi tercih edilir.",
   },
   {
     word: "vomit up",
@@ -23575,7 +23575,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "dismiss from consideration or a contest - değerlendirmeden veya yarışmadan çıkarılma",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use winnow out if you want to dismiss from consideration or a contest. - Insanlar değerlendirmeden veya yarışmadan çıkarılma istediginde winnow out kullanir.",
   },
   {
     word: "win over",
@@ -23711,7 +23711,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Weather",
     definition: "turn into the wind - rüzgara dönüşmek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used wear round because they needed to turn into the wind. - rüzgara dönüşmek icin sikca wear round ifadesi tercih edilir.",
   },
   {
     word: "walk around",
@@ -23727,7 +23727,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "fly around - etrafta uçmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "They used whirl around because they needed to fly around. - etrafta uçmak icin sikca whirl around ifadesi tercih edilir.",
   },
   {
     word: "whisk by",
@@ -23735,7 +23735,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "move by very quickly - çok hızlı hareket et",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use whisk by to move by very quickly. - Bu durumda çok hızlı hareket et amaciyla whisk by denir.",
   },
   {
     word: "whizz along",
@@ -23775,7 +23775,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "spend wastefully - israfla harcamak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In the office, we use wanton away to spend wastefully. - Bu durumda israfla harcamak amaciyla wanton away denir.",
   },
   {
     word: "wink at",
@@ -23799,7 +23799,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to talk incessantly and tiresomely - sürekli ve yorucu konuşmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use yack away if you want to talk incessantly and tiresomely. - Insanlar sürekli ve yorucu konuşmak istediginde yack away kullanir.",
   },
   {
     word: "yap away",
@@ -23807,7 +23807,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to talk incessantly and tiresomely - sürekli ve yorucu konuşmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "People often use yap away when they need to talk incessantly and tiresomely. - Genelde sürekli ve yorucu konuşmak gerektiginde yap away ifadesi kullanilir.",
   },
   {
     word: "yield up",
@@ -23831,7 +23831,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to move along very quickly - çok hızlı ilerlemek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "You can use zoom along if you want to move along very quickly. - Insanlar çok hızlı ilerlemek istediginde zoom along kullanir.",
   },
 
 ];

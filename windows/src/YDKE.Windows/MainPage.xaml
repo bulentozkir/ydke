@@ -30,6 +30,7 @@
                 <NavigationViewItem x:Name="CardsItem" Tag="cards"><NavigationViewItem.Icon><FontIcon Glyph="&#xE8C4;" AutomationProperties.AccessibilityView="Raw" /></NavigationViewItem.Icon></NavigationViewItem>
                 <NavigationViewItem x:Name="QuizItem" Tag="quiz"><NavigationViewItem.Icon><FontIcon Glyph="&#xE9D5;" AutomationProperties.AccessibilityView="Raw" /></NavigationViewItem.Icon></NavigationViewItem>
                 <NavigationViewItem x:Name="WordsItem" Tag="words"><NavigationViewItem.Icon><FontIcon Glyph="&#xE82D;" AutomationProperties.AccessibilityView="Raw" /></NavigationViewItem.Icon></NavigationViewItem>
+                <NavigationViewItem x:Name="PhrasalVerbsItem" Tag="phrasal-verbs"><NavigationViewItem.Icon><FontIcon Glyph="&#xE7C3;" AutomationProperties.AccessibilityView="Raw" /></NavigationViewItem.Icon></NavigationViewItem>
                 <NavigationViewItem x:Name="SimpleGamesItem" Tag="simple-games"><NavigationViewItem.Icon><FontIcon Glyph="&#xE768;" AutomationProperties.AccessibilityView="Raw" /></NavigationViewItem.Icon></NavigationViewItem>
                 <NavigationViewItem x:Name="ComplexGamesItem" Tag="complex-games"><NavigationViewItem.Icon><FontIcon Glyph="&#xEA86;" AutomationProperties.AccessibilityView="Raw" /></NavigationViewItem.Icon></NavigationViewItem>
                 <NavigationViewItem x:Name="StatsItem" Tag="stats"><NavigationViewItem.Icon><FontIcon Glyph="&#xE9D2;" AutomationProperties.AccessibilityView="Raw" /></NavigationViewItem.Icon></NavigationViewItem>

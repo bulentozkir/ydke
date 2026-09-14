@@ -40,6 +40,9 @@ public sealed partial class MainPage : Page
     private MediaSource? _speechSource;
     private SpeechSynthesisStream? _speechStream;
     private Button? _speechButton;
+    private bool _navigationVisualHooksAttached;
+    private NavigationViewItem? _navigationHoveredItem;
+    private NavigationViewItem? _navigationFocusedItem;
 
     public MainPage() => InitializeComponent();
 
@@ -97,6 +100,7 @@ public sealed partial class MainPage : Page
                 "cards" => CardsItem,
                 "quiz" => QuizItem,
                 "words" => WordsItem,
+                "phrasal-verbs" => PhrasalVerbsItem,
                 "simple-games" => SimpleGamesItem,
                 "complex-games" => ComplexGamesItem,
                 "stats" => StatsItem,
@@ -176,10 +180,15 @@ public sealed partial class MainPage : Page
             _currentPage = tag;
             if (!_storageBlocked) Notice.IsOpen = false;
             await EnsureWordsAsync();
+            if (IsPhrasalPage) await EnsurePhrasalWordsAsync();
             RenderCurrentPage();
         }
         catch (Exception ex) { ShowNotice(T("Common.Error"), ex.Message, InfoBarSeverity.Error); RestoreNavigationSelection(); }
-        finally { _navigationBusy = false; }
+        finally
+        {
+            _navigationBusy = false;
+            ApplyNavigationVisuals();
+        }
     }
 
     private void ApplyNavigationLanguage()
@@ -188,6 +197,7 @@ public sealed partial class MainPage : Page
         CardsItem.Content = T("Nav.Cards");
         QuizItem.Content = T("Nav.Quiz");
         WordsItem.Content = T("Nav.Words");
+        PhrasalVerbsItem.Content = T("Nav.Phrasal");
         SimpleGamesItem.Content = T("Nav.Simple");
         ComplexGamesItem.Content = T("Nav.Complex");
         StatsItem.Content = T("Nav.Stats");
@@ -195,9 +205,122 @@ public sealed partial class MainPage : Page
         HelpItem.Content = T("Nav.Help");
         AboutItem.Content = T("Nav.About");
         AutomationProperties.SetName(Navigation, U("Shell.Navigation", "Main navigation", "Ana gezinme"));
-        foreach (var item in new[] { HomeItem, CardsItem, QuizItem, WordsItem, SimpleGamesItem, ComplexGamesItem, StatsItem, ProfileItem, HelpItem, AboutItem })
+        foreach (var item in new[] { HomeItem, CardsItem, QuizItem, WordsItem, PhrasalVerbsItem, SimpleGamesItem, ComplexGamesItem, StatsItem, ProfileItem, HelpItem, AboutItem })
             AutomationProperties.SetName(item, item.Content?.ToString() ?? "");
+        ApplyNavigationVisuals();
         UpdateWindowModeButton();
+    }
+
+    private NavigationViewItem[] AllNavigationItems() =>
+    [
+        HomeItem,
+        CardsItem,
+        QuizItem,
+        WordsItem,
+        PhrasalVerbsItem,
+        SimpleGamesItem,
+        ComplexGamesItem,
+        StatsItem,
+        ProfileItem,
+        HelpItem,
+        AboutItem,
+    ];
+
+    private void EnsureNavigationVisualHooks()
+    {
+        if (_navigationVisualHooksAttached) return;
+        foreach (var item in AllNavigationItems())
+        {
+            item.PointerEntered += OnNavigationItemPointerEntered;
+            item.PointerExited += OnNavigationItemPointerExited;
+            item.GotFocus += OnNavigationItemGotFocus;
+            item.LostFocus += OnNavigationItemLostFocus;
+        }
+        _navigationVisualHooksAttached = true;
+    }
+
+    private void OnNavigationItemPointerEntered(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+    {
+        if (sender is not NavigationViewItem item) return;
+        _navigationHoveredItem = item;
+        ApplyNavigationVisuals();
+    }
+
+    private void OnNavigationItemPointerExited(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+    {
+        if (!ReferenceEquals(_navigationHoveredItem, sender)) return;
+        _navigationHoveredItem = null;
+        ApplyNavigationVisuals();
+    }
+
+    private void OnNavigationItemGotFocus(object sender, RoutedEventArgs e)
+    {
+        if (sender is not NavigationViewItem item) return;
+        _navigationFocusedItem = item;
+        ApplyNavigationVisuals();
+    }
+
+    private void OnNavigationItemLostFocus(object sender, RoutedEventArgs e)
+    {
+        if (!ReferenceEquals(_navigationFocusedItem, sender)) return;
+        _navigationFocusedItem = null;
+        ApplyNavigationVisuals();
+    }
+
+    private void ApplyNavigationVisuals()
+    {
+        EnsureNavigationVisualHooks();
+
+        var palette = AppearancePalette.Current;
+        var paneBackground = AppearancePalette.EnsureFillContrast(palette.Background, palette.Box, 2.2);
+        var paneForeground = AppearancePalette.EnsureTextContrast(paneBackground, palette.BackgroundForeground);
+        var paneBorder = AppearancePalette.EnsureBoundaryContrast(paneBackground, palette.Border);
+
+        var normalBackground = AppearancePalette.EnsureFillContrast(paneBackground, palette.Box, 1.35);
+        var normalForeground = AppearancePalette.EnsureTextContrast(normalBackground, paneForeground);
+        var normalBorder = AppearancePalette.EnsureBoundaryContrast(normalBackground, paneBorder);
+
+        var hoverBackground = AppearancePalette.EnsureFillContrast(normalBackground, palette.ButtonTint, 2.2);
+        var hoverForeground = AppearancePalette.EnsureTextContrast(hoverBackground, normalForeground);
+        var hoverBorder = AppearancePalette.EnsureBoundaryContrast(hoverBackground, normalBorder);
+
+        var selectedBackground = AppearancePalette.EnsureFillContrast(normalBackground, palette.Button, 3.0);
+        var selectedForeground = AppearancePalette.EnsureTextContrast(selectedBackground, palette.ButtonForeground);
+        var selectedBorder = AppearancePalette.EnsureBoundaryContrast(selectedBackground, palette.ButtonBorder);
+        var focusBorder = AppearancePalette.EnsureBoundaryContrast(normalBackground, selectedBackground);
+
+        Navigation.Background = new SolidColorBrush(paneBackground);
+        Navigation.Foreground = new SolidColorBrush(paneForeground);
+        Navigation.FontSize = ReadingSize(18);
+        Navigation.BorderBrush = new SolidColorBrush(paneBorder);
+        Navigation.BorderThickness = new Thickness(0, 0, 1, 0);
+        Navigation.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
+
+        var selected = Navigation.SelectedItem as NavigationViewItem;
+        foreach (var item in AllNavigationItems())
+        {
+            var selectedItem = ReferenceEquals(selected, item);
+            var hoveredItem = ReferenceEquals(_navigationHoveredItem, item);
+            var focusedItem = ReferenceEquals(_navigationFocusedItem, item);
+
+            var background = selectedItem ? selectedBackground : hoveredItem ? hoverBackground : normalBackground;
+            var foreground = selectedItem ? selectedForeground : hoveredItem ? hoverForeground : normalForeground;
+            var border = selectedItem ? selectedBorder : hoveredItem ? hoverBorder : normalBorder;
+            if (focusedItem && !selectedItem) border = focusBorder;
+
+            item.Background = new SolidColorBrush(background);
+            item.Foreground = new SolidColorBrush(foreground);
+            item.BorderBrush = new SolidColorBrush(border);
+            item.BorderThickness = new Thickness(selectedItem || focusedItem ? 2 : 1);
+            item.CornerRadius = new CornerRadius(12);
+            item.MinHeight = Math.Max(48, item.MinHeight);
+            item.FontSize = ReadingSize(18);
+            item.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
+            item.UseSystemFocusVisuals = true;
+
+            if (item.Icon is FontIcon icon)
+                icon.Foreground = new SolidColorBrush(foreground);
+        }
     }
 
     private void ApplyAppearance()
@@ -206,9 +329,7 @@ public sealed partial class MainPage : Page
         RequestedTheme = AppearancePalette.Current.Theme;
         Background = AppearancePalette.Current.BackgroundBrush;
         Foreground = AppearancePalette.Current.BackgroundForegroundBrush;
-        Navigation.Background = AppearancePalette.Current.BackgroundBrush;
-        Navigation.Foreground = AppearancePalette.Current.BackgroundForegroundBrush;
-        Navigation.FontSize = ReadingSize(18);
+        ApplyNavigationVisuals();
         ContentHost.Background = AppearancePalette.Current.BackgroundBrush;
         QuickSettingsBar.Background = AppearancePalette.Current.BoxBrush;
         QuickSettingsBar.BorderBrush = AppearancePalette.Current.BorderBrush;
@@ -274,6 +395,7 @@ public sealed partial class MainPage : Page
             case "cards": RenderCards(); break;
             case "quiz": RenderQuiz(); break;
             case "words": RenderWords(); break;
+            case "phrasal-verbs": RenderPhrasalVerbs(); break;
             case "simple-games": RenderGames(GameGroup.Simple); break;
             case "complex-games": RenderGames(GameGroup.Complex); break;
             case "stats": RenderStats(); break;
@@ -283,6 +405,7 @@ public sealed partial class MainPage : Page
             default: RenderHome(); break;
         }
         SyncQuickSettingsBar();
+        ApplyNavigationVisuals();
     }
 
     private void SyncQuickSettingsBar()
@@ -299,6 +422,7 @@ public sealed partial class MainPage : Page
         }
         AutomationProperties.SetName(QuickStudyLanguage, T("Profile.StudyLanguage"));
         AutomationProperties.SetName(QuickLevel, T("Profile.Level"));
+        ApplyQuickSettingsAvailability();
         ApplyQuickSettingsVisuals();
         _syncingSettings = false;
     }
@@ -3256,6 +3380,8 @@ public sealed partial class MainPage : Page
         return icon;
     }
 
+    private bool IsPhrasalPage => string.Equals(_currentPage, "phrasal-verbs", StringComparison.Ordinal);
+
     private string GameDescription(GameDefinition game) => ExperienceStrings.GameDescription(_settings.UiLanguage, game);
 
     private string LocalizedPart(string value)
@@ -3293,7 +3419,19 @@ public sealed partial class MainPage : Page
         LoadingRing.Visibility = loading ? Visibility.Visible : Visibility.Collapsed;
         ContentScroll.IsEnabled = !loading && !_studyBusy;
         PageContent.IsHitTestVisible = !loading && !_studyBusy;
-        QuickStudyLanguage.IsEnabled = QuickLevel.IsEnabled = !loading && !_studyBusy;
+        ApplyQuickSettingsAvailability();
+    }
+
+    private void ApplyQuickSettingsAvailability()
+    {
+        var interactive = !_studyBusy && !LoadingRing.IsActive;
+        QuickStudyLanguage.IsEnabled = interactive;
+        QuickLevel.IsEnabled = interactive && !IsPhrasalPage;
+        var levelHelp = IsPhrasalPage
+            ? U("Phrasal.LevelLocked", "Level is fixed in Phrasal Verbs mode. Change language to switch the phrasal dataset.", "Phrasal Verbs modunda seviye sabittir. Farkli bir ogek fiil veri seti icin dili degistirin.")
+            : T("Profile.Level");
+        AutomationProperties.SetHelpText(QuickLevel, levelHelp);
+        ToolTipService.SetToolTip(QuickLevel, levelHelp);
     }
 
     private void ShowNotice(string title, string message, InfoBarSeverity severity)

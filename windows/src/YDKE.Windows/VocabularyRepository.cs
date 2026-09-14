@@ -17,6 +17,18 @@ internal sealed class VocabularyRepository
         Create("nl", "Nederlands", "words{0}nl.js"),
     ];
 
+    public static readonly IReadOnlyDictionary<string, string> PhrasalFiles =
+        new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["en"] = "phrasalverbsen.js",
+            ["de"] = "partikelverbde.js",
+            ["fr"] = "phrasalverbsfr.js",
+            ["it"] = "phrasalverbsit.js",
+            ["es"] = "phrasalverbssp.js",
+            ["pt"] = "phrasalverbspt.js",
+            ["nl"] = "phrasalverbsnl.js",
+        };
+
     private readonly ConcurrentDictionary<string, IReadOnlyList<VocabularyEntry>> _cache = new();
 
     public async Task<IReadOnlyList<VocabularyEntry>> LoadAsync(
@@ -43,6 +55,31 @@ internal sealed class VocabularyRepository
         {
             throw new InvalidDataException($"No vocabulary records found in {path}.");
         }
+
+        _cache[key] = entries;
+        return entries;
+    }
+
+    public async Task<IReadOnlyList<VocabularyEntry>> LoadPhrasalAsync(
+        string languageCode,
+        CancellationToken cancellationToken = default)
+    {
+        var normalized = (languageCode ?? "").Trim().ToLowerInvariant();
+        if (!PhrasalFiles.TryGetValue(normalized, out var fileName))
+            throw new InvalidDataException($"No phrasal-verb dataset is available for language '{languageCode}'.");
+
+        var key = $"phrasal:{normalized}";
+        if (_cache.TryGetValue(key, out var cached)) return cached;
+
+        var path = Path.Combine(AppContext.BaseDirectory, "Data", fileName);
+        var source = await File.ReadAllTextAsync(path, Encoding.UTF8, cancellationToken).ConfigureAwait(false);
+        var entries = await Task.Run(
+            () => JavaScriptVocabularyParser.Parse(source, normalized, cancellationToken),
+            cancellationToken).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        if (entries.Count == 0)
+            throw new InvalidDataException($"No phrasal-verb records found in {path}.");
 
         _cache[key] = entries;
         return entries;

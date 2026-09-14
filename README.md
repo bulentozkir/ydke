@@ -7,9 +7,10 @@ primary tested environment, while the packaged app keeps the Windows 10 minimum
 for users on supported Windows 10 installations. It is not a website or a WebView
 wrapper. Study content is bundled locally; settings and progress are saved **on
 this device by default**.
-Cards, quizzes, word lists and eligible games use bundled data without an internet
-connection. Game availability depends on the selected dataset and, for audio,
-installed local speech voices.
+Cards, quizzes, word lists, phrasal verbs and eligible games use bundled data
+without an internet connection. Help content is bundled with the app and is
+available offline. Game availability depends on the selected dataset and, for
+audio, installed local speech voices.
 
 YDKE is now a **local-only** learning app. No account, sign-in, browser handoff,
 or cloud sync is required or available. In **Settings > For grown-ups**, use
@@ -26,8 +27,11 @@ replacing local settings and progress.
 - Study languages: English, German, French, Italian, Spanish, Portuguese,
   Dutch; CEFR A1-C2
 - Games: 25 total, split into **11 Simple Games** and **14 Complex Games**
-- Local vocabulary source: 53 root JavaScript datasets plus a SHA-256
-  [data/manifest.json](data/manifest.json), parsed directly by C#
+- Phrasal Verbs route: dedicated challenge mode with bilingual definition and
+  example display (original language plus Turkish)
+- Local vocabulary source: bundled JavaScript datasets (including phrasal sets
+  for EN/DE/FR/ES/PT/NL) plus SHA-256 [data/manifest.json](data/manifest.json),
+  parsed directly by C#
 - Due/new study sessions, reveal-and-rate cards with undo and saved position,
   inline quiz feedback with explicit Continue and missed-word practice
 - Searchable/filterable Word Library, scoped statistics, local backups,
@@ -39,6 +43,15 @@ replacing local settings and progress.
   optional details and Help use short popup pages
 - Distribution: self-contained x64/ARM64 MSI and Microsoft Store MSIX bundle
 
+## Offline behavior
+
+- Core learning flows, including Cards, Quiz, Word Library, Games and Phrasal
+  Verbs, run on local bundled datasets.
+- Help topics are packaged with the app and open fully offline.
+- Text-to-speech uses locally installed Windows voices and does not require a
+  YDKE network service.
+- Backup export/import uses local files selected by the user.
+
 ## Help in your language
 
 Open **Help** from the navigation menu. Choose **Screen & keys**, **Cards**,
@@ -46,6 +59,8 @@ Open **Help** from the navigation menu. Choose **Screen & keys**, **Cards**,
 **Backups & privacy**. Read with **Previous page / Next page**, then choose
 **Open this screen** to practise or **Close help** to return. No scrolling is
 needed to read a topic.
+
+Help pages are native local content and do not fetch from the web.
 
 All topics and controls follow **App language** in **Settings > My practice**:
 Türkçe, English, Deutsch, Français, Español, Português and Nederlands. This is
@@ -56,7 +71,9 @@ and level; appearance and practice preferences are saved explicitly in Settings.
 Help covers reveal-before-rating and Undo, Quiz's saved-answer/Continue step,
 word and game paging, game availability and local speech voices, Settings
 previews, distinct-word statistics, and safe local backups. It describes
-the current native app, not the archived web version.
+the current native app, not the archived web version. Phrasal Verbs provides
+its own inline key hints and keeps level selection disabled only while the
+Phrasal Verbs page is active.
 
 Build the app:
 

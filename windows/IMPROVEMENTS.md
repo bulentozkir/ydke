@@ -6,6 +6,7 @@ device by default. The product now runs local-only: no Google sign-in, browser
 handoff, online account state, or cloud backup/sync path is present. Backup and
 restore are explicit local file actions. A successful build is not an
 accessibility certification.
+Built-in Help content is local to the app package and available offline.
 
 ## Current study flows
 
@@ -25,6 +26,10 @@ accessibility certification.
 - Word Library provides search, category/favorite/known/due filters, result
   counts and **Previous word / Next word** paging through one expanded word at
   a time. **Clear filters** resets the search; matching results can start a quiz.
+- Phrasal Verbs adds a dedicated route using local EN/DE/FR/ES/PT/NL datasets,
+  always showing original-language definition/example alongside Turkish.
+  On this route the top level selector is intentionally disabled and dimmed,
+  then re-enabled on all other routes.
 - Game catalogs show up to four games per page. The game toolbar and HUD stay
   compact, with the visual/board beside the question. Reading uses short text
   pages; CodyCross shows only the active clue. **How to play** pauses the clock;
@@ -56,7 +61,9 @@ Settings, Statistics, and Backups & privacy. A topic opens readable, short pages
 in a native dialog with Previous/Next, an explicit Close button and, where
 applicable, an Open this screen action. Instructions are no longer available
 only on hover, and the dialog does not light-dismiss when focus changes.
-Topic paging preserves the no-scroll learning layout.
+Topic paging preserves the no-scroll learning layout and works offline.
+The Phrasal Verbs screen currently provides inline, in-page guidance and
+shortcuts rather than a separate Help topic.
 
 Automated UI test scripts were removed from this repository. Use the manual
 accessibility/usability checklist below when validating UI behavior.

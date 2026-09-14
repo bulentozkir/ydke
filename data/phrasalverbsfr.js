@@ -790,7 +790,7 @@ window.PHRASAL_VERBS_FR = [
     level: "PV",
     category: "General",
     definition: "To intend to. - Niyetinde olmak.",
-    example: "Aucune phrase d'exemple disponible pour ce mot. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Avant vendredi, on devait avoir l'intention de avant de signer le contrat. - Cuma gununden once sozlesmeyi imzalamadan once avoir l'intention de yapmamiz gerekti.",
   },
   {
     word: "avoir l'habitude de",
@@ -830,7 +830,7 @@ window.PHRASAL_VERBS_FR = [
     level: "PV",
     category: "General",
     definition: "To look forward to. - Sabırsızlanmak.",
-    example: "Aucune phrase d'exemple disponible pour ce mot. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Apres le mail, ils ont choisi de avoir hâte de immediatement. - E-postadan sonra beklemeden avoir hâte de yapmayi sectiler.",
   },
   {
     word: "s'inquiéter de",

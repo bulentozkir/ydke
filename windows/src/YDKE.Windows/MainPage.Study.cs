@@ -139,8 +139,7 @@ public sealed partial class MainPage
         _studyBusy = busy;
         ContentScroll.IsEnabled = !busy && !LoadingRing.IsActive;
         PageContent.IsHitTestVisible = !busy && !LoadingRing.IsActive;
-        QuickStudyLanguage.IsEnabled = !busy && !LoadingRing.IsActive;
-        QuickLevel.IsEnabled = !busy && !LoadingRing.IsActive;
+        ApplyQuickSettingsAvailability();
         Navigation.IsPaneToggleButtonVisible = !busy;
     }
 
@@ -1078,6 +1077,24 @@ public sealed partial class MainPage
         });
     }
 
+    private StudyChoiceVisual QuizIslandVisual(int examIndex)
+    {
+        var palette = AppearancePalette.Current;
+        var baseVisual = QuizChoiceVisual(examIndex, _settings.QuizChoicePalette);
+
+        // Keep the quiz palette colors, then nudge shade per island group so visible cards are distinct.
+        var shadeStep = ((examIndex / QuizChoiceCount) % 5) * 0.06;
+        var target = palette.Theme == ElementTheme.Dark ? Microsoft.UI.Colors.White : Microsoft.UI.Colors.Black;
+        var shiftedBackground = shadeStep <= 0
+            ? baseVisual.Background
+            : MixColor(baseVisual.Background, target, shadeStep);
+
+        var background = AppearancePalette.EnsureFillContrast(palette.Box, shiftedBackground, 3.4);
+        var foreground = EnsureStrongTextContrast(background, baseVisual.Foreground, 7);
+        var border = AppearancePalette.EnsureBoundaryContrast(background, MixColor(background, foreground, 0.34));
+        return new StudyChoiceVisual(background, foreground, border);
+    }
+
     private void AddQuizExamPicker(StackPanel content)
     {
         var pool = QuizExamPool();
@@ -1115,16 +1132,18 @@ public sealed partial class MainPage
             var saved = QuizExamEngine.SavedExam(_progress, pool, examIndex);
             var savedLabel = string.Format(CultureInfo.CurrentCulture,
                 U("Kids.Quiz.ExamSaved", "{0} of {1} answered", "{1} sorudan {0} tanesi yanıtlandı"), saved?.Answers.Count ?? 0, to - from + 1);
-            var palette = AppearancePalette.Current;
+            var visual = QuizIslandVisual(examIndex);
+            var foregroundBrush = new SolidColorBrush(visual.Foreground);
             var tile = new StackPanel { Spacing = 4 };
-            tile.Children.Add(StudyText(examLabel, 22, palette.BoxForegroundBrush, emphasis: true));
-            tile.Children.Add(StudyText(rangeLabel, 18, palette.BoxForegroundBrush));
-            tile.Children.Add(StudyText(savedLabel, 18, palette.BoxForegroundBrush));
+            tile.Children.Add(StudyText(examLabel, 22, foregroundBrush, emphasis: true));
+            tile.Children.Add(StudyText(rangeLabel, 18, foregroundBrush, emphasis: true));
+            tile.Children.Add(StudyText(savedLabel, 18, foregroundBrush));
             var button = ReadableStudyAction(SecondaryButton(examLabel, ""));
             button.Content = tile;
             button.Padding = new Thickness(12);
             button.MinHeight = 88;
-            ApplyStudyChoiceVisual(button, new StudyChoiceVisual(palette.Box, palette.BoxForeground, palette.Border));
+            ApplyStudyChoiceVisual(button, visual);
+            button.BorderThickness = new Thickness(2);
             var examHelp = string.Format(CultureInfo.CurrentCulture,
                 U("Kids.Quiz.ExamHelp", "{0} questions. Open this test or continue where you left off.", "{0} soru. Bu testi aç veya kaldığın yerden devam et."), to - from + 1);
             AutomationProperties.SetName(button, examLabel + " · " + rangeLabel + " · " + savedLabel);
@@ -1962,6 +1981,24 @@ public sealed partial class MainPage
             }
             else if (e.Key == VirtualKey.Enter && _quizContinue?.IsEnabled == true) { e.Handled = true; await ContinueQuizAsync(); }
         }
+        else if (_currentPage == "phrasal-verbs")
+        {
+            if (number >= 0 && number < _phrasalOptionButtons.Count && _phrasalOptionButtons[number].IsEnabled)
+            {
+                e.Handled = true;
+                AnswerPhrasalOption(number);
+            }
+            else if (e.Key == VirtualKey.H && _phrasalHintButton?.IsEnabled == true)
+            {
+                e.Handled = true;
+                ShowPhrasalHint();
+            }
+            else if (e.Key == VirtualKey.Enter && _phrasalNextButton?.IsEnabled == true)
+            {
+                e.Handled = true;
+                AdvancePhrasalChallenge();
+            }
+        }
     }
 
     private async Task<bool> ConfirmAsync(string title, string message, string? confirmText = null)
@@ -2048,6 +2085,7 @@ public sealed partial class MainPage
             _cardUndo = null;
             _revealedCardKey = null;
             if (oldLanguage != _settings.StudyLanguage || oldLevel != _settings.Level) await ReloadWordsAsync();
+            if (IsPhrasalPage) await EnsurePhrasalWordsAsync();
             ApplyNavigationLanguage();
             RenderCurrentPage();
         }

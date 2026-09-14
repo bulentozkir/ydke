@@ -46,11 +46,11 @@
              Link="Data\%(Filename)%(Extension)"
              CopyToOutputDirectory="PreserveNewest"
              CopyToPublishDirectory="PreserveNewest" />
-    <Content Include="..\..\..\LICENSE"
+    <Content Include="..\..\..\LICENSE.md"
              Link="ThirdParty\LICENSE"
              CopyToOutputDirectory="PreserveNewest"
              CopyToPublishDirectory="PreserveNewest" />
-    <Content Include="..\..\..\NOTICE"
+    <Content Include="..\..\..\NOTICE.md"
              Link="ThirdParty\NOTICE"
              CopyToOutputDirectory="PreserveNewest"
              CopyToPublishDirectory="PreserveNewest" />

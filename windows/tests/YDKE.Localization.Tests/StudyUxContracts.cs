@@ -323,8 +323,16 @@ internal static class StudyUxContracts
             Has(picker, "StartQuizExamSessionAsync(capturedIndex)") && Has(picker, "Grid.SetRow(button, position / _quizExamColumns)") &&
             Has(picker, "U(\"Kids.Quiz.ExamPageRange\"") && Has(picker, "SelectPage(pages.SelectedIndex)"),
             "numbered tiles must expose ranges, saved progress and direct page selection with safe captured indices.");
-        Test(Has(picker, "ApplyStudyChoiceVisual(button, new StudyChoiceVisual(palette.Box, palette.BoxForeground, palette.Border))") &&
-            Has(picker, "StudyText(examLabel, 22, palette.BoxForegroundBrush, emphasis: true)") &&
+        var legacyIslandContrast =
+            Has(picker, "ApplyStudyChoiceVisual(button, new StudyChoiceVisual(palette.Box, palette.BoxForeground, palette.Border))") &&
+            Has(picker, "StudyText(examLabel, 22, palette.BoxForegroundBrush, emphasis: true)");
+        var themedIslandContrast =
+            Has(picker, "var visual = QuizIslandVisual(examIndex)") &&
+            Has(picker, "var foregroundBrush = new SolidColorBrush(visual.Foreground)") &&
+            Has(picker, "ApplyStudyChoiceVisual(button, visual)") &&
+            Has(picker, "button.BorderThickness = new Thickness(2)") &&
+            Has(Member(source, "QuizIslandVisual"), "EnsureStrongTextContrast");
+        Test((legacyIslandContrast || themedIslandContrast) &&
             Has(picker, "ConfigureReadingComboBox(pages)"),
             "islands and their page selector must retain readable contrast, text and touch targets.");
         var showPicker = Member(source, "ShowQuizExamPicker");
