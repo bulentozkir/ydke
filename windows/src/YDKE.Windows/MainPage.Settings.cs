@@ -123,7 +123,7 @@ public sealed partial class MainPage
         {
             (SettingsSection.Learning, "learning", U("Kids.Settings.MyPractice", "My practice", "Çalışmam"), BuildLearningSettings(draft)),
             (SettingsSection.Appearance, "appearance", U("Kids.Settings.ColorsText", "Colors & text", "Renkler ve yazılar"), BuildAppearanceSettings(draft)),
-            (SettingsSection.Account, "account", U("Kids.Settings.GrownUps", "For grown-ups", "Büyükler için"), BuildAccountSettings(markedKnownLabel)),
+            (SettingsSection.Account, "account", U("Kids.Settings.GrownUps", "Advanced features", "Gelişmiş özellikler"), BuildAccountSettings(markedKnownLabel)),
         };
 
         void SelectSettingsSection(SettingsSection selected)
@@ -876,7 +876,7 @@ public sealed partial class MainPage
         var layout = new Grid { ColumnSpacing = 16, RowSpacing = 14, MinWidth = 0, Children = { editor, preview } };
         ConfigureResponsiveGrid(layout, 2, Font(310));
         panel.Children.Add(layout);
-        var advancedLabel = U("Kids.Settings.Advanced", "Advanced (for grown-ups)", "Gelişmiş (büyükler için)");
+        var advancedLabel = U("Kids.Settings.Advanced", "Advanced features", "Gelişmiş özellikler");
         var advancedContent = new StackPanel
         {
             Spacing = 12, MinWidth = 0,
@@ -1071,14 +1071,14 @@ public sealed partial class MainPage
 
     private void ShowSettingsSaveFailure(UIElement details)
     {
-        var title = U("Kids.Settings.SaveFailedTitle", "Saving needs a grown-up's help", "Kaydetmek için bir büyüğünden yardım al");
+        var title = U("Kids.Settings.SaveFailedTitle", "Saving needs Advanced features support", "Kaydetmek için gelişmiş özellik desteği gerekiyor");
         var summary = _storageBlocked
-            ? U("Kids.Settings.SaveRecoveryHint", "Close and reopen YDKE with a grown-up before continuing.", "Devam etmeden önce bir büyüğünle YDKE'yi kapatıp yeniden aç.")
-            : U("Kids.Settings.SaveFailedHint", "Your choices are still here; ask a grown-up to help you save.", "Seçimlerin hâlâ burada; kaydetmek için bir büyüğünden yardım iste.");
+            ? U("Kids.Settings.SaveRecoveryHint", "Close and reopen YDKE before trying Advanced features again.", "Gelişmiş özellikleri tekrar denemeden önce YDKE'yi kapatıp yeniden aç.")
+            : U("Kids.Settings.SaveFailedHint", "Your choices are still here; use Advanced features to continue save troubleshooting.", "Seçimlerin hâlâ burada; kaydetme sorun giderimine devam etmek için gelişmiş özellikleri kullan.");
         // ShowNotice releases the previous content; never change recovery locks or the original error text.
         ShowNotice(title, summary, InfoBarSeverity.Error);
         SettingsReadableContent(details);
-        var label = U("Kids.Settings.ErrorDetails", "Details for grown-ups", "Büyükler için ayrıntılar");
+        var label = U("Kids.Settings.ErrorDetails", "Advanced feature details", "Gelişmiş özellik ayrıntıları");
         var advanced = StudyPopupButton(label, details, "settings.SaveFailure.Details");
         Notice.Content = advanced;
     }

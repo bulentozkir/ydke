@@ -331,9 +331,10 @@ public sealed partial class MainPage : Page
         Foreground = AppearancePalette.Current.BackgroundForegroundBrush;
         ApplyNavigationVisuals();
         ContentHost.Background = AppearancePalette.Current.BackgroundBrush;
-        QuickSettingsBar.Background = AppearancePalette.Current.BoxBrush;
-        QuickSettingsBar.BorderBrush = AppearancePalette.Current.BorderBrush;
-        QuickSettingsBar.BorderThickness = new Thickness(0, 0, 0, 1);
+        var quickToolbar = BuildQuickSettingsPalette();
+        QuickSettingsBar.Background = new SolidColorBrush(quickToolbar.ToolbarBackground);
+        QuickSettingsBar.BorderBrush = new SolidColorBrush(quickToolbar.ToolbarBorder);
+        QuickSettingsBar.BorderThickness = new Thickness(0, 0, 0, 2);
         ApplyQuickSettingsVisuals();
         if (App.MainWindow is YDKE_Windows.MainWindow window)
             window.ApplyAppearance(AppearancePalette.Current);
@@ -3000,12 +3001,12 @@ public sealed partial class MainPage : Page
 
     private static TextBlock QuickSettingLabel(string text)
     {
-        var palette = AppearancePalette.Current;
+        var quickToolbar = BuildQuickSettingsPalette();
         var label = new TextBlock
         {
             Text = text,
             FontSize = ReadingSize(18),
-            Foreground = new SolidColorBrush(AppearancePalette.EnsureTextContrast(palette.Box, palette.BoxForeground)),
+            Foreground = new SolidColorBrush(AppearancePalette.EnsureTextContrast(quickToolbar.ToolbarBackground, quickToolbar.ToolbarForeground)),
             TextWrapping = TextWrapping.Wrap,
             TextTrimming = TextTrimming.None,
         };
@@ -3013,38 +3014,160 @@ public sealed partial class MainPage : Page
         return label;
     }
 
+    private readonly record struct QuickSettingsPalette(
+        Color ToolbarBackground,
+        Color ToolbarForeground,
+        Color ToolbarBorder,
+        Color ComboBackground,
+        Color ComboForeground,
+        Color ComboBorder,
+        Color ComboDisabledBackground,
+        Color ComboDisabledForeground,
+        Color ComboDisabledBorder,
+        Color WindowModeBackground,
+        Color WindowModeForeground,
+        Color WindowModeBorder);
+
+    private static QuickSettingsPalette BuildQuickSettingsPalette()
+    {
+        var dark = AppearancePalette.Current.Theme == ElementTheme.Dark;
+        return dark
+            ? new QuickSettingsPalette(
+                ToolbarBackground: Color.FromArgb(255, 95, 40, 13),
+                ToolbarForeground: Color.FromArgb(255, 255, 235, 198),
+                ToolbarBorder: Color.FromArgb(255, 244, 186, 96),
+                ComboBackground: Color.FromArgb(255, 126, 56, 19),
+                ComboForeground: Color.FromArgb(255, 255, 242, 214),
+                ComboBorder: Color.FromArgb(255, 255, 207, 132),
+                ComboDisabledBackground: Color.FromArgb(255, 119, 90, 24),
+                ComboDisabledForeground: Color.FromArgb(255, 255, 243, 215),
+                ComboDisabledBorder: Color.FromArgb(255, 232, 201, 127),
+                WindowModeBackground: Color.FromArgb(255, 135, 35, 55),
+                WindowModeForeground: Color.FromArgb(255, 255, 234, 214),
+                WindowModeBorder: Color.FromArgb(255, 255, 190, 138))
+            : new QuickSettingsPalette(
+                ToolbarBackground: Color.FromArgb(255, 255, 214, 160),
+                ToolbarForeground: Color.FromArgb(255, 93, 37, 0),
+                ToolbarBorder: Color.FromArgb(255, 178, 84, 17),
+                ComboBackground: Color.FromArgb(255, 255, 194, 120),
+                ComboForeground: Color.FromArgb(255, 91, 33, 0),
+                ComboBorder: Color.FromArgb(255, 166, 69, 10),
+                ComboDisabledBackground: Color.FromArgb(255, 243, 179, 96),
+                ComboDisabledForeground: Color.FromArgb(255, 88, 29, 0),
+                ComboDisabledBorder: Color.FromArgb(255, 151, 56, 6),
+                WindowModeBackground: Color.FromArgb(255, 154, 50, 13),
+                WindowModeForeground: Color.FromArgb(255, 255, 238, 214),
+                WindowModeBorder: Color.FromArgb(255, 120, 36, 7));
+    }
+
     private void ApplyQuickSettingsVisuals()
     {
         var palette = AppearancePalette.Current;
-        var toolbarBackground = palette.Box;
+        var quickToolbar = BuildQuickSettingsPalette();
+        var toolbarBackground = quickToolbar.ToolbarBackground;
         var toolbarForeground = AppearancePalette.EnsureTextContrast(toolbarBackground, palette.BoxForeground);
-        var toolbarBorder = AppearancePalette.EnsureBoundaryContrast(toolbarBackground, palette.Border);
+        if (AppearancePalette.ContrastRatio(toolbarBackground, quickToolbar.ToolbarForeground) >= 4.5)
+            toolbarForeground = quickToolbar.ToolbarForeground;
+        var toolbarBorder = AppearancePalette.EnsureBoundaryContrast(toolbarBackground, quickToolbar.ToolbarBorder);
+        QuickSettingsBar.Background = new SolidColorBrush(toolbarBackground);
+        QuickSettingsBar.BorderBrush = new SolidColorBrush(toolbarBorder);
+        QuickSettingsBar.BorderThickness = new Thickness(0, 0, 0, 2);
+
+        var comboBackground = AppearancePalette.EnsureFillContrast(toolbarBackground, quickToolbar.ComboBackground, 1.8);
+        var comboForeground = AppearancePalette.EnsureTextContrast(comboBackground, quickToolbar.ComboForeground);
+        var comboBorder = AppearancePalette.EnsureBoundaryContrast(comboBackground, quickToolbar.ComboBorder);
+        var comboDisabledBackground = AppearancePalette.EnsureFillContrast(toolbarBackground, quickToolbar.ComboDisabledBackground, 1.5);
+        var comboDisabledForeground = AppearancePalette.EnsureTextContrast(comboDisabledBackground, quickToolbar.ComboDisabledForeground);
+        var comboDisabledBorder = AppearancePalette.EnsureBoundaryContrast(comboDisabledBackground, quickToolbar.ComboDisabledBorder);
+        var comboHoverBackground = AppearancePalette.EnsureFillContrast(comboBackground, quickToolbar.ToolbarBorder, 1.25);
+        var comboHoverForeground = AppearancePalette.EnsureTextContrast(comboHoverBackground, comboForeground);
+        var comboHoverBorder = AppearancePalette.EnsureBoundaryContrast(comboHoverBackground, comboBorder);
+        var comboPressedBackground = AppearancePalette.EnsureFillContrast(comboBackground, quickToolbar.WindowModeBackground, 1.25);
+        var comboPressedForeground = AppearancePalette.EnsureTextContrast(comboPressedBackground, comboForeground);
+        var comboPressedBorder = AppearancePalette.EnsureBoundaryContrast(comboPressedBackground, comboBorder);
+
         foreach (var control in new[] { QuickStudyLanguage, QuickLevel })
         {
-            control.Background = new SolidColorBrush(toolbarBackground);
-            control.Foreground = new SolidColorBrush(toolbarForeground);
-            control.BorderBrush = new SolidColorBrush(toolbarBorder);
-            control.BorderThickness = new Thickness(1);
+            var enabled = control.IsEnabled;
+            var activeBackground = enabled ? comboBackground : comboDisabledBackground;
+            var activeForeground = enabled ? comboForeground : comboDisabledForeground;
+            var activeBorder = enabled ? comboBorder : comboDisabledBorder;
+            control.Background = new SolidColorBrush(activeBackground);
+            control.Foreground = new SolidColorBrush(activeForeground);
+            control.BorderBrush = new SolidColorBrush(activeBorder);
+            control.BorderThickness = new Thickness(2);
+            control.Opacity = 1;
             control.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
+            control.UseSystemFocusVisuals = true;
+            if (control.Header is TextBlock header)
+            {
+                header.Foreground = new SolidColorBrush(toolbarForeground);
+                header.FontWeight = Microsoft.UI.Text.FontWeights.SemiBold;
+                header.Opacity = 1;
+            }
             var itemStyle = new Style(typeof(ComboBoxItem));
             itemStyle.Setters.Add(new Setter(Control.FontSizeProperty, ReadingSize(18)));
             itemStyle.Setters.Add(new Setter(FrameworkElement.MinHeightProperty, 48d));
             itemStyle.Setters.Add(new Setter(FrameworkElement.MinWidthProperty, 48d));
-            itemStyle.Setters.Add(new Setter(Control.ForegroundProperty, new SolidColorBrush(toolbarForeground)));
-            itemStyle.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush(toolbarBackground)));
+            itemStyle.Setters.Add(new Setter(Control.ForegroundProperty, new SolidColorBrush(comboForeground)));
+            itemStyle.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush(comboBackground)));
             control.ItemContainerStyle = itemStyle;
-            foreach (var state in new[] { "", "PointerOver", "Pressed", "Focused", "Disabled" })
+
+            SetComboBoxResource(control, "ComboBoxBackground", new SolidColorBrush(comboBackground));
+            SetComboBoxResource(control, "ComboBoxForeground", new SolidColorBrush(comboForeground));
+            SetComboBoxResource(control, "ComboBoxBorderBrush", new SolidColorBrush(comboBorder));
+
+            foreach (var state in new[] { "PointerOver", "Focused" })
             {
-                control.Resources[$"ComboBoxBackground{state}"] = control.Background;
-                control.Resources[$"ComboBoxForeground{state}"] = control.Foreground;
-                control.Resources[$"ComboBoxBorderBrush{state}"] = control.BorderBrush;
+                SetComboBoxResource(control, $"ComboBoxBackground{state}", new SolidColorBrush(comboHoverBackground));
+                SetComboBoxResource(control, $"ComboBoxForeground{state}", new SolidColorBrush(comboHoverForeground));
+                SetComboBoxResource(control, $"ComboBoxBorderBrush{state}", new SolidColorBrush(comboHoverBorder));
             }
+
+            SetComboBoxResource(control, "ComboBoxBackgroundPressed", new SolidColorBrush(comboPressedBackground));
+            SetComboBoxResource(control, "ComboBoxForegroundPressed", new SolidColorBrush(comboPressedForeground));
+            SetComboBoxResource(control, "ComboBoxBorderBrushPressed", new SolidColorBrush(comboPressedBorder));
+            SetComboBoxResource(control, "ComboBoxBackgroundDisabled", new SolidColorBrush(comboDisabledBackground));
+            SetComboBoxResource(control, "ComboBoxForegroundDisabled", new SolidColorBrush(comboDisabledForeground));
+            SetComboBoxResource(control, "ComboBoxBorderBrushDisabled", new SolidColorBrush(comboDisabledBorder));
         }
 
-        var buttonBackground = palette.Button;
-        ApplyAccessibleButtonVisuals(WindowModeButton, buttonBackground, palette.ButtonForeground, palette.ButtonBorder);
+        var buttonBackground = AppearancePalette.EnsureFillContrast(toolbarBackground, quickToolbar.WindowModeBackground, 2.1);
+        var buttonForeground = AppearancePalette.EnsureTextContrast(buttonBackground, quickToolbar.WindowModeForeground);
+        var buttonBorder = AppearancePalette.EnsureBoundaryContrast(buttonBackground, quickToolbar.WindowModeBorder);
+        var buttonDisabledBackground = AppearancePalette.EnsureFillContrast(toolbarBackground, quickToolbar.ComboDisabledBackground, 1.6);
+        var buttonDisabledForeground = AppearancePalette.EnsureTextContrast(buttonDisabledBackground, quickToolbar.ComboDisabledForeground);
+        var buttonDisabledBorder = AppearancePalette.EnsureBoundaryContrast(buttonDisabledBackground, quickToolbar.ComboDisabledBorder);
+        var windowModeActiveBackground = WindowModeButton.IsEnabled ? buttonBackground : buttonDisabledBackground;
+        var windowModeActiveForeground = WindowModeButton.IsEnabled ? buttonForeground : buttonDisabledForeground;
+        var windowModeActiveBorder = WindowModeButton.IsEnabled ? buttonBorder : buttonDisabledBorder;
+        WindowModeButton.Background = new SolidColorBrush(windowModeActiveBackground);
+        WindowModeButton.Foreground = new SolidColorBrush(windowModeActiveForeground);
+        WindowModeButton.BorderBrush = new SolidColorBrush(windowModeActiveBorder);
+        WindowModeButton.BorderThickness = new Thickness(1);
+        WindowModeButton.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
+        WindowModeButton.UseSystemFocusVisuals = true;
+        if (WindowModeButton.Content is UIElement windowModeContent)
+            ApplyButtonIconForeground(windowModeContent, new SolidColorBrush(windowModeActiveForeground));
+        // Each state key is written exactly once per call; re-writing a key the shared
+        // helper already installed in the same pass has crashed WinUI's resource dictionary (0x800F0902).
+        foreach (var state in new[] { "PointerOver", "Pressed", "Focused" })
+        {
+            SetButtonResource(WindowModeButton, $"ButtonBackground{state}", new SolidColorBrush(buttonBackground));
+            SetButtonResource(WindowModeButton, $"ButtonForeground{state}", new SolidColorBrush(buttonForeground));
+            SetButtonResource(WindowModeButton, $"ButtonBorderBrush{state}", new SolidColorBrush(buttonBorder));
+        }
+        SetButtonResource(WindowModeButton, "ButtonBackgroundDisabled", new SolidColorBrush(buttonDisabledBackground));
+        SetButtonResource(WindowModeButton, "ButtonForegroundDisabled", new SolidColorBrush(buttonDisabledForeground));
+        SetButtonResource(WindowModeButton, "ButtonBorderBrushDisabled", new SolidColorBrush(buttonDisabledBorder));
         WindowModeText.Foreground = WindowModeButton.Foreground;
         WindowModeIcon.Foreground = WindowModeButton.Foreground;
+    }
+
+    private static void SetComboBoxResource(ComboBox control, string key, object value)
+    {
+        control.Resources.Remove(key);
+        control.Resources[key] = value;
     }
 
     private static Button AccentButton(string text, string glyph)
@@ -3389,6 +3512,13 @@ public sealed partial class MainPage : Page
         var separator = value.LastIndexOf(" - ", StringComparison.Ordinal);
         if (separator < 0) return value;
         return _settings.UiLanguage == "tr" ? value[(separator + 3)..] : value[..separator];
+    }
+
+    // Unlike LocalizedPart, always returns (study language, Turkish) regardless of UI language.
+    private static (string StudyLanguage, string Turkish) ExampleParts(string value)
+    {
+        var separator = value.LastIndexOf(" - ", StringComparison.Ordinal);
+        return separator < 0 ? (value, "") : (value[..separator], value[(separator + 3)..]);
     }
 
     private StudyLanguage CurrentStudyLanguage() =>

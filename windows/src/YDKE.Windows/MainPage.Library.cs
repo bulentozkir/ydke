@@ -87,10 +87,14 @@ public sealed partial class MainPage
         var wordBatch = _words;
         var palette = AppearancePalette.Current;
         var wordCardBackground = AppearancePalette.EnsureFillContrast(palette.Background, palette.Box, 5.2);
-        var wordCardForeground = EnsureStrongTextContrast(wordCardBackground, palette.BoxForeground);
+        var wordCardTitleForeground = EnsureStrongTextContrast(wordCardBackground, palette.BoxForeground, 10);
+        var wordCardBodyForeground = EnsureStrongTextContrast(wordCardBackground, palette.BoxForeground, 8.5);
+        var wordCardMetaForeground = EnsureStrongTextContrast(wordCardBackground, palette.BackgroundForeground, 7);
         var wordCardBorder = AppearancePalette.EnsureBoundaryContrast(wordCardBackground, palette.Border);
         var wordCardBackgroundBrush = new SolidColorBrush(wordCardBackground);
-        var wordCardForegroundBrush = new SolidColorBrush(wordCardForeground);
+        var wordCardTitleForegroundBrush = new SolidColorBrush(wordCardTitleForeground);
+        var wordCardBodyForegroundBrush = new SolidColorBrush(wordCardBodyForeground);
+        var wordCardMetaForegroundBrush = new SolidColorBrush(wordCardMetaForeground);
         var wordCardBorderBrush = new SolidColorBrush(wordCardBorder);
         void ApplyWordsActionVisual(Button button)
         {
@@ -100,6 +104,54 @@ public sealed partial class MainPage
             ApplyAccessibleButtonVisuals(button, background, foreground, border);
             button.BorderThickness = new Thickness(2);
             button.FontWeight = Microsoft.UI.Text.FontWeights.SemiBold;
+        }
+        void ApplyWordsNavigationVisual(Button button, bool nextAction)
+        {
+            var baseColor = nextAction
+                ? (palette.Theme == ElementTheme.Dark
+                    ? Color.FromArgb(255, 14, 96, 53)
+                    : Color.FromArgb(255, 220, 252, 231))
+                : (palette.Theme == ElementTheme.Dark
+                    ? Color.FromArgb(255, 146, 64, 14)
+                    : Color.FromArgb(255, 255, 237, 213));
+            var background = AppearancePalette.EnsureFillContrast(palette.Background, baseColor, 5.2);
+            var foreground = EnsureStrongTextContrast(background, palette.BoxForeground, 7);
+            var border = AppearancePalette.EnsureBoundaryContrast(background, palette.Border);
+            ApplyAccessibleButtonVisuals(button, background, foreground, border);
+            button.BorderThickness = new Thickness(2);
+            button.FontWeight = Microsoft.UI.Text.FontWeights.SemiBold;
+        }
+        var wordDetailSelectionBackground = AppearancePalette.EnsureFillContrast(wordCardBackground, palette.Button, 4.5);
+        var wordDetailSelectionForeground = EnsureStrongTextContrast(wordDetailSelectionBackground, Microsoft.UI.Colors.White, 4.5);
+        var wordDetailSelectionBrush = new SolidColorBrush(wordDetailSelectionBackground);
+        StackPanel WordDetailSection(string label, string text, Color badgeSeed, bool italic)
+        {
+            var badgeBackground = AppearancePalette.EnsureFillContrast(wordCardBackground, badgeSeed, 4.5);
+            var badgeForeground = EnsureStrongTextContrast(badgeBackground, palette.BoxForeground, 7);
+            var badgeBorder = AppearancePalette.EnsureBoundaryContrast(badgeBackground, palette.Border);
+            var badgeText = StudyText(label, 16, new SolidColorBrush(badgeForeground), emphasis: true);
+            AutomationProperties.SetHeadingLevel(badgeText, AutomationHeadingLevel.Level3);
+            AutomationProperties.SetName(badgeText, label);
+            var badge = new Border
+            {
+                Child = badgeText,
+                Padding = new Thickness(10, 5, 10, 5),
+                CornerRadius = new CornerRadius(8),
+                Background = new SolidColorBrush(badgeBackground),
+                BorderBrush = new SolidColorBrush(badgeBorder),
+                BorderThickness = new Thickness(2),
+                HorizontalAlignment = HorizontalAlignment.Left,
+                HighContrastAdjustment = ElementHighContrastAdjustment.Auto,
+            };
+            var body = StudyText(text, 20, wordCardBodyForegroundBrush, selectable: true);
+            body.FontStyle = italic ? Windows.UI.Text.FontStyle.Italic : Windows.UI.Text.FontStyle.Normal;
+            body.SelectionHighlightColor = wordDetailSelectionBrush;
+            body.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
+            AutomationProperties.SetName(body, text);
+            var section = new StackPanel { Spacing = 6 };
+            section.Children.Add(badge);
+            section.Children.Add(body);
+            return section;
         }
         AddPageHeader(T("Words.Title"), $"{CurrentStudyLanguage().NativeName} · {_settings.Level} · " +
             U("Known.SharedWithCards", "known marks are shared with Cards", "biliniyor işaretleri Kartlar ile paylaşılır"));
@@ -199,16 +251,8 @@ public sealed partial class MainPage
         AutomationProperties.SetHelpText(practice, practiceHelp);
         ToolTipService.SetToolTip(practice, practiceHelp);
         FocusTarget(practice, "library.Practice");
-        var previous = SecondaryButton(U("Library.Previous", "Previous word", "Önceki kelime"), "");
-        ApplyWordsActionVisual(previous);
-        AutomationProperties.SetHelpText(previous, T("Library.Previous"));
-        FocusTarget(previous, "library.Previous");
-        var next = SecondaryButton(U("Library.Next", "Next word", "Sonraki kelime"), "");
-        ApplyWordsActionVisual(next);
-        AutomationProperties.SetHelpText(next, T("Library.Next"));
-        FocusTarget(next, "library.Next");
-        var browserActions = new Grid { ColumnSpacing = 8, RowSpacing = 8, Children = { count, practice, previous, next } };
-        ConfigureResponsiveGrid(browserActions, 4, 130);
+        var browserActions = new Grid { ColumnSpacing = 8, RowSpacing = 8, Children = { count, practice } };
+        ConfigureResponsiveGrid(browserActions, 2, 170);
         PageContent.Children.Add(browserActions);
         var emptyContent = new StackPanel { Spacing = 8 };
         var emptyTitle = StudyText(U("Library.Empty", "No matching words", "Eşleşen kelime yok"), 18, emphasis: true);
@@ -232,6 +276,8 @@ public sealed partial class MainPage
         var searchDeadline = 0L;
         var unloaded = false;
         var syncingFilters = false;
+        Button? previousButton = null;
+        Button? nextButton = null;
 
         bool IsCurrentRender() => !unloaded && _currentPage == "words" && _libraryContext == context && StudyContext == context &&
             ReferenceEquals(wordBatch, _words) && PageContent.Children.Contains(searchRow);
@@ -263,27 +309,42 @@ public sealed partial class MainPage
                 focusId = resetPage || !retained ? "library.Search" : action is not null ? action + "." + changedKey : "library.Next";
             }
             if (focusId is not null) RequestUiFocus(focusId);
+            previousButton = null;
+            nextButton = null;
             list.Children.Clear();
             Announce(count, string.Format(System.Globalization.CultureInfo.CurrentCulture,
                 U("Library.BrowseCount", "{0:N0} matches · showing word {1:N0} of {0:N0}", "{0:N0} eşleşme · {0:N0} kelime arasından {1:N0}. kelime gösteriliyor"), matches.Length, matches.Length == 0 ? 0 : _libraryPage + 1));
             empty.Visibility = matches.Length == 0 ? Visibility.Visible : Visibility.Collapsed;
-            previous.IsEnabled = _libraryPage > 0;
-            next.IsEnabled = _libraryPage + 1 < matches.Length;
+            var canGoPrevious = _libraryPage > 0;
+            var canGoNext = _libraryPage + 1 < matches.Length;
             practice.IsEnabled = wordBatch.Select(word => word.Word).Distinct(StringComparer.OrdinalIgnoreCase).Take(2).Count() >= 2;
             foreach (var entry in matches.Skip(_libraryPage).Take(1))
             {
                 var definition = LocalizedPart(entry.Definition);
+                var (exampleStudyLanguage, exampleTurkish) = ExampleParts(entry.Example);
+                var meaningBadgeSeed = palette.Theme == ElementTheme.Dark
+                    ? Color.FromArgb(255, 146, 64, 14) : Color.FromArgb(255, 255, 237, 213);
+                var exampleBadgeSeed = palette.Theme == ElementTheme.Dark
+                    ? Color.FromArgb(255, 14, 96, 53) : Color.FromArgb(255, 220, 252, 231);
+                var translationBadgeSeed = palette.Theme == ElementTheme.Dark
+                    ? Color.FromArgb(255, 91, 33, 182) : Color.FromArgb(255, 243, 232, 255);
                 var header = new StackPanel { Spacing = 4 };
-                header.Children.Add(StudyText(entry.Word, 24, wordCardForegroundBrush, emphasis: true, selectable: true));
-                header.Children.Add(StudyText(definition, 20, wordCardForegroundBrush, selectable: true));
+                header.Children.Add(StudyText(entry.Word, 26, wordCardTitleForegroundBrush, emphasis: true, selectable: true));
+                header.Children.Add(WordDetailSection(T("Cards.Meaning"), definition, meaningBadgeSeed, italic: false));
                 var details = new StackPanel { Spacing = 8 };
-                details.Children.Add(StudyText($"{entry.Category} · {entry.Level} · {entry.PartOfSpeech}", 18, wordCardForegroundBrush));
-                details.Children.Add(StudyText(entry.Example, 19, wordCardForegroundBrush, selectable: true));
+                details.Children.Add(StudyText($"{entry.Category} · {entry.Level} · {entry.PartOfSpeech}", 18, wordCardMetaForegroundBrush));
+                // Side-by-side (not stacked) so the fixed no-scroll viewport still fits Previous/Next below.
+                var examples = new Grid { ColumnSpacing = 16, RowSpacing = 8 };
+                examples.Children.Add(WordDetailSection(CurrentStudyLanguage().NativeName, exampleStudyLanguage, exampleBadgeSeed, italic: true));
+                if (!string.IsNullOrWhiteSpace(exampleTurkish))
+                    examples.Children.Add(WordDetailSection(U("Words.ExampleTranslation", "Turkish translation", "Türkçe çeviri"), exampleTurkish, translationBadgeSeed, italic: true));
+                ConfigureResponsiveGrid(examples, 2, Font(260));
+                details.Children.Add(examples);
                 var actions = new Grid { ColumnSpacing = 8, RowSpacing = 8 };
                 StackPanel ActionGroup(string title, params UIElement[] controls)
                 {
                     var group = new StackPanel { Spacing = 6 };
-                    var titleText = StudyText(title, 18, wordCardForegroundBrush, emphasis: true);
+                    var titleText = StudyText(title, 18, wordCardMetaForegroundBrush, emphasis: true);
                     AutomationProperties.SetName(titleText, title);
                     group.Children.Add(titleText);
                     foreach (var control in controls) group.Children.Add(control);
@@ -326,7 +387,45 @@ public sealed partial class MainPage
                 marks.Children.Add(markFavorite);
                 marks.Children.Add(markKnown);
                 ConfigureResponsiveGrid(marks, 2, 145);
-                actions.Children.Add(ActionGroup(U("Library.AudioGroup", "Audio", "Ses"), audio));
+                var previous = SecondaryButton(U("Library.Previous", "Previous word", "Önceki kelime"), "");
+                ApplyWordsNavigationVisual(previous, nextAction: false);
+                previous.IsEnabled = canGoPrevious;
+                previous.HorizontalAlignment = HorizontalAlignment.Left;
+                AutomationProperties.SetHelpText(previous, T("Library.Previous"));
+                FocusTarget(previous, "library.Previous");
+                previous.Click += (_, _) =>
+                {
+                    if (!searchPending && IsCurrentRender() && _libraryPage > 0)
+                    {
+                        _libraryPage--;
+                        Refresh();
+                    }
+                };
+                var next = SecondaryButton(U("Library.Next", "Next word", "Sonraki kelime"), "");
+                ApplyWordsNavigationVisual(next, nextAction: true);
+                next.IsEnabled = canGoNext;
+                next.HorizontalAlignment = HorizontalAlignment.Left;
+                AutomationProperties.SetHelpText(next, T("Library.Next"));
+                FocusTarget(next, "library.Next");
+                next.Click += (_, _) =>
+                {
+                    if (!searchPending && IsCurrentRender() && _libraryPage + 1 < matches.Length)
+                    {
+                        _libraryPage++;
+                        Refresh();
+                    }
+                };
+                previousButton = previous;
+                nextButton = next;
+                var audioNavigation = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Spacing = 8,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                };
+                audioNavigation.Children.Add(previous);
+                audioNavigation.Children.Add(next);
+                actions.Children.Add(ActionGroup(U("Library.AudioGroup", "Audio", "Ses"), audio, audioNavigation));
                 actions.Children.Add(ActionGroup(U("Library.ReviewGroup", "Review", "Tekrar"), repeat));
                 actions.Children.Add(ActionGroup(U("Library.MarksGroup", "Personal marks", "Kişisel işaretler"), marks));
                 AutomationProperties.SetAutomationId(actions, $"library.Actions.{entry.Key}");
@@ -358,7 +457,7 @@ public sealed partial class MainPage
                     {
                         IsExpanded = true, Tag = entry.Key,
                         FontSize = ReadingSize(18), MinHeight = 48, MinWidth = 48,
-                        Background = wordCardBackgroundBrush, Foreground = wordCardForegroundBrush,
+                        Background = wordCardBackgroundBrush, Foreground = wordCardTitleForegroundBrush,
                         HorizontalAlignment = HorizontalAlignment.Stretch, HorizontalContentAlignment = HorizontalAlignment.Stretch,
                     };
                     // Retain the instance before attaching children so the catch can detach them.
@@ -367,7 +466,7 @@ public sealed partial class MainPage
                     foreach (var state in new[] { "", "PointerOver", "Pressed", "Disabled" })
                     {
                         expander.Resources[$"ExpanderHeaderBackground{state}"] = wordCardBackgroundBrush;
-                        expander.Resources[$"ExpanderHeaderForeground{state}"] = wordCardForegroundBrush;
+                        expander.Resources[$"ExpanderHeaderForeground{state}"] = wordCardTitleForegroundBrush;
                     }
                     expander.Resources["ExpanderContentBackground"] = wordCardBackgroundBrush;
                     expander.Resources["ExpanderContentBorderBrush"] = wordCardBorderBrush;
@@ -428,7 +527,9 @@ public sealed partial class MainPage
             searchDeadline = Environment.TickCount64 + 180;
             if (!searchPending) Announce(count, U("Library.SearchPending", "Searching…", "Aranıyor…"));
             searchPending = true;
-            practice.IsEnabled = previous.IsEnabled = next.IsEnabled = false;
+            practice.IsEnabled = false;
+            if (previousButton is not null) previousButton.IsEnabled = false;
+            if (nextButton is not null) nextButton.IsEnabled = false;
             empty.Visibility = Visibility.Collapsed;
             searchTimer.Interval = TimeSpan.FromMilliseconds(180);
             searchTimer.Start();
@@ -534,8 +635,6 @@ public sealed partial class MainPage
         categories.SelectionChanged += CategoryChanged;
         clearFilters.Click += (_, _) => ResetFilters();
         emptyReset.Click += (_, _) => ResetFilters();
-        previous.Click += (_, _) => { if (!searchPending && IsCurrentRender() && _libraryPage > 0) { _libraryPage--; Refresh(); } };
-        next.Click += (_, _) => { if (!searchPending && IsCurrentRender() && _libraryPage + 1 < matches.Length) { _libraryPage++; Refresh(); } };
         practice.Click += (_, _) =>
         {
             if (!searchPending && IsCurrentRender() && practice.IsEnabled) ShowQuizExamPicker();
@@ -875,7 +974,7 @@ public sealed partial class MainPage
         var panel = new StackPanel { Spacing = 8 };
         panel.Children.Add(Heading(title, 20));
         panel.Children.Add(Body(T("Storage.Notice")));
-        var manage = CompactStudyAction(SecondaryButton(U("Kids.Help.GrownUp", "Ask a grown-up", "Bir büyüğünden yardım iste"), "\uE950"));
+        var manage = CompactStudyAction(SecondaryButton(T("Kids.Settings.GrownUps"), "\uE950"));
         AutomationProperties.SetAutomationId(manage, "home.ManageBackups");
         AutomationProperties.SetHelpText(manage, T("Kids.Help.Backups"));
         ToolTipService.SetToolTip(manage, T("Kids.Help.Backups"));

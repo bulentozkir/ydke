@@ -37,8 +37,8 @@ internal static class ShellUxContracts
             (string?)contentScroll.Attribute("HorizontalScrollBarVisibility") == "Disabled" &&
             (string?)contentScroll.Attribute("VerticalScrollBarVisibility") == "Disabled",
             "child pages must not pan vertically or horizontally");
-        Test(Regex.IsMatch(windowSource, @"AppWindow\.Changed\s*\+=\s*OnAppWindowChanged\s*;\s*EnterFullScreen\s*\(\s*\)\s*;") &&
-            windowSource.Contains("ChangeWindowMode(AppWindowPresenterKind.FullScreen)", StringComparison.Ordinal), "app launch must enter full screen while keeping full-screen support");
+        Test(Regex.IsMatch(windowSource, @"AppWindow\.Changed\s*\+=\s*OnAppWindowChanged\s*;\s*EnterMaximizedWindow\s*\(\s*\)\s*;") &&
+            windowSource.Contains("ChangeWindowMode(AppWindowPresenterKind.FullScreen)", StringComparison.Ordinal), "app launch must start maximized (windowed) while keeping full-screen support available");
         Test(windowSource.Contains("AppTitleBar.Visibility = sender.Presenter.Kind == AppWindowPresenterKind.FullScreen", StringComparison.Ordinal),
             "the custom title bar must not consume learning space in full-screen mode");
         Test(windowSource.Contains("args.Key == VirtualKey.F11", StringComparison.Ordinal) &&

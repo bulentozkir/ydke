@@ -21,7 +21,6 @@ public sealed partial class MainWindow : Window
     private readonly DispatcherTimer _windowModeTransitionTimer = new();
     private bool _isActivated;
     private bool _isMinimized;
-    private bool _startupFullScreenLocked;
     private bool _windowModeChanging;
 
     internal event EventHandler? WindowModeChanged;
@@ -63,23 +62,18 @@ public sealed partial class MainWindow : Window
         RootFrame.Navigate(typeof(MainPage));
         Activated += OnWindowActivated;
         AppWindow.Changed += OnAppWindowChanged;
-        EnterFullScreen();
+        EnterMaximizedWindow();
     }
 
     private void OnWindowActivated(object sender, WindowActivatedEventArgs args)
     {
         _isActivated = args.WindowActivationState != WindowActivationState.Deactivated;
-        EnforceStartupFullScreenIfNeeded();
         UpdatePageActivity();
     }
 
     private void OnAppWindowChanged(AppWindow sender, AppWindowChangedEventArgs args)
     {
         if (!args.DidPresenterChange) return;
-        if (sender.Presenter.Kind == AppWindowPresenterKind.FullScreen)
-        {
-            _startupFullScreenLocked = true;
-        }
         AppTitleBar.Visibility = sender.Presenter.Kind == AppWindowPresenterKind.FullScreen
             ? Visibility.Collapsed
             : Visibility.Visible;
@@ -111,6 +105,12 @@ public sealed partial class MainWindow : Window
     }
 
     private void EnterFullScreen() => ChangeWindowMode(AppWindowPresenterKind.FullScreen);
+
+    // Default launch state: windowed and maximized, not full screen (F11 still enters full screen).
+    private void EnterMaximizedWindow()
+    {
+        if (AppWindow.Presenter is OverlappedPresenter presenter) presenter.Maximize();
+    }
 
     internal void ToggleWindowMode()
     {
@@ -145,20 +145,7 @@ public sealed partial class MainWindow : Window
     {
         _windowModeTransitionTimer.Stop();
         _windowModeChanging = false;
-        EnforceStartupFullScreenIfNeeded();
         WindowModeChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void EnforceStartupFullScreenIfNeeded()
-    {
-        if (_startupFullScreenLocked || !_isActivated || _windowModeChanging) return;
-        if (IsFullScreen)
-        {
-            _startupFullScreenLocked = true;
-            return;
-        }
-
-        EnterFullScreen();
     }
 
     private void UpdatePageActivity()

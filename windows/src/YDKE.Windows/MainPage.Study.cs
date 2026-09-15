@@ -37,7 +37,6 @@ public sealed partial class MainPage
     private string? _revealedCardKey;
     private string? _cardUndo;
     private string? _cardUndoContext;
-    private AutoSuggestBox? _cardsSearchBox;
     private string _cardsSearchQuery = "";
     private readonly List<Button> _quizChoiceButtons = [];
     private Button? _quizContinue;
@@ -377,6 +376,47 @@ public sealed partial class MainPage
         return detail;
     }
 
+    private static StackPanel StudyCardDetail(string label, string text, double size = 20, bool example = false)
+    {
+        var palette = AppearancePalette.Current;
+        var cardBackground = palette.Box;
+        var badgeSeed = example
+            ? (palette.Theme == ElementTheme.Dark
+                ? Color.FromArgb(255, 14, 96, 53)
+                : Color.FromArgb(255, 220, 252, 231))
+            : (palette.Theme == ElementTheme.Dark
+                ? Color.FromArgb(255, 146, 64, 14)
+                : Color.FromArgb(255, 255, 237, 213));
+        var badgeBackground = AppearancePalette.EnsureFillContrast(
+            cardBackground,
+            badgeSeed,
+            5.5);
+        var badgeForeground = EnsureStrongTextContrast(badgeBackground, palette.BoxForeground, 7);
+        var badgeBorder = AppearancePalette.EnsureBoundaryContrast(badgeBackground, palette.Border);
+        var detailForeground = EnsureStrongTextContrast(cardBackground, palette.BoxForeground, 7);
+
+        var detail = new StackPanel { Spacing = 6 };
+        var heading = StudyText(label, 18, new SolidColorBrush(badgeForeground), emphasis: true);
+        AutomationProperties.SetHeadingLevel(heading, Microsoft.UI.Xaml.Automation.Peers.AutomationHeadingLevel.Level3);
+        AutomationProperties.SetName(heading, label);
+        var labelBadge = new Border
+        {
+            Child = heading,
+            Padding = new Thickness(10, 5, 10, 5),
+            CornerRadius = new CornerRadius(8),
+            Background = new SolidColorBrush(badgeBackground),
+            BorderBrush = new SolidColorBrush(badgeBorder),
+            BorderThickness = new Thickness(2),
+            HorizontalAlignment = HorizontalAlignment.Left,
+            HighContrastAdjustment = ElementHighContrastAdjustment.Auto,
+        };
+        var body = StudyText(text, size, new SolidColorBrush(detailForeground), selectable: true);
+        AutomationProperties.SetName(body, text);
+        detail.Children.Add(labelBadge);
+        detail.Children.Add(body);
+        return detail;
+    }
+
     private StackPanel StudyShortcutRows(string shortcuts, string automationPrefix)
     {
         var rows = new StackPanel { Spacing = 12 };
@@ -578,6 +618,74 @@ public sealed partial class MainPage
             primary ? palette.ButtonForeground : palette.BoxForeground);
         var border = AppearancePalette.EnsureBoundaryContrast(background,
             primary ? palette.ButtonBorder : palette.Border);
+        ApplyAccessibleButtonVisuals(button, background, foreground, border);
+        button.BorderThickness = new Thickness(2);
+    }
+
+    private enum CardsFooterActionKind { Previous, Undo, Next, WordList, Help }
+
+    private static void ApplyCardsFooterActionVisual(Button button, CardsFooterActionKind kind)
+    {
+        var palette = AppearancePalette.Current;
+        var dark = palette.Theme == ElementTheme.Dark;
+        var seed = kind switch
+        {
+            CardsFooterActionKind.Previous => dark ? Color.FromArgb(255, 146, 64, 14) : Color.FromArgb(255, 255, 237, 213),
+            CardsFooterActionKind.Undo => dark ? Color.FromArgb(255, 51, 65, 85) : Color.FromArgb(255, 226, 232, 240),
+            CardsFooterActionKind.Next => dark ? Color.FromArgb(255, 22, 101, 52) : Color.FromArgb(255, 220, 252, 231),
+            CardsFooterActionKind.WordList => dark ? Color.FromArgb(255, 91, 33, 182) : Color.FromArgb(255, 243, 232, 255),
+            _ => dark ? Color.FromArgb(255, 136, 19, 55) : Color.FromArgb(255, 255, 241, 242),
+        };
+        var background = AppearancePalette.EnsureFillContrast(palette.Background, seed, 5.2);
+        var foreground = EnsureStrongTextContrast(background, palette.BoxForeground, 7);
+        var border = AppearancePalette.EnsureBoundaryContrast(background, palette.Border);
+        ApplyAccessibleButtonVisuals(button, background, foreground, border);
+        button.BorderThickness = new Thickness(2);
+    }
+
+    private static void ApplyQuizContinueVisual(Button button, bool enabled)
+    {
+        var palette = AppearancePalette.Current;
+        var activeBackground = AppearancePalette.EnsureFillContrast(palette.Background, palette.Button, 5.4);
+        var activeForeground = EnsureStrongTextContrast(activeBackground, palette.ButtonForeground, 7);
+        var activeBorder = AppearancePalette.EnsureBoundaryContrast(activeBackground, palette.ButtonBorder);
+
+        var mutedSeed = MixColor(palette.Box, palette.Background, 0.32);
+        var disabledBackground = AppearancePalette.EnsureFillContrast(palette.Background, mutedSeed, 4.5);
+        var disabledForeground = EnsureStrongTextContrast(disabledBackground, palette.BoxForeground, 7);
+        var disabledBorder = AppearancePalette.EnsureBoundaryContrast(disabledBackground, palette.Border);
+
+        var activeBackgroundBrush = new SolidColorBrush(activeBackground);
+        var activeForegroundBrush = new SolidColorBrush(activeForeground);
+        var activeBorderBrush = new SolidColorBrush(activeBorder);
+        button.Background = activeBackgroundBrush;
+        button.Foreground = activeForegroundBrush;
+        button.BorderBrush = activeBorderBrush;
+        button.BorderThickness = new Thickness(2);
+        button.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
+        button.Opacity = 1;
+
+        foreach (var state in new[] { "", "PointerOver", "Pressed", "Focused" })
+        {
+            SetButtonResource(button, $"ButtonBackground{state}", activeBackgroundBrush);
+            SetButtonResource(button, $"ButtonForeground{state}", activeForegroundBrush);
+            SetButtonResource(button, $"ButtonBorderBrush{state}", activeBorderBrush);
+        }
+
+        SetButtonResource(button, "ButtonBackgroundDisabled", new SolidColorBrush(disabledBackground));
+        SetButtonResource(button, "ButtonForegroundDisabled", new SolidColorBrush(disabledForeground));
+        SetButtonResource(button, "ButtonBorderBrushDisabled", new SolidColorBrush(disabledBorder));
+
+        if (button.Content is UIElement content)
+            ApplyButtonIconForeground(content, enabled ? activeForegroundBrush : new SolidColorBrush(disabledForeground));
+    }
+
+    private static void ApplyQuizHelpActionVisual(Button button)
+    {
+        var palette = AppearancePalette.Current;
+        var background = AppearancePalette.EnsureFillContrast(palette.Background, palette.ButtonTint, 5.0);
+        var foreground = EnsureStrongTextContrast(background, palette.BoxForeground, 7);
+        var border = AppearancePalette.EnsureBoundaryContrast(background, palette.Border);
         ApplyAccessibleButtonVisuals(button, background, foreground, border);
         button.BorderThickness = new Thickness(2);
     }
@@ -1273,7 +1381,6 @@ public sealed partial class MainPage
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
         };
-        _cardsSearchBox = search;
         search.UpdateTextOnSelect = true;
         AutomationProperties.SetAutomationId(search, "cards.Search");
         AutomationProperties.SetName(search, T("Words.Search"));
@@ -1372,16 +1479,15 @@ public sealed partial class MainPage
 
         var surface = new StackPanel { Spacing = 8 };
         surface.Children.Add(search);
-        surface.Children.Add(StudyText(U("Kids.Cards.SearchHint",
-            "Shortcut: Ctrl+F focuses card search.",
-            "Kısayol: Ctrl+F kart aramayı odaklar."), 16, AppearancePalette.Current.BackgroundForegroundBrush));
+        surface.Children.Add(StudyText(U("Kids.Cards.SearchInfo",
+            "Use search to jump to another card.",
+            "Başka bir karta geçmek için aramayı kullan."), 16, AppearancePalette.Current.BackgroundForegroundBrush));
         PageContent.Children.Add(StudySurface(surface, 12));
     }
 
     private void RenderCards()
     {
         StopSpeechPlayback();
-        _cardsSearchBox = null;
         PageContent.Children.Clear();
         AddPageHeader(T("Cards.Title"), U("Kids.Cards.Subtitle", "Think, look, then choose.", "Düşün, bak, sonra seç."));
         var session = Session("cards");
@@ -1422,8 +1528,8 @@ public sealed partial class MainPage
         content.Children.Add(StudyWordRow(word, listen));
         if (_cardRevealed || completed)
         {
-            content.Children.Add(StudyDetail(T("Cards.Meaning"), LocalizedPart(entry.Definition), 24));
-            if (!string.IsNullOrWhiteSpace(entry.Example)) content.Children.Add(StudyDetail(T("Cards.Example"), entry.Example, 20));
+            content.Children.Add(StudyCardDetail(T("Cards.Meaning"), LocalizedPart(entry.Definition), 24));
+            if (!string.IsNullOrWhiteSpace(entry.Example)) content.Children.Add(StudyCardDetail(T("Cards.Example"), entry.Example, 20, example: true));
         }
         var reveal = ReadableStudyAction(AccentButton(U("Kids.Cards.Reveal", "Show meaning", "Anlamı göster"), ""));
         AutomationProperties.SetHelpText(reveal, U("Kids.Cards.ClickHelp", "Click Show meaning. Then choose Next.", "Anlamı göster'e tıkla. Sonra Sonraki'ni seç."));
@@ -1435,7 +1541,7 @@ public sealed partial class MainPage
         PageContent.Children.Add(StudySurface(content));
         var navigation = new Grid { ColumnSpacing = 12, RowSpacing = 12 };
         var previous = CompactStudyAction(SecondaryButton(T("Cards.Previous"), ""));
-        ApplyCardsActionVisual(previous);
+        ApplyCardsFooterActionVisual(previous, CardsFooterActionKind.Previous);
         previous.IsEnabled = session.Index > 0;
         SetCardsActionAccessibility(previous, T("Cards.Previous"));
         FocusTarget(previous, "cards.Previous");
@@ -1443,7 +1549,7 @@ public sealed partial class MainPage
         navigation.Children.Add(previous);
         navigation.Children.Add(BuildUndoButton());
         var next = _cardRevealed || completed ? ReadableStudyAction(AccentButton(T("Cards.Next"), "")) : CompactStudyAction(SecondaryButton(T("Cards.Next"), ""));
-        ApplyCardsActionVisual(next, primary: _cardRevealed || completed);
+        ApplyCardsFooterActionVisual(next, CardsFooterActionKind.Next);
         next.HorizontalAlignment = HorizontalAlignment.Stretch;
         next.HorizontalContentAlignment = HorizontalAlignment.Stretch;
         next.IsEnabled = _cardRevealed || completed;
@@ -1615,7 +1721,7 @@ public sealed partial class MainPage
     {
         var undoLabel = U("Kids.Cards.Undo", "Undo my choice", "Seçimimi geri al");
         var undo = CompactStudyAction(SecondaryButton(undoLabel, ""));
-        ApplyCardsActionVisual(undo);
+        ApplyCardsFooterActionVisual(undo, CardsFooterActionKind.Undo);
         undo.IsEnabled = _cardUndo is not null && _cardUndoContext == StudyContext;
         SetCardsActionAccessibility(undo, undoLabel, T("Kids.Cards.UndoHelp"));
         FocusTarget(undo, "cards.Undo");
@@ -1686,13 +1792,12 @@ public sealed partial class MainPage
         sharedMarks.Children.Add(openWords);
         var help = new StackPanel { Spacing = 12 };
         help.Children.Add(StudyText(U("Kids.Cards.ClickHelp", "Click Show meaning. Then choose Next.", "Anlamı göster'e tıkla. Sonra Sonraki'ni seç."), 20, emphasis: true));
-        help.Children.Add(StudyText(U("Kids.Cards.Shortcuts", "Ctrl+F: focus search · Space: show meaning · Enter: next after showing meaning · ←/→: previous or next card · U: mark as known", "Ctrl+F: aramaya odaklan · Boşluk: anlamı göster · Enter: anlamı açtıktan sonra sonraki kart · ←/→: önceki veya sonraki kart · U: biliyorum işareti"), 18));
         help.Children.Add(StudyText(U("Kids.Cards.UndoHelp", "Undo brings back your last completed card. Use it before another learning action or leaving this page.", "Geri al, son tamamladığın kartı geri getirir. Başka bir öğrenme işleminden önce veya bu sayfadan ayrılmadan kullan."), 18));
         var wordListButton = StudyPopupButton(U("Kids.Cards.WordList", "My word list", "Kelime listem"), sharedMarks, "cards.WordList");
-        ApplyCardsActionVisual(wordListButton);
+        ApplyCardsFooterActionVisual(wordListButton, CardsFooterActionKind.WordList);
         SetCardsActionAccessibility(wordListButton, T("Kids.Cards.WordList"));
         var howToPlay = StudyPopupButton(U("Kids.Study.Help", "How to play", "Nasıl oynarım?"), help, "cards.Help");
-        ApplyCardsActionVisual(howToPlay);
+        ApplyCardsFooterActionVisual(howToPlay, CardsFooterActionKind.Help);
         SetCardsActionAccessibility(howToPlay, T("Kids.Study.Help"));
         actions.Children.Add(wordListButton);
         actions.Children.Add(howToPlay);
@@ -1788,13 +1893,18 @@ public sealed partial class MainPage
         PageContent.Children.Add(choices);
         var feedbackMessage = correctAnswer ? $"✓ {U("Kids.Quiz.GotIt", "You got it!", "Bildin!")} · {answer.Word}"
             : $"{U("Kids.Quiz.GoodTry", "Good try!", "Güzel deneme!")} {U("Kids.Quiz.AnswerWord", "Here is the word:", "İşte kelime:")} {answer.Word}";
-        _quizContinue = ReadableStudyAction(AccentButton(U("Quiz.Continue", "Continue", "Devam"), ""));
+        var continueLabel = answered
+            ? U("Quiz.Continue", "Continue", "Devam")
+            : U("Quiz.Continue.Disabled", "Choose one answer to continue", "Devam etmek için bir yanıt seç");
+        _quizContinue = ReadableStudyAction(AccentButton(continueLabel, ""));
         _quizContinue.IsEnabled = answered;
         _quizContinue.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+        _quizContinue.Margin = new Thickness(0, 14, 0, 0);
+        ApplyQuizContinueVisual(_quizContinue, answered);
         if (answered) AutomationProperties.SetHelpText(_quizContinue, feedbackMessage);
         AutomationProperties.SetHelpText(_quizContinue, answered
             ? $"{feedbackMessage} {U("Kids.Accessibility.Continue", "Continue to the next question.", "Sonraki soruya geç.")}"
-            : U("Kids.Accessibility.Continue", "Continue to the next question.", "Sonraki soruya geç."));
+            : U("Kids.Quiz.Continue.DisabledHelp", "Choose one answer first, then Continue becomes available.", "Önce bir yanıt seç; ardından Devam kullanılabilir olur."));
         AutomationProperties.SetAcceleratorKey(_quizContinue, "Enter");
         FocusTarget(_quizContinue, "quiz.Continue");
         _quizContinue.Click += async (_, _) => await ContinueQuizAsync();
@@ -1804,7 +1914,16 @@ public sealed partial class MainPage
         var help = new StackPanel { Spacing = 12 };
         help.Children.Add(StudyText(U("Kids.Quiz.ClickHelp", "Click the word that fits. Read the answer, then click Continue.", "Uyan kelimeye tıkla. Yanıtı oku, sonra Devam'a tıkla."), 20, emphasis: true));
         help.Children.Add(StudyText(U("Kids.Quiz.Shortcuts", "1–4: choose a word · Enter: continue after your answer", "1–4: kelime seç · Enter: yanıtından sonra devam et"), 18));
-        if (!answered) PageContent.Children.Add(StudyPopupButton(U("Kids.Study.Help", "How to play", "Nasıl oynarım?"), help, "quiz.Help"));
+        if (!answered)
+        {
+            var howToPlay = StudyPopupButton(U("Kids.Study.Help.Quiz", "How to play quiz", "Testte nasıl oynarım?"), help, "quiz.Help");
+            howToPlay.Margin = new Thickness(0, 12, 0, 0);
+            ApplyQuizHelpActionVisual(howToPlay);
+            var howToPlayHelp = U("Kids.Quiz.HelpButtonHelp", "Open quiz instructions and keyboard shortcuts.", "Test yönergelerini ve klavye kısayollarını aç.");
+            AutomationProperties.SetHelpText(howToPlay, howToPlayHelp);
+            ToolTipService.SetToolTip(howToPlay, howToPlayHelp);
+            PageContent.Children.Add(howToPlay);
+        }
     }
 
     private static (Brush Background, Brush Foreground) StudyResultBrushes(bool correct)
@@ -1921,22 +2040,6 @@ public sealed partial class MainPage
     private async void OnStudyKeyDown(object sender, KeyRoutedEventArgs e)
     {
         if (_studyBusy || _navigationBusy || _dialogOpen || _activeGame is not null || e.KeyStatus.WasKeyDown) return;
-        var controlDown = Microsoft.UI.Input.InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Control)
-            .HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down);
-        if (_currentPage == "cards" && controlDown && e.Key == VirtualKey.F)
-        {
-            e.Handled = true;
-            if (_cardsSearchBox is not null && _cardsSearchBox.IsLoaded && _cardsSearchBox.IsEnabled && IsWithin(_cardsSearchBox, PageContent))
-            {
-                FocusTarget(_cardsSearchBox, "cards.Search");
-            }
-            else
-            {
-                RequestUiFocus("cards.Search", "cards");
-                RenderCards();
-            }
-            return;
-        }
         // Native Click may already have rebuilt the page before this event bubbles.
         // Inspect its original source too, not just the possibly changed focus target.
         if (e.Key is VirtualKey.Space or VirtualKey.Enter)
@@ -1954,23 +2057,8 @@ public sealed partial class MainPage
             if (Microsoft.UI.Input.InputKeyboardSource.GetKeyStateForCurrentThread(modifier).HasFlag(Windows.UI.Core.CoreVirtualKeyStates.Down)) return;
         var number = (int)e.Key - (int)VirtualKey.Number1;
         if (number is < 0 or > 3) number = (int)e.Key - (int)VirtualKey.NumberPad1;
-        if (_currentPage == "cards")
-        {
-            if (e.Key == VirtualKey.Space && !_cardRevealed && Session("cards") is { } cards && cards.Index < cards.WordKeys.Count && !cards.Answers.ContainsKey(cards.WordKeys[cards.Index])) { e.Handled = true; RevealCard(); }
-            else if (e.Key == VirtualKey.U && Session("cards") is { } current && current.Index < current.WordKeys.Count)
-            {
-                e.Handled = true;
-                var key = current.WordKeys[current.Index];
-                if (await MutateStudyAsync(() => Toggle(_progress.KnownWords, key)))
-                {
-                    RequestUiFocus("cards.WordList");
-                    RenderCards();
-                }
-            }
-            else if (e.Key is VirtualKey.Left or VirtualKey.Right) { e.Handled = true; await MoveCardAsync(e.Key == VirtualKey.Left ? -1 : 1); }
-            else if (e.Key == VirtualKey.Enter && _cardRevealed) { e.Handled = true; await NextCardAsync(); }
-        }
-        else if (_currentPage == "quiz")
+        if (_currentPage == "cards") return;
+        if (_currentPage == "quiz")
         {
             if (number >= 0 && number < _quizChoiceButtons.Count && _quizChoiceButtons[number].IsEnabled)
             {

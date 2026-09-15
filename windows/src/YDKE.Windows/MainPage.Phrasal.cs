@@ -389,42 +389,41 @@ public sealed partial class MainPage
 
         UIElement DetailRow(string label, string value, double textSize, string automationId)
         {
-            var row = new Grid { ColumnSpacing = 10, RowSpacing = 8 };
-            row.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            row.ColumnDefinitions.Add(new ColumnDefinition());
-
             var tag = StudyText(label, 17, tagForegroundBrush, emphasis: true);
             tag.FontWeight = Microsoft.UI.Text.FontWeights.Bold;
             var tagBadge = new Border
             {
                 Child = tag,
-                Padding = new Thickness(10, 5, 10, 5),
+                Padding = new Thickness(10, 4, 10, 4),
                 CornerRadius = new CornerRadius(8),
                 Background = tagBackgroundBrush,
                 BorderBrush = tagBorderBrush,
                 BorderThickness = new Thickness(2),
-                VerticalAlignment = VerticalAlignment.Top,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 HighContrastAdjustment = ElementHighContrastAdjustment.Auto,
             };
-            row.Children.Add(tagBadge);
 
             var body = StudyText(value, textSize, rowForegroundBrush, selectable: true);
             AutomationProperties.SetAutomationId(body, automationId);
             AutomationProperties.SetName(body, body.Text);
-            Grid.SetColumn(body, 1);
-            row.Children.Add(body);
 
-            var surface = StudySurface(row, 12, rowBackgroundBrush, rowBorderBrush);
+            // Badge above text (not beside it) so text keeps the full column width when columns are narrow.
+            var column = new StackPanel { Spacing = 6 };
+            column.Children.Add(tagBadge);
+            column.Children.Add(body);
+
+            var surface = StudySurface(column, 10, rowBackgroundBrush, rowBorderBrush);
             surface.BorderThickness = new Thickness(2);
             surface.CornerRadius = new CornerRadius(12);
             surface.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
             return surface;
         }
 
-        var detailRows = new StackPanel { Spacing = 10 };
+        var detailRows = new Grid { ColumnSpacing = 10, RowSpacing = 10 };
         detailRows.Children.Add(DetailRow(U("Phrasal.Original", "Original", "Orijinal"), text.Original, 20, automationPrefix + ".Original"));
         detailRows.Children.Add(DetailRow(U("Phrasal.Turkish", "Turkish", "Turkce"), text.Turkish, 18, automationPrefix + ".Turkish"));
+        // Side-by-side (not stacked) so the fixed no-scroll viewport still fits the answer/options below.
+        ConfigureResponsiveGrid(detailRows, 2, Font(180));
         return detailRows;
     }
 
