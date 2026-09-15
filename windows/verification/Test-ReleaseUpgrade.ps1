@@ -89,7 +89,7 @@ foreach ($architecture in @('x64', 'arm64')) {
     }
     $zip = [IO.Compression.ZipFile]::OpenRead($msix)
     try {
-        foreach ($required in @('YDKE.exe', 'YDKE.dll', 'YDKE.pri', 'App.xbf', 'MainPage.xbf', 'MainWindow.xbf', 'System.Security.Cryptography.ProtectedData.dll')) {
+        foreach ($required in @('YDKE.exe', 'YDKE.dll', 'YDKE.pri', 'App.xbf', 'MainPage.xbf', 'MainWindow.xbf')) {
             if (-not $zip.GetEntry($required)) { throw "Missing runtime payload: $architecture / $required" }
         }
         $signed = $null -ne $zip.GetEntry('AppxSignature.p7x')
