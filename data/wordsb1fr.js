@@ -1166,7 +1166,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to load (up). - yüklemek (yukarı)",
-    example: "I've memorized the model number of the charger. - Şarj cihazının model numarasını ezberledim.",
+    example: "Je dois charger la batterie de mon téléphone portable. - Cep telefonumun pilini şarj etmem gerekiyor.",
   },
   {
     word: "la comté",
@@ -2062,7 +2062,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "miserly, stingy. - cimri, cimri",
-    example: "My roommate is prodigal when it comes to spending money on movies; he buys them the day they're released, regardless of price. - Konu filmlere para harcamaya gelince oda arkadaşım müsriftir; fiyatı ne olursa olsun, onları piyasaya çıktıkları gün satın alıyor.",
+    example: "Il est très regardant sur la qualité de la nourriture qu'il achète. - Satın aldığı yiyeceklerin kalitesi konusunda çok titizdir.",
   },
   {
     word: "le riz",
@@ -2774,7 +2774,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "modern. - modern",
-    example: "Modern travel enables us to go around the world in a few days. - Modern seyahat, dünyayı birkaç günde dolaşabilmemizi sağlıyor.",
+    example: "Cette ville possède une architecture moderne et dynamique. - Bu şehir modern ve dinamik bir mimariye sahip.",
   },
   {
     word: "résolu",
@@ -4854,7 +4854,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to place (to put in a specific location). - yerleştirmek (belirli bir yere koymak)",
-    example: "America is a lovely place to be, if you are here to earn money. - Eğer para kazanmak için buradaysanız, Amerika olmak için harika bir yer.",
+    example: "Il faut placer les assiettes au milieu de la table. - Tabakları masanın ortasına yerleştirmek gerekir.",
   },
   {
     word: "le réduit",
@@ -5518,7 +5518,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to swing (to do a reciprocating movement). - sallanmak (karşılıklı hareket yapmak)",
-    example: "The French government has launched an online game that challenges taxpayers to balance the national budget. - Fransız hükümeti, vergi mükelleflerini ulusal bütçeyi dengelemeye zorlayan çevrimiçi bir oyun başlattı.",
+    example: "L'enfant aime se balancer sur la balançoire du parc. - Çocuk parktaki salıncakta sallanmayı sever.",
   },
   {
     word: "l'entraîneur",
@@ -8046,7 +8046,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to pipe (a bagpipe). - boruya bağlamak (gada)",
-    example: "He who pays the piper calls the tune. - Kavalcıya para ödeyen melodiyi çalar.",
+    example: "Ce joueur malhonnête a essayé de piper les dés pour gagner. - Bu dürüst olmayan oyuncu kazanmak için zarları hileli yapmaya çalıştı.",
   },
   {
     word: "le galerie",
@@ -8510,7 +8510,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to plant. - dikmek",
-    example: "Sami was sitting on a planter, waiting for Layla to come pick him up. - Sami bir çiftlikte oturuyordu ve Leyla'nın gelip onu almasını bekliyordu.",
+    example: "Nous allons planter des tomates et des fleurs dans le jardin. - Bahçeye domates ve çiçekler ekeceğiz.",
   },
   {
     word: "le citron",
@@ -9894,7 +9894,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "Qualifies a fortune, to indicate its average situation, a solid and well-established ease. - Bir serveti, ortalama durumunu belirtmek için, sağlam ve köklü bir kolaylık olarak nitelendirir.",
-    example: "You should do the honorable thing and resign. - Onurlu olanı yapıp istifa etmelisin.",
+    example: "Il a obtenu un résultat honorable lors de cette compétition. - Bu yarışmada saygıdeğer bir sonuç elde etti.",
   },
   {
     word: "aussitôt",
@@ -9966,7 +9966,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to analyse. - analiz etmek",
-    example: "I beg to differ, as I disagree with your analysis of the situation. - Durum analizinize katılmadığım için farklı düşünüyorum.",
+    example: "Le médecin va analyser les résultats de la prise de sang. - Doktor kan tahlili sonuçlarını analiz edecek.",
   },
   {
     word: "pâle",
@@ -9990,7 +9990,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to fix, fasten. - düzeltmek, tutturmak",
-    example: "He is an excellent fixer, and has always been regarded as such. - O mükemmel bir tamircidir ve her zaman öyle kabul edilmiştir.",
+    example: "Nous devons fixer une date pour notre prochaine réunion. - Gelecek toplantımız için bir tarih belirlemeliyiz.",
   },
   {
     word: "le levée",
@@ -11054,7 +11054,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "Law",
     definition: "to adopt (claim legal ownership of a child). - evlat edinmek (bir çocuğun yasal mülkiyetini talep etmek)",
-    example: "If you can't have children, you could always adopt. - Eğer çocuk sahibi olamıyorsanız, her zaman evlat edinebilirsiniz.",
+    example: "Cette famille a décidé d'adopter un petit chien abandonné. - Bu aile terk edilmiş küçük bir köpeği sahiplenmeye karar verdi.",
   },
   {
     word: "l'épicerie",
@@ -11246,7 +11246,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "Military",
     definition: "to capture (catch, seize e.g. an enemy). - ele geçirmek (yakalamak, ele geçirmek, örneğin bir düşmanı)",
-    example: "An ox is captured by the horns, a person is bound by his word. - Öküz boynuzlarına yakalanır, insan ise sözüne bağlıdır.",
+    example: "Le photographe a réussi à capturer une magnifique image du coucher de soleil. - Fotoğrafçı gün batımının muhteşem bir karesini yakalamayı başardı.",
   },
   {
     word: "le môme",
@@ -11334,7 +11334,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to torture (to intentionally inflict severe pain on someone, usually with the aim of forcing confessions or punishing them). - işkence yapmak (genellikle itirafa zorlamak veya cezalandırmak amacıyla birine kasıtlı olarak şiddetli acı vermek)",
-    example: "A person worse than the torturer exists: it's his assistant. - İşkenceciden daha kötü bir kişi vardır: onun asistanıdır.",
+    example: "Ces doutes continuent de le torturer l'esprit depuis des semaines. - Bu şüpheler haftalardır onun zihnini kurcalamaya devam ediyor.",
   },
   {
     word: "aîné",
@@ -11670,7 +11670,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "Transportation",
     definition: "to transport. - taşımak",
-    example: "This mission, known as Transporter 3, is part of SpaceX’s rideshare program which in two previous outings has put over 220 small satellites into orbit. - Transporter 3 olarak bilinen bu görev, SpaceX'in daha önceki iki gezide 220'den fazla küçük uyduyu yörüngeye yerleştirdiği araç paylaşımı programının bir parçası.",
+    example: "Ce camion sert à transporter des marchandises vers la capitale. - Bu kamyon başkente mal taşımak için kullanılır.",
   },
   {
     word: "l'ambition",
@@ -12414,7 +12414,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to justify. - haklı çıkarmak",
-    example: "Can you justify the use of violence? - Şiddet kullanımını haklı gösterebilir misiniz?",
+    example: "Il a dû justifier son absence auprès de son professeur. - Öğretmenine devamsızlığını açıklamak zorunda kaldı.",
   },
   {
     word: "le rasoir",
@@ -14614,7 +14614,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "tiny, minute, minuscule. - minicik, dakika, minicik",
-    example: "The amount of arsenic in the water is minuscule but significant. - Sudaki arsenik miktarı küçük ama önemlidir.",
+    example: "Cette araignée minuscule est totalement inoffensive pour l'homme. - Bu minicik örümcek insanlar için tamamen zararsızdır.",
   },
   {
     word: "la diversion",
@@ -14958,7 +14958,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to oblige, to require, to compel, to force [with direct object ‘someone’ and à (+ infinitive) ‘to do something’]. - mecbur etmek, talep etmek, zorlamak, zorlamak [doğrudan nesne 'birisi' ve à (+ mastar) 'bir şey yapmak' ile]",
-    example: "Though Alfred is scrupulous in fulfilling his duties at work, he is less conscientious about his obligations at home. - Alfred işteki görevlerini yerine getirirken titiz olmasına rağmen evdeki yükümlülükleri konusunda daha az vicdanlıdır.",
+    example: "Rien ne peut vous obliger à accepter cette offre. - Hiçbir şey sizi bu teklifi kabul etmeye zorlayamaz.",
   },
   {
     word: "l'étiquette",
@@ -15438,7 +15438,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "absent-minded. - dalgın",
-    example: "That sound distracted my attention from reading. - Bu ses dikkatimi okumaktan alıkoydu.",
+    example: "L'élève distrait regardait par la fenêtre pendant le cours. - Dikkatsiz öğrenci ders sırasında pencereden dışarı bakıyordu.",
   },
   {
     word: "déchirer",
@@ -18830,7 +18830,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "admissible, acceptable. - kabul edilebilir, kabul edilebilir",
-    example: "That testimony might help convict him, but it would not be admissible in court. - Bu ifade onu mahkum etmeye yardımcı olabilir, ancak mahkemede kabul edilemez.",
+    example: "Seuls les candidats admissibles passeront l'examen oral demain. - Yalnızca geçerli adaylar yarın sözlü sınava girecek.",
   },
   {
     word: "le sombrero",
@@ -19278,7 +19278,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "Qualifies a municipality of less than 2000 inhabitants. - Nüfusu 2000'den az olan belediyeler için uygundur.",
-    example: "At this stage there is still not a clear energy policy for bringing decentralised power to rural areas. - Bu aşamada, merkezi olmayan elektriğin kırsal alanlara getirilmesine yönelik net bir enerji politikası hâlâ mevcut değil.",
+    example: "La vie en milieu rural est beaucoup plus calme qu'en ville. - Kırsal alandaki yaşam şehre göre çok daha sakindir.",
   },
   {
     word: "le vespa",
@@ -20502,7 +20502,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "Family",
     definition: "Related to marriage. - Evlilikle ilgili.",
-    example: "The critical period in matrimony is breakfast time. - Evlilikte kritik dönem kahvaltı saatidir.",
+    example: "Le régime matrimonial règle les biens financiers des époux. - Evlilik rejimi eşlerin mali varlıklarını düzenler.",
   },
   {
     word: "la magnitude",
@@ -20790,7 +20790,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to endow. - bağışlamak",
-    example: "It'll be easy to find a renter for this house. - Bu eve kira bulmak kolay olacak.",
+    example: "Le paysan doit renter le foin avant l'arrivée de la pluie. - Köylü yağmur gelmeden önce samanı içeri taşımalıdır.",
   },
   {
     word: "le fibrille",
@@ -21654,7 +21654,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to excuse, exempt (de from). - mazeret göstermek, muaf tutmak (de)",
-    example: "You can only drink water from the water dispenser. - Sadece su sebilinden su içebilirsiniz.",
+    example: "Le médecin a décidé de le dispenser d'activités sportives ce mois-ci. - Doktor onu bu ay spor aktivitelerinden muaf tutmaya karar verdi.",
   },
   {
     word: "crispé",
@@ -23454,7 +23454,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to saddle. - eyerlemek",
-    example: "This book ought to be a good seller. - Bu kitap iyi bir satıcı olmalı.",
+    example: "Le cavalier prend le temps de bien seller son cheval avant la promenade. - Binici yürüyüşe çıkmadan önce atını güzelce eyerlemek için zaman ayırır.",
   },
   {
     word: "candide",
@@ -23782,7 +23782,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "burlesque; parodic; parodical. - burlesk; parodik; parodik",
-    example: "French knickers are allowed in the world of burlesque. - Burlesk dünyasında Fransız külotlarına izin veriliyor.",
+    example: "Cette comédie burlesque a fait rire tout le public du théâtre. - Bu gülünç komedi tiyatrodaki tüm seyircileri güldürdü.",
   },
   {
     word: "bloquant",
@@ -24214,7 +24214,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "Which must or can be applied. - Uygulanması gereken veya uygulanabilecek olan.",
-    example: "Is that rule applicable to us foreigners? - Bu kural biz yabancılar için de geçerli mi?",
+    example: "Cette nouvelle règle sera applicable dès le mois prochain. - Bu yeni kural gelecek aydan itibaren geçerli olacaktır.",
   },
   {
     word: "rarissime",
@@ -24318,7 +24318,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "preserved, pickled. - korunmuş, salamura",
-    example: "The defense lawyer was confident that he would be able to answer the prosecutor's arguments in his rebuttal. - Savunma avukatı, savcının çürütücü iddialarına yanıt verebileceğinden emindi.",
+    example: "Elle adore manger une cuisse de canard confit avec des pommes de terre. - Patatesli ördek confit yemeyi çok sever.",
   },
   {
     word: "l'irritabilité",
@@ -25974,7 +25974,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "Which is furthest from the body, from the center of an organ, from the origin of a structure or from the point of attachment of a limb to the trunk. - Vücuttan, bir organın merkezinden, bir yapının başlangıcından veya bir uzvun gövdeye bağlandığı noktadan en uzak olanıdır.",
-    example: "My apathy for voting comes from my distaste for politics. - Oy verme konusundaki ilgisizliğim siyasete olan hoşnutsuzluğumdan kaynaklanıyor.",
+    example: "L'extrémité distale du membre est la partie la plus éloignée du corps. - Uzvun distal ucu, vücuttan en uzak olan kısımdır.",
   },
   {
     word: "l'acacia",
@@ -27846,7 +27846,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "Who cannot be relented, appeased. - Kim yumuşatılamaz, yatıştırılamaz.",
-    example: "The inexorable force of the waves crashing against the shore over millennia caused a huge section of the headland to fall into the sea. - Binlerce yıldır kıyıya çarpan dalgaların amansız gücü, burnun büyük bir bölümünün denize düşmesine neden oldu.",
+    example: "Le temps qui passe est une force inexorable que nul ne peut arrêter. - Akıp giden zaman, kimsenin durduramayacağı amansız bir güçtür.",
   },
   {
     word: "le cyclisme",
@@ -29030,7 +29030,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "congenial. - cana yakın",
-    example: "Relations between the heads of state in this region have been convivial, even brotherly. - Bu bölgedeki devlet başkanları arasındaki ilişkiler neşeli, hatta kardeşçe olmuştur.",
+    example: "Nous avons passé un moment très chaleureux et convivial entre amis. - Arkadaşlarımızla çok sıcak ve samimi bir an geçirdik.",
   },
   {
     word: "la frette",
@@ -30630,7 +30630,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "unmatched, uncontestable, inimitable. - eşsiz, tartışmasız, taklit edilemez",
-    example: "His photographs are unsparingly critical, and his inimitable eye unmasks the banal as well as the grotesque. - Fotoğrafları son derece eleştireldir ve taklit edilemez gözü, grotesk olduğu kadar sıradan olanın da maskesini ortaya çıkarır.",
+    example: "Cet acteur possède un style inimitable qui charme tous les spectateurs. - Bu oyuncu tüm seyircileri büyüleyen taklit edilemez bir tarza sahip.",
   },
   {
     word: "l'étroitesse",
@@ -31606,7 +31606,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "Who is all-powerful. - Her şeye gücü yeten kimdir?",
-    example: "Can an omnipotent God create a stone so heavy that even He may not lift it? - Her şeye gücü yeten bir Tanrı, kendisinin bile kaldıramayacağı kadar ağır bir taş yaratabilir mi?",
+    example: "Le roi gouvernait son royaume comme un souverain omnipotent. - Kral krallığını her şeye kadir bir hükümdar gibi yönetiyordu.",
   },
   {
     word: "vader",
@@ -31718,7 +31718,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "centrifugal. - merkezkaç",
-    example: "This is centrifugal force; Newton viewed it as absolute motion. - Bu merkezkaç kuvvetidir; Newton bunu mutlak hareket olarak gördü.",
+    example: "La force centrifuge pousse les objets vers l'extérieur du virage. - Merkezkaç kuvveti nesneleri virajın dışına doğru iter.",
   },
   {
     word: "le mégalomane",
@@ -33438,7 +33438,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "(light). - (ışık).",
-    example: "The sudden increase of ultraviolet rays made the researchers believe in the existence of ozone holes. - Ultraviyole ışınlarının ani artışı, araştırmacıları ozon deliklerinin varlığına inandırdı.",
+    example: "Il faut mettre de la crème solaire pour se protéger du rayonnement ultraviolet. - Ultraviyole radyasyondan korunmak için güneş kremi sürmek gerekir.",
   },
   {
     word: "intercostal",
@@ -33446,7 +33446,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "Headquartered in the coastal region. - Merkezi kıyı bölgesindedir.",
-    example: "Intercostals are muscles that are found between the ribs and help form and move the chest wall. - İnterkostal kaslar kaburgalar arasında bulunur ve göğüs duvarının oluşmasına ve hareket etmesine yardımcı olur.",
+    example: "Une douleur intercostale peut être causée par une mauvaise posture. - Kaburgalar arası bir ağrı, duruş bozukluğundan kaynaklanabilir.",
   },
   {
     word: "souler",
@@ -33878,7 +33878,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "drowsy, sleepy. - uykulu, uykulu",
-    example: "I'm especially miserable on Sundays, because the mood in the house turns somnolent and heavy. - Özellikle pazar günleri perişan oluyorum çünkü evdeki ruh hali uykulu ve ağırlaşıyor.",
+    example: "Après un repas copieux, il se sent souvent très somnolent. - Ağır bir yemekten sonra sık sık uykulu hisseder.",
   },
   {
     word: "octroyer",
@@ -34318,7 +34318,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "convertible (able to be converted). - dönüştürülebilir (dönüştürülebilir)",
-    example: "I'd like to drive across the USA in a convertible car. - ABD'yi üstü açık bir arabayla gezmek isterim.",
+    example: "Le canapé convertible est idéal pour accueillir des invités dans le salon. - Açılır kanepe salonda misafir ağırlamak için idealdir.",
   },
   {
     word: "cristallin",
@@ -34398,7 +34398,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "poor, needy, destitute. - yoksul, muhtaç, yoksul",
-    example: "He's in a program for indigent patients. - Yoksul hastalara yönelik bir programda çalışıyor.",
+    example: "Cette association distribue des repas chauds aux personnes indigentes. - Bu dernek muhtaç durumdaki kişilere sıcak yemek dağıtıyor.",
   },
   {
     word: "amoral",
@@ -34438,7 +34438,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "Which can be justified. - Bu haklı gösterilebilir.",
-    example: "It was a case of clearly justifiable self-defense. - Bu açıkça haklı bir meşru müdafaa davasıydı.",
+    example: "Son geste de défense était tout à fait justifiable dans cette situation. - Bu durumda kendini savunma hareketi tamamen haklı görülebilirdi.",
   },
   {
     word: "le taulier",
@@ -34526,7 +34526,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to skateboard. - kaykay yapmak",
-    example: "The skater spun round and round on the ice. - Patenci buzun üzerinde hızla dönüyordu.",
+    example: "Les adolescents aiment skater sur la grande place devant la mairie. - Gençler belediye binasının önündeki geniş meydanda kaykay yapmayı sever.",
   },
   {
     word: "le fuchsia",
@@ -35198,7 +35198,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "Weather",
     definition: "flashing, dazzling, full of lightning. - yanıp sönen, göz kamaştıran, şimşek dolu",
-    example: "Lightning can create tubes of glass when it strikes sand that has the right combination of minerals. Glass pieces produced by lightning are called fulgurites. - Yıldırım, doğru mineral kombinasyonuna sahip kuma çarptığında cam tüpler oluşturabilir. Yıldırımın oluşturduğu cam parçalarına fulgurit adı verilmektedir.",
+    example: "Le jeune champion a connu une ascension fulgurante dans le monde du tennis. - Genç şampiyon tenis dünyasında göz kamaştırıcı bir yükseliş yaşadı.",
   },
   {
     word: "le flûtiste",
@@ -35382,7 +35382,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "Family",
     definition: "New Year's gift; Christmas present (especially when talking to a child). - Yılbaşı hediyesi; Noel hediyesi (özellikle bir çocukla konuşurken)",
-    example: "Et que veux-tu pour tes étrennes? And what would you like for Christmas? - Peki yeni yılda ne istiyorsun? Peki Noel için ne istersiniz?",
+    example: "Les enfants attendent avec impatience leurs étrennes du Nouvel An. - Çocuklar yılbaşı hediyelerini sabırsızlıkla bekliyor.",
   },
   {
     word: "le typographie",
@@ -35510,7 +35510,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "Changing, which has no consequence, which is fickle. - Hiçbir sonucu olmayan, kararsız olan değişim.",
-    example: "We are all bewildered by her inconstancy. - Hepimiz onun tutarsızlığı karşısında şaşkına döndük.",
+    example: "Le temps printanier est souvent inconstant avec des averses imprévues. - Bahar havası beklenmedik sağanaklarla genellikle kararsızdır.",
   },
   {
     word: "le cimenterie",
@@ -36286,7 +36286,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "Which can be disputed. - Hangisi tartışılabilir?",
-    example: "My father was a contestant in a cooking contest and won first prize. - Babam bir yemek yarışmasında yarışmacıydı ve birincilik ödülünü kazandı.",
+    example: "Cette décision de l'arbitre reste très contestable aux yeux des supporters. - Hakemin bu kararı taraftarların gözünde oldukça tartışmalı olmaya devam ediyor.",
   },
   {
     word: "l'assentiment",
@@ -36302,7 +36302,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to harmonize. - uyumlaştırmak",
-    example: "Is the harmonica a present from his father? - Armonika babasının hediyesi mi?",
+    example: "Nous voulons harmoniser les couleurs des murs avec les meubles du salon. - Duvarların renklerini salon mobilyalarıyla uyumlu hale getirmek istiyoruz.",
   },
   {
     word: "le longue-vue",
@@ -36830,7 +36830,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to quantify. - ölçmek",
-    example: "The inherent difficulty of quantifying prosperity complicates the question of which countries are most prosperous. - Refahı ölçmenin doğal zorluğu, hangi ülkelerin en müreffeh olduğu sorusunu karmaşıklaştırıyor.",
+    example: "Il est parfois difficile de quantifier avec précision l'impact environnemental. - Çevresel etkiyi tam olarak ölçmek bazen zordur.",
   },
   {
     word: "le kawa",
@@ -37110,7 +37110,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "estimable, creditable. - saygın, itibarlı",
-    example: "Your estimation of him is a little high, to say the least. - En hafif tabirle ona dair tahmininiz biraz yüksek.",
+    example: "C'est une personne d'une qualité morale très estimable et respectée. - O, çok saygıdeğer ve ahlaki kalitesi yüksek bir insandır.",
   },
   {
     word: "parachuter",
@@ -37118,7 +37118,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to parachute (to introduce (something/someone) into a place using a parachute). - paraşütle atlamak (paraşüt kullanarak (bir şeyi/birini) bir yere sokmak)",
-    example: "After a minute of free fall he pulled the rip cord and out came the parachute. - Bir dakikalık serbest düşüşün ardından ipi çekti ve paraşüt dışarı çıktı.",
+    example: "L'armée a décidé de parachuter des vivres d'urgence aux habitants isolés. - Ordu, mahsur kalan sakinlere acil yardım malzemeleri paraşütle atmaya karar verdi.",
   },
   {
     word: "siffleur",
@@ -37958,7 +37958,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "lupine. - acı bakla",
-    example: "\"Who's that sleeping?\" \"Professor Lupin.\" \"How does she know everything?\" \"It's all written on his luggage\" \"Is he really sleeping?\" \"Seems so. Why?\". - \"Kim bu uyuyor?\" \"Profesör Lupin.\" \"Her şeyi nasıl biliyor?\" \"Hepsi bagajında ​​yazılı.\" \"Gerçekten uyuyor mu?\" \"Öyle görünüyor. Neden?\".",
+    example: "Les fleurs bleues du lupin illuminent les prairies de montagne en été. - Acıbaklanın mavi çiçekleri yazın dağ çayırlarını aydınlatır.",
   },
   {
     word: "le mél",
@@ -38862,7 +38862,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to ratify. - onaylamak",
-    example: "The new contract was ratified by a majority of only 56 percent. - Yeni sözleşme yalnızca yüzde 56'lık bir çoğunlukla onaylandı.",
+    example: "Le parlement va bientôt ratifier ce nouveau traité international. - Parlamento yakında bu yeni uluslararası anlaşmayı onaylayacak.",
   },
   {
     word: "la pâquerette",
@@ -40054,7 +40054,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to classify. - sınıflandırmak",
-    example: "In addition to classifying the data, the machine also checks the figures. - Makine, verileri sınıflandırmanın yanı sıra rakamları da kontrol eder.",
+    example: "Le biologiste cherche à classifier ces nouvelles espèces de plantes. - Biyolog bu yeni bitki türlerini sınıflandırmaya çalışıyor.",
   },
   {
     word: "le tuque",
@@ -42678,7 +42678,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "What occupies the back, the reverse side, of a thing. - Bir şeyin arkasını, arka tarafını işgal eden şey.",
-    example: "One of my required classes in college included dissecting the entire dorsal cavity of a pig. It was disgusting. - Üniversitede zorunlu derslerimden biri bir domuzun sırt boşluğunun tamamının incelenmesini içeriyordu. İğrençti.",
+    example: "Le dauphin possède un aileron dorsal qui lui assure une grande stabilité. - Yunusun ona büyük bir denge sağlayan bir sırt yüzgeci vardır.",
   },
   {
     word: "périssable",
@@ -43838,7 +43838,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "Loose-fitting trousers. - Bol pantolonlar.",
-    example: "These pants tend to go baggy at the knees. - Bu pantolonlar dizlere kadar bollaşma eğilimindedir.",
+    example: "Il préfère porter un pantalon baggy large et confortable pour faire du sport. - Spor yapmak için geniş ve rahat bir bol pantolon giymeyi tercih ediyor.",
   },
   {
     word: "le linoléum",
@@ -44134,7 +44134,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "insane, crazy. - deli, çılgın",
-    example: "Hamlet acts as if he were insane. - Hamlet sanki deliymiş gibi davranıyor.",
+    example: "Cette dispute sans fin est devenue totalement insane et ridicule. - Bu bitmek bilmeyen tartışma tamamen anlamsız ve saçma bir hal aldı.",
   },
   {
     word: "l'acupuncteur",
@@ -44486,7 +44486,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "to foment. - kışkırtmak",
-    example: "The request for more American assistance could foment a diplomatic crisis with China. - Daha fazla Amerikan yardımı talebi Çin ile diplomatik bir krize yol açabilir.",
+    example: "Les rebelles tentaient de fomenter une révolte dans les provinces du sud. - İsyancılar güney eyaletlerinde bir ayaklanma kışkırtmaya çalışıyorlardı.",
   },
   {
     word: "le sauvignon",
@@ -45542,7 +45542,7 @@ window.WORDS_FR_B1 = [
     level: "B1",
     category: "General",
     definition: "Chinook (language). - Chinook (dil).",
-    example: "Chinook Jargon was once widespread in the Pacific Northwest. - Chinook Jargonu bir zamanlar Kuzeybatı Pasifik'te yaygındı.",
+    example: "Le chinook est un vent chaud qui souffle sur les montagnes Rocheuses. - Chinook, Kayalık Dağlar üzerinde esen ılık bir rüzgardır.",
   },
   {
     word: "érectile",

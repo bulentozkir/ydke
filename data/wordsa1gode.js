@@ -10957,8 +10957,8 @@ window.WORDS_GODE_A1 = [
     pos: "adverb",
     level: "A1",
     category: "General",
-    definition: "relaxedly, casually - rahat, gündelik",
-    example: "Each of the students has his own locker. - Her öğrencinin kendine ait dolabı bulunmaktadır.",
+    definition: "relaxedly, casually, loose - rahat, gevşek, gündelik",
+    example: "Bleib ganz locker, alles wird gut. - Tamamen rahat ol, her şey güzel olacak.",
   },
   {
     word: "heiligen",

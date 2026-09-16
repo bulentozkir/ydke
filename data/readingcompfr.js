@@ -268,7 +268,7 @@ window.READING_PASSAGES_FR = [
   },
   {
     level: "B2",
-    title: "Le télétravail",
+    title: "Le modèle hybride de travail",
     text:
       "Depuis quelques années, le télétravail s'est considérablement développé, notamment à la suite de " +
       "la pandémie. Travailler depuis chez soi présente de nombreux avantages : les employés économisent " +

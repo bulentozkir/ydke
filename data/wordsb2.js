@@ -8788,7 +8788,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "A Dutch and German measure of liquids, used in England for Rhine wine, varying in different cities, being in Amsterdam about 41 wine gallons, in Antwerp 36½ and in Hamburg 38¼. - İngiltere'de Ren şarabı için kullanılan, farklı şehirlere göre değişen, Amsterdam'da yaklaşık 41 şarap galonu, Antwerp'te 36½ ve Hamburg'da 38¼ olan Hollanda ve Alman sıvı ölçüsü.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The merchant purchased an aam of Rhine wine for his cellar. - Tüccar mahzeni için bir aam Ren şarabı satın aldı.",
   },
   {
     word: "aardvark",
@@ -8820,7 +8820,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Animals",
     definition: "The nocturnal, insectivorous, mammal, Proteles cristatus, of southern and eastern Africa, related to and resembling the hyena. - Sırtlanla akraba olan ve ona benzeyen, güney ve doğu Afrika'da yaşayan, gececil, böcek yiyen bir memeli olan Proteles cristatus.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Aardwolves feed almost entirely on termites during the night. - Yer kurtları gece boyunca neredeyse tamamen termitlerle beslenir.",
   },
   {
     word: "aargh",
@@ -8828,7 +8828,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Expressing annoyance, dismay, embarrassment or frustration. - Rahatsızlık, dehşet, utanç veya hayal kırıklığını ifade etmek.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "'Aargh! I forgot my keys inside the locked car,' cried Tom. - 'Aargh! Anahtarlarımı kilitli arabanın içinde unuttum,' diye bağırdı Tom.",
   },
   {
     word: "aasvogel",
@@ -8844,7 +8844,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Vulture. - Akbaba.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "A flock of aasvogels circled high above the African savannah. - Afrika savanasının üzerinde yükseklerde bir akbaba sürüsü dönüyordu.",
   },
   {
     word: "aba",
@@ -8852,7 +8852,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Clothing",
     definition: "A coarse, often striped, felted fabric from the Middle East, woven from goat or camel hair. - Orta Doğu'dan gelen, keçi veya deve kılından dokunan kaba, genellikle çizgili, keçeli bir kumaş.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The traveler wore a warm aba woven from camel hair. - Gezgin deve kılından dokunmuş sıcak bir aba giymişti.",
   },
   {
     word: "abaca",
@@ -8868,7 +8868,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Animals",
     definition: "Musa textilis, a species of banana tree native to the Philippines grown for its textile, rope- and papermaking fibre. - Musa textilis, Filipinler'e özgü bir muz ağacı türü olup, tekstil, halat ve kağıt yapımı lifi için yetiştirilmektedir.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The farm cultivated abacas to produce strong natural fibers for ropes. - Çiftlik halat yapmak üzere güçlü doğal lifler üretmek için abaka yetiştirdi.",
   },
   {
     word: "aback",
@@ -8916,7 +8916,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Food",
     definition: "edible sea snails whose shells are lined with shiny mother-of-pearl. - sedefli parlak kabuklara sahip yenilebilir deniz salyangozları.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Divers search the rocky seabed for valuable abalones. - Dalgıçlar kayalık deniz tabanında değerli deniz salyangozlarını arar.",
   },
   {
     word: "abandoned",
@@ -8940,7 +8940,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The act of abandoning, or the state of being abandoned; total desertion; relinquishment. - Terk etme eylemi veya terk edilme durumu; toplam firar; vazgeçme.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The historian studied the sudden abandonments of ancient desert settlements. - Tarihçi eski çöl yerleşimlerinin ani terk edilişlerini inceledi.",
   },
   {
     word: "abandons",
@@ -8964,7 +8964,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Emotions",
     definition: "To lower, as in condition in life, office, rank, etc., so as to cause pain or hurt feelings; to degrade, to depress, to humble, to humiliate. - Hayattaki durumu, makamı, rütbeyi vb. acıya veya incinmeye neden olacak şekilde düşürmek; alçaltmak, alçaltmak, alçaltmak, aşağılamak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "He felt deeply abased after publicly apologizing for his mistake. - Hatası için kamuoyu önünde özür diledikten sonra kendini son derece küçük düşmüş hissetti.",
   },
   {
     word: "abasement",
@@ -8980,7 +8980,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Emotions",
     definition: "To lower, as in condition in life, office, rank, etc., so as to cause pain or hurt feelings; to degrade, to depress, to humble, to humiliate. - Hayattaki durumu, makamı, rütbeyi vb. acıya veya incinmeye neden olacak şekilde düşürmek; alçaltmak, alçaltmak, alçaltmak, aşağılamak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "A true leader never abases his followers in front of others. - Gerçek bir lider takipçilerini başkalarının önünde asla aşağılamaz.",
   },
   {
     word: "abash",
@@ -9004,7 +9004,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To make ashamed; to embarrass; to destroy the self-possession of, as by exciting suddenly a consciousness of guilt, mistake, or inferiority; to disconcert; to discomfit. - Utandırmak için; utandırmak; birdenbire suçluluk, hata veya aşağılık bilincini uyandırarak kendine hakimiyeti yok etmek; tedirgin etmek; rahatsız etmek.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "His sudden praise abashes the modest young student. - Onun ani övgüsü alçakgönüllü genç öğrenciyi utandırır.",
   },
   {
     word: "abated",
@@ -9044,7 +9044,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Military",
     definition: "A means of defense formed by felled trees, or sometimes by bent trees, the ends of whose branches are sharpened and directed outwards, or against the enemy, and more recently fortified with barbed wire. - Kesilen ağaçlardan veya bazen dallarının uçları keskinleştirilmiş ve dışarıya veya düşmana doğru yönlendirilmiş ve son zamanlarda dikenli tellerle güçlendirilmiş, bükülmüş ağaçlardan oluşan bir savunma aracı.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The defending army constructed abatises of fallen trees along the road. - Savunma ordusu yol boyunca devrilmiş ağaçlardan süngü engelleri inşa etti.",
   },
   {
     word: "abattoir",
@@ -9068,7 +9068,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Animals",
     definition: "Of a side that is facing away from the axis or central line, such as the underside of a leaf; or the back of an animal. - Bir yaprağın alt tarafı gibi eksenden veya merkez çizgiden uzağa bakan bir tarafın; veya bir hayvanın sırtı.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Stomata are primarily located on the abaxial surface of the leaf. - Gözenekler esas olarak yaprağın alt yüzeyinde yer alır.",
   },
   {
     word: "abba",
@@ -9092,7 +9092,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The dignity, estate, term, or jurisdiction of an abbot or abbess. - Bir başrahibin veya başrahibin onuru, mülkü, görev süresi veya yargı yetkisi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "During the Middle Ages, wealthy abbacies held vast tracts of farmland. - Orta Çağ'da zengin başrahiplikler geniş tarım arazilerine sahipti.",
   },
   {
     word: "abbatial",
@@ -9148,7 +9148,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Religion",
     definition: "A female superior or governess of a nunnery, or convent of nuns, having the same authority over the nuns which the abbots have over the monks. - Bir rahibe manastırının veya rahibeler manastırının başrahibi veya mürebbiyesi olup, başrahibin keşişler üzerinde sahip olduğu yetkinin aynısına rahibeler üzerinde de sahiptir.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The abbesses met at the cathedral to discuss monastic reforms. - Başrahibeler manastır reformlarını görüşmek üzere katedralde toplandı.",
   },
   {
     word: "abbot",
@@ -9236,7 +9236,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Family",
     definition: "The act of disowning or disinheriting a child. - Bir çocuğu sahiplenmemek veya mirastan mahrum bırakmak eylemi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The political crisis resulted in several royal abdications. - Siyasi kriz birkaç kraliyet feragatıyla sonuçlandı.",
   },
   {
     word: "abdomen",
@@ -9284,7 +9284,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Animals",
     definition: "The abducens nerve: the nerve in humans and most animals that governs the motion of the lateral rectus muscle of the eye. - Abdusens siniri: İnsanlarda ve çoğu hayvanda, gözün lateral rektus kasının hareketini yöneten sinir.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Damage to the abducens nerve can cause double vision. - Abdusens sinirinin hasar görmesi çift görmeye neden olabilir.",
   },
   {
     word: "abduct",
@@ -9340,7 +9340,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To take away by force; to carry away (a human being) wrongfully and usually with violence or deception; to kidnap. - Zorla götürmek; (bir insanı) haksız yere ve genellikle şiddet veya aldatma yoluyla alıp götürmek; kaçırmak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The villain in the thriller abducts the scientist's daughter. - Gerilim filmindeki kötü adam bilim insanının kızını kaçırır.",
   },
   {
     word: "abeam",
@@ -9364,7 +9364,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "In bed, or on the bed; confined to bed. - Yatakta ya da yatakta; yatağa mahkumdur.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The sick child remained abed until her fever finally broke. - Hasta çocuk ateşi nihayet düşene kadar yatakta kaldı.",
   },
   {
     word: "abele",
@@ -9372,7 +9372,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The white poplar (Populus alba). - Ak kavak (Populus alba).",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The silver leaves of the abele shimmered in the morning breeze. - Ak kavak ağacının gümüşi yaprakları sabah esintisinde parıldadı.",
   },
   {
     word: "abeles",
@@ -9380,7 +9380,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The white poplar (Populus alba). - Ak kavak (Populus alba).",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "A grove of tall abeles lined both banks of the quiet river. - Sakin nehrin her iki kıyısında uzun boylu ak kavaklar sıralanmıştı.",
   },
   {
     word: "abelia",
@@ -9420,7 +9420,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Fraud or cunning. - Dolandırıcılık veya kurnazlık.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Anyone who aids or abets the criminal will face legal prosecution. - Suçluya yardım veya yataklık eden herkes adli kovuşturmayla karşı karşıya kalacaktır.",
   },
   {
     word: "abetted",
@@ -9436,7 +9436,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "One that abets an offender; one that incites; instigates; encourages. - Bir suçluya yataklık eden; kışkırtan biri; kışkırtır; teşvik eder.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The prosecutor charged him as an abetter to the grand robbery. - Savcı onu büyük soyguna yardım ve yataklık eden biri olarak suçladı.",
   },
   {
     word: "abetters",
@@ -9444,7 +9444,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "One that abets an offender; one that incites; instigates; encourages. - Bir suçluya yataklık eden; kışkırtan biri; kışkırtır; teşvik eder.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The police arrested the thief along with all his abetters. - Polis hırsızı tüm yardımcılarıyla birlikte tutukladı.",
   },
   {
     word: "abettor",
@@ -9460,7 +9460,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "One that abets an offender; one that incites; instigates; encourages. - Bir suçluya yataklık eden; kışkırtan biri; kışkırtır; teşvik eder.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Those acting as abettors in the scam were sentenced to community service. - Dolandırıcılıkta yataklık yapanlar kamu hizmetine mahkûm edildi.",
   },
   {
     word: "abhinaya",
@@ -9540,7 +9540,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "A lady's maid. - Bir bayanın hizmetçisi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Wealthy Victorian ladies relied on their abigails to dress for dinner. - Varlıklı Viktorya dönemi hanımları akşam yemeğine giyinmek için nedimelerine güvenirdi.",
   },
   {
     word: "abilities",
@@ -9564,7 +9564,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Any such material. - Bu tür herhangi bir malzeme.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Sunlight, water, and temperature are key abiotic components of any ecosystem. - Güneş ışığı, su ve sıcaklık herhangi bir ekosistemin temel abiyotik bileşenleridir.",
   },
   {
     word: "abir",
@@ -9572,7 +9572,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "An aromatic red powder that is used during the Holi festival. - Holi festivalinde kullanılan aromatik kırmızı bir toz.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Celebrants threw vibrant red abir powder into the air during the festival. - Kutlama yapanlar festival sırasında havaya canlı kırmızı abir tozu fırlattı.",
   },
   {
     word: "abysm",
@@ -9604,7 +9604,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Hell; the infernal pit; the great deep; the primal chaos. - Cehennem; cehennem çukuru; büyük derin; ilkel kaos.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The explorer gazed into the silent abysms of the deep canyon. - Kaşif derin kanyonun sessiz uçurumlarına baktı.",
   },
   {
     word: "abyssal",
@@ -9636,7 +9636,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To renounce upon oath; to forswear; to disavow. - Yemin ederek vazgeçmek; yemin etmek; inkar etmek.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In a public speech, he abjures his former extremist beliefs. - Halka açık bir konuşmada eski aşırılık yanlısı inançlarından vazgeçtiğini bildirir.",
   },
   {
     word: "ablate",
@@ -9660,7 +9660,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To remove or decrease something by cutting, erosion, melting, evaporation, or vaporization. - Bir şeyi keserek, aşındırarak, eriterek, buharlaştırarak veya buharlaştırarak ortadan kaldırmak veya azaltmak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The laser gently ablates the damaged surface tissue. - Lazer hasarlı yüzey dokusunu nazikçe buharlaştırır.",
   },
   {
     word: "ablation",
@@ -9684,7 +9684,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "(grammar) The ablative case. - (gramer) Ablatif durum.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In Latin grammar, students must memorize the various uses of ablatives. - Latince dilbilgisinde öğrenciler ablatif durumun çeşitli kullanımlarını ezberlemelidir.",
   },
   {
     word: "ablaut",
@@ -9700,7 +9700,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Arts",
     definition: "The substitution of one root vowel for another, thus indicating a corresponding modification of use or meaning; vowel permutation; as, get and got; sing and song; hang and hung, distinct from the phonetic influence of a succeeding vowel. - Bir kök sesli harfin bir diğeriyle değiştirilmesi, böylece kullanımda veya anlamda karşılık gelen bir değişikliği belirtir; sesli harf permütasyonu; olarak, al ve aldım; şarkı söyle ve şarkı söyle; Sonraki sesli harfin fonetik etkisinden farklı olarak asılır ve asılır.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Linguists study Indo-European ablauts to trace vowel changes across languages. - Dilbilimciler diller arasındaki ünlü değişimlerini izlemek için Hint-Avrupa ünlü derecelenmelerini inceler.",
   },
   {
     word: "ablaze",
@@ -9796,7 +9796,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To deny (oneself something); to renounce or give up (a right, a power, a claim, a privilege, a convenience). - (kendine bir şeyi) inkar etmek; vazgeçmek veya vazgeçmek (bir hak, güç, iddia, ayrıcalık, kolaylık).",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "A dedicated monk abnegates worldly luxuries to pursue spiritual growth. - Kendini adamış bir keşiş manevi gelişim peşinde koşmak için dünyevi lükslerden feragat eder.",
   },
   {
     word: "abnegation",
@@ -9812,7 +9812,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "A denial; a renunciation; denial of desire or self-interest. - Bir inkar; bir feragat; arzunun veya kişisel çıkarların reddedilmesi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Ascetic lifestyles are defined by continuous acts of self-abnegations. - Çileci yaşam tarzları sürekli özveri ve feragat eylemleriyle tanımlanır.",
   },
   {
     word: "abnormal",
@@ -9860,7 +9860,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The state or quality of being abnormal; variation; irregularity. - Anormal olma durumu veya niteliği; varyasyon; düzensizlik.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The genetic scan revealed several minor structural abnormities. - Genetik tarama birkaç küçük yapısal anormallik ortaya çıkardı.",
   },
   {
     word: "abo",
@@ -9940,7 +9940,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The fourth or digestive compartment of the stomach of a cow or other ruminant, after the omasum. - Bir ineğin veya diğer geviş getiren hayvanların midesinin omasumdan sonraki dördüncü veya sindirim bölmesi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Veterinarians examined the abomasa of the sick cattle. - Veterinerler hasta sığırların dördüncü mide bölümlerini inceledi.",
   },
   {
     word: "abomasum",
@@ -9988,7 +9988,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Emotions",
     definition: "To feel disgust towards; to loathe or detest thoroughly; to hate in the highest degree, as if with religious dread. - İğrenme duymak; tamamen nefret etmek veya nefret etmek; dini bir korkuyla sanki en yüksek derecede nefret etmek.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "She abominates any kind of cruelty toward innocent animals. - Masum hayvanlara yönelik her türlü zulümden nefret eder.",
   },
   {
     word: "abomination",
@@ -10012,7 +10012,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Situated opposite to, or away from, the mouth. - Ağzın karşısında veya ağzından uzakta bulunur.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The sea star's spines are primarily found on its aboral surface. - Denizyıldızının dikenleri esas olarak ağız karşıtı üst yüzeyinde bulunur.",
   },
   {
     word: "aboriginal",
@@ -10028,7 +10028,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The quality of being aboriginal. - Yerli olmanın kalitesi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The exhibition celebrated the rich culture and aboriginality of native peoples. - Sergi yerli halkların zengin kültürünü ve yerliliğini kutladı.",
   },
   {
     word: "aboriginals",
@@ -10036,7 +10036,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "An Aboriginal inhabitant of Australia, Aborigine. - Avustralya'nın bir Aborijin sakini, Aborijin.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Australian aboriginals possess an intimate knowledge of the desert landscape. - Avustralya yerlileri çöl arazisi hakkında derin bir bilgiye sahiptir.",
   },
   {
     word: "aborigine",
@@ -10132,7 +10132,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "An aborigine; aboriginal. - Bir yerli; yerli.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The documentary explored the history and culture of Australian aborigines. - Belgesel Avustralya yerlilerinin tarihini ve kültürünü inceledi.",
   },
   {
     word: "aboulia",
@@ -10140,7 +10140,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Medicine",
     definition: "Absence of willpower or decisiveness, especially as a symptom of mental illness. - Özellikle akıl hastalığının bir belirtisi olarak irade veya kararlılığın olmaması.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Depression can often manifest as severe aboulia and lack of initiative. - Depresyon genellikle şiddetli irade yitimi ve inisiyatif eksikliği olarak kendini gösterebilir.",
   },
   {
     word: "abound",
@@ -10188,7 +10188,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Mentioned above. - Yukarıda bahsedilen.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "All abovementioned requirements must be fulfilled before submitting the form. - Formu göndermeden önce yukarıda belirtilen tüm gereklilikler yerine getirilmelidir.",
   },
   {
     word: "abracadabra",
@@ -10260,7 +10260,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "A Latin American embrace. - Bir Latin Amerika kucaklaşması.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The two old friends shared a warm abrazo when they met at the airport. - İki eski arkadaş havalimanında buluştuklarında sıcak bir kucaklaşma paylaştı.",
   },
   {
     word: "abrazos",
@@ -10268,7 +10268,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "A Latin American embrace. - Bir Latin Amerika kucaklaşması.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Festive celebrations in Spain often conclude with affectionate abrazos. - İspanya'daki bayram kutlamaları genellikle sevgi dolu sarılmalarla sona erer.",
   },
   {
     word: "abreact",
@@ -10284,7 +10284,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Emotions",
     definition: "To eliminate previously repressed emotions by reliving past experiences. - Geçmiş deneyimleri yeniden yaşayarak daha önce bastırılmış duyguları ortadan kaldırmak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Through guided therapy, the patient successfully abreacted her traumatic memories. - Rehberli terapi sayesinde hasta travmatik anılarını yeniden yaşayarak duygusal olarak boşalttı.",
   },
   {
     word: "abreaction",
@@ -10292,7 +10292,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The re-living of an experience with a view to purging its emotional dross. - Bir deneyimin duygusal tortusunu temizlemek amacıyla yeniden yaşanması.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The psychiatrist noted that the patient experienced a powerful abreaction during the session. - Psikiyatrist hastanın seans sırasında güçlü bir duygusal boşalma yaşadığını kaydetti.",
   },
   {
     word: "abreactions",
@@ -10300,7 +10300,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The re-living of an experience with a view to purging its emotional dross. - Bir deneyimin duygusal tortusunu temizlemek amacıyla yeniden yaşanması.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Emotional abreactions can be a therapeutic step toward healing past trauma. - Duygusal boşalmalar geçmiş travmaları iyileştirmede terapötik bir adım olabilir.",
   },
   {
     word: "abreacts",
@@ -10308,7 +10308,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Emotions",
     definition: "To eliminate previously repressed emotions by reliving past experiences. - Geçmiş deneyimleri yeniden yaşayarak daha önce bastırılmış duyguları ortadan kaldırmak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "In psychoanalysis, the client abreacts bottled-up grief from childhood. - Psikanalizde danışan çocukluğundan kalan bastırılmış kederi dışa vurarak boşaltır.",
   },
   {
     word: "abreast",
@@ -10348,7 +10348,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The act of abridging; reduction or deprivation. - Kısaltma eylemi; azaltma veya yoksunluk.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The library collection includes several abridgements of classic literary works. - Kütüphane koleksiyonu klasik edebiyat eserlerinin birkaç kısaltılmış versiyonunu içerir.",
   },
   {
     word: "abridges",
@@ -10356,7 +10356,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To deprive; to cut off. - Yoksun bırakmak; kesmek için.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The new law abridges the freedom of the press. - Yeni yasa basın özgürlüğünü kısıtlamaktadır.",
   },
   {
     word: "abridgment",
@@ -10372,7 +10372,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The act of abridging; reduction or deprivation. - Kısaltma eylemi; azaltma veya yoksunluk.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Publishers often produce abridgments of thick encyclopedias for school students. - Yayıncılar okul öğrencileri için kalın ansiklopedilerin kısaltılmış baskılarını üretir.",
   },
   {
     word: "abrogated",
@@ -10396,7 +10396,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The act of abrogating; a repeal by authority; abolition. - Feshetme eylemi; otorite tarafından yürürlükten kaldırılma; kaldırılması.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Constitutional reforms led to the abrogations of several outdated laws. - Anayasal reformlar birkaç eski yasanın yürürlükten kaldırılmasına yol açtı.",
   },
   {
     word: "abrupt",
@@ -10460,7 +10460,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To cut off. - Kesmek için.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The tree abscised its dry autumn leaves before the arrival of winter. - Ağaç kış gelmeden önce kuru sonbahar yapraklarını döktü.",
   },
   {
     word: "abscises",
@@ -10468,7 +10468,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To cut off. - Kesmek için.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "When drought strikes, the plant abscises older foliage to conserve moisture. - Kuraklık vurduğunda bitki nemi korumak için yaşlı yapraklarını döker.",
   },
   {
     word: "abscissa",
@@ -10484,7 +10484,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The first of the two terms by which a point is referred to, in a system of fixed rectilinear coordinate (Cartesian coordinate) axes. - Sabit doğrusal koordinat (Kartezyen koordinat) eksenleri sisteminde bir noktayı ifade eden iki terimden ilki.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "On the Cartesian grid, the abscissae represent values along the horizontal x-axis. - Kartezyen ızgarada apsisler yatay x ekseni boyunca değerleri temsil eder.",
   },
   {
     word: "abscissas",
@@ -10500,7 +10500,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The act or process of cutting off. - Kesme eylemi veya süreci.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Autumn leaf abscission is controlled by specialized plant hormones. - Sonbaharda yaprak dökülmesi özel bitki hormonları tarafından kontrol edilir.",
   },
   {
     word: "abscissions",
@@ -10508,7 +10508,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The act or process of cutting off. - Kesme eylemi veya süreci.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Botanists study premature fruit abscissions caused by severe pest infestations. - Botanikçiler şiddetli böcek istilasının neden olduğu erken meyve dökülmelerini inceler.",
   },
   {
     word: "absconded",
@@ -10524,7 +10524,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Law",
     definition: "To flee, often secretly; to steal away, particularly to avoid arrest or prosecution. - Çoğu zaman gizlice kaçmak; özellikle tutuklanmayı veya kovuşturmayı önlemek için hırsızlık yapmak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The dishonest accountant absconds with the company's funds. - Dürüst olmayan muhasebeci şirketin parasıyla kaçar.",
   },
   {
     word: "abseil",
@@ -10548,7 +10548,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Technology",
     definition: "A descent in mountaineering using a rope looped at the top and a friction device. - Dağcılıkta tepeye ilmikli bir ip ve bir sürtünme cihazı kullanılarak yapılan iniş.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The experienced climber abseils smoothly down the sheer granite cliff. - Deneyimli dağcı dik granit uçurumdan aşağıya iple rahatça iner.",
   },
   {
     word: "absences",
@@ -10636,7 +10636,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The herb absinthium Artemisia absinthium (grande wormwood); essence of wormwood. - Absinthium otu Artemisia absinthium (grande pelin); pelin özü.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Traditional French cafes historically served various herbal absinthes. - Geleneksel Fransız kafeleri tarihsel olarak çeşitli bitkisel pelin otu likörleri servis ederdi.",
   },
   {
     word: "absinths",
@@ -10644,7 +10644,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The herb absinthium Artemisia absinthium (grande wormwood); essence of wormwood. - Absinthium otu Artemisia absinthium (grande pelin); pelin özü.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Art collectors treasure antique glasses specifically designed for drinking absinths. - Sanat koleksiyoncuları pelin otu likörleri içmek için özel olarak tasarlanmış antika kadehleri saklar.",
   },
   {
     word: "absolutes",
@@ -10668,7 +10668,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "An absolving of sins from ecclesiastical penalties by an authority. - Bir otorite tarafından günahların dini cezalardan aklanması.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The priest granted absolutions to all penitent sinners during the service. - Rahip ayin sırasında tövbe eden tüm günahkârlara bağışlanma sundu.",
   },
   {
     word: "absolutism",
@@ -10724,7 +10724,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Discordant; harsh; contrary; unreasonable. - Uyumsuz; sert; aksine; mantıksız.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "His loud, abrasive laughter was completely absonant with the solemn funeral. - Onun yüksek sesli kaba kahkahası hüzünlü cenaze törenine tamamen uyumsuzdu.",
   },
   {
     word: "absorbable",
@@ -10796,7 +10796,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Arts",
     definition: "A instrument that computes the absorption rate by measuring the pressure of the gas; a colorimeter for liquids. - Gazın basıncını ölçerek emilim oranını hesaplayan bir alet; sıvılar için bir renkölçer.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The laboratory technician calibrated the absorptiometer before testing the chemical solution. - Laboratuvar teknisyeni kimyasal çözeltiyi test etmeden önce soğurma ölçeri kalibre etti.",
   },
   {
     word: "absorption",
@@ -10820,7 +10820,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The quality of being absorptive; absorptiveness. - Emici olma kalitesi; emicilik.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The dark solar panels have a remarkably high radiation absorptivity. - Koyu renkli güneş panelleri dikkate değer derecede yüksek bir radyasyon soğuruculuğuna sahiptir.",
   },
   {
     word: "absquatulate",
@@ -10892,7 +10892,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "One who abstracts, or makes an abstract, as in records or documents. - Kayıtlarda veya belgelerde olduğu gibi soyutlayan veya özet yapan kişi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Legal abstracters carefully summarize land title records for property buyers. - Hukuk özetleyicileri mülk alıcıları için tapu kayıtlarını dikkatlice özetler.",
   },
   {
     word: "abstraction",
@@ -10924,7 +10924,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "One who abstracts, or makes an abstract, as in records or documents. - Kayıtlarda veya belgelerde olduğu gibi soyutlayan veya özet yapan kişi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The title abstractor examined decades of deeds at the municipal courthouse. - Tapu özeti uzmanı belediye adliyesinde onlarca yıllık tapu kayıtlarını inceledi.",
   },
   {
     word: "abstractors",
@@ -10932,7 +10932,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "One who abstracts, or makes an abstract, as in records or documents. - Kayıtlarda veya belgelerde olduğu gibi soyutlayan veya özet yapan kişi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Experienced abstractors compile condensed briefs of lengthy scientific reports. - Deneyimli özetleyiciler uzun bilimsel raporların kısaltılmış özetlerini derler.",
   },
   {
     word: "abstracts",
@@ -10956,7 +10956,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Contrary to reason or propriety; obviously and flatly opposed to manifest truth; inconsistent with the plain dictates of common sense; logically contradictory; nonsensical; ridiculous; silly. - Akla ve usule aykırı; apaçık gerçeğe açıkça ve açıkça karşı çıkıyor; sağduyunun açık emirleriyle tutarsız; mantıksal olarak çelişkili; saçma; saçma; şapşal.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Believing the earth is completely flat is among the absurdest modern notions. - Dünyanın tamamen düz olduğuna inanmak en saçma modern fikirler arasındadır.",
   },
   {
     word: "absurdism",
@@ -11012,7 +11012,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Medicine",
     definition: "Absence of willpower or decisiveness, especially as a symptom of mental illness. - Özellikle akıl hastalığının bir belirtisi olarak irade veya kararlılığın olmaması.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Neurological illness left the elderly patient suffering from acute abulia. - Nörolojik hastalık yaşlı hastayı akut irade yitimi içinde bıraktı.",
   },
   {
     word: "abuna",
@@ -11036,7 +11036,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "A large quantity; many. - Büyük miktarda; birçok.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Tropical rainforests feature vast abundances of unique insect species. - Tropikal yağmur ormanları çok çeşitli benzersiz böcek türlerinin büyük bolluğunu barındırır.",
   },
   {
     word: "abundant",
@@ -11140,7 +11140,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The point of junction between two things, in particular a support, that abuts. - İki şey arasındaki bağlantı noktası, özellikle de bitişik olan bir destek.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Engineers reinforced the concrete abutments supporting the suspension bridge. - Mühendisler asma köprüyü destekleyen beton ayakları güçlendirdi.",
   },
   {
     word: "abuts",
@@ -11156,7 +11156,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Geography",
     definition: "To touch by means of a mutual border, edge or end; to border on; to lie adjacent (to); to be contiguous (said of an area of land). - Karşılıklı bir sınır, kenar veya uç vasıtasıyla dokunmak; sınır koymak; bitişik olmak (için); bitişik olmak (bir arazi alanı için söylenir).",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The small private garden abutted the ancient stone castle wall. - Küçük özel bahçe eski taş kale duvarına bitişikti.",
   },
   {
     word: "abutter",
@@ -11172,7 +11172,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "One who, or that which, abuts, specifically, the owner of a contiguous estate. - Özellikle bitişik mülkün sahibine bitişik olan kişi veya şey.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "City planners notified all local abutters about the upcoming road expansion. - Şehir plancıları yaklaşan yol genişletmesi hakkında tüm komşu mülk sahiplerini bilgilendirdi.",
   },
   {
     word: "abuzz",
@@ -11188,7 +11188,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Food",
     definition: "A standard measure of the amount of alcohol contained in a given volume of an alcoholic beverage, usually defined as the number of millilitres of pure ethanol present in 100 millilitres of solution at 20 °C (68 °F). - Belirli bir alkollü içecek hacminde bulunan alkol miktarının standart ölçüsüdür; genellikle 20 °C'de (68 °F) 100 mililitre çözeltide bulunan saf etanolün mililitre sayısı olarak tanımlanır.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "This craft beer label indicates an ABV of six percent. - Bu butik bira etiketi yüzde altılık bir alkol oranını gösterir.",
   },
   {
     word: "acacia",
@@ -11228,7 +11228,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Education",
     definition: "Academic dress, consisting of a cap and gown. - Kep ve cüppeden oluşan akademik elbise.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The chancellor donned his traditional academical gown for the commencement ceremony. - Rektör mezuniyet töreni için geleneksel akademik cübbesini giydi.",
   },
   {
     word: "academically",
@@ -11244,7 +11244,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Education",
     definition: "The articles of dress prescribed and worn at some colleges and universities, typically on special occasions such as graduation. - Bazı kolej ve üniversitelerde, genellikle mezuniyet gibi özel günlerde reçete edilen ve giyilen kıyafetler.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Graduates marched into the hall wearing formal academicals and black caps. - Mezunlar resmi akademik kıyafetler ve siyah kepler giyerek salona girdi.",
   },
   {
     word: "academician",
@@ -11260,7 +11260,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Education",
     definition: "A member (especially a senior one) of the faculty at a college or university; an academic. - Bir kolej veya üniversitedeki öğretim üyesi (özellikle son sınıf öğrencisi); bir akademisyen.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Eminent academicians from around the globe gathered for the physics symposium. - Dünyanın dört bir yanından seçkin akademisyenler fizik sempozyumu için bir araya geldi.",
   },
   {
     word: "academicism",
@@ -11268,7 +11268,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Education",
     definition: "(sometimes capitalized) The doctrines of Plato's academy; specifically the skeptical doctrines of the later academy stating that nothing can be known; a tenet of the Academic philosophy; state of being Academic. - (bazen büyük harfle yazılır) Platon'un akademisinin öğretileri; özellikle daha sonraki akademinin hiçbir şeyin bilinemeyeceğini söyleyen şüpheci doktrinleri; Akademik felsefenin bir ilkesi; Akademisyen olma durumu.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Critics argued that the painting suffered from rigid and lifeless academicism. - Eleştirmenler tablonun katı ve cansız bir akademizmden muzdarip olduğunu savundu.",
   },
   {
     word: "academics",
@@ -11300,7 +11300,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The cashew tree. - Kaju ağacı.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The expensive dining table was crafted from fine Brazilian acajou wood. - Pahalı yemek masası kaliteli Brezilya maun ağacından yapılmıştı.",
   },
   {
     word: "acajous",
@@ -11308,7 +11308,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The cashew tree. - Kaju ağacı.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Tropical plantations cultivate acajous for both their wood and delicious nuts. - Tropikal tarlalar hem odunları hem de lezzetli kaju fıstıkları için kaju ağaçları yetiştirir.",
   },
   {
     word: "acalculia",
@@ -11316,7 +11316,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Medicine",
     definition: "The condition of lacking basic mathematical skills caused by a brain injury, or more specifically an injury to the parietal lobe. - Beyin hasarının veya daha özel olarak parietal lob yaralanmasının neden olduğu temel matematik becerilerinden yoksun olma durumu.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Following the stroke, the patient experienced acalculia and could not do basic sums. - Felcin ardından hasta akalkuli yaşadı ve temel toplama işlemlerini yapamadı.",
   },
   {
     word: "acanth",
@@ -11324,7 +11324,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Acanthus. - Acanthus.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Classical Greek columns often feature carvings inspired by the acanth leaf. - Klasik Yunan sütunları genellikle akantus yaprağından esinlenen oymalara sahiptir.",
   },
   {
     word: "acanthodian",
@@ -11372,7 +11372,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Any substance which kills acarids (mites and ticks). - Akaritleri (akarlar ve keneler) öldüren herhangi bir madde.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The farmer sprayed a non-toxic acaricide to eliminate spider mites on his crops. - Çiftçi ekinlerindeki örümcek akarlarını yok etmek için zehirsiz bir akar ilacı sıktı.",
   },
   {
     word: "acarine",
@@ -11388,7 +11388,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "A mite. - Bir akar.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Microscopic acarines inhabit household dust and soil across the world. - Mikroskobik akarlar dünyanın her yerinde ev tozu ve toprakta yaşar.",
   },
   {
     word: "acaroid",
@@ -11396,7 +11396,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Shaped like or resembling a mite. - Bir akar gibi veya ona benzeyen şekilli.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The entomologist observed an unusual acaroid insect under the microscope. - Böcekbilimci mikroskop altında akara benzeyen olağandışı bir böcek gözlemledi.",
   },
   {
     word: "acarology",
@@ -11412,7 +11412,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Literature",
     definition: "A verse which has the complete number of feet and syllables. - Ayak ve hece sayısı tam olan bir ayet.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The poet wrote the sonnet in strict acatalectic iambic pentameter. - Şair soneyi eksiksiz ve tam vezinli hece ölçüsüyle yazdı.",
   },
   {
     word: "acca",
@@ -11420,7 +11420,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "An accumulator bet. - Bir akümülatör bahisi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "He placed a weekend football acca hoping to win big on four matches. - Dört maçta büyük kazanmayı umarak hafta sonu futbol kombine bahsi yaptı.",
   },
   {
     word: "acceded",
@@ -11436,7 +11436,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To approach; to arrive, to come forward. - Yaklaşmak için; varmak, öne çıkmak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The government finally accedes to the peaceful demands of the protestors. - Hükümet nihayet protestocuların barışçıl taleplerini kabul eder.",
   },
   {
     word: "accelerando",
@@ -11540,7 +11540,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Animals",
     definition: "a small bird with pointed wings that catches insects while flying. - uçarken böcek yakalayan, sivri kanatlı küçük bir kuş.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Barn swallows swooped gracefully through the evening sky catching flying insects. - Ahır kırlangıçları uçan böcekleri yakalamak için akşam gökyüzünde zarifçe süzüldü.",
   },
   {
     word: "accents",
@@ -11556,7 +11556,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Of or pertaining to accent; characterized or formed by accent. - Aksanla ilgili veya aksanla ilgili; vurguyla karakterize edilir veya oluşturulur.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Old English poetry is characterized by its powerful accentual verse rhythm. - Eski İngiliz şiiri güçlü vurgusal dize ritmiyle karakterize edilir.",
   },
   {
     word: "accentuated",
@@ -11692,7 +11692,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Law",
     definition: "Someone who accedes to some act, now especially a crime; one who contributes as an assistant or instigator to the commission of an offense. - Artık özellikle bir suç olan bir eylemi kabul eden biri; Bir suçun işlenmesine yardımcı veya azmettirici olarak katkıda bulunan kişi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The judge sentenced both the robber and his criminal accessaries. - Yargıç hem soyguncuyu hem de onun suça yardım eden suç ortaklarını cezalandırdı.",
   },
   {
     word: "accesses",
@@ -11772,7 +11772,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Arts",
     definition: "A short grace note (theoretically taking no time at all), occurring on the beat occupied by the main note to which it is prefixed, one scale-step higher or lower than that main note. (Sometimes equivalent, therefore, to a short appoggiatura, but in Baroque music interpreted differently and more strictly.) Written as a note lighter in appearance, typically a quaver (eighth note), with an oblique stroke through the stem. - Ön eki olduğu ana notanın işgal ettiği vuruşta, o ana notadan bir ölçek adımı daha yüksek veya daha düşük olarak ortaya çıkan kısa bir nota (teorik olarak hiç zaman almaz). (Bu nedenle bazen kısa bir apojiyaturaya eşdeğerdir, ancak Barok müzikte farklı ve daha katı bir şekilde yorumlanır.) Görünümü daha hafif olan bir nota olarak yazılır, tipik olarak gövde boyunca eğik bir vuruşla bir titrek (sekizlik nota) olarak yazılır.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The pianist played an expressive acciaccatura before the opening chord. - Piyanist açılış akorundan önce etkileyici bir kısa süsleme notası çaldı.",
   },
   {
     word: "acciaccaturas",
@@ -11780,7 +11780,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Arts",
     definition: "A short grace note (theoretically taking no time at all), occurring on the beat occupied by the main note to which it is prefixed, one scale-step higher or lower than that main note. (Sometimes equivalent, therefore, to a short appoggiatura, but in Baroque music interpreted differently and more strictly.) Written as a note lighter in appearance, typically a quaver (eighth note), with an oblique stroke through the stem. - Ön eki olduğu ana notanın işgal ettiği vuruşta, o ana notadan bir ölçek adımı daha yüksek veya daha düşük olarak ortaya çıkan kısa bir nota (teorik olarak hiç zaman almaz). (Bu nedenle bazen kısa bir apojiyaturaya eşdeğerdir, ancak Barok müzikte farklı ve daha katı bir şekilde yorumlanır.) Görünümü daha hafif olan bir nota olarak yazılır, tipik olarak gövde boyunca eğik bir vuruşla bir titrek (sekizlik nota) olarak yazılır.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Chopin enriched his nocturnes with delicate acciaccaturas and ornaments. - Chopin noktürnlerini narin kısa süsleme notaları ve bezemelerle zenginleştirdi.",
   },
   {
     word: "acciaccature",
@@ -11788,7 +11788,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Arts",
     definition: "A short grace note (theoretically taking no time at all), occurring on the beat occupied by the main note to which it is prefixed, one scale-step higher or lower than that main note. (Sometimes equivalent, therefore, to a short appoggiatura, but in Baroque music interpreted differently and more strictly.) Written as a note lighter in appearance, typically a quaver (eighth note), with an oblique stroke through the stem. - Ön eki olduğu ana notanın işgal ettiği vuruşta, o ana notadan bir ölçek adımı daha yüksek veya daha düşük olarak ortaya çıkan kısa bir nota (teorik olarak hiç zaman almaz). (Bu nedenle bazen kısa bir apojiyaturaya eşdeğerdir, ancak Barok müzikte farklı ve daha katı bir şekilde yorumlanır.) Görünümü daha hafif olan bir nota olarak yazılır, tipik olarak gövde boyunca eğik bir vuruşla bir titrek (sekizlik nota) olarak yazılır.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Baroque keyboard performers frequently added lively acciaccature to their melodies. - Barok klavye icracıları melodilerine sık sık canlı kısa süsleme notaları eklerdi.",
   },
   {
     word: "accidence",
@@ -11836,7 +11836,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "hawk (a fast-flying bird of prey with sharp eyesight). - şahin (keskin görüşe sahip, hızlı uçan bir yırtıcı kuş).",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "A swift accipiter darted between the woodland trees pursuing small birds. - Hızlı bir atmaca küçük kuşları kovalayarak orman ağaçlarının arasından fırladı.",
   },
   {
     word: "accipitrine",
@@ -11844,7 +11844,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Animals",
     definition: "A hawk or a hawk-like bird. - Şahin veya şahin benzeri bir kuş.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The eagle possessed a fierce, accipitrine gaze and razor-sharp talons. - Kartal şiddetli, yırtıcı kuşlara özgü bir bakışa ve jilet gibi keskin pençelere sahipti.",
   },
   {
     word: "acclaim",
@@ -11860,7 +11860,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To shout; to call out. - Bağırmak; seslenmek.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The international audience acclaims the young virtuoso's spectacular performance. - Uluslararası seyirci genç virtüözün muhteşem performansını coşkuyla alkışlar.",
   },
   {
     word: "acclamations",
@@ -11892,7 +11892,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Weather",
     definition: "To habituate to a climate not native; to acclimatize. - Yerli olmayan bir iklime alışmak; iklime alışmak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The mountain trekker acclimates slowly to the thinner air at high altitude. - Dağ yürüyüşçüsü yüksek irtifadaki daha ince havaya yavaşça alışır.",
   },
   {
     word: "acclimation",
@@ -11900,7 +11900,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Weather",
     definition: "The process of becoming, or the state of being, acclimated, or habituated to a new climate; acclimatization. - Yeni bir iklime alışma veya alışma süreci veya olma durumu; iklimlendirme.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Proper altitude acclimation is essential to prevent severe mountain sickness. - Şiddetli dağ hastalığını önlemek için uygun irtifa uyumu şarttır.",
   },
   {
     word: "acclimatisation",
@@ -11956,7 +11956,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Weather",
     definition: "To get used to a new climate. - Yeni bir iklime alışmak için.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The greenhouse plant acclimatizes gradually to outdoor garden conditions. - Sera bitkisi açık hava bahçe koşullarına kademeli olarak uyum sağlar.",
   },
   {
     word: "acclivity",
@@ -11964,7 +11964,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "A slope or inclination of the earth, as the side of a hill, considered as ascending, in opposition to declivity, or descending; an upward slope; ascent. - Bir tepenin tarafı olarak, eğime karşıt olarak yükselen veya alçalan bir eğim veya eğim; yukarı doğru bir eğim; yükseliş.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The cyclists strained as they pedaled up the steep acclivity of the hill. - Bisikletçiler tepenin dik yukarı eğimini tırmanırken zorlandı.",
   },
   {
     word: "acclivities",
@@ -11972,7 +11972,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "A slope or inclination of the earth, as the side of a hill, considered as ascending, in opposition to declivity, or descending; an upward slope; ascent. - Bir tepenin tarafı olarak, eğime karşıt olarak yükselen veya alçalan bir eğim veya eğim; yukarı doğru bir eğim; yükseliş.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The rugged mountain pass was marked by sudden acclivities and rocky drops. - Engebeli dağ geçidi ani yukarı eğimler ve kayalık inişlerle doluydu.",
   },
   {
     word: "accolades",
@@ -12068,7 +12068,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Arts",
     definition: "The performer in music who takes the accompanying part. - Müzikte eşlik eden rolü üstlenen icracı.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Talented piano accompanists rehearsed with the vocal choir before the concert. - Yetenekli piyano eşlikçileri konserden önce vokal korosuyla prova yaptı.",
   },
   {
     word: "accomplices",
@@ -12180,7 +12180,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Address; greeting. - Adres; selamlama.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "A persistent street vendor accosts tourists as they leave the museum. - Israrcı bir sokak satıcısı müzeden çıkarken turistlerin yolunu keser.",
   },
   {
     word: "accouchement",
@@ -12196,7 +12196,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "Delivery in childbed; parturition. - Doğum yatağında doğum; doğum.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Midwives in the maternity ward supervised dozens of safe accouchements each week. - Doğumhanedeki ebeler her hafta onlarca güvenli doğumu yönetti.",
   },
   {
     word: "accoucheur",
@@ -12212,7 +12212,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "A person who delivers a baby (in childbirth). - (Doğum sırasında) bebek doğurtan kimse.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Experienced accoucheurs assisted during complicated hospital deliveries. - Deneyimli doğum uzmanları karmaşık hastane doğumları sırasında yardımcı oldu.",
   },
   {
     word: "accountancy",
@@ -12260,7 +12260,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Military",
     definition: "To furnish with dress or equipments, especially those for military service. - Özellikle askerlik hizmetine yönelik olanlar için elbise veya teçhizat sağlamak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The knights were fully accoutered in gleaming steel armor for the tournament. - Şövalyeler turnuva için parıldayan çelik zırhlarla tam teçhizatlı olarak donatılmıştı.",
   },
   {
     word: "accouterment",
@@ -12268,7 +12268,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The act of accoutering. - Muhasebe eylemi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "A decorative leather saddle was the horse's most expensive accouterment. - Dekoratif deri eyer atın en pahalı teçhizatıydı.",
   },
   {
     word: "accouterments",
@@ -12276,7 +12276,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The act of accoutering. - Muhasebe eylemi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The soldier packed all necessary field accouterments into his tactical rucksack. - Asker tüm gerekli arazi teçhizatını taktik sırt çantasına koydu.",
   },
   {
     word: "accouters",
@@ -12284,7 +12284,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Military",
     definition: "To furnish with dress or equipments, especially those for military service. - Özellikle askerlik hizmetine yönelik olanlar için elbise veya teçhizat sağlamak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The armorer accouters the royal guards before the ceremonial inspection. - Zırh ustası törensel teftişten önce kraliyet muhafızlarını donatır.",
   },
   {
     word: "accoutre",
@@ -12292,7 +12292,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Military",
     definition: "To furnish with dress, or equipment, especially those for military service; to equip. - Özellikle askerlik hizmetine yönelik olanlar için elbise veya teçhizat sağlamak; donatmak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The general ordered his commanders to accoutre every infantry unit properly. - General komutanlarına her piyade birliğini uygun şekilde donatmalarını emretti.",
   },
   {
     word: "accoutred",
@@ -12300,7 +12300,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Military",
     definition: "To furnish with dress, or equipment, especially those for military service; to equip. - Özellikle askerlik hizmetine yönelik olanlar için elbise veya teçhizat sağlamak; donatmak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The royal carriage was accoutred in gold leaf and velvet drapery. - Kraliyet arabası altın varak ve kadife perdelerle donatılmıştı.",
   },
   {
     word: "accoutrement",
@@ -12316,7 +12316,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "The act of accoutering. - Muhasebe eylemi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Traditional camping accoutrements include a sturdy tent, lantern, and cookware. - Geleneksel kamp teçhizatı sağlam bir çadır, fener ve pişirme kaplarını içerir.",
   },
   {
     word: "accoutres",
@@ -12324,7 +12324,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Military",
     definition: "To furnish with dress, or equipment, especially those for military service; to equip. - Özellikle askerlik hizmetine yönelik olanlar için elbise veya teçhizat sağlamak; donatmak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The scout accoutres himself with compass, map, and survival gear. - İzci kendini pusula, harita ve hayatta kalma teçhizatıyla donatır.",
   },
   {
     word: "accreditations",
@@ -12348,7 +12348,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To ascribe; attribute; credit with. - Atfetmek gerekirse; bağlanmak; ile kredi.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The board accredits colleges that maintain high academic educational standards. - Kurul yüksek akademik eğitim standartlarını koruyan üniversiteleri akredite eder.",
   },
   {
     word: "accrete",
@@ -12364,7 +12364,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To grow together, combine; to fuse. - Birlikte büyümek için birleşin; kaynaştırmak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Cosmic dust slowly accreted over billions of years to form the rocky planet. - Kozmik toz milyarlarca yıl boyunca yavaşça birikip kaynaşarak kayalık gezegeni oluşturdu.",
   },
   {
     word: "accretes",
@@ -12372,7 +12372,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "To grow together, combine; to fuse. - Birlikte büyümek için birleşin; kaynaştırmak.",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Mineral-rich water continuously accretes inside the cavern to build stalactites. - Mineralli su sarkıtlar oluşturmak için mağara içinde sürekli olarak birikir.",
   },
   {
     word: "devilish",
@@ -14404,7 +14404,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "an early form of modern jazz (originating around 1940) - Modern cazın erken bir biçimi (1940 civarında ortaya çıkan)",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Jazz legends Charlie Parker and Dizzy Gillespie pioneered the fast tempos of bebop. - Caz efsaneleri Charlie Parker ve Dizzy Gillespie bebop'un hızlı tempolarına öncülük etti.",
   },
   {
     word: "gnarly",
@@ -14444,7 +14444,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "having unsuitable feminine qualities - uygun olmayan kadınsı niteliklere sahip olmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The older boys mocked his gentle manners and called him cissy. - Büyük çocuklar onun nazik tavırlarıyla alay etti ve ona çıtkırıldım dedi.",
   },
   {
     word: "longtime",
@@ -15668,7 +15668,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Religion",
     definition: "an Arabic term of respect for someone who has made the pilgrimage to Mecca - Mekke'ye hacca giden biri için Arapça bir saygı ifadesi",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Having completed his pilgrimage to Mecca, the respected elder was addressed as Hadji. - Mekke'ye olan hac görevini tamamlayan saygıdeğer büyüğe Hacı diye hitap edildi.",
   },
   {
     word: "resin",
@@ -16148,7 +16148,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "distilled from hard cider - sert elma şarabından damıtılmış",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Colonial farmers distilled crisp winter apples to make potent applejack brandy. - Koloni çiftçileri sert elma brendisi yapmak için gevrek kış elmalarını damıttı.",
   },
   {
     word: "decomposition",
@@ -16404,7 +16404,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "the most important person in a group or undertaking - bir grup veya girişimdeki en önemli kişi",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The detective worked for months to track down the organized crime kingpin. - Dedektif organize suç elebaşını yakalamak için aylarca çalıştı.",
   },
   {
     word: "existential",
@@ -16452,7 +16452,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "highly seasoned cut of smoked beef - son derece baharatlı füme sığır eti kesimi",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "He ordered a hot pastrami sandwich on rye bread with spicy mustard. - Hardallı çavdar ekmeğinde sıcak pastırmalı bir sandviç sipariş etti.",
   },
   {
     word: "dimwit",
@@ -17556,7 +17556,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Business",
     definition: "works for an expert to learn a trade - bir zanaat öğrenmek için bir uzmanın yanında çalışır",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The blacksmith took on an eager young prentice to teach him the trade. - Demirci ona zanaatı öğretmek için hevesli genç bir çırak aldı.",
   },
   {
     word: "pajama",
@@ -19092,7 +19092,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Arts",
     definition: "a group of street musicians in Mexico - Meksika'da bir grup sokak müzisyeni",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "A lively mariachi band serenaded the wedding guests with acoustic guitars and trumpets. - Neşeli bir mariachi grubu akustik gitarlar ve trompetlerle düğün misafirlerine serenat yaptı.",
   },
   {
     word: "saltwater",
@@ -19340,7 +19340,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "large steak from the thick end of the short loin containing a T-shaped bone and large piece of tenderloin - Kısa filetonun kalın ucundan elde edilen, T şeklinde bir kemik ve büyük bir bonfile parçası içeren büyük biftek",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "He grilled a thick porterhouse steak to medium perfection for dinner. - Akşam yemeği için kalın bir porterhouse bifteğini mükemmel kıvamda ızgara yaptı.",
   },
   {
     word: "cabana",
@@ -19348,7 +19348,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Nature",
     definition: "a small tent used as a dressing room beside the sea or a swimming pool - deniz veya yüzme havuzu kenarında giyinme odası olarak kullanılan küçük çadır",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "We rented a shaded beachside cabana to relax out of the midday sun. - Öğle güneşinden korunup dinlenmek için gölgeli bir sahil kabini kiraladık.",
   },
   {
     word: "collarbone",
@@ -19740,7 +19740,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Transportation",
     definition: "an armored vehicle or tank - zırhlı araç veya tank",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Historical museums exhibit heavy panzer tanks used during the Second World War. - Tarih müzeleri İkinci Dünya Savaşı sırasında kullanılan ağır panzer tanklarını sergiler.",
   },
   {
     word: "winery",
@@ -19972,7 +19972,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Government",
     definition: "a governor in India during the Mogul empire - Moğol imparatorluğu döneminde Hindistan'da bir vali",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The wealthy nawab ruled over the province with grandeur and authority. - Varlıklı nevvab eyaleti ihtişam ve otoriteyle yönetti.",
   },
   {
     word: "letterman",
@@ -20692,7 +20692,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Religion",
     definition: "an ascetic Muslim monk - münzevi bir Müslüman keşiş",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The whirling dervish spun in meditative prayer to the rhythm of the flute. - Semazen ney ritmi eşliğinde meditasyon dolu bir dua içinde döndü.",
   },
   {
     word: "redness",
@@ -20708,7 +20708,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "a permanent diplomatic mission headed by a minister - bir bakanın başkanlık ettiği kalıcı bir diplomatik misyon",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The ambassador sent an urgent diplomatic dispatch from the foreign legation. - Büyükelçi yabancı elçilikten acil bir diplomatik mesaj gönderdi.",
   },
   {
     word: "schmooze",
@@ -21060,7 +21060,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "a man who is a respected leader in national or international affairs - ulusal veya uluslararası ilişkilerde saygın bir lider olan bir adam",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The retired solon was frequently consulted by young lawmakers on policy decisions. - Emekli bilge siyasetçiye politika kararları konusunda genç milletvekilleri tarafından sık sık danışılırdı.",
   },
   {
     word: "sociological",
@@ -21084,7 +21084,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Medicine",
     definition: "treatment of symptoms by applying pressure with the fingers to specific pressure points on the body - Vücuttaki belirli basınç noktalarına parmaklarla baskı uygulanarak semptomların tedavisi",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "She booked a relaxing shiatsu massage to relieve chronic tension in her neck. - Boynundaki kronik gerginliği gidermek için rahatlatıcı bir şiyatsu masajı randevusu aldı.",
   },
   {
     word: "enlistment",
@@ -21308,7 +21308,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "a Spanish male Gypsy - İspanyol bir erkek Çingene",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The passionate gitano dancer performed a mesmerizing flamenco routine on stage. - Tutkulu Çingene dansçı sahnede büyüleyici bir flamenko gösterisi sergiledi.",
   },
   {
     word: "alcazar",
@@ -21316,7 +21316,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Military",
     definition: "any of various Spanish fortresses or palaces built by the Moors - Moors tarafından inşa edilen çeşitli İspanyol kaleleri veya saraylarından herhangi biri",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Tourists marvel at the stunning Moorish architecture of the Seville alcazar. - Turistler Sevilla kalesinin çarpıcı Mağribi mimarisine hayran kalıyor.",
   },
   {
     word: "biodiversity",
@@ -21364,7 +21364,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Sports",
     definition: "a cabinet containing an automatic record player - otomatik plak çalar içeren bir dolap",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Customers dropped a coin into the vintage nickelodeon to hear their favorite tune. - Müşteriler en sevdikleri şarkıyı dinlemek için nostaljik müzik kutusuna bir bozuk para attı.",
   },
   {
     word: "wintergreen",
@@ -21380,7 +21380,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "relating to or located below the epidermis - epidermis ile ilgili veya epidermis altında yer alan",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The nurse administered the insulin via a gentle subcutaneous injection. - Hemşire insülini nazik bir deri altı enjeksiyonuyla uyguladı.",
   },
   {
     word: "muzzy",
@@ -21532,7 +21532,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Business",
     definition: "a fireproof metal strongbox (usually in a bank) for storing valuables - değerli eşyaların saklanması için yanmaz metal kasa (genellikle bir bankada)",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Keep your passports and emergency cash safely stored inside the bank lockbox. - Pasaportlarınızı ve acil durum paranızı banka kiralık kasasında güvenle saklayın.",
   },
   {
     word: "insomniac",
@@ -22893,7 +22893,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "General",
     definition: "a group of people or things arranged by class or category - sınıfa veya kategoriye göre düzenlenmiş bir grup insan veya şey",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Clear categorisation of library books helps visitors find titles effortlessly. - Kütüphane kitaplarının net bir şekilde sınıflandırılması ziyaretçilerin eserleri zahmetsizce bulmasına yardımcı olur.",
   },
   {
     word: "collocation",
@@ -23069,7 +23069,7 @@ window.WORDS_B2 = [
     level: "B2",
     category: "Transportation",
     definition: "equip with armed and armored motor vehicles - silahlı ve zırhlı motorlu araçlarla donatmak",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The agricultural co-op invested in modern tractors to mechanise their harvesting operations. - Tarım kooperatifi hasat operasyonlarını makineleştirmek için modern traktörlere yatırım yaptı.",
   },
   {
     word: "oversize",

@@ -3263,7 +3263,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To ball around. - Etrafta top.",
-    example: "Sie haben herumkugeln benutzt, weil sie to ball around mussten. - etrafta top icin sikca herumkugeln ifadesi tercih edilir.",
+    example: "Der Hund kugelte fröhlich im Gras herum. - Köpek çimenlerin üzerinde neşeyle yuvarlandı.",
   },
   {
     word: "mitteilen",
@@ -4055,7 +4055,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To unbuckle. - Tokalarını çözmek.",
-    example: "Sie haben abschnallen benutzt, weil sie to unbuckle mussten. - tokalarını çözmek icin sikca abschnallen ifadesi tercih edilir.",
+    example: "Bitte schnallen Sie sich erst nach der Landung ab. - Lütfen kemerinizi ancak inişten sonra çözün.",
   },
   {
     word: "abschrauben",
@@ -4951,7 +4951,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To singe. - Şarkı söylemek.",
-    example: "Sie haben ansengen benutzt, weil sie to singe mussten. - şarkı söylemek icin sikca ansengen ifadesi tercih edilir.",
+    example: "Die Kerze hat die Tischdecke leicht angesengt. - Mum masa örtüsünü hafifçe yaktı.",
   },
   {
     word: "ansonsten",
@@ -5359,7 +5359,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To yelp. - Havlama.",
-    example: "Sie haben aufjaulen benutzt, weil sie to yelp mussten. - havlama icin sikca aufjaulen ifadesi tercih edilir.",
+    example: "Der Welpe jaulte auf, als er auf die Pfote getreten wurde. - Pençesine basılınca yavru köpek ciyakladı.",
   },
   {
     word: "aufkeimen",
@@ -5751,7 +5751,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To dry up. - Kurumak.",
-    example: "Sie haben ausdorren benutzt, weil sie to dry up mussten. - kurumak icin sikca ausdorren ifadesi tercih edilir.",
+    example: "Der kleine Bach dorrte im heißen Sommer völlig aus. - Küçük dere sıcak yazda tamamen kurudu.",
   },
   {
     word: "ausdrücken",
@@ -5879,7 +5879,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To glow out. - Parlamak.",
-    example: "Sie haben ausglühen benutzt, weil sie to glow out mussten. - parlamak icin sikca ausglühen ifadesi tercih edilir.",
+    example: "Die Kohlen im Ofen glühten langsam aus. - Sobadaki kömürler yavaşça sönerek parlamayı bıraktı.",
   },
   {
     word: "aushalten",
@@ -6591,7 +6591,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To file in. - Dosyalamak.",
-    example: "Sie haben einfeilen benutzt, weil sie to file in mussten. - dosyalamak icin sikca einfeilen ifadesi tercih edilir.",
+    example: "Der Schlosser feilte die neue Kerbe vorsichtig ein. - Çilingir yeni çentiği dikkatlice içeri işledi.",
   },
   {
     word: "eingeboren",
@@ -7015,7 +7015,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To roll in. - Içeri girmek.",
-    example: "Sie haben hereinrollen benutzt, weil sie to roll in mussten. - içeri girmek icin sikca hereinrollen ifadesi tercih edilir.",
+    example: "Der Nebel rollte langsam vom Meer herein. - Sis denizden yavaşça içeri doğru ilerledi.",
   },
   {
     word: "herumalbern",
@@ -7127,7 +7127,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To readjust. - Yeniden ayarlamak.",
-    example: "Sie haben nachregeln benutzt, weil sie to readjust mussten. - yeniden ayarlamak icin sikca nachregeln ifadesi tercih edilir.",
+    example: "Der Techniker musste die Heizung noch einmal nachregeln. - Teknisyen kaloriferi bir kez daha yeniden ayarlamak zorunda kaldı.",
   },
   {
     word: "nachschlagen",
@@ -11031,7 +11031,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To check through. - Kontrol etmek.",
-    example: "Sie haben durchchecken benutzt, weil sie to check through mussten. - kontrol etmek icin sikca durchchecken ifadesi tercih edilir.",
+    example: "Der Mechaniker checkte das ganze Auto vor der langen Fahrt durch. - Tamirci uzun yolculuktan önce arabanın tamamını kontrol etti.",
   },
   {
     word: "vorhalten",
@@ -12575,7 +12575,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To look up. - Bakmak.",
-    example: "Sie haben aufschauen benutzt, weil sie to look up mussten. - bakmak icin sikca aufschauen ifadesi tercih edilir.",
+    example: "Sie schaute von ihrem Buch auf, als die Tür aufging. - Kapı açılınca kitabından başını kaldırıp baktı.",
   },
   {
     word: "wiederauferstehen",
@@ -12807,7 +12807,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To goodbye. - Güle güle.",
-    example: "Sie haben aufwiedersehen benutzt, weil sie to goodbye mussten. - güle güle icin sikca aufwiedersehen ifadesi tercih edilir.",
+    example: "Er winkte und sagte fröhlich auf Wiedersehen. - El sallayıp neşeyle güle güle dedi.",
   },
   {
     word: "hervorheben",
@@ -12927,7 +12927,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To fly around. - Etrafta uçmak.",
-    example: "Sie haben herumfliegen benutzt, weil sie to fly around mussten. - etrafta uçmak icin sikca herumfliegen ifadesi tercih edilir.",
+    example: "Die Bienen flogen den ganzen Nachmittag um die Blumen herum. - Arılar tüm öğleden sonra çiçeklerin etrafında uçtu.",
   },
   {
     word: "umworben",
@@ -13319,7 +13319,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To beep. - Bip sesi.",
-    example: "Sie haben anpiepsen benutzt, weil sie to beep mussten. - bip sesi icin sikca anpiepsen ifadesi tercih edilir.",
+    example: "Der Wecker piepste jeden Morgen um sechs Uhr an. - Çalar saat her sabah saat altıda bip sesi çıkardı.",
   },
   {
     word: "aufstoßen",
@@ -13535,7 +13535,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To uppercut. - Aparkat.",
-    example: "Sie haben aufwärtshaken benutzt, weil sie to uppercut mussten. - aparkat icin sikca aufwärtshaken ifadesi tercih edilir.",
+    example: "Der Boxer hakte im entscheidenden Moment kraftvoll aufwärts. - Boksör kritik anda güçlü bir aparkat attı.",
   },
   {
     word: "beiwagen",
@@ -14919,7 +14919,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To resist. - Direnmek.",
-    example: "Sie haben wiederstehen benutzt, weil sie to resist mussten. - direnmek icin sikca wiederstehen ifadesi tercih edilir.",
+    example: "Er konnte der Versuchung nicht wiederstehen. - Baştan çıkarmaya direnemedi.",
   },
   {
     word: "nachsten",
@@ -15105,15 +15105,7 @@ window.PARTIKELVERB_DE = [
     definition: "To assure. - Garanti etmek.",
     example: "Ich kann Ihnen meine volle Unterstützung zusichern. - Size tam desteğimin garantisini verebilirim.",
   },
-  {
-    word: "vorlonen",
-    pos: "separable verb",
-    level: "PART",
-    category: "General",
-    definition: "To vorlons. - Vorlonlar.",
-    example: "Sie haben vorlonen benutzt, weil sie to vorlons mussten. - vorlonlar icin sikca vorlonen ifadesi tercih edilir.",
-  },
-  {
+    {
     word: "zuckerstangen",
     pos: "separable verb",
     level: "PART",
@@ -15217,15 +15209,7 @@ window.PARTIKELVERB_DE = [
     definition: "To foreshadowed. - Önceden haber verilmiş.",
     example: "Wünsche sind die Vorboten unserer Fähigkeiten. - Arzular yeteneklerimizin habercisidir.",
   },
-  {
-    word: "auferstandenen",
-    pos: "separable verb",
-    level: "PART",
-    category: "General",
-    definition: "To resurrected. - Dirildi.",
-    example: "Sie haben auferstandenen benutzt, weil sie to resurrected mussten. - dirildi icin sikca auferstandenen ifadesi tercih edilir.",
-  },
-  {
+    {
     word: "durchladen",
     pos: "separable verb",
     level: "PART",
@@ -15247,7 +15231,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To keep digging. - Kazmaya devam et.",
-    example: "Sie haben weitergraben benutzt, weil sie to keep digging mussten. - kazmaya devam et icin sikca weitergraben ifadesi tercih edilir.",
+    example: "Die Archäologen gruben trotz der Hitze weiter. - Arkeologlar sıcağa rağmen kazmaya devam etti.",
   },
   {
     word: "aufhelfen",
@@ -16119,7 +16103,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "To saddle up. - Eyerlenmek.",
-    example: "Sie haben aufsatteln benutzt, weil sie to saddle up mussten. - eyerlenmek icin sikca aufsatteln ifadesi tercih edilir.",
+    example: "Der Reiter sattelte sein Pferd früh am Morgen auf. - Binici atını sabah erkenden eyerledi.",
   },
   {
     word: "zusteuern",
@@ -16337,15 +16321,7 @@ window.PARTIKELVERB_DE = [
     definition: "To take farewell. - Veda etmek.",
     example: "„Wird dir das Abschiednehmen nicht schwerfallen?“ – „Nein, wenn ich an das Wiedersehen denke, nicht.“. - \"Veda etmek senin için zor olmayacak mı?\" – “Hayır, birbirimizi tekrar görmeyi düşündüğümde hayır.”.",
   },
-  {
-    word: "vorderreifen",
-    pos: "separable verb",
-    level: "PART",
-    category: "General",
-    definition: "To front tire. - Ön lastik.",
-    example: "Sie haben vorderreifen benutzt, weil sie to front tire mussten. - ön lastik icin sikca vorderreifen ifadesi tercih edilir.",
-  },
-  {
+    {
     word: "wiedererwecken",
     pos: "separable verb",
     level: "PART",
@@ -17079,7 +17055,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to lick clean (e.g., a pot, a bowl, a deep plate, etc.) - yalayarak temizlemek (örneğin bir tencere, bir kase, derin bir tabak vb.)",
-    example: "Sie haben auslecken benutzt, weil sie to lick clean (e mussten. - yalayarak temizlemek (örneğin bir tencere, bir kase, derin bir tabak vb icin sikca auslecken ifadesi tercih edilir.",
+    example: "Die Katze leckte die Schüssel bis zum letzten Tropfen aus. - Kedi kaseyi son damlasına kadar yalayarak temizledi.",
   },
   {
     word: "wegkönnen",
@@ -17279,7 +17255,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "zu-infinitive of zurechtweisen - zu-azarlamanın mastarı",
-    example: "Sie haben zurechtzuweisen benutzt, weil sie zu-infinitive of zurechtweisen mussten. - zu-azarlamanın mastarı icin sikca zurechtzuweisen ifadesi tercih edilir.",
+    example: "Der Lehrer hatte keine Zeit, den Schüler zurechtzuweisen. - Öğretmenin öğrenciyi azarlayacak vakti yoktu.",
   },
   {
     word: "festbeißen",
@@ -17695,7 +17671,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to hold something away from someone/oneself - bir şeyi birinden/kendinden uzak tutmak",
-    example: "Sie haben weghalten benutzt, weil sie to hold something away from someone/oneself mussten. - bir şeyi birinden/kendinden uzak tutmak icin sikca weghalten ifadesi tercih edilir.",
+    example: "Sie hielt das heiße Getränk weit von dem Kind weg. - Sıcak içeceği çocuktan uzak tuttu.",
   },
   {
     word: "mitschneiden",
@@ -18727,7 +18703,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "zu-infinitive of hingucken - zu-görünüş mastarı",
-    example: "Sie haben hinzugucken benutzt, weil sie zu-infinitive of hingucken mussten. - zu-görünüş mastarı icin sikca hinzugucken ifadesi tercih edilir.",
+    example: "Er hatte keine Lust, bei dem Streit hinzugucken. - Kavgaya bakmaya hiç niyeti yoktu.",
   },
   {
     word: "abhandenkommen",
@@ -18743,7 +18719,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to buy off, buy out - satın almak, satın almak",
-    example: "Sie haben auskaufen benutzt, weil sie to buy off, buy out mussten. - satın almak, satın almak icin sikca auskaufen ifadesi tercih edilir.",
+    example: "Die Firma kaufte alle Anteile der kleinen Aktionäre aus. - Şirket küçük hissedarların tüm paylarını satın aldı.",
   },
   {
     word: "aufdröseln",
@@ -19079,7 +19055,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to shake - sallamak",
-    example: "Sie haben durchrütteln benutzt, weil sie to shake mussten. - sallamak icin sikca durchrütteln ifadesi tercih edilir.",
+    example: "Der starke Wind rüttelte das ganze Haus durch. - Güçlü rüzgar tüm evi sarstı.",
   },
   {
     word: "festfahren",
@@ -19295,7 +19271,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to zoom in - yakınlaştırmak için",
-    example: "Sie haben hineinzoomen benutzt, weil sie to zoom in mussten. - yakınlaştırmak için icin sikca hineinzoomen ifadesi tercih edilir.",
+    example: "Der Fotograf zoomte in das Vogelnest hinein. - Fotoğrafçı kuş yuvasına doğru yakınlaştırdı.",
   },
   {
     word: "zulabern",
@@ -19319,7 +19295,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to look in - içeri bakmak",
-    example: "Sie haben hineinblicken benutzt, weil sie to look in mussten. - içeri bakmak icin sikca hineinblicken ifadesi tercih edilir.",
+    example: "Sie blickte neugierig durch das Fenster hinein. - Meraklı bir şekilde pencereden içeri baktı.",
   },
   {
     word: "durcheinanderkommen",
@@ -20087,7 +20063,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to work excessively hard - aşırı derecede sıkı çalışmak",
-    example: "Sie haben abschuften benutzt, weil sie to work excessively hard mussten. - aşırı derecede sıkı çalışmak icin sikca abschuften ifadesi tercih edilir.",
+    example: "Er schuftete jeden Tag zwölf Stunden ab, um die Rechnungen zu bezahlen. - Faturaları ödemek için her gün on iki saat aşırı çalıştı.",
   },
   {
     word: "vorspringen",
@@ -20295,7 +20271,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to kick out - dışarı atmak",
-    example: "Sie haben herausschmeißen benutzt, weil sie to kick out mussten. - dışarı atmak icin sikca herausschmeißen ifadesi tercih edilir.",
+    example: "Der Türsteher schmiss den betrunkenen Gast aus dem Club heraus. - Fedai sarhoş müşteriyi kulüpten dışarı attı.",
   },
   {
     word: "anhaken",
@@ -20495,7 +20471,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to regift - yeniden hediye etmek",
-    example: "Sie haben weiterschenken benutzt, weil sie to regift mussten. - yeniden hediye etmek icin sikca weiterschenken ifadesi tercih edilir.",
+    example: "Sie schenkte das ungewollte Geschenk einfach an ihre Schwester weiter. - İstenmeyen hediyeyi kız kardeşine yeniden hediye etti.",
   },
   {
     word: "wegbegeben",
@@ -20671,7 +20647,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to run on ahead - ileri koşmak",
-    example: "Sie haben vorauslaufen benutzt, weil sie to run on ahead mussten. - ileri koşmak icin sikca vorauslaufen ifadesi tercih edilir.",
+    example: "Der Hund lief dem Wanderer immer ein Stück voraus. - Köpek her zaman yürüyüşçünün biraz önünden koştu.",
   },
   {
     word: "emporkommen",
@@ -20711,7 +20687,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to overgrow - aşırı büyümek",
-    example: "Sie haben zuwuchern benutzt, weil sie to overgrow mussten. - aşırı büyümek icin sikca zuwuchern ifadesi tercih edilir.",
+    example: "Der alte Garten war völlig mit Unkraut zugewuchert. - Eski bahçe tamamen yabani otlarla kaplanmıştı.",
   },
   {
     word: "vorherbestimmen",
@@ -20775,7 +20751,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to milk to the last drop - son damlasına kadar sağmak",
-    example: "Sie haben abmelken benutzt, weil sie to milk to the last drop mussten. - son damlasına kadar sağmak icin sikca abmelken ifadesi tercih edilir.",
+    example: "Der Bauer melkte die Kuh jeden Morgen bis zum letzten Tropfen ab. - Çiftçi ineği her sabah son damlasına kadar sağdı.",
   },
   {
     word: "wegerklären",
@@ -20967,7 +20943,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to slave away - köle yapmak",
-    example: "Sie haben abschinden benutzt, weil sie to slave away mussten. - köle yapmak icin sikca abschinden ifadesi tercih edilir.",
+    example: "Er schindete sich jahrelang für einen undankbaren Chef ab. - Yıllarca minnettar olmayan bir patron için köle gibi çalıştı.",
   },
   {
     word: "einnorden",
@@ -21119,7 +21095,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to be far away - uzakta olmak",
-    example: "Sie haben abliegen benutzt, weil sie to be far away mussten. - uzakta olmak icin sikca abliegen ifadesi tercih edilir.",
+    example: "Das kleine Dorf liegt weit von der nächsten Stadt ab. - Küçük köy en yakın şehirden uzakta yer alıyor.",
   },
   {
     word: "zuschneien",
@@ -21415,7 +21391,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to pinch something - bir şeyi çimdiklemek",
-    example: "Sie haben einzwicken benutzt, weil sie to pinch something mussten. - bir şeyi çimdiklemek icin sikca einzwicken ifadesi tercih edilir.",
+    example: "Die Tür zwickte ihm versehentlich den Finger ein. - Kapı yanlışlıkla parmağını sıkıştırdı.",
   },
   {
     word: "voreinstellen",
@@ -21591,7 +21567,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "Arts",
     definition: "to noodle (play a musical instrument or to sing in an improvisatory or lighthearted manner) around - etrafta dolaşmak (bir müzik aleti çalmak veya doğaçlama veya neşeli bir şekilde şarkı söylemek)",
-    example: "Sie haben herumnudeln benutzt, weil sie to noodle (play a musical instrument or to sing in an improvisatory or lighthearted manner) arou mussten. - etrafta dolaşmak (bir müzik aleti çalmak veya doğaçlama veya neşeli bir şekilde şarkı söylemek) icin sikca herumnudeln ifadesi tercih edilir.",
+    example: "Der Gitarrist nudelte während der Pause einfach etwas herum. - Gitarist mola sırasında sadece biraz gelişigüzel çalıp söyledi.",
   },
   {
     word: "zupflastern",
@@ -21695,7 +21671,7 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "Formerly standard spelling of einbläuen which was deprecated in the spelling reform (Rechtschreibreform) of 1996. (impress (something) upon (someone)). - Eskiden einblauen'in standart yazımı, 1996'daki yazım reformunda (Rechtschriftreform) kullanımdan kaldırılmıştı. ((birini) etkilemek (bir şey)).",
-    example: "Sie haben einbleuen benutzt, weil sie formerly standard spelling of einbläuen which was deprecated in the spelling reform (Rechtschrei mussten. - eskiden einblauen'in standart yazımı, 1996'daki yazım reformunda (Rechtschriftreform) kullanımda icin sikca einbleuen ifadesi tercih edilir.",
+    example: "Der Trainer bläute den Spielern die neuen Regeln ein. - Antrenör oyunculara yeni kuralları iyice belletti.",
   },
   {
     word: "aufhäufen",
@@ -21975,6 +21951,6 @@ window.PARTIKELVERB_DE = [
     level: "PART",
     category: "General",
     definition: "to come into play, to have a part to play - oyuna girmek, oynayacak bir role sahip olmak",
-    example: "Sie haben hineinspielen benutzt, weil sie to come into play, to have a part to play mussten. - oyuna girmek, oynayacak bir role sahip olmak icin sikca hineinspielen ifadesi tercih edilir.",
+    example: "Auch persönliche Gefühle spielten in seine Entscheidung hinein. - Kişisel duygular da kararına dahil oldu.",
   },
 ];

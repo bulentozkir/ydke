@@ -55,7 +55,7 @@ window.WORDS_PT_A2 = [
   { word: "fechar", pos: "verb", level: "A2", category: "General", definition: "To close, to shut. - Kapatmak.", example: "Fecha a janela, por favor. - Lütfen pencereyi kapat." },
   { word: "começar", pos: "verb", level: "A2", category: "General", definition: "To begin, to start. - Başlamak.", example: "O concerto começa às oito. - Konser sekizde başlıyor." },
   { word: "acabar", pos: "verb", level: "A2", category: "General", definition: "To finish, to end. - Bitirmek; sona ermek.", example: "O filme acabou muito tarde. - Film çok geç bitti." },
-  { word: "pagar", pos: "verb", level: "A2", category: "General", definition: "To pay. - Ödemek.", example: "Pagamos/Pagámos ao vendedor pelas maçãs. - Elmaların parasını ödedik/satıcıya ödedik." },
+  { word: "pagar", pos: "verb", level: "A2", category: "General", definition: "To pay. - Ödemek.", example: "Pagámos ao vendedor pelas maçãs frescas. - Taze elmaların parasını satıcıya ödedik." },
   { word: "vender", pos: "verb", level: "A2", category: "General", definition: "To sell. - Satmak.", example: "Eles vendem fruta fresca. - Onlar taze meyve satıyor." },
   { word: "conhecer", pos: "verb", level: "A2", category: "General", definition: "To know (a person or place). - Tanımak; bilmek.", example: "Conheço bem esta cidade. - Bu şehri iyi bilirim." },
   { word: "lembrar", pos: "verb", level: "A2", category: "General", definition: "To remember, to remind. - Hatırlamak; hatırlatmak.", example: "Não me lembro do nome dele. - Onun adını hatırlamıyorum." },

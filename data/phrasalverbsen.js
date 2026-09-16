@@ -5431,7 +5431,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "Make or persuade someone to accept something you don't want. - Birisinin istemediğiniz bir şeyi kabul etmesini sağlayın veya ikna edin.",
-    example: "They used fob off on because they needed to make or persuade someone to accept something you don't want. - birisinin istemediğiniz bir şeyi kabul etmesini sağlayın veya ikna edin icin sikca fob off on ifadesi tercih edilir.",
+    example: "Don't try to FOB OFF ON me those broken headphones again. - Kırık kulaklıkları bana tekrar YAMAMAYA çalışma.",
   },
   {
     word: "fob off onto",
@@ -6207,7 +6207,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "Persuade someone. - Birini ikna et.",
-    example: "They used get round (or around) because they needed to persuade someone. - birini ikna et icin sikca get round (or around) ifadesi tercih edilir.",
+    example: "She managed to GET ROUND her father and borrow the car. - Babasını İKNA ETMEYİ başardı ve arabayı ödünç aldı.",
   },
   {
     word: "get through",
@@ -13823,7 +13823,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "Cut, remove an amount or part of something. - Bir şeyin bir miktarını veya bir kısmını kesin, çıkarın.",
-    example: "They used slice off because they needed to cut, remove an amount or part of something. - bir şeyin bir miktarını veya bir kısmını kesin, çıkarın icin sikca slice off ifadesi tercih edilir.",
+    example: "He SLICED OFF a piece of the cake for his sister. - Kız kardeşi için pastadan bir parça KESTİ.",
   },
   {
     word: "slice up",
@@ -17935,7 +17935,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to show anger or indignation - kızgınlık veya kızgınlık göstermek",
-    example: "They used bridle at because they needed to show anger or indignation. - kızgınlık veya kızgınlık göstermek icin sikca bridle at ifadesi tercih edilir.",
+    example: "She BRIDLED AT his rude comment about her cooking. - Yemeği hakkındaki kaba yorumuna KIZDI.",
   },
   {
     word: "bridle up",
@@ -17943,7 +17943,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to show anger or indignation - kızgınlık veya kızgınlık göstermek",
-    example: "They used bridle up because they needed to show anger or indignation. - kızgınlık veya kızgınlık göstermek icin sikca bridle up ifadesi tercih edilir.",
+    example: "He BRIDLED UP when the referee questioned his honesty. - Hakem dürüstlüğünü sorgulayınca ÖFKELENDİ.",
   },
   {
     word: "bristle up",
@@ -18031,7 +18031,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to announce loudly - yüksek sesle duyurmak",
-    example: "They used blat out because they needed to announce loudly. - yüksek sesle duyurmak icin sikca blat out ifadesi tercih edilir.",
+    example: "The radio host BLATTED OUT the winning numbers. - Radyo sunucusu kazanan numaraları YÜKSEK SESLE DUYURDU.",
   },
   {
     word: "blunder out",
@@ -18063,7 +18063,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Sports",
     definition: "to start a game by a face-off - bir oyunu karşılıklı olarak başlatmak",
-    example: "They used bully off because they needed to start a game by a face-off. - bir oyunu karşılıklı olarak başlatmak icin sikca bully off ifadesi tercih edilir.",
+    example: "The referee asked both captains to BULLY OFF at the center line. - Hakem her iki kaptandan orta çizgide OYUNU BAŞLATMALARINI istedi.",
   },
   {
     word: "bolt down",
@@ -18255,7 +18255,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to move fast - hızlı hareket etmek",
-    example: "They used bucket along because they needed to move fast. - hızlı hareket etmek icin sikca bucket along ifadesi tercih edilir.",
+    example: "The old truck BUCKETED ALONG the country road. - Eski kamyon köy yolunda HIZLA İLERLEDİ.",
   },
   {
     word: "belt along",
@@ -18375,7 +18375,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to make a mess of, destroy or ruin - ortalığı karıştırmak, yok etmek veya harap etmek",
-    example: "They used bollix up because they needed to make a mess of, destroy or ruin. - ortalığı karıştırmak, yok etmek veya harap etmek icin sikca bollix up ifadesi tercih edilir.",
+    example: "He BOLLIXED UP the whole presentation by forgetting his notes. - Notlarını unutarak tüm sunumu BERBAT ETTİ.",
   },
   {
     word: "bollocks up",
@@ -18607,7 +18607,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to make a retreat from an earlier commitment or activity - daha önceki bir taahhüt veya faaliyetten geri çekilmek",
-    example: "They used crawfish out because they needed to make a retreat from an earlier commitment or activity. - daha önceki bir taahhüt veya faaliyetten geri çekilmek icin sikca crawfish out ifadesi tercih edilir.",
+    example: "He tried to CRAWFISH OUT of the deal at the last minute. - Son anda anlaşmadan GERİ ÇEKİLMEYE çalıştı.",
   },
   {
     word: "chisel in",
@@ -18911,7 +18911,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to suffer a nervous breakdown - sinir krizi geçirmek",
-    example: "They used crock up because they needed to suffer a nervous breakdown. - sinir krizi geçirmek icin sikca crock up ifadesi tercih edilir.",
+    example: "After months of stress, he finally CROCKED UP at work. - Aylarca süren stresten sonra sonunda işte SİNİR KRİZİ GEÇİRDİ.",
   },
   {
     word: "churn up",
@@ -19039,7 +19039,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to give one's silent approval to - birine sessizce onay vermek",
-    example: "They used connive at because they needed to give one's silent approval to. - birine sessizce onay vermek icin sikca connive at ifadesi tercih edilir.",
+    example: "The manager seemed to CONNIVE AT the employees' minor rule-breaking. - Yönetici, çalışanların küçük kural ihlallerine SESSİZCE GÖZ YUMUYOR gibiydi.",
   },
   {
     word: "cry out for",
@@ -19103,7 +19103,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to go or occur together - birlikte gitmek veya birlikte olmak",
-    example: "They used construe with because they needed to go or occur together. - birlikte gitmek veya birlikte olmak icin sikca construe with ifadesi tercih edilir.",
+    example: "High humidity often CONSTRUES WITH hot summer afternoons here. - Yüksek nem burada sıcak yaz öğleden sonralarıyla sık sık BİRLİKTE GÖRÜLÜR.",
   },
   {
     word: "cooccur with",
@@ -19135,7 +19135,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "change from a waking to a sleeping state - uyanık durumdan uyku durumuna geçiş",
-    example: "They used dope off because they needed to change from a waking to a sleeping state. - uyanık durumdan uyku durumuna geçiş icin sikca dope off ifadesi tercih edilir.",
+    example: "He DOPED OFF in front of the television again. - Yine televizyonun önünde UYUYAKALDI.",
   },
   {
     word: "drowse off",
@@ -19143,7 +19143,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "change from a waking to a sleeping state - uyanık durumdan uyku durumuna geçiş",
-    example: "They used drowse off because they needed to change from a waking to a sleeping state. - uyanık durumdan uyku durumuna geçiş icin sikca drowse off ifadesi tercih edilir.",
+    example: "She DROWSED OFF during the long lecture. - Uzun ders sırasında UYUKLAYARAK UYUYAKALDI.",
   },
   {
     word: "deck up",
@@ -19191,7 +19191,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "become smaller or lose substance - küçülmek veya içeriğini kaybetmek",
-    example: "They used dwindle down because they needed to become smaller or lose substance. - küçülmek veya içeriğini kaybetmek icin sikca dwindle down ifadesi tercih edilir.",
+    example: "Their savings DWINDLED DOWN to almost nothing after the move. - Taşınmadan sonra birikimleri neredeyse hiç kalmayacak şekilde AZALDI.",
   },
   {
     word: "drag out",
@@ -19327,7 +19327,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to lag or linger behind - geride kalmak veya geride kalmak",
-    example: "They used drop behind because they needed to lag or linger behind. - geride kalmak veya geride kalmak icin sikca drop behind ifadesi tercih edilir.",
+    example: "The slowest runner began to DROP BEHIND the rest of the group. - En yavaş koşucu grubun GERİSİNDE KALMAYA başladı.",
   },
   {
     word: "default on",
@@ -19599,7 +19599,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "finally be or do something - sonunda bir şey ol ya da yap",
-    example: "They used fetch up because they needed to finally be or do something. - sonunda bir şey ol ya da yap icin sikca fetch up ifadesi tercih edilir.",
+    example: "After years of travelling, they FETCHED UP in a small coastal town. - Yıllarca seyahat ettikten sonra küçük bir sahil kasabasında SONUNDA YERLEŞTİLER.",
   },
   {
     word: "flatten out",
@@ -19671,7 +19671,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "resolve into factors - faktörlere ayırmak",
-    example: "They used factor out because they needed to resolve into factors. - faktörlere ayırmak icin sikca factor out ifadesi tercih edilir.",
+    example: "You can FACTOR OUT the common term to simplify the equation. - Denklemi basitleştirmek için ortak terimi FAKTÖRE AYIRABİLİRSİN.",
   },
   {
     word: "foot up",
@@ -19807,7 +19807,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "throw violently - şiddetle atmak",
-    example: "They used flap down because they needed to throw violently. - şiddetle atmak icin sikca flap down ifadesi tercih edilir.",
+    example: "He FLAPPED DOWN his cards in frustration. - Hayal kırıklığıyla kartlarını SERTÇE MASAYA ATTI.",
   },
   {
     word: "fling off",
@@ -19855,7 +19855,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "return in time - zamanında geri dönmek",
-    example: "They used flash back because they needed to return in time. - zamanında geri dönmek icin sikca flash back ifadesi tercih edilir.",
+    example: "The old photo made her FLASH BACK to her childhood. - Eski fotoğraf onu çocukluğuna GERİ GÖTÜRDÜ.",
   },
   {
     word: "flump down",
@@ -20255,7 +20255,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "get excited or stimulated - heyecanlanmak veya uyarılmak",
-    example: "They used hype up because they needed to get excited or stimulated. - heyecanlanmak veya uyarılmak icin sikca hype up ifadesi tercih edilir.",
+    example: "The fans were completely HYPED UP before the concert. - Hayranlar konserden önce tamamen HEYECANLANMIŞTI.",
   },
   {
     word: "haul up",
@@ -20279,7 +20279,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "get out of quickly - çabuk çık",
-    example: "They used hop out because they needed to get out of quickly. - çabuk çık icin sikca hop out ifadesi tercih edilir.",
+    example: "She HOPPED OUT of the car before it even stopped fully. - Araba tam durmadan bile arabadan ÇABUCAK ÇIKTI.",
   },
   {
     word: "hunch over",
@@ -20303,7 +20303,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "round one's back by bending forward and drawing the shoulders forward - öne doğru eğilerek ve omuzları öne doğru çekerek sırtını döndürmek",
-    example: "They used hunch forward because they needed to round one's back by bending forward and drawing the shoulders forward. - öne doğru eğilerek ve omuzları öne doğru çekerek sırtını döndürmek icin sikca hunch forward ifadesi tercih edilir.",
+    example: "He HUNCHED FORWARD over his desk, staring at the screen. - Ekrana bakarak masasının üzerine ÖNE EĞİLDİ.",
   },
   {
     word: "hire out",
@@ -20415,7 +20415,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "to cause someone or something to be happier or more cheerful - birinin ya da bir şeyin daha mutlu ya da daha neşeli olmasına neden olmak",
-    example: "They used jolly up because they needed to cause someone or something to be happier or more cheerful. - birinin ya da bir şeyin daha mutlu ya da daha neşeli olmasına neden olmak icin sikca jolly up ifadesi tercih edilir.",
+    example: "A funny joke can quickly JOLLY UP a tired classroom. - Komik bir şaka yorgun bir sınıfı hızlıca NEŞELENDİREBİLİR.",
   },
   {
     word: "jazz around",
@@ -20615,7 +20615,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "record a distance travelled - kat edilen mesafeyi kaydedin",
-    example: "They used log up because they needed to record a distance travelled. - kat edilen mesafeyi kaydedin icin sikca log up ifadesi tercih edilir.",
+    example: "The pilot LOGGED UP another two hundred flying hours this year. - Pilot bu yıl iki yüz saat daha uçuş süresi KAYDETTİ.",
   },
   {
     word: "loose off",
@@ -20879,7 +20879,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "change texture so as to become matted and felt-like - keçeleşmiş ve keçe gibi olacak şekilde dokuyu değiştirin",
-    example: "They used mat up because they needed to change texture so as to become matted and felt-like. - keçeleşmiş ve keçe gibi olacak şekilde dokuyu değiştirin icin sikca mat up ifadesi tercih edilir.",
+    example: "Her long hair started to MAT UP after the swim. - Yüzmeden sonra uzun saçları KEÇELEŞMEYE başladı.",
   },
   {
     word: "matte up",
@@ -20895,7 +20895,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Military",
     definition: "engage somebody to enter the army - birini askere almak için görevlendir",
-    example: "They used muster in because they needed to engage somebody to enter the army. - birini askere almak için görevlendir icin sikca muster in ifadesi tercih edilir.",
+    example: "Thousands of young men were MUSTERED IN at the start of the war. - Savaşın başında binlerce genç adam ORDUYA ALINDI.",
   },
   {
     word: "muster out",
@@ -20951,7 +20951,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "form mounds over - üzerinde tepecikler oluşturmak",
-    example: "They used mound over because they needed to form mounds over. - üzerinde tepecikler oluşturmak icin sikca mound over ifadesi tercih edilir.",
+    example: "Fresh snow began to MOUND OVER the parked cars overnight. - Taze kar gece boyunca park edilmiş arabaların ÜZERİNDE TEPECİKLER OLUŞTURMAYA başladı.",
   },
   {
     word: "map out",
@@ -21327,7 +21327,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "shut up or confine in any enclosure or within any bounds or limits - herhangi bir kapalı alana veya herhangi bir sınır veya sınırlamaya kapatın veya hapsedin",
-    example: "They used pound up because they needed to shut up or confine in any enclosure or within any bounds or limits. - herhangi bir kapalı alana veya herhangi bir sınır veya sınırlamaya kapatın veya hapsedin icin sikca pound up ifadesi tercih edilir.",
+    example: "The farmer POUNDED UP the stray sheep in the old barn. - Çiftçi başıboş koyunları eski ahıra KAPATTI.",
   },
   {
     word: "pen up",
@@ -21655,7 +21655,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "fail to fulfill a promise or obligation - bir sözü veya yükümlülüğü yerine getirememek",
-    example: "They used renege on because they needed to fail to fulfill a promise or obligation. - bir sözü veya yükümlülüğü yerine getirememek icin sikca renege on ifadesi tercih edilir.",
+    example: "The company RENEGED ON its promise to raise wages. - Şirket ücretleri artırma sözünü YERİNE GETİRMEDİ.",
   },
   {
     word: "renegue on",
@@ -21839,7 +21839,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "erect or construct, especially as a temporary measure - özellikle geçici bir önlem olarak dikmek veya inşa etmek",
-    example: "They used rig up because they needed to erect or construct, especially as a temporary measure. - özellikle geçici bir önlem olarak dikmek veya inşa etmek icin sikca rig up ifadesi tercih edilir.",
+    example: "They RIGGED UP a shelter using branches and a tarp. - Dallar ve bir branda kullanarak geçici bir sığınak KURDULAR.",
   },
   {
     word: "rough in",
@@ -21871,7 +21871,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Emotions",
     definition: "start with anger or resentment or in protest - öfkeyle, kızgınlıkla veya protestoyla başlayın",
-    example: "They used rear back because they needed to start with anger or resentment or in protest. - öfkeyle, kızgınlıkla veya protestoyla başlayın icin sikca rear back ifadesi tercih edilir.",
+    example: "The horse REARED BACK when the thunder cracked. - Gök gürültüsü çakınca at ÜRKEREK GERİ SIÇRADI.",
   },
   {
     word: "rise up",
@@ -21919,7 +21919,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "move by degrees in one direction only - yalnızca bir yönde derece derece hareket edin",
-    example: "They used ratchet down because they needed to move by degrees in one direction only. - yalnızca bir yönde derece derece hareket edin icin sikca ratchet down ifadesi tercih edilir.",
+    example: "The company gradually RATCHETED DOWN its production costs. - Şirket üretim maliyetlerini kademe kademe AZALTTI.",
   },
   {
     word: "rail off",
@@ -21943,7 +21943,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "dispose of in a lottery - piyangoda elden çıkarmak",
-    example: "They used raffle off because they needed to dispose of in a lottery. - piyangoda elden çıkarmak icin sikca raffle off ifadesi tercih edilir.",
+    example: "The charity decided to RAFFLE OFF a brand-new bicycle. - Hayır kurumu sıfır bir bisikleti ÇEKİLİŞLE DAĞITMAYA karar verdi.",
   },
   {
     word: "rout up",
@@ -21967,7 +21967,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "be based on - dayalı olmak",
-    example: "They used repose on because they needed to be based on. - dayalı olmak icin sikca repose on ifadesi tercih edilir.",
+    example: "Their friendship REPOSES ON years of mutual trust. - Dostlukları yıllara dayanan karşılıklı güvene DAYANIYOR.",
   },
   {
     word: "rail in",
@@ -22039,7 +22039,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Clothing",
     definition: "dress and groom with particular care, as for a special occasion - Özel bir gün için olduğu gibi, özel bir özenle giyin ve damatlaşın",
-    example: "They used slick up because they needed to dress and groom with particular care, as for a special occasion. - özel bir gün için olduğu gibi, özel bir özenle giyin ve damatlaşın icin sikca slick up ifadesi tercih edilir.",
+    example: "He SLICKED UP before heading to the wedding. - Düğüne gitmeden önce ÖZENLE GİYİNİP HAZIRLANDI.",
   },
   {
     word: "smarten up",
@@ -22207,7 +22207,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "make less active or fast - daha az aktif veya hızlı hale getirin",
-    example: "They used slack up because they needed to make less active or fast. - daha az aktif veya hızlı hale getirin icin sikca slack up ifadesi tercih edilir.",
+    example: "The driver SLACKED UP as they approached the school zone. - Sürücü okul bölgesine yaklaşırken HIZINI AZALTTI.",
   },
   {
     word: "stamp down",
@@ -22375,7 +22375,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Food",
     definition: "drink large quantities of (liquid, especially alcoholic drink) - çok miktarda içmek (sıvı, özellikle alkollü içecek)",
-    example: "They used swill down because they needed to drink large quantities of (liquid, especially alcoholic drink). - çok miktarda içmek (sıvı, özellikle alkollü içecek) icin sikca swill down ifadesi tercih edilir.",
+    example: "He SWILLED DOWN two glasses of water after the run. - Koşudan sonra iki bardak suyu HIZLA İÇTİ.",
   },
   {
     word: "sop up",
@@ -22383,7 +22383,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "take up as if with a sponge - sanki bir süngerle alıyormuş gibi al",
-    example: "They used sop up because they needed to take up as if with a sponge. - sanki bir süngerle alıyormuş gibi al icin sikca sop up ifadesi tercih edilir.",
+    example: "Use some bread to SOP UP the last of the sauce. - Sosun kalanını EMDİRMEK için biraz ekmek kullan.",
   },
   {
     word: "scrunch up",
@@ -22423,7 +22423,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Food",
     definition: "overeat or eat immodestly - aşırı yemek veya utanmazca yemek",
-    example: "They used scarf out because they needed to overeat or eat immodestly. - aşırı yemek veya utanmazca yemek icin sikca scarf out ifadesi tercih edilir.",
+    example: "They SCARFED OUT on pizza at the party. - Partide pizzayı OBUR GİBİ TIKINDILAR.",
   },
   {
     word: "slap on",
@@ -22599,7 +22599,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "be or become thoroughly soaked or saturated with a liquid - bir sıvıyla iyice ıslatılmış veya doymuş hale getirilmiş olması",
-    example: "They used soak through because they needed to be or become thoroughly soaked or saturated with a liquid. - bir sıvıyla iyice ıslatılmış veya doymuş hale getirilmiş olması icin sikca soak through ifadesi tercih edilir.",
+    example: "His shoes SOAKED THROUGH after walking in the rain. - Yağmurda yürüdükten sonra ayakkabıları TAMAMEN ISLANDI.",
   },
   {
     word: "suck out",
@@ -22759,7 +22759,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "turn abruptly and face the other way, either physically or metaphorically - aniden dönün ve fiziksel ya da mecazi olarak diğer tarafa dönün",
-    example: "They used swing about because they needed to turn abruptly and face the other way, either physically or metaphorically. - aniden dönün ve fiziksel ya da mecazi olarak diğer tarafa dönün icin sikca swing about ifadesi tercih edilir.",
+    example: "He SWUNG ABOUT when he heard his name called. - Adının söylendiğini duyunca ANİDEN DÖNDÜ.",
   },
   {
     word: "shoot down",
@@ -22783,7 +22783,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "forward to others - başkalarına ilet",
-    example: "They used send around because they needed to forward to others. - başkalarına ilet icin sikca send around ifadesi tercih edilir.",
+    example: "Please SEND AROUND the meeting notes to the whole team. - Lütfen toplantı notlarını tüm ekibe İLET.",
   },
   {
     word: "stink up",
@@ -22911,7 +22911,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Business",
     definition: "make as a net profit - net kar olarak elde etmek",
-    example: "They used sack up because they needed to make as a net profit. - net kar olarak elde etmek icin sikca sack up ifadesi tercih edilir.",
+    example: "The startup SACKED UP a healthy profit in its first year. - Girişim ilk yılında sağlıklı bir NET KAR ELDE ETTİ.",
   },
   {
     word: "sign over",
@@ -22967,7 +22967,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "take the place or move into the position of - yerini almak veya konumuna geçmek",
-    example: "They used supervene upon because they needed to take the place or move into the position of. - yerini almak veya konumuna geçmek icin sikca supervene upon ifadesi tercih edilir.",
+    example: "A new policy SUPERVENED UPON the old regulations. - Yeni bir politika eski düzenlemelerin YERİNİ ALDI.",
   },
   {
     word: "swing over",
@@ -23127,7 +23127,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Clothing",
     definition: "put on special clothes to appear particularly appealing and attractive - özellikle çekici ve çekici görünmek için özel kıyafetler giyin",
-    example: "They used tog up because they needed to put on special clothes to appear particularly appealing and attractive. - özellikle çekici ve çekici görünmek için özel kıyafetler giyin icin sikca tog up ifadesi tercih edilir.",
+    example: "She TOGGED UP for the awards ceremony. - Ödül törenine ÖZEL GİYİNDİ.",
   },
   {
     word: "tog out",
@@ -23151,7 +23151,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Medicine",
     definition: "give a healthy elasticity to - sağlıklı bir esneklik kazandırmak",
-    example: "They used tone up because they needed to give a healthy elasticity to. - sağlıklı bir esneklik kazandırmak icin sikca tone up ifadesi tercih edilir.",
+    example: "Daily stretching helps TONE UP your muscles. - Günlük esneme hareketleri kaslarına SAĞLIKLI ESNEKLİK KAZANDIRMAYA yardımcı olur.",
   },
   {
     word: "thin out",
@@ -23343,7 +23343,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "put in motion or move to act - harekete geçmek veya harekete geçmek için hareket etmek",
-    example: "They used trigger off because they needed to put in motion or move to act. - harekete geçmek veya harekete geçmek için hareket etmek icin sikca trigger off ifadesi tercih edilir.",
+    example: "The small spark TRIGGERED OFF a huge wildfire. - Küçük bir kıvılcım büyük bir orman yangınını BAŞLATTI.",
   },
   {
     word: "tack together",
@@ -23391,7 +23391,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Sports",
     definition: "ride in a car with no particular goal and just for the pleasure of it - belirli bir hedefi olmayan ve sadece zevk için arabaya binmek",
-    example: "They used tool around because they needed to ride in a car with no particular goal and just for the pleasure of it. - belirli bir hedefi olmayan ve sadece zevk için arabaya binmek icin sikca tool around ifadesi tercih edilir.",
+    example: "We spent the afternoon TOOLING AROUND town in his new car. - Öğleden sonrayı onun yeni arabasıyla şehirde AMAÇSIZCA DOLAŞARAK geçirdik.",
   },
   {
     word: "thrust ahead",
@@ -23487,7 +23487,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "end one's encounter with somebody by causing or permitting the person to leave - kişinin gitmesine neden olarak veya gitmesine izin vererek biriyle karşılaşmayı sona erdirmek",
-    example: "They used usher out because they needed to end one's encounter with somebody by causing or permitting the person to leave. - kişinin gitmesine neden olarak veya gitmesine izin vererek biriyle karşılaşmayı sona erdirmek icin sikca usher out ifadesi tercih edilir.",
+    example: "The security guard USHERED OUT the last visitors at closing time. - Güvenlik görevlisi kapanış saatinde son ziyaretçileri DIŞARI ÇIKARDI.",
   },
   {
     word: "vege out",
@@ -23495,7 +23495,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "engage in passive relaxation - pasif rahatlamaya katılın",
-    example: "They used vege out because they needed to engage in passive relaxation. - pasif rahatlamaya katılın icin sikca vege out ifadesi tercih edilir.",
+    example: "On Sundays, I like to VEGE OUT in front of the TV. - Pazar günleri televizyonun önünde PASİFÇE DİNLENMEYİ severim.",
   },
   {
     word: "vomit up",
@@ -23711,7 +23711,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "Weather",
     definition: "turn into the wind - rüzgara dönüşmek",
-    example: "They used wear round because they needed to turn into the wind. - rüzgara dönüşmek icin sikca wear round ifadesi tercih edilir.",
+    example: "The sailor made the boat WEAR ROUND before the storm hit. - Denizci fırtına gelmeden önce tekneyi RÜZGARA DÖNDÜRDÜ.",
   },
   {
     word: "walk around",
@@ -23727,7 +23727,7 @@ window.PHRASAL_VERBS_EN = [
     level: "PV",
     category: "General",
     definition: "fly around - etrafta uçmak",
-    example: "They used whirl around because they needed to fly around. - etrafta uçmak icin sikca whirl around ifadesi tercih edilir.",
+    example: "Autumn leaves WHIRLED AROUND in the strong wind. - Sonbahar yaprakları güçlü rüzgarda ETRAFTA UÇUŞTU.",
   },
   {
     word: "whisk by",

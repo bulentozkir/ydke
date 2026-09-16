@@ -211,7 +211,7 @@ public sealed partial class MainPage
         var definition = SplitPhrasalBilingual(_phrasalChallenge.Entry.Definition);
         var example = SplitPhrasalBilingual(_phrasalChallenge.Entry.Example);
 
-        var promptPanel = new StackPanel { Spacing = 12 };
+        var promptPanel = new StackPanel { Spacing = 8 };
         promptPanel.Children.Add(StudyLabel(U("Phrasal.Prompt", "Which phrasal verb matches this meaning?", "Bu anlama hangi ogek fiil uyuyor?")));
         promptPanel.Children.Add(StudyText(U("Phrasal.Shortcuts", "Keyboard: 1-4 choose · H hint · Enter next", "Klavye: 1-4 sec · H ipucu · Enter sonraki"), 18));
         promptPanel.Children.Add(PhrasalDetails(T("Cards.Meaning"), definition, "phrasal.Definition"));
@@ -294,7 +294,7 @@ public sealed partial class MainPage
         optionsPanel.Children.Add(StudySurface(feedback, 14));
 
         var workspace = new Grid { ColumnSpacing = 12, RowSpacing = 12 };
-        workspace.Children.Add(StudySurface(promptPanel, 18));
+        workspace.Children.Add(StudySurface(promptPanel, 14));
         workspace.Children.Add(StudySurface(optionsPanel, 18));
         ConfigureStudyChoices(workspace, 2, 360);
         PageContent.Children.Add(workspace);
@@ -302,7 +302,7 @@ public sealed partial class MainPage
 
     private UIElement PhrasalDetails(string heading, (string Original, string Turkish) text, string automationPrefix)
     {
-        var detail = new StackPanel { Spacing = 10 };
+        var detail = new StackPanel { Spacing = 8 };
         detail.Children.Add(StudyLabel(heading));
         detail.Children.Add(PhrasalDetailRows(text, automationPrefix));
         return detail;
@@ -310,7 +310,7 @@ public sealed partial class MainPage
 
     private UIElement PhrasalSentenceDetails(string heading, (string Original, string Turkish) text, string automationPrefix)
     {
-        var detail = new StackPanel { Spacing = 10 };
+        var detail = new StackPanel { Spacing = 8 };
         var reveal = PhrasalSentenceRevealButton(heading, _phrasalSentenceExpanded);
         reveal.Click += (_, _) =>
         {
@@ -356,7 +356,7 @@ public sealed partial class MainPage
             Content = label,
             MinHeight = 48,
             MinWidth = 48,
-            Padding = new Thickness(12, 8, 12, 8),
+            Padding = new Thickness(10, 6, 10, 6),
             CornerRadius = new CornerRadius(10),
             BorderThickness = new Thickness(2),
             HorizontalAlignment = HorizontalAlignment.Left,
@@ -394,7 +394,7 @@ public sealed partial class MainPage
             var tagBadge = new Border
             {
                 Child = tag,
-                Padding = new Thickness(10, 4, 10, 4),
+                Padding = new Thickness(8, 3, 8, 3),
                 CornerRadius = new CornerRadius(8),
                 Background = tagBackgroundBrush,
                 BorderBrush = tagBorderBrush,
@@ -408,19 +408,19 @@ public sealed partial class MainPage
             AutomationProperties.SetName(body, body.Text);
 
             // Badge above text (not beside it) so text keeps the full column width when columns are narrow.
-            var column = new StackPanel { Spacing = 6 };
+            var column = new StackPanel { Spacing = 4 };
             column.Children.Add(tagBadge);
             column.Children.Add(body);
 
-            var surface = StudySurface(column, 10, rowBackgroundBrush, rowBorderBrush);
+            var surface = StudySurface(column, 8, rowBackgroundBrush, rowBorderBrush);
             surface.BorderThickness = new Thickness(2);
             surface.CornerRadius = new CornerRadius(12);
             surface.HighContrastAdjustment = ElementHighContrastAdjustment.Auto;
             return surface;
         }
 
-        var detailRows = new Grid { ColumnSpacing = 10, RowSpacing = 10 };
-        detailRows.Children.Add(DetailRow(U("Phrasal.Original", "Original", "Orijinal"), text.Original, 20, automationPrefix + ".Original"));
+        var detailRows = new Grid { ColumnSpacing = 8, RowSpacing = 8 };
+        detailRows.Children.Add(DetailRow(U("Phrasal.Original", "Original", "Orijinal"), text.Original, 18, automationPrefix + ".Original"));
         detailRows.Children.Add(DetailRow(U("Phrasal.Turkish", "Turkish", "Turkce"), text.Turkish, 18, automationPrefix + ".Turkish"));
         // Side-by-side (not stacked) so the fixed no-scroll viewport still fits the answer/options below.
         ConfigureResponsiveGrid(detailRows, 2, Font(180));

@@ -104,6 +104,7 @@ public sealed partial class MainPage
             ApplyAccessibleButtonVisuals(button, background, foreground, border);
             button.BorderThickness = new Thickness(2);
             button.FontWeight = Microsoft.UI.Text.FontWeights.SemiBold;
+            button.Padding = new Thickness(10, 8, 10, 8);
         }
         void ApplyWordsNavigationVisual(Button button, bool nextAction)
         {
@@ -120,6 +121,7 @@ public sealed partial class MainPage
             ApplyAccessibleButtonVisuals(button, background, foreground, border);
             button.BorderThickness = new Thickness(2);
             button.FontWeight = Microsoft.UI.Text.FontWeights.SemiBold;
+            button.Padding = new Thickness(10, 8, 10, 8);
         }
         var wordDetailSelectionBackground = AppearancePalette.EnsureFillContrast(wordCardBackground, palette.Button, 4.5);
         var wordDetailSelectionForeground = EnsureStrongTextContrast(wordDetailSelectionBackground, Microsoft.UI.Colors.White, 4.5);
@@ -249,6 +251,7 @@ public sealed partial class MainPage
         var practiceHelp = U("Library.PracticeHelp", "Open the test islands for this level. Search filters do not change the tests.", "Bu seviyenin test adacıklarını aç. Arama filtreleri testleri değiştirmez.");
         var practice = AccentButton(practiceLabel, "");
         AutomationProperties.SetHelpText(practice, practiceHelp);
+        practice.Padding = new Thickness(14, 10, 14, 10);
         ToolTipService.SetToolTip(practice, practiceHelp);
         FocusTarget(practice, "library.Practice");
         var browserActions = new Grid { ColumnSpacing = 8, RowSpacing = 8, Children = { count, practice } };
@@ -390,7 +393,6 @@ public sealed partial class MainPage
                 var previous = SecondaryButton(U("Library.Previous", "Previous word", "Önceki kelime"), "");
                 ApplyWordsNavigationVisual(previous, nextAction: false);
                 previous.IsEnabled = canGoPrevious;
-                previous.HorizontalAlignment = HorizontalAlignment.Left;
                 AutomationProperties.SetHelpText(previous, T("Library.Previous"));
                 FocusTarget(previous, "library.Previous");
                 previous.Click += (_, _) =>
@@ -404,7 +406,6 @@ public sealed partial class MainPage
                 var next = SecondaryButton(U("Library.Next", "Next word", "Sonraki kelime"), "");
                 ApplyWordsNavigationVisual(next, nextAction: true);
                 next.IsEnabled = canGoNext;
-                next.HorizontalAlignment = HorizontalAlignment.Left;
                 AutomationProperties.SetHelpText(next, T("Library.Next"));
                 FocusTarget(next, "library.Next");
                 next.Click += (_, _) =>
@@ -417,14 +418,13 @@ public sealed partial class MainPage
                 };
                 previousButton = previous;
                 nextButton = next;
-                var audioNavigation = new StackPanel
-                {
-                    Orientation = Orientation.Horizontal,
-                    Spacing = 8,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                };
+                // Grid (not a horizontal StackPanel) so each button gets a real constrained
+                // column width; a StackPanel measures children at infinite width and lets
+                // the second button (Next) render past the available space and get clipped.
+                var audioNavigation = new Grid { ColumnSpacing = 8, RowSpacing = 8 };
                 audioNavigation.Children.Add(previous);
                 audioNavigation.Children.Add(next);
+                ConfigureResponsiveGrid(audioNavigation, 2, Font(150));
                 actions.Children.Add(ActionGroup(U("Library.AudioGroup", "Audio", "Ses"), audio, audioNavigation));
                 actions.Children.Add(ActionGroup(U("Library.ReviewGroup", "Review", "Tekrar"), repeat));
                 actions.Children.Add(ActionGroup(U("Library.MarksGroup", "Personal marks", "Kişisel işaretler"), marks));

@@ -2150,7 +2150,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "Who is worthy of great love, of great friendship. - Büyük sevgiye, büyük dostluğa layık olan.",
-    example: "The cat is adorable. - Kedi çok sevimli.",
+    example: "Ce petit chaton est vraiment adorable. - Bu küçük kedi yavrusu gerçekten çok sevimli.",
   },
   {
     word: "la violence",
@@ -4910,7 +4910,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "to identify. - tanımlamak",
-    example: "Berber is both an ethnic and a cultural identifier. - Berberi hem etnik hem de kültürel bir tanımlayıcıdır.",
+    example: "La police a pu identifier le voleur rapidement. - Polis hırsızı çabucak teşhis edebildi.",
   },
   {
     word: "célibataire",
@@ -6974,7 +6974,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "to slap, knock, beat. - tokatlamak, vurmak, dövmek",
-    example: "For three days after death hair and fingernails continue to grow but phone calls taper off. - Ölümden sonraki üç gün boyunca saç ve tırnaklar uzamaya devam ediyor ancak telefon görüşmeleri kesiliyor.",
+    example: "Il apprend à taper vite sur le clavier de son ordinateur. - Bilgisayar klavyesinde hızlı yazmayı öğreniyor.",
   },
   {
     word: "le territoire",
@@ -7382,7 +7382,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "Emotions",
     definition: "exciting (causing stimulation or excitement). - heyecan verici (stimülasyona veya heyecana neden olan)",
-    example: "The amount of stimulation or electrical excitation of the natural tissue that's been required to date is also a significant challenge. - Bugüne kadar gerekli olan doğal dokunun uyarılması veya elektriksel olarak uyarılmasının miktarı da önemli bir zorluktur.",
+    example: "Ce voyage en montagne était une aventure très excitante. - Bu dağ gezisi çok heyecan verici bir maceraydı.",
   },
   {
     word: "l'enregistrement",
@@ -7542,7 +7542,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "to order, to arrange. - sipariş etmek, düzenlemek",
-    example: "The floor was strewn with party favors: torn noisemakers, crumpled party hats, and dirty Power Ranger plates. - Zemin parti hediyeleriyle doluydu: yırtık gürültücüler, buruşuk parti şapkaları ve kirli Power Ranger plakaları.",
+    example: "Les enfants doivent ranger leur chambre avant de jouer. - Çocuklar oynamadan önce odalarını toplamalıdır.",
   },
   {
     word: "élever",
@@ -7654,7 +7654,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "to transform. - dönüştürmek",
-    example: "A transformer converts alternating current to direct current for use in electronics. - Bir transformatör, elektronikte kullanılmak üzere alternatif akımı doğru akıma dönüştürür.",
+    example: "Ils veulent transformer cette vieille grange en maison. - Bu eski samanlığı bir eve dönüştürmek istiyorlar.",
   },
   {
     word: "la réception",
@@ -7910,7 +7910,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "to piss. - işemek",
-    example: "\"Kenji's in the hospital?\" \"That's a real pisser...\". - \"Kenji hastanede mi?\" \"Bu gerçek bir sidik...\".",
+    example: "Le chiot a fait pipi dans l'herbe du jardin. - Yavru köpek bahçedeki çimenlere çişini yaptı.",
   },
   {
     word: "causer",
@@ -9630,7 +9630,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "Which is clear, which we can realize, whose reality we can touch with our finger. - Hangisi açıktır, kimin farkına varabiliriz, kimin gerçekliğine parmağımızla dokunabiliriz.",
-    example: "The excitement is palpable! - Heyecan dorukta!",
+    example: "La joie des supporters était palpable après la victoire. - Galibiyetten sonra taraftarların sevinci hissediliyordu.",
   },
   {
     word: "le gueux",
@@ -9918,7 +9918,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "Arts",
     definition: "to rock (play or enjoy rock music). - rock yapmak (rock müzik çalmak veya keyfini çıkarmak)",
-    example: "The whole world is off its rocker. - Bütün dünya rock'ından çıkmış durumda.",
+    example: "Ce groupe de musique sait vraiment faire rocker la salle. - Bu müzik grubu salondakileri gerçekten coşturmayı biliyor.",
   },
   {
     word: "médiéval",
@@ -11086,7 +11086,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "to intensify. - yoğunlaştırmak",
-    example: "In informal, everyday speech, the word \"literally\" is often used incorrectly as an intensifier. - Gayri resmi, günlük konuşmada, \"kelimenin tam anlamıyla\" kelimesi genellikle yanlış bir şekilde yoğunlaştırıcı olarak kullanılır.",
+    example: "Le vent commence à s'intensifier avec l'arrivée de la tempête. - Fırtınanın gelişiyle birlikte rüzgar şiddetlenmeye başlıyor.",
   },
   {
     word: "irrecevable",
@@ -11182,7 +11182,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "Arts",
     definition: "to dance the twist, to twist. - büküm dansı yapmak, büküm yapmak",
-    example: "When the cow flies high and the ox flies low, there probably is a twister. - İnek yüksekten, öküz alçaktan uçtuğunda muhtemelen bir kasırga yaşanır.",
+    example: "Les jeunes aimaient twister sur cette chanson entraînante. - Gençler bu hareketli şarkıda twist dansı yapmayı severdi.",
   },
   {
     word: "baser",
@@ -13166,7 +13166,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "Law",
     definition: "to attest; to support with evidence. - kanıtlamak; delillerle desteklemek",
-    example: "The attester confirmed the statement under oath. - Tanık yemin ederek ifadeyi doğruladı.",
+    example: "Ce document officiel vient attester de son identité. - Bu resmi belge onun kimliğini doğrulamaktadır.",
   },
   {
     word: "la tresse",
@@ -13582,7 +13582,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "Haptic. - Dokunsal.",
-    example: "Mary's boss is a bit too tactile for her liking. - Mary'nin patronu onun beğenisine göre biraz fazla dokunsal.",
+    example: "Ce nouveau téléphone possède un très bon écran tactile. - Bu yeni telefonun çok iyi bir dokunmatik ekranı var.",
   },
   {
     word: "renégocier",
@@ -14054,7 +14054,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "incalculable, innumerable. - hesaplanamaz, sayısız",
-    example: "The losses are incalculable. - Kayıplar hesaplanamaz.",
+    example: "Cette découverte a apporté des bénéfices incalculables à la science. - Bu keşif bilime paha biçilmez faydalar sağladı.",
   },
   {
     word: "le trépied",
@@ -15614,7 +15614,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "Which relates to the stars. - Bu yıldızlarla ilgilidir.",
-    example: "He did not believe in physical space flight, but astral projection through the vastness he considered possible. - Fiziksel uzay uçuşuna değil, mümkün olduğunu düşündüğü enginlik boyunca astral seyahate inanıyordu.",
+    example: "Les anciens marins étudiaient la carte astrale pour naviguer la nuit. - Eski denizciler gece yol almak için gökyüzü haritasını incelerdi.",
   },
   {
     word: "l'éthanol",
@@ -17270,7 +17270,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "to appear (in a list, etc.), to be included; to represent. - görünmek (bir listede vb.), dahil edilmek; temsil etmek",
-    example: "Strange to say, the figure went out of sight suddenly. - Söylemesi tuhaf ama figür aniden gözden kayboldu.",
+    example: "Son nom doit figurer sur la liste des invités de la fête. - Onun adı partinin davetli listesinde yer almalıdır.",
   },
   {
     word: "le bourbier",
@@ -17478,7 +17478,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "apparent (all senses). - belirgin (tüm duyular)",
-    example: "It was apparent that there was no way out. - Artık çıkış yolu olmadığı açıktı.",
+    example: "Il a gardé son calme sans aucun signe apparent de fatigue. - Hiçbir belirgin yorgunluk belirtisi göstermeden sakinliğini korudu.",
   },
   {
     word: "le mie",
@@ -18574,7 +18574,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "melting. - erime",
-    example: "I baked a cake and decorated it with fondant. - Bir pasta pişirdim ve onu fondanla süsledim.",
+    example: "Elle a préparé un gâteau au chocolat fondant pour le dessert. - Tatlı için içi akışkan bir çikolatalı kek hazırladı.",
   },
   {
     word: "l'écolier",
@@ -18926,7 +18926,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "to import. - ithal etmek",
-    example: "Japan is the largest importer of U.S. farm products. - Japonya, ABD tarım ürünlerinin en büyük ithalatçısıdır.",
+    example: "Ce pays doit importer du blé pour nourrir sa population. - Bu ülke halkını beslemek için buğday ithal etmek zorunda.",
   },
   {
     word: "remarié",
@@ -19542,7 +19542,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "carnivorous (predatory or flesh-eating). - etobur (yırtıcı veya et yiyen)",
-    example: "That animal is a carnivore. - Bu hayvan bir etoburdur.",
+    example: "Le lion est un animal carnivore qui chasse dans la savane. - Aslan, savanda avlanan etobur bir hayvandır.",
   },
   {
     word: "l'abois",
@@ -20326,7 +20326,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "Afghan (of, from or relating to Afghanistan). - Afgan (Afganistan'dan, Afganistan'dan veya Afganistan'la ilgili)",
-    example: "Afghan democracy needs to be preserved even with nuclear bombs. - Afgan demokrasisinin nükleer bombalarla bile korunması gerekiyor.",
+    example: "Elle a acheté un très joli tapis afghan tissé à la main. - El dokuması çok güzel bir Afgan halısı satın aldı.",
   },
   {
     word: "invaincu",
@@ -20470,7 +20470,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "Which cannot be excused. - Bu mazur görülemez.",
-    example: "When anyone tries to explain the inexplicable, he is getting ready to excuse the inexcusable. - Birisi açıklanamaz olanı açıklamaya çalıştığında, affedilemez olanı mazur görmeye hazırlanıyor demektir.",
+    example: "Arriver avec deux heures de retard est tout simplement inexcusable. - İki saat geç gelmek tek kelimeyle affedilemez.",
   },
   {
     word: "le dulcinée",
@@ -21198,7 +21198,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "Impassive. - Duygusuz.",
-    example: "She is looking up at me with impassive eyes. - Duygusuz gözlerle bana bakıyor.",
+    example: "Le garde est resté totalement impassible devant la foule. - Nöbetçi kalabalığın karşısında tamamen tepkisiz kaldı.",
   },
   {
     word: "galeux",
@@ -21574,7 +21574,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "corner kick, corner. - köşe vuruşu, köşe vuruşu",
-    example: "He searched the entire house for his papers, leaving no corner untouched. - Evin her yerinde evraklarını aradı, dokunulmamış hiçbir köşe bırakmadı.",
+    example: "L'attaquant a tiré le corner directement vers le but. - Forvet köşe vuruşunu doğrudan kaleye doğru kullandı.",
   },
   {
     word: "le mufle",
@@ -21830,7 +21830,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "flaunt, strut, show off (to display with ostentation). - gösteriş yapmak, gösteriş yapmak, gösteriş yapmak (gösterişle sergilemek)",
-    example: "I hope you will join us in the parade and march along the street. - Umarım geçit töreninde bize katılırsınız ve cadde boyunca yürürsünüz.",
+    example: "Les soldats vont parader dans les rues pour la fête nationale. - Askerler milli bayram için sokaklarda geçit töreni yapacak.",
   },
   {
     word: "le boudoir",
@@ -21942,7 +21942,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "Quickly. - Hızlıca.",
-    example: "The architect boasted that he had received a prestigious award. - Mimar prestijli bir ödül aldığıyla övündü.",
+    example: "Dépêchez-vous et venez ici presto ! - Acele edin ve hemen buraya gelin!",
   },
   {
     word: "le renouvellement",
@@ -22046,7 +22046,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "skilful, apt, skilled (possessing skill, skilled). - becerikli, becerikli, becerikli (beceri sahibi, yetenekli)",
-    example: "Kaya was rather adroit at managing conflicts between her employees. - Kaya, çalışanları arasındaki çatışmaları yönetme konusunda oldukça becerikliydi.",
+    example: "Cet artisan est très adroit avec ses mains. - Bu zanaatkar ellerini kullanmakta çok beceriklidir.",
   },
   {
     word: "le receleur",
@@ -22334,7 +22334,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "to crash-land. - çarpışarak iniş yapmak",
-    example: "The car crashed into the wall. - Araba duvara çarptı.",
+    example: "Le pilote a réussi à poser l'avion sans le crasher. - Pilot uçağı çarpmadan indirmeyi başardı.",
   },
   {
     word: "le dactylo",
@@ -22998,7 +22998,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "to trot. - tırısa gitmek",
-    example: "Are you a globe trotter? - Dünya çapında bir paça mısın?",
+    example: "Le cheval a commencé à trotter tranquillement sur le chemin. - At yolda sakin bir şekilde tırıs gitmeye başladı.",
   },
   {
     word: "l'hachis",
@@ -23094,7 +23094,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "to exorcise. - şeytan kovmak",
-    example: "We exorcise you, every unclean spirit, every satanic power, every incursion of the infernal adversary, every legion, every congregation and diabolical sect. - Sizi, her kirli ruhu, her şeytani gücü, cehennemi düşmanın her saldırısını, her lejyonu, her cemaati ve şeytani mezhepleri kovuyoruz.",
+    example: "Écrire ce livre lui a permis d'exorciser ses peurs d'enfance. - Bu kitabı yazmak, çocukluk korkularını yenmesini sağladı.",
   },
   {
     word: "extrémiste",
@@ -23566,7 +23566,7 @@ window.WORDS_FR_A2 = [
     level: "A2",
     category: "General",
     definition: "to amplify. - güçlendirmek",
-    example: "This is the best amplifier on the market. - Bu piyasadaki en iyi amplifikatördür.",
+    example: "Ce haut-parleur permet d'amplifier le son de la guitare. - Bu hoparlör gitarın sesini yükseltmeye yarar.",
   },
   {
     word: "la turquoise",

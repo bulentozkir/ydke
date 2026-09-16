@@ -648,9 +648,17 @@ public sealed partial class MainPage : Page
             Child = DecorativeIcon(game.Glyph, Font(23), new SolidColorBrush(iconForeground)),
         });
         var title = Heading(game.Title, 18);
-        var titleRow = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, VerticalAlignment = VerticalAlignment.Center };
+        title.TextTrimming = TextTrimming.None;
+        // Timer badge stacks BELOW the title (not beside it) so the title keeps the full
+        // column width to wrap into; sharing a row with an Auto-width badge starved the
+        // title's column down to almost nothing, wrapping it letter-by-letter.
+        var titleRow = new StackPanel { Spacing = 4, VerticalAlignment = VerticalAlignment.Center };
         titleRow.Children.Add(title);
-        if (GameTimerBadge(game) is { } timedBadge) titleRow.Children.Add(timedBadge);
+        if (GameTimerBadge(game) is { } timedBadge)
+        {
+            timedBadge.HorizontalAlignment = HorizontalAlignment.Left;
+            titleRow.Children.Add(timedBadge);
+        }
         Grid.SetColumn(titleRow, 1);
         layout.Children.Add(titleRow);
         var best = new StackPanel { Spacing = 2, VerticalAlignment = VerticalAlignment.Center };

@@ -23503,6 +23503,7 @@ window.WORDS_C2 = [
     level: "C2",
     category: "General",
     definition: "a sea creature related to squid, with a wide body and eight arms. - kalamara benzeyen, geniş gövdeli ve sekiz kollu bir deniz canlısı.",
+    example: "The cuttlefish changed its color to blend into the ocean floor. - Mürekkep balığı, okyanus tabanına uyum sağlamak için rengini değiştirdi.",
   },
   {
     word: "cybernetic",

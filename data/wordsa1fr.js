@@ -2501,8 +2501,8 @@ window.WORDS_FR_A1 = [
     pos: "verb",
     level: "A1",
     category: "General",
-    definition: "to exchange (something). - (bir şeyi) takas etmek",
-    example: "This will be a game changer. - Bu bir oyun değiştirici olacak.",
+    definition: "to change, to exchange. - değiştirmek, takas etmek",
+    example: "Je veux changer de vêtements avant de sortir. - Dışarı çıkmadan önce kıyafetlerimi değiştirmek istiyorum.",
   },
   {
     word: "entendre",
@@ -3670,7 +3670,7 @@ window.WORDS_FR_A1 = [
     level: "A1",
     category: "General",
     definition: "idiotic; stupid. - aptalca; aptal",
-    example: "Thanks for having explained to me at last why people take me for an idiot. - İnsanların beni neden aptal olarak gördüklerini sonunda bana açıkladığın için teşekkürler.",
+    example: "Ne sois pas idiot, viens avec nous ! - Aptal olma, bizimle gel!",
   },
   {
     word: "absolument",
@@ -3681,12 +3681,12 @@ window.WORDS_FR_A1 = [
     example: "Je déteste absolument l'écriture formelle ! - Resmi yazılardan kesinlikle nefret ediyorum!",
   },
   {
-    word: "le victime",
+    word: "la victime",
     pos: "noun",
     level: "A1",
     category: "General",
     definition: "victim. - kurban",
-    example: "Avant d'arnaquer une nouvelle victime, un escroc polit son art de l'aveuglement, c'est-à-dire sa technique pour arnaquer les gens. - Dolandırıcı, yeni bir kurbanı dolandırmadan önce körlük sanatını, yani insanları dolandırma tekniğini geliştirir.",
+    example: "La police aide la victime de l'accident. - Polis kazanın kurbanına yardım ediyor.",
   },
   {
     word: "l'impression",
@@ -5102,7 +5102,7 @@ window.WORDS_FR_A1 = [
     level: "A1",
     category: "General",
     definition: "horrible (causing horror). - korkunç (dehşete neden oluyor)",
-    example: "I gasped with surprise at the horrible picture of the starving people. - Açlıktan ölen insanların korkunç tablosu karşısında şaşkınlıkla nefesim kesildi.",
+    example: "Il fait un temps horrible aujourd'hui sous la pluie. - Bugün yağmur altında korkunç bir hava var.",
   },
   {
     word: "le vin",
@@ -6357,8 +6357,8 @@ window.WORDS_FR_A1 = [
     pos: "verb",
     level: "A1",
     category: "General",
-    definition: "to arrange. - düzenlemek",
-    example: "Throughout his remarkable career that began in the 1940s, the pianist, composer and arranger always had one goal in mind. - 1940'lı yıllarda başlayan dikkat çekici kariyeri boyunca piyanist, besteci ve aranjörün aklında her zaman tek bir hedef vardı.",
+    definition: "to arrange, to fix. - düzenlemek, ayarlamak",
+    example: "Je peux arranger ce rendez-vous pour demain matin. - Bu randevuyu yarın sabah için ayarlayabilirim.",
   },
   {
     word: "riche",

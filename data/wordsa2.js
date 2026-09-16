@@ -475,7 +475,7 @@ window.WORDS_A2 = [
   },
   {
     word: "billion",
-    pos: "",
+    pos: "noun",
     level: "A2",
     category: "General",
     definition: "The number 1,000,000,000. - 1.000.000.000 sayısı; milyar.",
@@ -6031,7 +6031,7 @@ window.WORDS_A2 = [
     level: "A2",
     category: "Military",
     definition: "a chaplain in one of the military services - askeri hizmetlerden birinde bir papaz",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The soldiers spoke with the padre before their morning mission. - Askerler sabah görevlerinden önce papazla konuştu.",
   },
   {
     word: "typewriter",
@@ -7119,7 +7119,7 @@ window.WORDS_A2 = [
     level: "A2",
     category: "General",
     definition: "archaic term for an itinerant peddler - gezgin bir seyyar satıcı için eski bir terim",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The medieval chapman traveled between villages selling cloth and needles. - Orta çağ seyyar satıcısı kumaş ve iğne satmak için köyler arasında dolaşırdı.",
   },
   {
     word: "hostel",
@@ -7335,7 +7335,7 @@ window.WORDS_A2 = [
     level: "A2",
     category: "General",
     definition: "unit of solar radiation - güneş radyasyonu birimi",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The scientists measured the incoming solar radiation in langleys. - Bilim insanları gelen güneş radyasyonunu langley birimiyle ölçtü.",
   },
   {
     word: "shaman",
@@ -9023,7 +9023,7 @@ window.WORDS_A2 = [
     level: "A2",
     category: "Food",
     definition: "shrubby plant with aromatic greyish-green leaves used as a cooking herb - yemeklik ot olarak kullanılan, aromatik grimsi yeşil yaprakları olan çalı bitkisi",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Wild ramona grows abundantly along the dry hillsides of California. - Yabani ramona, Kaliforniya'nın kurak yamaçlarında bolca yetişir.",
   },
   {
     word: "hutch",
@@ -11871,7 +11871,7 @@ window.WORDS_A2 = [
     level: "A2",
     category: "Animals",
     definition: "cold-water fish caught in Lake Superior and northward - Superior Gölü'nde ve kuzeyde yakalanan soğuk su balıkları",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "Local fishermen catch cisco in the deep waters of the Great Lakes. - Yerel balıkçılar Büyük Göller'in derin sularında cisco balığı yakalar.",
   },
   {
     word: "flashy",
@@ -12159,7 +12159,7 @@ window.WORDS_A2 = [
     level: "A2",
     category: "Clothing",
     definition: "a loose high-necked blouse with long sleeves - uzun kollu, bol, yüksek boyunlu bir bluz",
-    example: "No example sentence available for this word. - Bu kelime için örnek cümle bulunamadı.",
+    example: "The actress wore a red garibaldi blouse popular in the Victorian era. - Oyuncu, Viktorya döneminde popüler olan kırmızı bir garibaldi bluz giydi.",
   },
   {
     word: "ostrich",

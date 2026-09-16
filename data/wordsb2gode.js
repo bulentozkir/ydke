@@ -8454,7 +8454,7 @@ window.WORDS_GODE_B2 = [
     level: "B2",
     category: "General",
     definition: "absurd. - saçma.",
-    example: "You cannot achieve the impossible without attempting the absurd. - Saçma olanı denemeden imkansızı başaramazsınız.",
+    example: "Diese ganze Situation ist völlig absurd. - Bütün bu durum tamamen saçma.",
   },
   {
     word: "abtransportieren",
@@ -16532,9 +16532,9 @@ window.WORDS_GODE_B2 = [
     word: "stricken",
     pos: "verb",
     level: "B2",
-    category: "Literature",
-    definition: "to make, devise, concoct (e.g. a story, a ruse) - yapmak, tasarlamak, uydurmak (örneğin bir hikaye, bir hile)",
-    example: "They were horror stricken at the news. - Haberlerde korku örgüsü yapıyorlardı.",
+    category: "General",
+    definition: "to knit; to concoct - örmek; tasarlamak, kurgulamak",
+    example: "Meine Großmutter liebt es, im Winter warme Wollsocken zu stricken. - Büyükannem kışın sıcak yün çoraplar örmeyi çok sever.",
   },
   {
     word: "espen",
@@ -20061,8 +20061,8 @@ window.WORDS_GODE_B2 = [
     pos: "adjective",
     level: "B2",
     category: "General",
-    definition: "very good - Çok iyi",
-    example: "The question of how to establish the optimal formula is still open. - Optimal formülün nasıl oluşturulacağı sorusu hala cevapsızdır.",
+    definition: "optimal, ideal - en uygun, ideal, çok iyi",
+    example: "Wir haben die optimalen Bedingungen für das Experiment geschaffen. - Deney için en uygun koşulları yarattık.",
   },
   {
     word: "überbieten",
