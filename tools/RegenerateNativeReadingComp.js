@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..', 'data');
+const translations = JSON.parse(fs.readFileSync(path.join(__dirname, 'nativeReadingTurkish.json'), 'utf8'));
 const locales = {
   it: {
     global: 'READING_PASSAGES_IT',
@@ -92,12 +93,15 @@ function makeQuestions(row, language) {
   const text = questionText[language];
   return answers.map((answer, index) => {
     const options = [answer, ...distractors[language]];
+    const nativeExplain = text[2].replace('{1}', answer);
+    const turkishExplain = translations[`${language}|${nativeExplain}`];
+    if (!turkishExplain) throw new Error(`Missing Turkish translation for ${language}|${nativeExplain}`);
     return {
       q: text[0].replace('{0}', index + 1),
       options,
       correct: 0,
       hint: text[1],
-      explain: `${text[2].replace('{1}', answer)} - ${turkishAnswers[language][answer]}`,
+      explain: `${nativeExplain} - ${turkishExplain}`,
     };
   });
 }

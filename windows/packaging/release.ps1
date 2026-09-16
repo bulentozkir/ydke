@@ -186,7 +186,7 @@ if (-not $SkipMsix) {
         $arch = $architectureOf[$rid]
         Write-Host "`nPublishing $rid..." -ForegroundColor Cyan
 
-        $stageDir = Join-Path $windowsRoot "build\release-$rid"
+        $stageDir = Join-Path $windowsRoot "build\release-$packageVersion-$rid"
         Publish-Stage -Rid $rid -StageDir $stageDir
 
         $stageAssets = Join-Path $stageDir 'Assets'
@@ -275,7 +275,7 @@ if (-not $SkipMsi) {
         $arch = $architectureOf[$rid]
         Write-Host "`nBuilding MSI ($arch)..." -ForegroundColor Cyan
 
-        $stageDir = Join-Path $windowsRoot "build\release-$rid"
+        $stageDir = Join-Path $windowsRoot "build\release-$packageVersion-$rid"
         if ($SkipMsix -or -not (Test-Path (Join-Path $stageDir 'YDKE.exe'))) {
             Publish-Stage -Rid $rid -StageDir $stageDir
         }

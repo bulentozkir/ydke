@@ -14,7 +14,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"om zeven uur\". - saat yedide"
+        "explain": "De tekst zegt: \"om zeven uur\". - Mesajda “saat yedide” yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 2?",
@@ -26,7 +26,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"brood met fruit\". - meyveli ekmek"
+        "explain": "De tekst zegt: \"brood met fruit\". - Metin “meyveli ekmek” diyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 3?",
@@ -38,7 +38,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"met de bus\". - otobüsle"
+        "explain": "De tekst zegt: \"met de bus\". - Metin \"otobüsle\" diyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 4?",
@@ -50,7 +50,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"Emma\". - Emma"
+        "explain": "De tekst zegt: \"Emma\". - Mesajda “Emma” yazıyor."
       }
     ]
   },
@@ -69,7 +69,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"bruin\". - kahverengi"
+        "explain": "De tekst zegt: \"bruin\". - Metin “kahverengi” diyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 2?",
@@ -81,7 +81,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"Tico\". - Tico"
+        "explain": "De tekst zegt: \"Tico\". - Metin \"Tico\" diyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 3?",
@@ -93,7 +93,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"bij de keuken\". - mutfağın yanında"
+        "explain": "De tekst zegt: \"bij de keuken\". - Mesajda “mutfakta” yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 4?",
@@ -105,7 +105,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"water\". - su"
+        "explain": "De tekst zegt: \"water\". - Metin “su” diyor."
       }
     ]
   },
@@ -124,7 +124,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"op zaterdag\". - cumartesi günü"
+        "explain": "De tekst zegt: \"op zaterdag\". - Mesajda \"Cumartesi günü\" yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 2?",
@@ -136,7 +136,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"met haar moeder\". - annesiyle"
+        "explain": "De tekst zegt: \"met haar moeder\". - Metin “annesiyle” diyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 3?",
@@ -148,7 +148,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"sinaasappels\". - portakallar"
+        "explain": "De tekst zegt: \"sinaasappels\". - Metinde “portakallar” yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 4?",
@@ -160,7 +160,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"naar huis\". - eve"
+        "explain": "De tekst zegt: \"naar huis\". - Metin “ev” diyor."
       }
     ]
   },
@@ -179,7 +179,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"geel\". - sarı"
+        "explain": "De tekst zegt: \"geel\". - Metin “sarı” diyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 2?",
@@ -191,7 +191,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"bij het raam\". - pencerenin yanında"
+        "explain": "De tekst zegt: \"bij het raam\". - Mesajda “pencerenin yanında” yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 3?",
@@ -203,7 +203,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"warme thee\". - sıcak çay"
+        "explain": "De tekst zegt: \"warme thee\". - Mesajda “sıcak çay” yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 4?",
@@ -215,7 +215,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"een bordspel\". - bir masa oyunu"
+        "explain": "De tekst zegt: \"een bordspel\". - Metinde “bir masa oyunu” yazıyor."
       }
     ]
   },
@@ -234,7 +234,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"voor haar verjaardag\". - doğum günü için"
+        "explain": "De tekst zegt: \"voor haar verjaardag\". - Mesajda \"doğum günü için\" yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 2?",
@@ -246,7 +246,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"blauw\". - mavi"
+        "explain": "De tekst zegt: \"blauw\". - Metinde “mavi” yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 3?",
@@ -258,7 +258,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"een klein mandje\". - küçük bir sepet"
+        "explain": "De tekst zegt: \"een klein mandje\". - Metin \"küçük bir sepet\" diyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 4?",
@@ -270,7 +270,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"naar het park\". - parka"
+        "explain": "De tekst zegt: \"naar het park\". - Mesajda “parka” yazıyor."
       }
     ]
   },
@@ -289,7 +289,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"zijn oma\". - büyükannesi"
+        "explain": "De tekst zegt: \"zijn oma\". - Mesajda \"büyükannesi\" yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 2?",
@@ -301,7 +301,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"Utrecht\". - Utrecht"
+        "explain": "De tekst zegt: \"Utrecht\". - Metin şöyle diyor: \"Utrecht \"."
       },
       {
         "q": "Wat staat er in de tekst over detail 3?",
@@ -313,7 +313,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"drie uur\". - üç saat"
+        "explain": "De tekst zegt: \"drie uur\". - Mesajda “saat üç” yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 4?",
@@ -325,7 +325,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"in zijn schrift\". - defterine"
+        "explain": "De tekst zegt: \"in zijn schrift\". - Metin şöyle diyor: \"yazdıklarında \"."
       }
     ]
   },
@@ -344,7 +344,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"een tuin\". - bir bahçe"
+        "explain": "De tekst zegt: \"een tuin\". - Metin “bir bahçe” diyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 2?",
@@ -356,7 +356,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"op de speelplaats\". - oyun alanında"
+        "explain": "De tekst zegt: \"op de speelplaats\". - Metinde “on the playground” yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 3?",
@@ -368,7 +368,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"sla\". - marul"
+        "explain": "De tekst zegt: \"sla\". - Metin “SLA” diyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 4?",
@@ -380,7 +380,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"op een andere dag\". - başka bir günde"
+        "explain": "De tekst zegt: \"op een andere dag\". - Metinde şöyle yazıyor: &quot;başka bir gün&quot;."
       }
     ]
   },
@@ -399,7 +399,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"een middag\". - bir öğleden sonra"
+        "explain": "De tekst zegt: \"een middag\". - Mesajda “bir öğleden sonra” yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 2?",
@@ -411,7 +411,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"een schrijfster\". - bir kadın yazar"
+        "explain": "De tekst zegt: \"een schrijfster\". - Metin \"bir yazar\" diyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 3?",
@@ -423,7 +423,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"vragen\". - sorular"
+        "explain": "De tekst zegt: \"vragen\". - Metinde “sor” yazıyor."
       },
       {
         "q": "Wat staat er in de tekst over detail 4?",
@@ -435,7 +435,7 @@ window.READING_PASSAGES_NL = [
         ],
         "correct": 0,
         "hint": "Lees de tekst opnieuw en zoek dit detail.",
-        "explain": "De tekst zegt: \"een boekenlegger\". - bir kitap ayracı"
+        "explain": "De tekst zegt: \"een boekenlegger\". - Metin “bir yer imi” diyor."
       }
     ]
   }
