@@ -4841,14 +4841,6 @@ window.WORDS_FR_A1 = [
     example: "l'intérêt public - kamu yararı",
   },
   {
-    word: "l'oeil",
-    pos: "noun",
-    level: "A1",
-    category: "General",
-    definition: "nonstandard spelling of œil. - œil'in standart olmayan yazımı",
-    example: "Aucune phrase d'exemple disponible pour ce mot. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "cacher",
     pos: "verb",
     level: "A1",
@@ -8105,3 +8097,4 @@ window.WORDS_FR_A1 = [
     example: "En été, je porte des sandales. - Yazın sandalet giyerim.",
   },
 ];
+

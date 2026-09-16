@@ -37,7 +37,6 @@ window.WORDS_ES_B1 = [
   { word: "decidir", pos: "verb", level: "B1", category: "General", definition: "To decide. - Karar vermek.", example: "Decidimos quedarnos una noche más. - Bir gece daha kalmaya karar verdik." },
   { word: "elegir", pos: "verb", level: "B1", category: "General", definition: "To choose, to elect. - Seçmek.", example: "Es difícil elegir entre las dos opciones. - İki seçenek arasında seçim yapmak zor." },
   { word: "olvidar", pos: "verb", level: "B1", category: "General", definition: "To forget. - Unutmak.", example: "Olvidé las llaves en la oficina. - Anahtarları ofiste unuttum." },
-  { word: "recordar", pos: "verb", level: "B1", category: "General", definition: "To remember, to remind. - Hatırlamak, hatırlatmak.", example: "No hay frase de ejemplo disponible para esta palabra. - Bu kelime için örnek cümle bulunamadı." },
   { word: "preocuparse", pos: "verb", level: "B1", category: "General", definition: "To worry. - Endişelenmek.", example: "No te preocupes por el dinero. - Para için endişelenme." },
   { word: "quejarse", pos: "verb", level: "B1", category: "General", definition: "To complain. - Şikâyet etmek.", example: "Los clientes se quejaron del ruido. - Müşteriler gürültüden şikâyet etti." },
   { word: "mudarse", pos: "verb", level: "B1", category: "Household", definition: "To move house. - Taşınmak.", example: "Nos mudamos a otro barrio en junio. - Haziranda başka bir mahalleye taşındık." },

@@ -1457,14 +1457,6 @@ window.WORDS_GODE_B2 = [
     example: "Der Ingenieur dieser Fabrik ist Brite. - Bu fabrikanın mühendisi İngiliz.",
   },
   {
-    word: "Broadcast",
-    pos: "noun",
-    level: "B2",
-    category: "Communication",
-    definition: "Broadcast. - Yayın.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "Broccoli",
     pos: "noun",
     level: "B2",
@@ -1575,14 +1567,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "bookstore, bookshop. - kitapçı, kitapçı.",
     example: "Vor meinem Haus befindet sich eine Buchhandlung. - Evimin önünde bir kitapçı var.",
-  },
-  {
-    word: "Buchprüfer",
-    pos: "noun",
-    level: "B2",
-    category: "Business",
-    definition: "Auditor. - Denetçi.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "Budget",
@@ -2145,14 +2129,6 @@ window.WORDS_GODE_B2 = [
     example: "Refactoring bezeichnet die Umgestaltung von Quellcode, um Code-Smell zu verhindern. - Yeniden düzenleme, kod kokusunu önlemek için kaynak kodunun yeniden tasarlanmasını ifade eder.",
   },
   {
-    word: "Coder",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "Coder. - Kodlayıcı.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "Codewort",
     pos: "noun",
     level: "B2",
@@ -2199,14 +2175,6 @@ window.WORDS_GODE_B2 = [
     category: "Technology",
     definition: "Computer system. - Bilgisayar sistemi.",
     example: "Am Anfang hatte unser Computersystem einige Schwierigkeiten, aber jetzt sind diese beseitigt. - Başlangıçta bilgisayar sistemimizde bazı sıkıntılar vardı ama artık bunlar çözüldü.",
-  },
-  {
-    word: "Computertechnik",
-    pos: "noun",
-    level: "B2",
-    category: "Technology",
-    definition: "Computer technology. - Bilgisayar teknolojisi.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "Copilot",
@@ -2415,14 +2383,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "debacle. - fiyasko.",
     example: "Meine Verabredung mit meiner Nachbarin kann man als Debakel bezeichnen. - Komşumla randevum bir fiyasko olarak tanımlanabilir.",
-  },
-  {
-    word: "Decoder",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "decoder. - şifre çözücü.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "Defizit",
@@ -2721,14 +2681,6 @@ window.WORDS_GODE_B2 = [
     example: "„Mit List zur Liebeslust gelangen“, war die Devise seines Vorgehens. - Yaklaşımının mottosu “Aşka kurnazlıkla ulaşmak”tı.",
   },
   {
-    word: "Dextrose",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "dextrose (naturally-occurring form of glucose). - dekstroz (doğal olarak oluşan glikoz formu).",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "Dia",
     pos: "noun",
     level: "B2",
@@ -2879,14 +2831,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "dimmer (rheostat to vary the intensity of electric light). - dimmer (elektrik ışığının yoğunluğunu değiştirmek için reostat).",
     example: "Dimmer sind Lichtschalter, die neben dem Ein- und Ausschalten der Beleuchtung auch die Einstellung der Helligkeit der Beleuchtung über einen Drehregler erlauben. Sie sind auch häufig in Tisch- oder Stehlampen eingebaut. - Dimmerler, aydınlatmayı açıp kapatmanın yanı sıra, aydınlatmanın parlaklığının da döner bir kumanda kullanılarak ayarlanmasına olanak tanıyan ışık anahtarlarıdır. Ayrıca genellikle masa veya zemin lambalarına da yerleştirilirler.",
-  },
-  {
-    word: "Dip",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "Dip. - Daldırma.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "Direktion",
@@ -3543,14 +3487,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "pawn. - piyon.",
     example: "Muss ich ein Pfand hinterlegen? - Depozito ödemem gerekiyor mu?",
-  },
-  {
-    word: "Pfandrecht",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "lien. - haciz.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "Pfarrei",
@@ -4873,14 +4809,6 @@ window.WORDS_GODE_B2 = [
     example: "Die alten Lehrer disziplinierten mit der Rute. - Eski öğretmenler sopayla disipline ediyorlardı.",
   },
   {
-    word: "Räumungsverkauf",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "clearance sale. - tasfiye satışı.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "Röhre",
     pos: "noun",
     level: "B2",
@@ -5001,14 +4929,6 @@ window.WORDS_GODE_B2 = [
     example: "Drinnen saßen stehend Leute, schweigend in's Gespräch vertieft, als ein totgeschoss'ner Hase auf der Sandbank Schlittschuh lief. - Ölü bir tavşan kumsalın üzerinde kayarken içeride duran insanlar sessizce konuşuyorlardı.",
   },
   {
-    word: "Sandmännchen",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "diminutive of Sandmann. - Sandmann'ın küçültülmüş hali.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "Sandpapier",
     pos: "noun",
     level: "B2",
@@ -5079,14 +4999,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "indemnification, restitution of damage. - tazminat, zararın tazmini.",
     example: "Ein Gericht in Frankreich hat Google wegen unlauteren Wettbewerbs zu Schadenersatz verurteilt. - Fransa'daki bir mahkeme Google'ın haksız rekabet nedeniyle tazminat ödemesine karar verdi.",
-  },
-  {
-    word: "Schafbock",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "ram (male sheep). - koç (erkek koyun).",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "Schaltung",
@@ -5305,14 +5217,6 @@ window.WORDS_GODE_B2 = [
     example: "Schließ beim Hinausgehen die Türe. - Çıkarken kapıyı kapatın.",
   },
   {
-    word: "Schließmechanismus",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "Locking mechanism. - Kilitleme mekanizması.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "Schmelz",
     pos: "noun",
     level: "B2",
@@ -5497,14 +5401,6 @@ window.WORDS_GODE_B2 = [
     example: "Sie konnte im Schutz der Dunkelheit davonlaufen. - Karanlığın örtüsü altında kaçmayı başardı.",
   },
   {
-    word: "Schutzvorrichtung",
-    pos: "noun",
-    level: "B2",
-    category: "Technology",
-    definition: "Protective device. - Koruyucu cihaz.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "Schwall",
     pos: "noun",
     level: "B2",
@@ -5559,14 +5455,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "verbal noun of schwinden: a process of gradual loss, disappearance, shrinkage, depletion. - Schwinden'in sözlü adı: kademeli bir kayıp, yok olma, küçülme, tükenme süreci.",
     example: "Wir haben regelmäßig Schwund zu beklagen. - Sürekli olarak küçülmelerden şikayet etmek zorunda kalıyoruz.",
-  },
-  {
-    word: "Schädeldecke",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "skullcap. - takke.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "Schärfe",
@@ -5745,14 +5633,6 @@ window.WORDS_GODE_B2 = [
     example: "Im siebenten Grade endet die Sippe. - Klan yedinci derecede sona erer.",
   },
   {
-    word: "Sittenlosigkeit",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "immorality. - ahlaksızlık.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "Skeptiker",
     pos: "noun",
     level: "B2",
@@ -5785,14 +5665,6 @@ window.WORDS_GODE_B2 = [
     example: "auf leisen Sohlen. - sessiz ayaklar üzerinde.",
   },
   {
-    word: "Sonar",
-    pos: "noun",
-    level: "B2",
-    category: "Technology",
-    definition: "sonar (device to determine positions of objects under water). - sonar (su altındaki nesnelerin konumunu belirleyen cihaz).",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "Sonderausgabe",
     pos: "noun",
     level: "B2",
@@ -5809,28 +5681,12 @@ window.WORDS_GODE_B2 = [
     example: "Du musst mich für einen ziemlichen Sonderling halten. - Oldukça tuhaf biri olduğumu düşünüyor olmalısın.",
   },
   {
-    word: "Sozialfürsorge",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "Social welfare. - Sosyal refah.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "Spachtel",
     pos: "noun",
     level: "B2",
     category: "General",
     definition: "spattle; palette knife. - tükürük; palet bıçağı.",
     example: "Ich brauche einen Spachtel. - Bir spatulaya ihtiyacım var.",
-  },
-  {
-    word: "Spagetti",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "alternative spelling of Spaghetti. - Spagetti'nin alternatif yazımı.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "Spanne",
@@ -6809,14 +6665,6 @@ window.WORDS_GODE_B2 = [
     example: "Bankraub ist eine Unternehmung von Dilettanten. Wahre Profis gründen eine Bank. - Banka soygunu amatörlerin yaptığı bir girişimdir. Gerçek profesyoneller banka kurar.",
   },
   {
-    word: "Unterprogramm",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "subprogram. - alt program.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "Untertasse",
     pos: "noun",
     level: "B2",
@@ -7321,28 +7169,12 @@ window.WORDS_GODE_B2 = [
     example: "Es gibt zwischen Buenos Aires und New Jersey einen zweistündigen Zeitunterschied. - Buenos Aires ile New Jersey arasında 2 saatlik saat farkı var.",
   },
   {
-    word: "Zielbereich",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "Target area. - Hedef alan.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "Zubehör",
     pos: "noun",
     level: "B2",
     category: "General",
     definition: "accessories, fittings, paraphernalia, equipment, supplies, belongings. - aksesuarlar, bağlantı parçaları, gereçler, ekipman, sarf malzemeleri, eşyalar.",
     example: "Diese Kiste enthält eine Bohrmaschine mit Zubehör. - Bu kutuda aksesuarlarıyla birlikte bir matkap bulunur.",
-  },
-  {
-    word: "Zugangsberechtigung",
-    pos: "noun",
-    level: "B2",
-    category: "General",
-    definition: "access authorization. - erişim yetkisi.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "Zusatz",
@@ -7689,14 +7521,6 @@ window.WORDS_GODE_B2 = [
     example: "Langeweile ist das Gefühl, dass alles Zeitverschwendung ist; Abgeklärtheit, dass nichts es ist. - Can sıkıntısı her şeyin zaman kaybı olduğu hissidir; Hiçbir şeyin olmadığı netliği.",
   },
   {
-    word: "abgekoppelt",
-    pos: "adjective",
-    level: "B2",
-    category: "General",
-    definition: "disconnected. - bağlantısı kesildi.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "abliegen",
     pos: "verb",
     level: "B2",
@@ -7831,14 +7655,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "very deep, bone-deep. - çok derin, kemik derinliğinde.",
     example: "abgrundtiefer Hass. - derin nefret.",
-  },
-  {
-    word: "abgucken",
-    pos: "verb",
-    level: "B2",
-    category: "General",
-    definition: "copy. - kopyala.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "abhacken",
@@ -8223,14 +8039,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "to drop uncontrollably, to crash [auxiliary sein]. - kontrolsüz bir şekilde düşmek, çarpmak [yardımcı sein].",
     example: "Die Partei ist bei den letzten Wahlen komplett abgeschmiert. - Son seçimlerde parti tamamen tasfiye edildi.",
-  },
-  {
-    word: "abschnallen",
-    pos: "verb",
-    level: "B2",
-    category: "General",
-    definition: "to unfasten, unbuckle. - çözülmek, çözülmek.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "abschrauben",
@@ -9015,14 +8823,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "amateurish. - amatörce.",
     example: "Hinter ihr an der Wand hing ein amateurhaftes Gemälde, das eine alte Dame zeigte, in einem verzierten antiken Rahmen. - Arkasındaki duvarda, süslü antika bir çerçeve içinde yaşlı bir kadının amatörce bir tablosu asılıydı.",
-  },
-  {
-    word: "amber",
-    pos: "adjective",
-    level: "B2",
-    category: "General",
-    definition: "amber. - kehribar.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "ambitioniert",
@@ -13385,14 +13185,6 @@ window.WORDS_GODE_B2 = [
     example: "Ich glaube nicht, dass er jemals über den Verlust seiner Frau hinwegkommen wird. - Eşini kaybetmenin üstesinden gelebileceğini sanmıyorum.",
   },
   {
-    word: "umzulegen",
-    pos: "verb",
-    level: "B2",
-    category: "General",
-    definition: "zu-infinitive of umlegen - umlegen'in zu-mastarı",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "nageln",
     pos: "verb",
     level: "B2",
@@ -16361,14 +16153,6 @@ window.WORDS_GODE_B2 = [
     example: "Ich möchte wissen, wie er es schafft, seine Zeit so gut auszunutzen. - Zamanını bu kadar iyi kullanmayı nasıl başardığını bilmek istiyorum.",
   },
   {
-    word: "anzuhängen",
-    pos: "verb",
-    level: "B2",
-    category: "General",
-    definition: "zu-infinitive of anhängen - eklemenin mastarına",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "winden",
     pos: "verb",
     level: "B2",
@@ -18009,14 +17793,6 @@ window.WORDS_GODE_B2 = [
     example: "Das Todesurteil wurde heute Morgen kurz nach Mitternacht vollzogen. - Ölüm cezası bu sabah gece yarısından kısa bir süre sonra infaz edildi.",
   },
   {
-    word: "rumfahren",
-    pos: "verb",
-    level: "B2",
-    category: "General",
-    definition: "clipping of herumfahren - etrafta dolaşmanın kesilmesi",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "allererste",
     pos: "adjective",
     level: "B2",
@@ -18551,14 +18327,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "infertile - kısır",
     example: "Ich bin unfruchtbar. - Ben kısırım.",
-  },
-  {
-    word: "tönen",
-    pos: "verb",
-    level: "B2",
-    category: "General",
-    definition: "to give a loud and far-reaching sound - yüksek ve geniş kapsamlı bir ses vermek",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "verfangen",
@@ -19329,14 +19097,6 @@ window.WORDS_GODE_B2 = [
     example: "Libysche Rebellen sind in zwei strategisch wichtige Städte vorgedrungen, die den Zugang zur Hauptstadt von Westen und Norden kontrollieren. - Libyalı isyancılar, başkente batıdan ve kuzeyden erişimi kontrol eden stratejik açıdan önemli iki şehre doğru ilerledi.",
   },
   {
-    word: "reinzugehen",
-    pos: "verb",
-    level: "B2",
-    category: "General",
-    definition: "zu-infinitive of reingehen - içeri girmenin zu-mastarı",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "auszuüben",
     pos: "verb",
     level: "B2",
@@ -20023,14 +19783,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "unreal, insubstantial - gerçek dışı, asılsız",
     example: "Ohne Schnee erscheint der Winter unwirklich. - Kar olmadan kış gerçek gibi görünmüyor.",
-  },
-  {
-    word: "abstechen",
-    pos: "verb",
-    level: "B2",
-    category: "General",
-    definition: "to cut off, cut out, to carve out - kesmek, kesmek, oymak",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "potentiellen",
@@ -21385,14 +21137,6 @@ window.WORDS_GODE_B2 = [
     example: "Bitte halte den Teller fest, weil er antik ist und sehr teuer. - Lütfen plakayı tutun çünkü antika ve çok pahalı.",
   },
   {
-    word: "raufgehen",
-    pos: "verb",
-    level: "B2",
-    category: "General",
-    definition: "to go up - yukarı çıkmak",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "salutieren",
     pos: "verb",
     level: "B2",
@@ -21961,14 +21705,6 @@ window.WORDS_GODE_B2 = [
     example: "Seine Ex-Frau hatte einen Gerichtsbeschluss erwirkt, der es ihm verbot, ihr näher als 200 Meter zu kommen. - Eski karısı, kendisine 200 metre yaklaşmasını yasaklayan bir mahkeme kararı almıştı.",
   },
   {
-    word: "hochbeamen",
-    pos: "verb",
-    level: "B2",
-    category: "General",
-    definition: "to beam up - ışınlanmak",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "hochhalten",
     pos: "verb",
     level: "B2",
@@ -22313,14 +22049,6 @@ window.WORDS_GODE_B2 = [
     example: "Mein Cousin ist der Vorletzte in der Reihe. - Kuzenim sıralamada sondan ikinci sırada.",
   },
   {
-    word: "ueber",
-    pos: "adverb",
-    level: "B2",
-    category: "General",
-    definition: "Nonstandard spelling of über used in some older texts and when technical limitations prevent the use of umlauts. - Bazı eski metinlerde ve teknik kısıtlamaların çift nokta işaretlerinin kullanımını engellediği durumlarda über'in standart olmayan yazımı kullanılır.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "gutmütig",
     pos: "adjective",
     level: "B2",
@@ -22657,14 +22385,6 @@ window.WORDS_GODE_B2 = [
     example: "Das Krankenhaus stellte die infizierten Patienten zur Vermeidung einer Kreuzinfektion unter Quarantäne. - Hastane, çapraz enfeksiyonu önlemek için enfekte hastaları karantinaya aldı.",
   },
   {
-    word: "rauszuwerfen",
-    pos: "verb",
-    level: "B2",
-    category: "General",
-    definition: "zu-infinitive of rauswerfen - dışarı atmak kelimesinin mastarı",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "anregend",
     pos: "adjective",
     level: "B2",
@@ -22903,14 +22623,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "to find a place (e.g., a job, accommodation, etc.) - bir yer bulmak (örneğin iş, kalacak yer vb.)",
     example: "Kann ich ein paar Tage bei dir unterkommen, Maria? Tom hat mich auf die Straße gesetzt. - Birkaç gün seninle kalabilir miyim, Maria? Tom beni sokağa attı.",
-  },
-  {
-    word: "muessen",
-    pos: "verb",
-    level: "B2",
-    category: "General",
-    definition: "Nonstandard spelling of müssen used in some older texts and when technical limitations prevent the use of umlauts. - Bazı eski metinlerde ve teknik sınırlamaların çift nokta işaretlerinin kullanımını engellediği durumlarda muss'un standart olmayan yazımı kullanılır.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "zerfetzen",
@@ -24945,14 +24657,6 @@ window.WORDS_GODE_B2 = [
     example: "Das Wrack wurde von eigens entworfenen Bergungskränen gehoben. - Enkaz özel olarak tasarlanmış kurtarma vinçleri ile kaldırıldı.",
   },
   {
-    word: "verschissenen",
-    pos: "adjective",
-    level: "B2",
-    category: "General",
-    definition: "Ruined; botched; hopelessly spoiled. - Mahvolmuş; başarısız; umutsuzca şımarık.",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
-  },
-  {
     word: "erstgeborenen",
     pos: "adjective",
     level: "B2",
@@ -25183,14 +24887,6 @@ window.WORDS_GODE_B2 = [
     category: "General",
     definition: "to misappropriate - kötüye kullanmak",
     example: "Ein Mensch, will er auf etwas pfeifen, darf sich im Tone nicht vergreifen. - Bir kişi bir şey hakkında ıslık çalmak isterse ses tonunu değiştirmemelidir.",
-  },
-  {
-    word: "duff",
-    pos: "adjective",
-    level: "B2",
-    category: "General",
-    definition: "dull (not shiny) - donuk (parlak değil)",
-    example: "Kein Beispielsatz für dieses Wort verfügbar. - Bu kelime için örnek cümle bulunamadı.",
   },
   {
     word: "beizutragen",
@@ -30315,3 +30011,4 @@ window.WORDS_GODE_B2 = [
     example: "Ein Stein hat die Windschutzscheibe getroffen. - Bir taş ön cama çarptı.",
   },
 ];
+

@@ -24,7 +24,7 @@ internal sealed class VocabularyRepository
             ["de"] = "partikelverbde.js",
             ["fr"] = "phrasalverbsfr.js",
             ["it"] = "phrasalverbsit.js",
-            ["es"] = "phrasalverbssp.js",
+            ["es"] = "phrasalverbses.js",
             ["pt"] = "phrasalverbspt.js",
             ["nl"] = "phrasalverbsnl.js",
         };

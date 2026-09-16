@@ -220,7 +220,7 @@ public sealed partial class MainPage
         "bingo" => U("Games.Instructions.Bingo", "Match each definition on the 4×4 board. Complete a row, column or diagonal. Wrong selections end the board.", "Her tanımı 4×4 tahtada eşleştirin. Satır, sütun veya köşegeni tamamlayın. Yanlış seçim tahtayı bitirir."),
         "matrix" => U("Games.Instructions.Matrix", "Select the hidden word's letters in a straight line, then submit. Horizontal, vertical and diagonal lines are supported; no square can be reused.", "Gizli kelimenin harflerini düz bir çizgide seçip gönderin. Yatay, dikey ve çapraz çizgiler desteklenir; aynı kare tekrar kullanılamaz."),
         "wordmorph" => U("Games.Instructions.Semantic", "Classify the pair as synonyms or antonyms using reciprocal, non-conflicting relationships in the bundled dataset. Available for English, German and French only.", "Yerel veri kümesindeki karşılıklı ve çelişmeyen ilişkiye göre çifti eş veya zıt anlamlı olarak sınıflandırın. Yalnızca İngilizce, Almanca ve Fransızca kullanılabilir."),
-        "readingcomprehension" => U("Games.Instructions.Reading", "Read the complete local passage using Previous/Next text pages, then answer. Feedback includes the source explanation. English, German and French only.", "Önceki/Sonraki metin sayfalarıyla yerel metni okuyup yanıtlayın. Geri bildirim kaynak açıklamasını içerir. Yalnızca İngilizce, Almanca ve Fransızca."),
+        "readingcomprehension" => U("Games.Instructions.Reading", "Read the complete local passage using Previous/Next text pages, then answer. Feedback includes the source explanation.", "Önceki/Sonraki metin sayfalarıyla yerel metni okuyup yanıtlayın. Geri bildirim kaynak açıklamasını içerir."),
         "dailychallenge" => U("Games.Instructions.Daily", "Today's language/level word is fixed. Choose one guess per turn for six tries. ✓ correct place, ~ present elsewhere, × absent. Repeated letters are counted individually.", "Günün kelimesi dil/seviye için sabittir. Altı deneme boyunca her tur bir tahmin seçin. ✓ doğru yerde, ~ başka yerde, × yok. Tekrarlanan harfler ayrı sayılır."),
         "wordguess" => U("Games.Instructions.Guess", "Choose one guess per turn for six tries. ✓ correct place, ~ present elsewhere, × absent. Repeated letters are counted individually.", "Altı deneme boyunca her tur bir tahmin seçin. ✓ doğru yerde, ~ başka yerde, × yok. Tekrarlanan harfler ayrı sayılır."),
         "survival" => U("Games.Instructions.Survival", "Choose the word matching the meaning. The first wrong answer ends the session.", "Anlama uyan kelimeyi seçin. İlk yanlış yanıt oturumu bitirir."),
@@ -1300,15 +1300,28 @@ public sealed partial class MainPage
     {
         var language = _settings.StudyLanguage; var level = _settings.Level; var epoch = _gameEpoch;
         var reading = session.Game.Id == "readingcomprehension";
-        if (language is not ("en" or "de" or "fr"))
-        { GameUnavailable(session, U("Games.Require.LocalData", "This game needs a bundled, validated reading or relationship dataset for this language/level. Available languages: English, German, French.", "Bu oyun bu dil/seviye için yerel, doğrulanmış okuma veya ilişki verisi gerektirir. Kullanılabilir diller: İngilizce, Almanca, Fransızca.")); return; }
+        var localDataAvailable = reading
+            ? language is "en" or "de" or "fr" or "it" or "pt" or "es" or "nl"
+            : language is "en" or "de" or "fr";
+        if (!localDataAvailable)
+        { GameUnavailable(session, U("Games.Require.LocalData", "This game needs a bundled, validated reading or relationship dataset for this language/level.", "Bu oyun bu dil/seviye için yerel, doğrulanmış okuma veya ilişki verisi gerektirir.")); return; }
         _gameLocalBusy = true;
         try
         {
             var key = language + ":" + level;
             if (reading && !_readingCache.ContainsKey(key))
             {
-                var file = language == "en" ? "readingcompencefr.js" : language == "de" ? "readingcompde.js" : "readingcompfr.js";
+                var file = language switch
+                {
+                    "en" => "readingcompencefr.js",
+                    "de" => "readingcompde.js",
+                    "fr" => "readingcompfr.js",
+                    "it" => "readingcompit.js",
+                    "pt" => "readingcomppt.js",
+                    "es" => "readingcompes.js",
+                    "nl" => "readingcompnl.js",
+                    _ => throw new InvalidDataException($"No reading-comprehension dataset is available for '{language}'."),
+                };
                 var source = await File.ReadAllTextAsync(Path.Combine(AppContext.BaseDirectory, "Data", file));
                 _readingCache[key] = await Task.Run(() => LocalGameData.ReadPassages(source, level));
             }
